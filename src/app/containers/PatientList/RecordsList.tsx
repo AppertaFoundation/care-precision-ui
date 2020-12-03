@@ -9,10 +9,17 @@ import uniqid from 'uniqid';
 
 import { patientsListFromSaga } from './saga';
 import { sliceKey, reducer, actions } from './slice';
-import { selectPatients, selectError, selectLoading } from './selectors';
+import {
+  selectPatients,
+  selectError,
+  selectLoading,
+  selectSearch,
+  selectFilters,
+} from './selectors';
 
 import { Box, List } from '@material-ui/core';
-import { Card, CardContent } from 'components';
+import { Card, CardContent, Search, SortPoper, Sort } from 'components';
+import { ToolBar } from './ToolBar';
 
 const RecordsList = () => {
   //redux configuration
@@ -23,6 +30,8 @@ const RecordsList = () => {
   const error = useSelector(selectError);
   const isLoading = useSelector(selectLoading);
   const patients = useSelector(selectPatients);
+  const search = useSelector(selectSearch);
+  const filters = useSelector(selectFilters);
 
   const useEffectOnMount = (effect: React.EffectCallback) => {
     useEffect(effect, []);
@@ -30,6 +39,14 @@ const RecordsList = () => {
   useEffectOnMount(() => {
     dispatch(actions.loadRecords({}));
   });
+  const handleSearch = React.useCallback(value => {
+    dispatch(actions.search(value));
+    dispatch(actions.loadRecords({ search: value }));
+  }, []);
+  const handleSortFilter = React.useCallback(filters => {
+    dispatch(actions.addFilters(filters));
+    dispatch(actions.loadRecords(filters));
+  }, []);
 
   if (error) {
     return <p>{error}</p>;
@@ -46,6 +63,12 @@ const RecordsList = () => {
       <>
         {patients?.length > 0 && (
           <>
+            <ToolBar>
+              <Search onSearch={handleSearch} defaultValue={search} />
+              <SortPoper>
+                <Sort onFilterSort={handleSortFilter} defaultValues={filters} />
+              </SortPoper>
+            </ToolBar>
             <Box m={1} mb={8}>
               <List>
                 {patients.map(

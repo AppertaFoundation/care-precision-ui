@@ -6,20 +6,33 @@ import { patientListParser, keysToCamel } from 'utils/formatters';
 import { PatientsErrorType } from './types';
 import { actions } from './slice';
 
-const getRequestURL = params => {
+function getRequestURL(params) {
   const base =
     'https://api.c19.devmode.xyz/c19-alpha/0.0.1/meta/demographics/patient_list';
-  return `${base}?function=full`;
-};
+
+  const search = params.search ? params.search : null;
+  const filter = params.filter ? params.filter : null;
+  const sort = params.sort ? params.sort : null;
+
+  const filterURL = filter
+    ? `filter_key=${filter.key}&filter_value=${filter.value}`
+    : '';
+  const order = sort ? `sort_key=${sort.key}&sort_value=${sort.value}` : '';
+  const searchValue = search
+    ? `search_key=combisearch&search_value=${search}`
+    : '';
+  return `${base}?${filterURL}&${searchValue}&${order}`;
+}
 
 export function* getRecords(action) {
   yield delay(500);
+  const requestURL = getRequestURL(action.payload);
   if (process.env.REACT_APP_STATIC) {
+    console.log(`Request URL=>> ${requestURL}`);
     return yield put(
       actions.recordsLoaded(patientListParser(keysToCamel(fake.PATIENT_LIST))),
     );
   }
-  const requestURL = getRequestURL(action.payload);
 
   try {
     const patientsList = yield call(request, requestURL);

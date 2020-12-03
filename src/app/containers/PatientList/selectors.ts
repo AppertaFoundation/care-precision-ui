@@ -20,3 +20,13 @@ export const selectPatients = createSelector(
   [selectDomain],
   patientsListFromSaga => patientsListFromSaga.patientsList,
 );
+
+export const selectSearch = createSelector(
+  [selectDomain],
+  patientsListFromSaga => patientsListFromSaga.search,
+);
+
+export const selectFilters = createSelector(
+  [selectDomain],
+  patientsListFromSaga => patientsListFromSaga.filters,
+);

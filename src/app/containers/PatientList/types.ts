@@ -4,6 +4,8 @@ export interface PatientsList {
   loading: boolean;
   error?: PatientsErrorType | null;
   patientsList: [] | tPatientsList[];
+  filters: { sort: null | any; filter: null | any };
+  search: null | string;
 }
 
 export enum PatientsErrorType {

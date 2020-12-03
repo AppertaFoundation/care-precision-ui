@@ -21,6 +21,8 @@ export const initialState: ContainerState = {
   loading: false,
   error: null,
   patientsList: [],
+  filters: { sort: null, filter: null },
+  search: null,
 };
 
 const patientsListFromSlice = createSlice({
@@ -41,6 +43,15 @@ const patientsListFromSlice = createSlice({
     recordsError(state, action: PayloadAction<PatientsErrorType>) {
       state.error = action.payload;
       state.loading = false;
+    },
+    addFilters(state, action) {
+      const { sort, filter } = action.payload;
+      state.filters.sort = sort;
+      state.filters.filter = filter;
+    },
+    search(state, action) {
+      const search = action.payload;
+      state.search = search;
     },
   },
 });
