@@ -4,6 +4,8 @@ import uniqid from 'uniqid';
 import { withStyles } from '@material-ui/core/styles';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Situation } from './isbarContent/Situation';
+import { Background } from './isbarContent/Background';
+
 import { Tab } from 'components';
 
 const StyledTabs = withStyles({
@@ -58,7 +60,7 @@ const ISBR = () => {
       {
         {
           0: <Situation />,
-          1: <p>Background</p>,
+          1: <Background />,
           2: <p>~assessment</p>,
           3: <p>Response </p>,
         }[activeTab]

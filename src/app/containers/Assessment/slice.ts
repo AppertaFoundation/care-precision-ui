@@ -21,6 +21,7 @@ export const initialState: ContainerState = {
   error: null,
   patient: null,
   situation: {},
+  background: {},
 };
 
 const assessmentEventSlice = createSlice({
@@ -51,7 +52,11 @@ const assessmentEventSlice = createSlice({
     },
     saveSituation(state, action) {
       const situation = action.payload;
-      state.situation = action.payload;
+      state.situation = situation;
+    },
+    saveBackground(state, action) {
+      const background = action.payload;
+      state.background = background;
     },
   },
 });

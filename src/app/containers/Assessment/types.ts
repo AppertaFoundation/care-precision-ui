@@ -9,6 +9,7 @@ export interface AssessmentEvent {
         assessment: IAssessmentIcons;
       });
   situation: any;
+  background: any;
 }
 
 export enum PatientErrorType {

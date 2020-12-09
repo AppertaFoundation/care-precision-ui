@@ -26,3 +26,8 @@ export const selectSituation = createSelector(
   [selectDomain],
   assessmentEventSaga => assessmentEventSaga.situation,
 );
+
+export const selectBackground = createSelector(
+  [selectDomain],
+  assessmentEventSaga => assessmentEventSaga.background,
+);

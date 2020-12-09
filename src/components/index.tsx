@@ -17,6 +17,7 @@ import { ErrorMsg } from './ErrorMessage';
 import { Tab } from './Tab/index';
 import { BottomBar } from './BottomBar';
 import Button from './Button';
+import Carousel from './Carousel';
 export {
   Layout,
   Card,
@@ -37,4 +38,5 @@ export {
   ErrorMsg,
   BottomBar,
   Button,
+  Carousel,
 };
