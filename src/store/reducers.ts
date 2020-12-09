@@ -5,6 +5,7 @@
 import { combineReducers } from '@reduxjs/toolkit';
 import { sessionReducer } from 'redux-react-session';
 import { InjectedReducersType } from 'utils/types/injector-typings';
+import { assessmentReducer } from './assessmentTypeReducer';
 
 /**
  * Merges the main reducer with the router state and dynamically injected reducers
@@ -15,10 +16,12 @@ export function createReducer(injectedReducers: InjectedReducersType = {}) {
   if (Object.keys(injectedReducers).length === 0) {
     return combineReducers({
       session: sessionReducer,
+      assessmentType: assessmentReducer,
     });
   } else {
     return combineReducers({
       session: sessionReducer,
+      assessmentType: assessmentReducer,
       ...injectedReducers,
     });
   }

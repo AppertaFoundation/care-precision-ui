@@ -39,8 +39,8 @@ const Layout: React.FC<Props> = ({
         )}
         <CssBaseline />
 
-        {bottomToolBar && !xsSM && <SideDrawer login={login} />}
-        {bottomToolBar && xsSM && <BottomToolBar />}
+        {bottomToolBar && !xsSM && header && <SideDrawer login={login} />}
+        {bottomToolBar && xsSM && header && <BottomToolBar />}
         <main className={classes.content}>
           {!login && <div className={classes.toolbar} />}
           {children}

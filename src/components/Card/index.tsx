@@ -31,11 +31,11 @@ const CardContent = withStyles({
 })(MuiCardContent);
 
 interface Props {
-  name: string;
-  identifier: string;
-  id: string;
+  name?: string;
+  identifier?: string;
+  id?: string;
   children: JSX.Element;
-  assesments: IAssessmentIcons;
+  assesments?: IAssessmentIcons;
   handleClick?: (
     event:
       | React.MouseEvent<HTMLDivElement>
@@ -53,9 +53,7 @@ const Card: React.FC<Props> = ({
 }) => {
   const classes = useStyles();
   const [open, setOpen] = useState<boolean>(false);
-  if (open) {
-    console.log('');
-  }
+
   const handleOpen = (): void => setOpen(true);
   const handleClose = (): void => setOpen(false);
 
@@ -130,7 +128,8 @@ const Card: React.FC<Props> = ({
           open={open}
           handleClose={handleClose}
           title={name}
-          identifier={identifier}
+          identifier={identifier || ''}
+          id={id || ''}
         />
       )}
     </>

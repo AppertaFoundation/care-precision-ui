@@ -5,7 +5,9 @@
   You have to declare them here manually
 */
 import { PatientsList } from 'app/containers/PatientList/types';
+import { AssessmentEvent } from 'app/containers/Assessment/types';
 
 export interface RootState {
   patientsList?: PatientsList;
+  assessmentEvent?: AssessmentEvent;
 }

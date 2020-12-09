@@ -212,7 +212,8 @@ export const Row: React.FC<
           open={open}
           handleClose={handleClose}
           title={name}
-          identifier={id}
+          identifier={nhsnumber}
+          id={id}
         />
       )}
     </>

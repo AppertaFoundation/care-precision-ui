@@ -18,6 +18,7 @@ import { sessionSelector } from 'utils/selectors';
 import { Layout } from 'components';
 import { PatientList } from './containers/PatientList/Loadable';
 import { AcuityDashboard } from './containers/AcuityDashboard/Loadable';
+import { Assessment } from './containers/Assessment';
 import { NotFoundPage } from 'components/NotFoundPage/Loadable';
 
 /**
@@ -62,12 +63,24 @@ export function App() {
             path="/"
           />
           <PrivateRoute
-            header="Patient List"
+            header="Acuity Dasboard"
             appBar
             bottomToolBar
             element={<AcuityDashboard />}
             path="/dashboard"
           />
+          <PrivateRoute
+            header={false}
+            bottomToolBar
+            element={<Assessment />}
+            path="/assessment/:id/:tab"
+          />
+          {/* <PrivateRoute
+            header={false}
+            bottomToolBar
+            element={<Assessment step={'background'}/>}
+            path="/assessment/:id/1"
+          /> */}
         </Route>
         <Route element={<NotFoundPage />} />
       </Routes>
