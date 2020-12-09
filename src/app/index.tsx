@@ -17,6 +17,7 @@ import { GlobalStyle } from 'styles/global-styles';
 import { sessionSelector } from 'utils/selectors';
 import { Layout } from 'components';
 import { PatientList } from './containers/PatientList/Loadable';
+import { AcuityDashboard } from './containers/AcuityDashboard/Loadable';
 import { NotFoundPage } from 'components/NotFoundPage/Loadable';
 
 /**
@@ -59,6 +60,13 @@ export function App() {
             bottomToolBar
             element={<PatientList />}
             path="/"
+          />
+          <PrivateRoute
+            header="Patient List"
+            appBar
+            bottomToolBar
+            element={<AcuityDashboard />}
+            path="/dashboard"
           />
         </Route>
         <Route element={<NotFoundPage />} />

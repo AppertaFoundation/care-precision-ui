@@ -8,7 +8,7 @@ const DenwisIcon = ({ denwis }) => {
   const color = value === 0 ? 'grey' : value > 4 ? 'red' : 'green';
   const classes = useStyles(color);
   return (
-    <div style={{ width: '100%' }}>
+    <div style={{ width: 51 }}>
       <Box
         display="flex"
         flexWrap="nowrap"
