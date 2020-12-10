@@ -51,6 +51,12 @@ const ASSESSMENTS_RESULT = {
       value: 'amber',
     },
   },
+  denwis: {
+    value: {
+      trend: 'decreasing',
+      value: 14,
+    },
+  },
 };
 
 export default ASSESSMENTS_RESULT;

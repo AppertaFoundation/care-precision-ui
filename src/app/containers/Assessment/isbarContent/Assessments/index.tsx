@@ -17,6 +17,8 @@ import {
 } from 'components';
 import { News2 } from './News2';
 import { Sepsis } from './Sepsis';
+import { Denwis } from './Denwis';
+import { Covid } from './Covid';
 import Summary from './Summary';
 export const Assessments = ({ obsType, id }) => {
   const choosenAssessmentType = useSelector(assessmentTypeSelector) || obsType;
@@ -125,7 +127,7 @@ export const Assessments = ({ obsType, id }) => {
                 </Typography>
               </AccordionSummary>
               <AccordionDetails>
-                <p>covid</p>
+                <Covid disabled={false} onOpenSummary={handleOpenSummary} />
               </AccordionDetails>
             </Accordion>
           </Grid>
@@ -147,7 +149,7 @@ export const Assessments = ({ obsType, id }) => {
                 </Typography>
               </AccordionSummary>
               <AccordionDetails>
-                <p>denwis</p>
+                <Denwis disabled={false} onOpenSummary={handleOpenSummary} />
               </AccordionDetails>
             </Accordion>
           </Grid>

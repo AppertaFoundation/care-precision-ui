@@ -75,7 +75,7 @@ const assessmentEventSlice = createSlice({
     },
     saveDenwis(state, action) {
       const denwis = action.payload;
-      state.denwis = denwis;
+      state.denwis = { ...state.denwis, ...denwis };
     },
     saveCovid(state, action) {
       const covid = action.payload;

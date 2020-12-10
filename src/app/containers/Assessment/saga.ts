@@ -49,6 +49,9 @@ export function* makeCalculations(action) {
         sepsis: actions.saveSepsis({
           response: keysToCamel(fake.ASSESSMENTS_RESULT[`${obsType}`]),
         }),
+        denwis: actions.saveDenwis({
+          response: keysToCamel(fake.ASSESSMENTS_RESULT[`${obsType}`]),
+        }),
       }[obsType],
     );
     return yield put(
