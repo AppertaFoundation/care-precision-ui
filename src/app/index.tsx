@@ -73,7 +73,7 @@ export function App() {
             header={false}
             bottomToolBar
             element={<Assessment />}
-            path="/assessment/:id/:tab"
+            path="/assessment/:id/:tab/:obsType"
           />
           {/* <PrivateRoute
             header={false}

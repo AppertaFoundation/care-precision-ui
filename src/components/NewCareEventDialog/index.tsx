@@ -42,8 +42,8 @@ const NewCareEventDialog: React.FC<Props> = ({
     event: React.MouseEvent<HTMLElement, MouseEvent>,
   ): void => {
     const { value } = event.currentTarget as HTMLButtonElement;
-    setPath(`/assessment/${id}/0`);
-    navigate(`/assessment/${id}/0`, { replace: true });
+    setPath(`/assessment/${id}/0/${value}`);
+    navigate(`/assessment/${id}/0/${value}`, { replace: true });
     dispatch(setAssessmentType(value));
   };
   const dispatch = useDispatch();

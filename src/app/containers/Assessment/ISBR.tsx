@@ -5,6 +5,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Situation } from './isbarContent/Situation';
 import { Background } from './isbarContent/Background';
+import { Assessments } from './isbarContent/Assessments';
 
 import { Tab } from 'components';
 
@@ -17,7 +18,7 @@ const StyledTabs = withStyles({
 const a11yProps = index => ({ id: `${index}` });
 
 const ISBR = () => {
-  const { tab, id } = useParams();
+  const { tab, id, obsType } = useParams();
   const navigate = useNavigate();
   const activeTab = parseInt(tab);
   const [value, setValue] = useState(0);
@@ -34,7 +35,9 @@ const ISBR = () => {
   const handleChange = (e, activeTabVal) => {
     if (value !== activeTabVal) {
       setValue(activeTabVal);
-      navigate(`/assessment/${id}/${activeTabVal}`, { replace: true });
+      navigate(`/assessment/${id}/${activeTabVal}/${obsType}`, {
+        replace: true,
+      });
     }
   };
 
@@ -61,7 +64,7 @@ const ISBR = () => {
         {
           0: <Situation />,
           1: <Background />,
-          2: <p>~assessment</p>,
+          2: <Assessments obsType={obsType} id={id} />,
           3: <p>Response </p>,
         }[activeTab]
       }

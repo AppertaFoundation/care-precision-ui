@@ -18,6 +18,10 @@ import { Tab } from './Tab/index';
 import { BottomBar } from './BottomBar';
 import Button from './Button';
 import Carousel from './Carousel';
+import { AccordionSummary, Accordion, AccordionDetails } from './Accordion';
+import NativeSelect from './NativeSelect';
+import RadioGroup from './RadioGroup';
+import Dialog from './Dialog';
 export {
   Layout,
   Card,
@@ -39,4 +43,10 @@ export {
   BottomBar,
   Button,
   Carousel,
+  AccordionSummary,
+  Accordion,
+  AccordionDetails,
+  NativeSelect,
+  RadioGroup,
+  Dialog,
 };

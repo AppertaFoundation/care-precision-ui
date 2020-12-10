@@ -21,6 +21,15 @@ export const selectPatient = createSelector(
   [selectDomain],
   assessmentEventSaga => assessmentEventSaga.patient,
 );
+export const selectPatientName = createSelector(
+  [selectDomain],
+  assessmentEventSaga => assessmentEventSaga.patient?.name,
+);
+
+export const selectPatientNHS = createSelector(
+  [selectDomain],
+  assessmentEventSaga => assessmentEventSaga.patient?.nhsnumber,
+);
 
 export const selectSituation = createSelector(
   [selectDomain],
@@ -30,4 +39,42 @@ export const selectSituation = createSelector(
 export const selectBackground = createSelector(
   [selectDomain],
   assessmentEventSaga => assessmentEventSaga.background,
+);
+
+export const selectNews2 = createSelector(
+  [selectDomain],
+  assessmentEventSaga => assessmentEventSaga.news2,
+);
+export const selectNews2Response = createSelector(
+  [selectDomain],
+  assessmentEventSaga => assessmentEventSaga.news2.response,
+);
+
+export const selectSepsis = createSelector(
+  [selectDomain],
+  assessmentEventSaga => assessmentEventSaga.sepsis,
+);
+
+export const selectDenwis = createSelector(
+  [selectDomain],
+  assessmentEventSaga => assessmentEventSaga.denwis,
+);
+
+export const selectCovid = createSelector(
+  [selectDomain],
+  assessmentEventSaga => assessmentEventSaga.covid,
+);
+
+export const selectResult = createSelector(
+  [selectDomain],
+  assessmentEventSaga => assessmentEventSaga.result,
+);
+
+export const selectErrorResult = createSelector(
+  [selectDomain],
+  assessmentEventSaga => assessmentEventSaga.errorResult,
+);
+export const selectLoadingResult = createSelector(
+  [selectDomain],
+  assessmentEventSaga => assessmentEventSaga.loadingResult,
 );

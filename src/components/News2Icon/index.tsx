@@ -19,7 +19,7 @@ const News2Icon: React.FC<{
   news2: {
     value: number;
     clinicalRisk: string;
-    trend: string;
+    trend?: string;
   };
 }> = ({ news2 }) => {
   const { value, clinicalRisk, trend } = news2;

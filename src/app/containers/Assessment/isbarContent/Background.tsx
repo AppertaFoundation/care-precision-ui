@@ -119,7 +119,7 @@ export function Background() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const backgroundDefault = useSelector(selectBackground);
-  const { id } = useParams();
+  const { id, obsType } = useParams();
 
   const {
     handleSubmit,
@@ -155,7 +155,7 @@ export function Background() {
   });
   const onSubmit = data => {
     dispatch(actions.saveBackground(data));
-    navigate(`/assessment/${id}/${1}`, { replace: true });
+    navigate(`/assessment/${id}/${2}/${obsType}`, { replace: true });
   };
   const handleListItemClick = (
     event: React.MouseEvent<HTMLDivElement, MouseEvent>,

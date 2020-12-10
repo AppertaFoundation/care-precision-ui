@@ -21,7 +21,14 @@ export const initialState: ContainerState = {
   error: null,
   patient: null,
   situation: {},
+  loadingResult: false,
+  errorResult: null,
+  result: {},
   background: {},
+  news2: {},
+  sepsis: {},
+  covid: {},
+  denwis: {},
 };
 
 const assessmentEventSlice = createSlice({
@@ -57,6 +64,36 @@ const assessmentEventSlice = createSlice({
     saveBackground(state, action) {
       const background = action.payload;
       state.background = background;
+    },
+    saveNews2(state, action) {
+      const news2 = action.payload;
+      state.news2 = { ...state.news2, ...news2 };
+    },
+    saveSepsis(state, action) {
+      const sepsis = action.payload;
+      state.sepsis = { ...state.sepsis, ...sepsis };
+    },
+    saveDenwis(state, action) {
+      const denwis = action.payload;
+      state.denwis = denwis;
+    },
+    saveCovid(state, action) {
+      const covid = action.payload;
+      state.covid = covid;
+    },
+    calculateResult(state, action) {
+      state.loadingResult = true;
+      state.errorResult = null;
+      state.result = null;
+    },
+    calculatedResult(state, action) {
+      state.loadingResult = false;
+      state.errorResult = null;
+      state.result = action.payload;
+    },
+    calculationError(state, action: PayloadAction<PatientErrorType>) {
+      state.errorResult = action.payload;
+      state.loadingResult = false;
     },
   },
 });

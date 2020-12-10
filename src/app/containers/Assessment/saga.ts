@@ -21,7 +21,6 @@ export function* getRecord(action) {
       ),
     );
   }
-
   try {
     const patient = yield call(request, requestURL);
     if (Object.keys(patient).length > 0) {
@@ -34,9 +33,45 @@ export function* getRecord(action) {
   }
 }
 
+export function* makeCalculations(action) {
+  yield delay(500);
+  // const requestURL =
+  const {
+    obsType,
+    //  assessmentForm
+  } = action.payload;
+  if (process.env.REACT_APP_STATIC) {
+    yield put(
+      {
+        news2: actions.saveNews2({
+          response: keysToCamel(fake.ASSESSMENTS_RESULT[`${obsType}`]),
+        }),
+        sepsis: actions.saveSepsis({
+          response: keysToCamel(fake.ASSESSMENTS_RESULT[`${obsType}`]),
+        }),
+      }[obsType],
+    );
+    return yield put(
+      actions.calculatedResult(
+        keysToCamel(fake.ASSESSMENTS_RESULT[`${obsType}`]),
+      ),
+    );
+  }
+  // try {
+  //   const result = yield call(request, requestURL);
+  //   if (Object.keys(result).length > 0) {
+  //     yield put(actions.calculatedResult(parseCalulation(keysToCamel(result))));
+  //   } else {
+  //     yield put(actions.calculationError(PatientErrorType.USER_HAS_NO_RECORDS));
+  //   }
+  // } catch (err) {
+  //   yield put(actions.calculationError(PatientErrorType.RESPONSE_ERROR));
+  // }
+}
 /**
  * Root saga manages watcher lifecycle
  */
 export function* assessmentEventSaga() {
   yield takeLatest(actions.loadRecord.type, getRecord);
+  yield takeLatest(actions.calculateResult.type, makeCalculations);
 }

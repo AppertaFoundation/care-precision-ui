@@ -48,7 +48,7 @@ const Situation = () => {
   const navigate = useNavigate();
 
   const situationDefault = useSelector(selectSituation);
-  const { id } = useParams();
+  const { id, obsType } = useParams();
 
   const {
     handleSubmit,
@@ -62,7 +62,7 @@ const Situation = () => {
   });
   const onSubmit = data => {
     dispatch(actions.saveSituation(data));
-    navigate(`/assessment/${id}/${1}`, { replace: true });
+    navigate(`/assessment/${id}/${1}/${obsType}`, { replace: true });
   };
 
   const [selected, setSelected] = useState<string[]>([]);

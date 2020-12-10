@@ -3,7 +3,11 @@ import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useSelector, useDispatch } from 'react-redux';
 import { useInjectReducer, useInjectSaga } from 'utils/redux-injectors';
-import { assessmentTypeSelector } from 'store/assessmentTypeReducer';
+import {
+  assessmentTypeSelector,
+  assessmentsTypesArraySelector,
+  setAssessmentType,
+} from 'store/assessmentTypeReducer';
 
 import { assessmentEventSaga } from './saga';
 import { sliceKey, reducer, actions } from './slice';
@@ -20,21 +24,32 @@ export function Assessment() {
   useInjectReducer({ key: sliceKey, reducer: reducer });
   useInjectSaga({ key: sliceKey, saga: assessmentEventSaga });
   const dispatch = useDispatch();
-  const { id } = useParams();
+  const { id, obsType } = useParams();
   const classes = useStyles();
   const ref = React.useRef(null);
 
   const error = useSelector(selectError);
   const isLoading = useSelector(selectLoading);
   const patient = useSelector(selectPatient);
-  const assessmentType = useSelector(assessmentTypeSelector);
+  const assessmentType = useSelector(assessmentTypeSelector) || obsType;
+  const assessmentsTypesArray: [] = useSelector(assessmentsTypesArraySelector);
 
   const useEffectOnMount = (effect: React.EffectCallback) => {
     useEffect(effect, []);
   };
   useEffectOnMount(() => {
     dispatch(actions.loadRecord(id));
+    updateAssessmentsTypesArray();
   });
+
+  const updateAssessmentsTypesArray = () => {
+    if (!include(assessmentsTypesArray, assessmentType)) {
+      dispatch(setAssessmentType(assessmentType));
+    }
+  };
+
+  const include = (assessmentsTypesArray: Array<string>, key: string) =>
+    assessmentsTypesArray.includes(key);
 
   if (error) {
     return <p>{error}</p>;
@@ -43,7 +58,6 @@ export function Assessment() {
     return <p>loading</p>;
   }
   const header = assessmentType.toUpperCase();
-
   return (
     <>
       <Helmet>

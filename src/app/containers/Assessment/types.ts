@@ -10,6 +10,13 @@ export interface AssessmentEvent {
       });
   situation: any;
   background: any;
+  news2: any;
+  sepsis: any;
+  covid: any;
+  denwis: any;
+  loadingResult: boolean;
+  errorResult?: PatientErrorType | null;
+  result: any;
 }
 
 export enum PatientErrorType {
