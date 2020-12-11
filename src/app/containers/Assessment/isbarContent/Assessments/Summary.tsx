@@ -7,6 +7,7 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core/styles';
 import { News2Summary } from './News2Summary';
 import { SepsisSummary } from './SepsisSummary';
+import { DenwisSummary } from './DenwisSummary';
 import styled from 'styled-components/macro';
 
 const AssessmentSummary: React.FC<{
@@ -24,6 +25,7 @@ const AssessmentSummary: React.FC<{
   const summary = {
     news2: <News2Summary />,
     sepsis: <SepsisSummary />,
+    denwis: <DenwisSummary />,
   }[obsType];
   const title = {
     news2: 'PATIENT MONITORING SUMMARY',

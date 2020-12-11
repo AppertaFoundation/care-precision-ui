@@ -212,7 +212,7 @@ export const Denwis = ({ onOpenSummary, disabled }) => {
                       onClick={excludedHandleChange}
                       className={classess.root}
                       id="q1Breathing"
-                      //   disabled={disabled}
+                      disabled={disabled}
                     />
                   </Box>
                 );
@@ -251,7 +251,7 @@ export const Denwis = ({ onOpenSummary, disabled }) => {
                         onClick={handleChange}
                         className={classess.root}
                         id="breathingIndicator"
-                        //   disabled={disabled}
+                        disabled={disabled}
                       />
                     </Box>
                   );
@@ -290,7 +290,7 @@ export const Denwis = ({ onOpenSummary, disabled }) => {
                       onClick={excludedHandleChange}
                       className={classess.root}
                       id="q2Circulation"
-                      //   disabled={disabled}
+                      disabled={disabled}
                     />
                   </Box>
                 );
@@ -329,7 +329,7 @@ export const Denwis = ({ onOpenSummary, disabled }) => {
                         onClick={handleChange}
                         className={classess.root}
                         id="circulationIndeticator"
-                        //   disabled={disabled}
+                        disabled={disabled}
                       />
                     </Box>
                   );
@@ -368,7 +368,7 @@ export const Denwis = ({ onOpenSummary, disabled }) => {
                       onClick={excludedHandleChange}
                       className={classess.root}
                       id="q3Temperature"
-                      //   disabled={disabled}
+                      disabled={disabled}
                     />
                   </Box>
                 );
@@ -404,7 +404,7 @@ export const Denwis = ({ onOpenSummary, disabled }) => {
                       onClick={excludedHandleChange}
                       className={classess.root}
                       id="q4Mentation"
-                      //   disabled={disabled}
+                      disabled={disabled}
                     />
                   </Box>
                 );
@@ -440,7 +440,7 @@ export const Denwis = ({ onOpenSummary, disabled }) => {
                       onClick={excludedHandleChange}
                       className={classess.root}
                       id="q5Agitation"
-                      //   disabled={disabled}
+                      disabled={disabled}
                     />
                   </Box>
                 );
@@ -476,7 +476,7 @@ export const Denwis = ({ onOpenSummary, disabled }) => {
                       onClick={excludedHandleChange}
                       className={classess.root}
                       id="q6Pain"
-                      //   disabled={disabled}
+                      disabled={disabled}
                     />
                   </Box>
                 );
@@ -510,7 +510,7 @@ export const Denwis = ({ onOpenSummary, disabled }) => {
                       onClick={excludedHandleChange}
                       className={classess.root}
                       id="q7Trajectory"
-                      //   disabled={disabled}
+                      disabled={disabled}
                     />
                   </Box>
                 );
@@ -546,7 +546,7 @@ export const Denwis = ({ onOpenSummary, disabled }) => {
                       onClick={excludedHandleChange}
                       className={classess.root}
                       id="q8PatientSubjective"
-                      //   disabled={disabled}
+                      disabled={disabled}
                     />
                   </Box>
                 );
@@ -584,7 +584,7 @@ export const Denwis = ({ onOpenSummary, disabled }) => {
                       onClick={excludedHandleChange}
                       className={classess.root}
                       id="q9NurseSubjective"
-                      //   disabled={disabled}
+                      disabled={disabled}
                     />
                   </Box>
                 );

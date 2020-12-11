@@ -56,7 +56,6 @@ export const Covid = ({ onOpenSummary, disabled }) => {
   const classess = useStyles();
   const theme = useTheme();
   const downSm = useMediaQuery(theme.breakpoints?.down('sm'));
-  const downXs = useMediaQuery(theme.breakpoints?.down('xs'));
   const covid = useSelector(selectCovid);
   const dispatch = useDispatch();
   const {
@@ -70,10 +69,8 @@ export const Covid = ({ onOpenSummary, disabled }) => {
   } = useForm({
     defaultValues: covid,
   });
-  const [symptoms, setSymptoms] = useState<string[]>(
-    getValues('symptoms') || [],
-  );
-  const [contact, setContact] = useState<string[]>(getValues('contact') || []);
+  const [symptoms, setSymptoms] = useState<string[]>(covid?.symptoms || []);
+  const [contact, setContact] = useState<string[]>(covid?.contact || []);
 
   const validateSymptoms = () => {
     const symptoms = getValues('symptoms');
@@ -182,6 +179,7 @@ export const Covid = ({ onOpenSummary, disabled }) => {
                 variant="outlined"
                 size="small"
                 inputRef={register({ required: 'This field is required' })}
+                disabled={disabled}
               />
             </Grid>
           </Box>
@@ -212,6 +210,7 @@ export const Covid = ({ onOpenSummary, disabled }) => {
                     onClick={handleChange}
                     className={classess.root}
                     id="symptoms"
+                    disabled={disabled}
                   />
                 </Box>
               );
@@ -245,6 +244,7 @@ export const Covid = ({ onOpenSummary, disabled }) => {
                     onClick={handleChange}
                     className={classess.root}
                     id="contact"
+                    disabled={disabled}
                   />
                 </Box>
               );

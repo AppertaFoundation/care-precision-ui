@@ -6,6 +6,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { Situation } from './isbarContent/Situation';
 import { Background } from './isbarContent/Background';
 import { Assessments } from './isbarContent/Assessments';
+import { Response } from './isbarContent/Response';
 
 import { Tab } from 'components';
 
@@ -65,7 +66,7 @@ const ISBR = () => {
           0: <Situation />,
           1: <Background />,
           2: <Assessments obsType={obsType} id={id} />,
-          3: <p>Response </p>,
+          3: <Response />,
         }[activeTab]
       }
     </>

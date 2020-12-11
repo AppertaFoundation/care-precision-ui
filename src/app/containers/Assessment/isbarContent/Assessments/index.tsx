@@ -84,7 +84,10 @@ export const Assessments = ({ obsType, id }) => {
                 </Typography>
               </AccordionSummary>
               <AccordionDetails>
-                <News2 disabled={false} onOpenSummary={handleOpenSummary} />
+                <News2
+                  disabled={choosenAssessmentType !== 'news2'}
+                  onOpenSummary={handleOpenSummary}
+                />
               </AccordionDetails>
             </Accordion>
           </Grid>
@@ -105,7 +108,10 @@ export const Assessments = ({ obsType, id }) => {
                 </Typography>
               </AccordionSummary>
               <AccordionDetails>
-                <Sepsis disabled={false} onOpenSummary={handleOpenSummary} />
+                <Sepsis
+                  disabled={choosenAssessmentType !== 'sepsis'}
+                  onOpenSummary={handleOpenSummary}
+                />
               </AccordionDetails>
             </Accordion>
           </Grid>
@@ -127,7 +133,10 @@ export const Assessments = ({ obsType, id }) => {
                 </Typography>
               </AccordionSummary>
               <AccordionDetails>
-                <Covid disabled={false} onOpenSummary={handleOpenSummary} />
+                <Covid
+                  disabled={choosenAssessmentType !== 'covid'}
+                  onOpenSummary={handleOpenSummary}
+                />
               </AccordionDetails>
             </Accordion>
           </Grid>
@@ -149,7 +158,10 @@ export const Assessments = ({ obsType, id }) => {
                 </Typography>
               </AccordionSummary>
               <AccordionDetails>
-                <Denwis disabled={false} onOpenSummary={handleOpenSummary} />
+                <Denwis
+                  disabled={choosenAssessmentType !== 'denwis'}
+                  onOpenSummary={handleOpenSummary}
+                />
               </AccordionDetails>
             </Accordion>
           </Grid>

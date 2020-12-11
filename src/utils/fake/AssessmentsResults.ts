@@ -57,6 +57,16 @@ const ASSESSMENTS_RESULT = {
       value: 14,
     },
   },
+  covid: {
+    value: {
+      date_isolation_due_to_end: '2020-11-10T22:39:31.826Z',
+      suspected_covid_status: 'grey',
+      covid_test_request: {
+        date: '2020-11-10T22:39:31.826Z',
+        value: 'EXAMPLE TEXT',
+      },
+    },
+  },
 };
 
 export default ASSESSMENTS_RESULT;

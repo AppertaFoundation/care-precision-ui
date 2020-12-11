@@ -79,7 +79,7 @@ const assessmentEventSlice = createSlice({
     },
     saveCovid(state, action) {
       const covid = action.payload;
-      state.covid = covid;
+      state.covid = { ...state.covid, ...covid };
     },
     calculateResult(state, action) {
       state.loadingResult = true;

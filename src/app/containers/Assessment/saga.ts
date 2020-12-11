@@ -52,6 +52,9 @@ export function* makeCalculations(action) {
         denwis: actions.saveDenwis({
           response: keysToCamel(fake.ASSESSMENTS_RESULT[`${obsType}`]),
         }),
+        covid: actions.saveCovid({
+          response: keysToCamel(fake.ASSESSMENTS_RESULT[`${obsType}`]),
+        }),
       }[obsType],
     );
     return yield put(

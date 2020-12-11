@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from 'react';
 import { Chip, Box, FormLabel, Paper } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
@@ -206,6 +207,7 @@ export const Sepsis: React.FC<{ disabled?: boolean; onOpenSummary: any }> = ({
                       onClick={handleChange}
                       className={classess.root}
                       id={'likelySourceOfInfection'}
+                      disabled={disabled}
                     />
                   </Box>
                 );
@@ -242,6 +244,7 @@ export const Sepsis: React.FC<{ disabled?: boolean; onOpenSummary: any }> = ({
                       onClick={handleChange}
                       className={classess.root}
                       id={'redFlagAcute'}
+                      disabled={disabled}
                     />
                   </Box>
                 );
@@ -276,6 +279,7 @@ export const Sepsis: React.FC<{ disabled?: boolean; onOpenSummary: any }> = ({
                       onClick={handleChange}
                       className={classess.root}
                       id={'amberFlagAcute'}
+                      disabled={disabled}
                     />
                   </Box>
                 );
