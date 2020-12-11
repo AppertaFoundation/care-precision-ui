@@ -11,7 +11,10 @@ import CovidIcon from './CovidIcon';
 import DenwisIcon from './DenwisIcon';
 import { ClickableElement } from './ClickableElement';
 import NewCareEventDialog from './NewCareEventDialog';
-
+import AppBar from './Layout/AppBar';
+import Button from './Button';
+import Dialog from './Dialog';
+import NativeSelect from './NativeSelect';
 export {
   Layout,
   Card,
@@ -26,4 +29,8 @@ export {
   DenwisIcon,
   ClickableElement,
   NewCareEventDialog,
+  AppBar,
+  Button,
+  Dialog,
+  NativeSelect,
 };

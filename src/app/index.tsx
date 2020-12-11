@@ -19,6 +19,7 @@ import { Layout } from 'components';
 import { PatientList } from './containers/PatientList/Loadable';
 import { AcuityDashboard } from './containers/AcuityDashboard/Loadable';
 import { NotFoundPage } from 'components/NotFoundPage/Loadable';
+import { InfectionControl } from './containers/InfectionControl';
 
 /**
  * Decided to use a beta version of react-router(complete different api than v5)
@@ -67,6 +68,12 @@ export function App() {
             bottomToolBar
             element={<AcuityDashboard />}
             path="/dashboard"
+          />
+          <PrivateRoute
+            header={false}
+            bottomToolBar
+            element={<InfectionControl />}
+            path="/covid-management/:id/"
           />
         </Route>
         <Route element={<NotFoundPage />} />
