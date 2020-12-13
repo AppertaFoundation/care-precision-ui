@@ -5,6 +5,7 @@
 import * as React from 'react';
 import { lazyLoad } from 'utils/loadable';
 import styled from 'styled-components/macro';
+import { Spinner } from 'components';
 
 const LoadingWrapper = styled.div`
   width: 100%;
@@ -20,7 +21,7 @@ export const PatientList = lazyLoad(
   {
     fallback: (
       <LoadingWrapper>
-        <p>Loading...</p>
+        <Spinner />
       </LoadingWrapper>
     ),
   },

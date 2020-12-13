@@ -15,37 +15,57 @@ export const mapCircleColors = (score: string): string => {
 const mapScoreColors = clinicalRisk =>
   clinicalRisk === 'at0060' || clinicalRisk === 'at0057' ? '#fff' : '#000';
 
+export const mapCirleParametrColor = score => {
+  return {
+    '3': '#F40013',
+    '2': '#FBC384',
+    '1': '#fbf184',
+    '0': '#2E7D32',
+  }[score];
+};
+export const mapScoreParametrColor = score => (score === 3 ? '#fff' : '#000');
+
 const News2Icon: React.FC<{
   news2: {
     value: number;
     clinicalRisk: string;
-    trend: string;
+    trend?: string;
   };
-}> = ({ news2 }) => {
+  isParametr?: Boolean;
+}> = ({ news2, isParametr }) => {
   const { value, clinicalRisk, trend } = news2;
   const circleColor = mapCircleColors(clinicalRisk || '');
   const scoreColor = mapScoreColors(clinicalRisk || '');
+
+  const circleColorParametr = mapCirleParametrColor(clinicalRisk || '');
+  const scoreColorParametr = mapScoreParametrColor(clinicalRisk || '');
   const double = news2.value.toString().length === 2;
-  const classes = useStyles(circleColor, scoreColor, double);
+  const circle = isParametr ? circleColorParametr : circleColor;
+  const score = isParametr ? scoreColorParametr : scoreColor;
+  const classes = useStyles(circle, score, double);
   return (
     <div style={classes.root}>
-      <Box
-        display="flex"
-        flexWrap="nowrap"
-        alignItems="center"
-        justifyContent="center"
-      >
-        {trend && (
-          <Box style={{ zIndex: 2 }} width={1 / 3}>
-            <TrendArrow trend={trend} />
+      {clinicalRisk ? (
+        <Box
+          display="flex"
+          flexWrap="nowrap"
+          alignItems="center"
+          justifyContent="center"
+        >
+          {trend && (
+            <Box style={{ zIndex: 2 }} width={1 / 3}>
+              <TrendArrow trend={trend} />
+            </Box>
+          )}
+          <Box>
+            <span style={classes.outside}>
+              <span style={classes.inside}>{value}</span>
+            </span>
           </Box>
-        )}
-        <Box>
-          <span style={classes.outside}>
-            <span style={classes.inside}>{value}</span>
-          </span>
         </Box>
-      </Box>
+      ) : (
+        <p></p>
+      )}
     </div>
   );
 };

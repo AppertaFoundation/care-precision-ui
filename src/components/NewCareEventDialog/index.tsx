@@ -7,13 +7,14 @@ import {
   Dialog,
 } from '@material-ui/core';
 import Button from '../Button';
-// import { setAssessmentType } from '../../../store/assessmentReducer';
+import { setAssessmentType } from 'store/assessmentTypeReducer';
 import { useNavigate } from 'react-router-dom';
-// import { useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 interface Props {
   open: boolean;
   title?: string;
+  id: string;
   identifier: string;
   handleClose: () => void;
 }
@@ -22,6 +23,7 @@ const NewCareEventDialog: React.FC<Props> = ({
   handleClose,
   title = '',
   identifier,
+  id,
 }) => {
   const [path, setPath] = React.useState<never | string>();
 
@@ -39,12 +41,12 @@ const NewCareEventDialog: React.FC<Props> = ({
   const handleRedirect = (
     event: React.MouseEvent<HTMLElement, MouseEvent>,
   ): void => {
-    // const { value } = event.currentTarget as HTMLButtonElement;
-    setPath(`/assessment/${identifier}`);
-    navigate(`/assessment/${identifier}`, { replace: true });
-    // dispatch(setAssessmentType(value));
+    const { value } = event.currentTarget as HTMLButtonElement;
+    setPath(`/assessment/${id}/0/${value}`);
+    navigate(`/assessment/${id}/0/${value}`, { replace: true });
+    dispatch(setAssessmentType(value));
   };
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleRedirectToProfile = (

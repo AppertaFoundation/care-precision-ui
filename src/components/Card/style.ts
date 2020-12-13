@@ -12,8 +12,8 @@ export const useStyles = makeStyles((theme: Theme) => ({
     border: '1px solid #666666',
     boxShadow: '10px 11px 7px -7px rgba(102,102,102,0.45);',
     color: '#4D4D4D',
-    [theme.breakpoints.down('sm')]: {
-      height: 'auto',
+    [theme.breakpoints.down(600)]: {
+      height: 216,
     },
   }),
   header: () => ({

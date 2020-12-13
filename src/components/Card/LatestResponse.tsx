@@ -27,17 +27,17 @@ const LatestResponse = ({ assessments, sm }) => {
         alignItems="center"
         {...(sm ? { className: classes.container } : {})}
       >
-        {assessments.denwis.value && (
+        {assessments?.denwis.value && (
           <Grid item>
             <IconButtonNews2
               onClick={() => console.log('denwis')}
               {...(sm ? { size: 'small' } : {})}
             >
-              <DenwisIcon denwis={assessments.denwis.value} />
+              <DenwisIcon denwis={assessments?.denwis.value} />
             </IconButtonNews2>
           </Grid>
         )}
-        {assessments.sepsis.value && (
+        {assessments?.sepsis.value && (
           <>
             <Grid item>
               <IconButton
@@ -49,7 +49,7 @@ const LatestResponse = ({ assessments, sm }) => {
             </Grid>
           </>
         )}
-        {assessments.news2.value && (
+        {assessments?.news2.value && (
           <>
             <Grid item>
               <IconButtonNews2
@@ -61,7 +61,7 @@ const LatestResponse = ({ assessments, sm }) => {
             </Grid>
           </>
         )}
-        {assessments.covid.value && (
+        {assessments?.covid.value && (
           <>
             <Grid item>
               <IconButton
