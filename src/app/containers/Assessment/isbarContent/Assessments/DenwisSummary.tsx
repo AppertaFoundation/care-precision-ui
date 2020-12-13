@@ -6,10 +6,8 @@ import {
   ListItem,
   ListItemText,
   List,
-  Divider,
 } from '@material-ui/core';
 import { useSelector } from 'react-redux';
-import styled from 'styled-components/macro';
 import { DenwisIcon } from 'components';
 import {
   selectPatientName,
@@ -21,7 +19,7 @@ export const DenwisSummary = () => {
   const denwis = useSelector(selectDenwis);
   const nhsNo = useSelector(selectPatientNHS);
   const name = useSelector(selectPatientName);
-  const denwisResult = denwis.response.value;
+  const denwisResult = denwis?.response?.value;
   return (
     <div style={{ border: '1px solid black', borderRadius: 2 }}>
       <Grid
@@ -195,7 +193,7 @@ export const DenwisSummary = () => {
                 justifyContent="center"
                 // pb={1} pt={1} alignItems="center"
               >
-                <DenwisIcon denwis={denwisResult?.value} />
+                <DenwisIcon denwis={denwisResult} />
               </Box>
             </div>
           </Box>
@@ -204,13 +202,3 @@ export const DenwisSummary = () => {
     </div>
   );
 };
-export const repoErrorText = error => {
-  switch (error) {
-    default:
-      return 'An error has occurred!';
-  }
-};
-
-const ErrorText = styled.span`
-  color: ${p => p.theme.text};
-`;

@@ -15,7 +15,7 @@ const Intervention: React.FC = () => {
   const handleOpen = () => setOpen(true);
   return (
     <Box m={1}>
-      <Button.Secondary onClick={handleOpen} variant="outlined">
+      <Button.Secondary onClick={handleOpen} variant="outlined" disabled>
         Intervention
       </Button.Secondary>
 

@@ -42,7 +42,6 @@ const Cell: React.FC<{
   units?: string;
   border?: boolean;
 }> = ({ ordinal, value, units, border }) => {
-  console.log(value);
   return (
     <TableCell
       key={uniqid()}

@@ -13,6 +13,8 @@ import {
 } from '@material-ui/core';
 import { useForm, FormProvider } from 'react-hook-form';
 import { Button, RadioGroup } from 'components';
+import { useDispatch } from 'react-redux';
+import { actions } from '../../../slice';
 
 const Monitor = () => {
   const [open, setOpen] = React.useState(false);
@@ -20,6 +22,7 @@ const Monitor = () => {
   const handleClose = () => setOpen(false);
   const handleOpen = () => setOpen(true);
   const methods = useForm({});
+  const dispatch = useDispatch();
   const { watch, register, handleSubmit } = methods;
 
   const useEffectOnOther = (effect: React.EffectCallback) => {
@@ -30,7 +33,7 @@ const Monitor = () => {
     setOther(monitorTime === 'other');
   });
   const onSubmit = data => {
-    console.log(data, 'Monitor dialog');
+    dispatch(actions.actionMonitor(data));
     handleClose();
   };
   return (
@@ -61,7 +64,6 @@ const Monitor = () => {
                 container
                 direction="column"
                 justify="space-around"
-                // alignItems="center"
                 spacing={2}
               >
                 <Grid item xs={12}>

@@ -28,7 +28,6 @@ export function* getRecords(action) {
   yield delay(500);
   const requestURL = getRequestURL(action.payload);
   if (process.env.REACT_APP_STATIC) {
-    console.log(`Request URL=>> ${requestURL}`);
     return yield put(
       actions.recordsLoaded(patientListParser(keysToCamel(fake.PATIENT_LIST))),
     );

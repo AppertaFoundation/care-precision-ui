@@ -18,7 +18,14 @@ import {
 } from './selectors';
 
 import { Box, List } from '@material-ui/core';
-import { Card, CardContent, Search, SortPoper, Sort } from 'components';
+import {
+  Card,
+  CardContent,
+  Search,
+  SortPoper,
+  Sort,
+  Spinner,
+} from 'components';
 import { ToolBar } from './ToolBar';
 
 const RecordsList = () => {
@@ -52,7 +59,7 @@ const RecordsList = () => {
     return <p>{error}</p>;
   }
   if (isLoading) {
-    return <p>loading</p>;
+    return <Spinner />;
   }
   return (
     <>

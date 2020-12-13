@@ -78,3 +78,8 @@ export const selectLoadingResult = createSelector(
   [selectDomain],
   assessmentEventSaga => assessmentEventSaga.loadingResult,
 );
+
+export const selectResponseActions = createSelector(
+  [selectDomain],
+  assessmentEventSaga => assessmentEventSaga.responseActions,
+);

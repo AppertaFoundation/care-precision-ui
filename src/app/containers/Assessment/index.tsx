@@ -2,6 +2,7 @@
 import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useSelector, useDispatch } from 'react-redux';
+
 import { useInjectReducer, useInjectSaga } from 'utils/redux-injectors';
 import {
   assessmentTypeSelector,
@@ -17,7 +18,7 @@ import { selectError, selectLoading, selectPatient } from './selectors';
 import { Box, Divider } from '@material-ui/core';
 import { useStyles } from './style';
 
-import { Card, CardContent, AppBar } from 'components';
+import { Card, CardContent, AppBar, Spinner } from 'components';
 import ISBR from './ISBR';
 
 export function Assessment() {
@@ -51,11 +52,14 @@ export function Assessment() {
   const include = (assessmentsTypesArray: Array<string>, key: string) =>
     assessmentsTypesArray.includes(key);
 
+  const cleanStore = e => {
+    dispatch(actions.cleanAssessment());
+  };
   if (error) {
     return <p>{error}</p>;
   }
   if (isLoading) {
-    return <p>loading</p>;
+    return <Spinner />;
   }
   const header = assessmentType.toUpperCase();
   return (
@@ -69,7 +73,9 @@ export function Assessment() {
         <AppBar
           header={`Observation- ${header}`}
           xsSM={true}
-          withBottomBar={true}
+          withBottomBar={false}
+          notSubmitedData={true}
+          cleanFunction={cleanStore}
         />
         <Box mr={1} ml={1}>
           <Card

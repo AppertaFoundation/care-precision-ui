@@ -17,7 +17,7 @@ import {
 } from '../PatientList/selectors';
 
 import { Box } from '@material-ui/core';
-import { Search, SortPoper, Sort } from 'components';
+import { Search, SortPoper, Sort, Spinner } from 'components';
 import { ToolBar } from '../PatientList/ToolBar';
 import PatientRecordTable from 'components/DashboardTable';
 
@@ -52,7 +52,7 @@ const RecordsList = () => {
     return <p>{error}</p>;
   }
   if (isLoading) {
-    return <p>loading</p>;
+    return <Spinner />;
   }
   return (
     <>

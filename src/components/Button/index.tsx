@@ -1,54 +1,49 @@
 import React from 'react';
-import MuiButton, { ButtonProps } from '@material-ui/core/Button';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
-import { useTheme, withStyles } from '@material-ui/core/styles';
-import { success, primary, secondary } from './styles';
+import { ButtonProps } from '@material-ui/core/Button';
+import { ButtonPrimmary, ButtonSecondary, ButtonSuccess } from './styles';
 import { Box } from '@material-ui/core';
 
-interface Props extends ButtonProps {
-  children: React.ReactNode | string;
+interface IButton {
   width?: number;
+  children: React.ReactNode;
+  rest?: any;
 }
 
-const Success = withStyles(success)(
-  ({ children, classes, width, ...rest }: Props) => {
-    const theme = useTheme();
-    const xs = useMediaQuery(theme.breakpoints.only('xs'));
+const Success: React.FC<ButtonProps & IButton> = React.memo(
+  ({ children, width, ...rest }) => {
     return (
-      <Box width={200}>
-        <MuiButton {...(xs ? { size: 'small' } : {})} {...rest}>
+      <Box width={width}>
+        <ButtonSuccess size="small" {...rest}>
           {children}
-        </MuiButton>
+        </ButtonSuccess>
       </Box>
     );
   },
 );
 
-const Primary = withStyles(primary)(
-  ({ children, classes, width, ...rest }: Props) => {
-    const theme = useTheme();
-    const xs = useMediaQuery(theme.breakpoints.only('xs'));
+const Primary: React.FC<ButtonProps & IButton> = React.memo(
+  ({ children, width, ...rest }) => {
     return (
       <Box width={width}>
-        <MuiButton {...(xs ? { size: 'small' } : {})} {...rest}>
+        <ButtonPrimmary size="small" {...rest}>
           {children}
-        </MuiButton>
+        </ButtonPrimmary>
       </Box>
     );
   },
 );
-const Secondary = withStyles(secondary)(
-  ({ children, classes, width, ...rest }: Props) => {
-    const theme = useTheme();
-    const xs = useMediaQuery(theme.breakpoints.only('xs'));
+
+const Secondary: React.FC<ButtonProps & IButton> = React.memo(
+  ({ children, width, ...rest }) => {
     return (
       <Box width={width}>
-        <MuiButton {...(xs ? { size: 'small' } : {})} {...rest}>
+        <ButtonSecondary size="small" {...rest}>
           {children}
-        </MuiButton>
+        </ButtonSecondary>
       </Box>
     );
   },
 );
+
 const Button = { Success, Primary, Secondary };
 export default Button;

@@ -23,7 +23,7 @@ import { BottomBar, Button } from 'components';
 
 const useStyles = makeStyles((theme: any) => ({
   root: {
-    minWidth: '300px',
+    minWidth: '280px',
     margin: '0 auto',
   },
 }));

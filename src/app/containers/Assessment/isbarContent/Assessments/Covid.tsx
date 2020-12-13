@@ -185,7 +185,7 @@ export const Covid = ({ onOpenSummary, disabled }) => {
           </Box>
           <Box m={1}>
             <FormLabel component="legend">
-              Enter situation information (why are you concerned?)
+              Select all symptoms that apply
             </FormLabel>
           </Box>
           <Box
@@ -219,7 +219,7 @@ export const Covid = ({ onOpenSummary, disabled }) => {
           </Box>
           <Box m={1}>
             <FormLabel component="legend">
-              Enter situation information (why are you concerned?)
+              Contact- Select all that apply
             </FormLabel>
           </Box>
           <Box

@@ -6,8 +6,10 @@ import {
   assessmentTypeSelector,
 } from 'store/assessmentTypeReducer';
 import { Grid, Typography, Box } from '@material-ui/core';
+import { useDispatch } from 'react-redux';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { useNavigate } from 'react-router-dom';
+import { actions } from '../../slice';
 import {
   Accordion,
   AccordionDetails,
@@ -23,8 +25,9 @@ import Summary from './Summary';
 export const Assessments = ({ obsType, id }) => {
   const choosenAssessmentType = useSelector(assessmentTypeSelector) || obsType;
   const assessmentsTypesArray: [] = useSelector(assessmentsTypesArraySelector);
-  const navigate = useNavigate();
 
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [expanded, setExpanded] = React.useState({
     news2: '',
     sepsis: '',
@@ -53,6 +56,7 @@ export const Assessments = ({ obsType, id }) => {
 
   const handleConfirmAssessment = () => {
     handleCloseSummary();
+    dispatch(actions.cleanAssessment());
     navigate(`/assessment/${id}/${3}/${obsType}`, { replace: true });
   };
 

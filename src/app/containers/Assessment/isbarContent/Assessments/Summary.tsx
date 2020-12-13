@@ -2,12 +2,13 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { selectLoadingResult, selectErrorResult } from '../../selectors';
 import { Grid, Box } from '@material-ui/core';
-import { Dialog, Button } from 'components';
+import { Dialog, Button, Spinner } from 'components';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core/styles';
 import { News2Summary } from './News2Summary';
 import { SepsisSummary } from './SepsisSummary';
 import { DenwisSummary } from './DenwisSummary';
+import { CovidSummary } from './CovidSummary';
 import styled from 'styled-components/macro';
 
 const AssessmentSummary: React.FC<{
@@ -26,6 +27,7 @@ const AssessmentSummary: React.FC<{
     news2: <News2Summary />,
     sepsis: <SepsisSummary />,
     denwis: <DenwisSummary />,
+    covid: <CovidSummary />,
   }[obsType];
   const title = {
     news2: 'PATIENT MONITORING SUMMARY',
@@ -34,7 +36,7 @@ const AssessmentSummary: React.FC<{
     covid: 'Covid Assessment Summary',
   }[obsType];
   if (isLoading) {
-    <p>wait</p>;
+    <Spinner />;
   }
   if (error) {
     return <ErrorText>{repoErrorText(error)}</ErrorText>;

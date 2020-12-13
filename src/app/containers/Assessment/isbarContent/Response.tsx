@@ -1,29 +1,23 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import { Grid } from '@material-ui/core';
+// import { makeStyles } from '@material-ui/styles';
+import { useNavigate } from 'react-router-dom';
 import {
-  Chip,
-  Box,
-  Grid,
-  FormLabel,
-  Paper,
-  Typography,
-  TextField,
-  InputLabel,
-  Divider,
-} from '@material-ui/core';
-import { makeStyles } from '@material-ui/styles';
-import { useForm } from 'react-hook-form';
-import { useParams, useNavigate } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
-import { actions } from '../slice';
+  useSelector,
+  // , useDispatch
+} from 'react-redux';
+// import { actions } from '../slice';
 import {
   selectNews2Response,
   selectSepsis,
   selectDenwis,
   selectCovid,
+  // selectResponseActions,
+  // selectSituation,
+  // selectBackground,
 } from '../selectors';
-import { ErrorMsg } from 'components';
-import uniqid from 'uniqid';
+
 import { BottomBar, Button } from 'components';
 import { News2Result } from './response/News2Result';
 import { SepsisResult } from './response/SepsisResult';
@@ -31,35 +25,29 @@ import { DenwisResult } from './response/DenwisResult';
 import { CovidResult } from './response/CovidResult';
 import { ResponseActions } from './response/actions/ResponseActions';
 
-const useStyles = makeStyles((theme: any) => ({
-  root: {
-    minWidth: '300px',
-    margin: '0 auto',
-  },
-}));
-
-const Chips = [
-  'Just not themselves',
-  'Dizzness',
-  'Increased anxiety/agitation',
-  'Reduced mobility/coordination',
-  'Withdrawn',
-  'Dehydration',
-  'Had a fall',
-  'Loss of appetite',
-  'Skin changges (colour/puffiness)',
-  'Recently lost consciousness',
-];
+// const useStyles = makeStyles((theme: any) => ({
+//   root: {
+//     minWidth: '300px',
+//     margin: '0 auto',
+//   },
+// }));
 
 const Response = () => {
-  const classess = useStyles();
-  const dispatch = useDispatch();
+  // const classess = useStyles();
+  // const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const news2 = useSelector(selectNews2Response);
   const sepsis = useSelector(selectSepsis);
   const denwis = useSelector(selectDenwis);
   const covid = useSelector(selectCovid);
+  // const responseActions = useSelector(selectResponseActions);
+  // const situation = useSelector(selectSituation);
+  // const background = useSelector(selectBackground);
+
+  const handleSubmit = e => {
+    navigate('/');
+  };
   return (
     <Grid container justify="center" alignItems="center" direction="row">
       <Grid item xs={12}>
@@ -69,6 +57,11 @@ const Response = () => {
         {covid?.response && <CovidResult />}
       </Grid>
       <ResponseActions />
+      <BottomBar>
+        <Button.Success variant="contained" onClick={handleSubmit}>
+          Finish and Save Observation
+        </Button.Success>
+      </BottomBar>
     </Grid>
   );
 };

@@ -1,27 +1,29 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import {
   Grid,
   Typography,
   DialogContent,
   DialogTitle,
   Dialog,
-  DialogContentText,
   Box,
   DialogActions,
-  InputAdornment,
   TextField,
 } from '@material-ui/core';
 import { useForm } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
 import { Button } from 'components';
+import { actions } from '../../../slice';
 
 const NoFurtherAction = () => {
   const [open, setOpen] = React.useState(false);
   const handleClose = () => setOpen(false);
   const handleOpen = () => setOpen(true);
+  const dispatch = useDispatch();
   const methods = useForm({});
   const { register, handleSubmit } = methods;
 
   const onSubmit = data => {
+    dispatch(actions.actionNoAction(data));
     handleClose();
   };
   return (
@@ -53,7 +55,7 @@ const NoFurtherAction = () => {
                 <TextField
                   inputRef={register}
                   InputLabelProps={{ shrink: true }}
-                  name="noOtherActions"
+                  name="recommendation"
                   label="Reason why no further Actions"
                   placeholder="Reason"
                   multiline

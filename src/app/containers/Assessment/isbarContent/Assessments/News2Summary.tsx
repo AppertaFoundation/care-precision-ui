@@ -10,23 +10,19 @@ import {
   selectPatientNHS,
 } from '../../selectors';
 
-const mapTotalScoreBackground = score => {
+const mapTotalScoreBackground = (score: string): string => {
   return {
-    High: '#F40013',
-    Medium: '#FBC384',
-    'Low-medium': '#fbf184',
-    Low: '#2E7D32',
+    at0060: '#F40013',
+    at0059: '#FBC384',
+    at0058: '#fbf184',
+    at0057: '#2E7D32',
   }[score];
 };
 
-const mapTotalScoreColor = score => {
-  if (score === 'Low' || score === 'High') {
-    return '#fff';
-  }
-  return '#000';
-};
+const mapTotalScoreColor = clinicalRisk =>
+  clinicalRisk === 'at0060' || clinicalRisk === 'at0057' ? '#fff' : '#000';
 
-const Parametr = ({ parametr, value, score }) => {
+const Parametr = ({ parametr, value, valueUnits, score }) => {
   return (
     <div style={{ width: '100%' }}>
       <Box display="flex" alignItems="center" p={0} pl={1} pr={1}>
@@ -34,9 +30,11 @@ const Parametr = ({ parametr, value, score }) => {
           {parametr}
         </Box>
         <Box width={2 / 5} mr={1}>
-          {value}
+          {valueUnits}
         </Box>
-        <Box width={1 / 5}>{/* <News2Icon news2={score}  /> */}</Box>
+        <Box width={1 / 5}>
+          <News2Icon news2={{ value: score, clinicalRisk: score }} isParametr />
+        </Box>
       </Box>
     </div>
   );
@@ -82,7 +80,8 @@ const Section = ({ items, section }) => {
                   <Box width={'100%'} mr={1}>
                     <Parametr
                       parametr={label}
-                      value={`${value} ${units ? units : ''}`}
+                      valueUnits={`${value} ${units ? units : ''}`}
+                      value={value}
                       score={ordinal}
                     />
                   </Box>

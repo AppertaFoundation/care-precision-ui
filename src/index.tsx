@@ -3,7 +3,7 @@
  *
  * This is the entry file for the application, only setup.
  */
-import 'utils/wdyr';
+// import 'utils/wdyr';
 
 import 'react-app-polyfill/ie11';
 import 'react-app-polyfill/stable';

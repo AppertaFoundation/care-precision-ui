@@ -22,6 +22,7 @@ import { AccordionSummary, Accordion, AccordionDetails } from './Accordion';
 import NativeSelect from './NativeSelect';
 import RadioGroup from './RadioGroup';
 import Dialog from './Dialog';
+import Spinner from './Spinner';
 export {
   Layout,
   Card,
@@ -49,4 +50,5 @@ export {
   NativeSelect,
   RadioGroup,
   Dialog,
+  Spinner,
 };

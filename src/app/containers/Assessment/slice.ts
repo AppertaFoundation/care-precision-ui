@@ -29,6 +29,7 @@ export const initialState: ContainerState = {
   sepsis: {},
   covid: {},
   denwis: {},
+  responseActions: {},
 };
 
 const assessmentEventSlice = createSlice({
@@ -94,6 +95,17 @@ const assessmentEventSlice = createSlice({
     calculationError(state, action: PayloadAction<PatientErrorType>) {
       state.errorResult = action.payload;
       state.loadingResult = false;
+    },
+    actionMonitor(state, action) {
+      const monitor = action.payload;
+      state.responseActions = { monitor: monitor };
+    },
+    actionNoAction(state, action) {
+      const { recommendation } = action.payload;
+      state.responseActions = { recommendation: recommendation };
+    },
+    cleanAssessment(state) {
+      state = initialState;
     },
   },
 });
