@@ -1,4 +1,10 @@
-import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
+import {
+  createStyles,
+  Theme,
+  makeStyles,
+  withStyles,
+} from '@material-ui/core/styles';
+import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 
 const DRAWER_WIDTH = 240;
 
@@ -6,6 +12,7 @@ export const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       display: 'flex',
+      color: '#ffff',
     },
     appBar: {
       width: `calc(100% - ${DRAWER_WIDTH}px)`,
@@ -19,16 +26,17 @@ export const useStyles = makeStyles((theme: Theme) =>
       width: DRAWER_WIDTH,
     },
     // necessary for content to be below app bar
-    toolbar: theme.mixins.toolbar,
+    toolbar: { height: 14 },
     content: {
       flexGrow: 1,
       padding: theme.spacing(1),
     },
     title: {
       flexGrow: 1,
+      color: '#00ACC7',
     },
     selected: {
-      color: '#3f51b5',
+      color: '#29375D',
     },
     closeIcon: {
       color: '#fff',
@@ -42,10 +50,19 @@ export const useStyles = makeStyles((theme: Theme) =>
       bottom: 0,
       left: 0,
       zIndex: 100,
-      backgroundColor: '#efefef',
+      backgroundColor: theme.palette.primary.main,
       textAlign: 'center',
       paddingTop: 5,
       paddingBottom: 5,
     },
   }),
 );
+
+export const MyBottomNavigationAction = withStyles((theme: Theme) => ({
+  root: {
+    color: theme.palette.primary.contrastText,
+    '&.Mui-selected': {
+      color: '#EE7402',
+    },
+  },
+}))(BottomNavigationAction);

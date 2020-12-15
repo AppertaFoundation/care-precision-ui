@@ -16,15 +16,22 @@ import {
   selectFilters,
 } from '../PatientList/selectors';
 
-import { Box } from '@material-ui/core';
+import { Box, Toolbar } from '@material-ui/core';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { useTheme } from '@material-ui/core/styles';
 import { Search, SortPoper, Sort, Spinner } from 'components';
-import { ToolBar } from '../PatientList/ToolBar';
+import { useStyles } from '../PatientList/styles';
+
 import PatientRecordTable from 'components/DashboardTable';
 
 const RecordsList = () => {
   //redux configuration
   useInjectReducer({ key: sliceKey, reducer: reducer });
   useInjectSaga({ key: sliceKey, saga: patientsListFromSaga });
+  const classes = useStyles();
+  const ref = React.useRef(null);
+  const muiTheme = useTheme();
+  const xsSM = useMediaQuery(muiTheme.breakpoints?.between('xs', 'sm'));
 
   const dispatch = useDispatch();
   const error = useSelector(selectError);
@@ -61,15 +68,17 @@ const RecordsList = () => {
         <meta name="description" content={'A Patient List'} />
       </Helmet>
       <>
+        <div className={classes.fixed} ref={ref}>
+          <Toolbar {...(xsSM ? {} : { className: classes.appBar })}>
+            <Search onSearch={handleSearch} defaultValue={search} />
+            <SortPoper>
+              <Sort onFilterSort={handleSortFilter} defaultValues={filters} />
+            </SortPoper>
+          </Toolbar>
+        </div>
         {patients?.length > 0 && (
           <>
-            <ToolBar>
-              <Search onSearch={handleSearch} defaultValue={search} />
-              <SortPoper>
-                <Sort onFilterSort={handleSortFilter} defaultValues={filters} />
-              </SortPoper>
-            </ToolBar>
-            <Box m={1} mb={8}>
+            <Box m={1} mb={8} style={{ marginTop: '120px' }}>
               <PatientRecordTable patients={patients} />
             </Box>
           </>

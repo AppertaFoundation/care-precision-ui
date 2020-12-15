@@ -1,12 +1,5 @@
 import React from 'react';
-import {
-  Paper,
-  makeStyles,
-  Box,
-  Typography,
-  Grid,
-  TextField,
-} from '@material-ui/core';
+import { makeStyles, Box, Grid, TextField } from '@material-ui/core';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core/styles';
 
@@ -24,16 +17,14 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const CarouselCard = ({ children, label }) => {
+const CarouselCard = ({ children }) => {
   const classes = useStyles();
   return (
     <>
-      <Typography variant="subtitle2" align="center">
+      {/* <Typography variant="subtitle2" align="center">
         {label}
-      </Typography>
-      <Paper variant="outlined" square>
-        <div className={classes.demo}>{children}</div>
-      </Paper>
+      </Typography> */}
+      <div className={classes.demo}>{children}</div>
     </>
   );
 };
@@ -46,15 +37,16 @@ const CareRecordInfo = ({ register }) => {
         <Grid container direction="row" justify="center" alignItems="flex-end">
           <Grid item sm={3} xs={12}>
             <Box mr={1}>
-              <CarouselCard label="Existing Conditions">
+              <CarouselCard>
                 <TextField
-                  defaultValue="Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            Vivamus mollis, augue et mollis fermentum, lectus risus
-            commodo lorem, id congue libero augue eget sapien. In semper
-            sollicitudin sempe"
+                  //       defaultValue="Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                  // Vivamus mollis, augue et mollis fermentum, lectus risus
+                  // commodo lorem, id congue libero augue eget sapien. In semper
+                  // sollicitudin sempe"
                   name="pastHistory"
                   multiline
                   rows="6"
+                  label="Existing Conditions"
                   inputRef={register}
                   fullWidth
                 />
@@ -63,13 +55,14 @@ const CareRecordInfo = ({ register }) => {
           </Grid>
           <Grid item xs={12} sm={3}>
             <Box mr={1}>
-              <CarouselCard label="Allergies">
+              <CarouselCard>
                 <TextField
                   defaultValue="Lorem ipsum dolor sit amet, consectetur adipiscing elit.
             Vivamus mollis, augue et mollis fermentum, lectus risus
             commodo lorem, id congue libero augue eget sapien. In semper
             sollicitudin sempe"
                   name="allergies"
+                  label="Allergies"
                   multiline
                   rows="6"
                   inputRef={register}
@@ -79,13 +72,14 @@ const CareRecordInfo = ({ register }) => {
             </Box>
           </Grid>
           <Grid item xs={12} sm={3}>
-            <CarouselCard label="Medication">
+            <CarouselCard>
               <TextField
                 defaultValue="Lorem ipsum dolor sit amet, consectetur adipiscing elit.
             Vivamus mollis, augue et mollis fermentum, lectus risus
             commodo lorem, id congue libero augue eget sapien. In semper
             sollicitudin sempe"
                 name="medication"
+                label="Medication"
                 multiline
                 rows="6"
                 inputRef={register}
@@ -94,63 +88,86 @@ const CareRecordInfo = ({ register }) => {
             </CarouselCard>
           </Grid>
           <Grid item xs={12} sm={3}>
-            <CarouselCard label="RESPECT Status">
-              <Typography>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
-                mollis, augue et mollis fermentum, lectus risus commodo lorem,
-                id congue libero augue eget sapien. In semper sollicitudin
-                semper.
-              </Typography>
+            <CarouselCard>
+              <TextField
+                defaultValue="Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            Vivamus mollis, augue et mollis fermentum, lectus risus
+            commodo lorem, id congue libero augue eget sapien. In semper
+            sollicitudin sempe"
+                name="medication"
+                label="RESPECT Status"
+                multiline
+                inputRef={register}
+                InputProps={{ readOnly: true }}
+                fullWidth
+                size="small"
+                rows="6"
+              />
             </CarouselCard>
           </Grid>
         </Grid>,
       ]
     : [
-        <CarouselCard label="Existing Conditions">
+        <CarouselCard>
           <TextField
-            defaultValue="Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            Vivamus mollis, augue et mollis fermentum, lectus risus
-            commodo lorem, id congue libero augue eget sapien. In semper
-            sollicitudin sempe"
+            // defaultValue="Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            // Vivamus mollis, augue et mollis fermentum, lectus risus
+            // commodo lorem, id congue libero augue eget sapien. In semper
+            // sollicitudin sempe"
             name="pastHistory"
+            label="Existing Conditions"
             multiline
             inputRef={register}
             fullWidth
             rows="6"
+            size="small"
           />
         </CarouselCard>,
-        <CarouselCard label="Allergies">
+        <CarouselCard>
           <TextField
             defaultValue="Lorem ipsum dolor sit amet, consectetur adipiscing elit.
             Vivamus mollis, augue et mollis fermentum, lectus risus
             commodo lorem, id congue libero augue eget sapien. In semper
             sollicitudin sempe"
             name="allergies"
+            label="Allergies"
             multiline
             inputRef={register}
             fullWidth
             rows="6"
+            size="small"
           />
         </CarouselCard>,
-        <CarouselCard label="Medication">
+        <CarouselCard>
           <TextField
             defaultValue="Lorem ipsum dolor sit amet, consectetur adipiscing elit.
             Vivamus mollis, augue et mollis fermentum, lectus risus
             commodo lorem, id congue libero augue eget sapien. In semper
             sollicitudin sempe"
             name="medication"
+            label="Medication"
             multiline
             inputRef={register}
             fullWidth
+            size="small"
             rows="6"
           />
         </CarouselCard>,
-        <CarouselCard label="RESPECT Status">
-          <Typography>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
-            mollis, augue et mollis fermentum, lectus risus commodo lorem, id
-            congue libero augue eget sapien. In semper sollicitudin semper.{' '}
-          </Typography>
+        <CarouselCard>
+          <TextField
+            defaultValue="Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            Vivamus mollis, augue et mollis fermentum, lectus risus
+            commodo lorem, id congue libero augue eget sapien. In semper
+            sollicitudin sempe"
+            name="medication"
+            label="RESPECT Status"
+            multiline
+            inputRef={register}
+            // InputProps={{ readOnly: true }}
+            fullWidth
+            size="small"
+            rows="6"
+          />
         </CarouselCard>,
       ];
 };

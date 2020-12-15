@@ -1,14 +1,30 @@
 import React from 'react';
-import { Grid, Box, Typography } from '@material-ui/core';
+import { Grid, Box, Typography, Paper } from '@material-ui/core';
+import { makeStyles, Theme } from '@material-ui/core/styles';
 import uniqid from 'uniqid';
 
-import { News2Icon } from 'components';
+import { News2Icon, BoxWrapper } from 'components';
 import { useSelector } from 'react-redux';
 import {
   selectNews2Response,
   selectPatientName,
   selectPatientNHS,
 } from '../../selectors';
+
+import clsx from 'clsx';
+
+const useStyles = makeStyles((theme: Theme) => ({
+  root: {
+    backgroundColor: '#DADADA',
+    border: '2px solid #fff',
+    borderRadius: '15px',
+    padding: '10px',
+  },
+  label: {
+    backgroundColor: theme.palette.primary.main,
+    color: theme.palette.primary.contrastText,
+  },
+}));
 
 const mapTotalScoreBackground = (score: string): string => {
   return {
@@ -24,7 +40,7 @@ const mapTotalScoreColor = clinicalRisk =>
 
 const Parametr = ({ parametr, value, valueUnits, score }) => {
   return (
-    <div style={{ width: '100%' }}>
+    <BoxWrapper>
       <Box display="flex" alignItems="center" p={0} pl={1} pr={1}>
         <Box width={2 / 5} mr={1}>
           {parametr}
@@ -36,20 +52,17 @@ const Parametr = ({ parametr, value, valueUnits, score }) => {
           <News2Icon news2={{ value: score, clinicalRisk: score }} isParametr />
         </Box>
       </Box>
-    </div>
+    </BoxWrapper>
   );
 };
 
 const Section = ({ items, section }) => {
+  const classes = useStyles();
   return (
     <>
       <Box pt={1}>
         <Box
-          style={{
-            backgroundColor: '#515F9C',
-            color: '#fff',
-            maxWidth: '50px',
-          }}
+          className={clsx(classes.root, classes.label)}
           display="flex"
           justifyContent="center"
         >
@@ -59,15 +72,8 @@ const Section = ({ items, section }) => {
       {items.map(({ label, value, units, ordinal }) => {
         return (
           <Box pb={1} key={uniqid()}>
-            <Box
-              display="flex"
-              style={{
-                border: '0.0469em solid #757575',
-                borderRadius: '4px',
-                alignItems: 'center',
-              }}
-            >
-              <div style={{ width: '100%' }}>
+            <Box display="flex">
+              <BoxWrapper>
                 <Box
                   display="flex"
                   alignItems="center"
@@ -86,7 +92,7 @@ const Section = ({ items, section }) => {
                     />
                   </Box>
                 </Box>
-              </div>
+              </BoxWrapper>
             </Box>
           </Box>
         );
@@ -98,7 +104,7 @@ const Section = ({ items, section }) => {
 const TotalNEWSScore = ({ score, clinicalRisk }) => {
   const absoluteScore = Math.abs(score);
   return (
-    <div style={{ width: '100%' }}>
+    <BoxWrapper>
       <Box
         display="flex"
         flexWrap="nowrap"
@@ -106,6 +112,9 @@ const TotalNEWSScore = ({ score, clinicalRisk }) => {
         style={{
           backgroundColor: mapTotalScoreBackground(clinicalRisk),
           color: mapTotalScoreColor(score),
+          border: '2px solid #fff',
+          borderRadius: '15px',
+          padding: '10px',
         }}
       >
         <Box width={3 / 4}>
@@ -122,37 +131,38 @@ const TotalNEWSScore = ({ score, clinicalRisk }) => {
           </Box>
         </Box>
         <Box width={1 / 4} pr={1}>
-          <div style={{ backgroundColor: '#fff', color: '#000' }}>
+          <Paper elevation={0}>
             <News2Icon news2={{ value: score, clinicalRisk }} />
-          </div>
+          </Paper>
         </Box>
       </Box>
-    </div>
+    </BoxWrapper>
   );
 };
 
 export function News2Summary() {
+  const classes = useStyles();
   const response = useSelector(selectNews2Response);
   const nhsNo = useSelector(selectPatientNHS);
   const name = useSelector(selectPatientName);
 
   return (
-    <div style={{ border: '1px solid black', borderRadius: 2 }}>
+    <div>
       <Grid
         container
         direction="column"
         justify="center"
         alignItems="flex-start"
-        style={{ backgroundColor: 'lightgrey' }}
+        className={classes.root}
       >
         <Grid item>
-          <Box ml={1}>
-            <Typography align="left" component="h6" noWrap>
+          <Box>
+            <Typography align="left" component="h6" variant="h6" noWrap>
               <Box fontWeight={500}>{name}</Box>
             </Typography>
           </Box>
-          <Box ml={1}>
-            <Typography align="left" component="h6" noWrap>
+          <Box>
+            <Typography align="left" variant="body1" noWrap>
               <Box fontWeight={500}>{nhsNo}</Box>
             </Typography>
           </Box>

@@ -28,9 +28,9 @@ const NoFurtherAction = () => {
   };
   return (
     <Box m={1}>
-      <Button.Secondary onClick={handleOpen} variant="outlined">
+      <Button.Primary onClick={handleOpen} variant="outlined">
         No further Action
-      </Button.Secondary>
+      </Button.Primary>
 
       <Dialog
         fullWidth={true}
@@ -56,8 +56,8 @@ const NoFurtherAction = () => {
                   inputRef={register}
                   InputLabelProps={{ shrink: true }}
                   name="recommendation"
+                  fullWidth
                   label="Reason why no further Actions"
-                  placeholder="Reason"
                   multiline
                   rows="2"
                 />
@@ -66,26 +66,16 @@ const NoFurtherAction = () => {
           </form>
         </DialogContent>
         <DialogActions>
-          <Grid
-            container
-            direction="row"
-            justify="flex-end"
-            alignItems="flex-end"
-            spacing={2}
+          <Button.Primary onClick={handleClose} color="primary">
+            Cancel
+          </Button.Primary>
+          <Button.Secondary
+            variant="contained"
+            form={`no-further-action`}
+            type="submit"
           >
-            <Grid item>
-              <Button.Secondary onClick={handleClose}>Cancel</Button.Secondary>
-            </Grid>
-            <Grid item>
-              <Button.Success
-                variant="contained"
-                form={`no-further-action`}
-                type="submit"
-              >
-                Confirm
-              </Button.Success>
-            </Grid>
-          </Grid>
+            Confirm
+          </Button.Secondary>
         </DialogActions>
       </Dialog>
     </Box>

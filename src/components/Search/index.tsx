@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 
 import {
   TextField,
@@ -9,7 +9,7 @@ import {
 } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import ClearIcon from '@material-ui/icons/Clear';
-import BarCode from './BarCode.png';
+// import BarCode from './BarCode.png';
 
 interface Props {
   onSearch: any;
@@ -17,20 +17,21 @@ interface Props {
 const Search: React.FC<TextFieldProps & Props> = memo(
   ({ value, onSearch, defaultValue, ...rest }) => {
     const inputRef = React.useRef<HTMLInputElement>(null);
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
     const handleSearch = e => {
       onSearch(inputRef?.current?.value);
     };
     const handleClear = e => onSearch(null);
-    const handleBarCode = e => {
-      navigate(`bar-code`, { replace: true });
-    };
+    // const handleBarCode = e => {
+    //   navigate(`bar-code`, { replace: true });
+    // };
     return (
       <TextField
         label="Search"
         variant="outlined"
         type="text"
         fullWidth
+        size="small"
         defaultValue={defaultValue}
         inputRef={inputRef}
         InputProps={{
@@ -41,9 +42,6 @@ const Search: React.FC<TextFieldProps & Props> = memo(
               </IconButton>
               <IconButton onClick={handleSearch}>
                 <SearchIcon />
-              </IconButton>
-              <IconButton onClick={handleBarCode}>
-                <img height={30} src={BarCode} alt="bar code button" />
               </IconButton>
             </InputAdornment>
           ),

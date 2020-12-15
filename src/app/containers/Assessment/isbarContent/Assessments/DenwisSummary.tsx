@@ -6,37 +6,55 @@ import {
   ListItem,
   ListItemText,
   List,
+  Paper,
 } from '@material-ui/core';
+import { makeStyles, Theme } from '@material-ui/core/styles';
 import { useSelector } from 'react-redux';
-import { DenwisIcon } from 'components';
+import { DenwisIcon, BoxWrapper } from 'components';
 import {
   selectPatientName,
   selectPatientNHS,
   selectDenwis,
 } from '../../selectors';
 
+import clsx from 'clsx';
+
+const useStyles = makeStyles((theme: Theme) => ({
+  root: {
+    backgroundColor: '#DADADA',
+    border: '2px solid #fff',
+    borderRadius: '15px',
+    padding: '10px',
+  },
+  label: {
+    backgroundColor: theme.palette.primary.main,
+    color: theme.palette.primary.contrastText,
+  },
+}));
+
 export const DenwisSummary = () => {
+  const classes = useStyles();
   const denwis = useSelector(selectDenwis);
   const nhsNo = useSelector(selectPatientNHS);
   const name = useSelector(selectPatientName);
   const denwisResult = denwis?.response?.value;
   return (
-    <div style={{ border: '1px solid black', borderRadius: 2 }}>
+    <div>
       <Grid
         container
         direction="column"
         justify="center"
         alignItems="flex-start"
-        style={{ backgroundColor: 'lightgrey' }}
+        className={classes.root}
       >
         <Grid item>
-          <Box ml={1}>
-            <Typography align="left" component="h6" noWrap>
+          <Box>
+            <Typography align="left" component="h6" variant="h6" noWrap>
               <Box fontWeight={500}>{name}</Box>
             </Typography>
           </Box>
-          <Box ml={1}>
-            <Typography align="left" component="h6" noWrap>
+          <Box>
+            <Typography align="left" variant="body1" noWrap>
               <Box fontWeight={500}>{nhsNo}</Box>
             </Typography>
           </Box>
@@ -44,25 +62,13 @@ export const DenwisSummary = () => {
       </Grid>
       <Box p={1}>
         <Box
-          style={{
-            backgroundColor: '#515F9C',
-            color: '#fff',
-            maxWidth: '150px',
-          }}
+          className={clsx(classes.root, classes.label)}
           display="flex"
           justifyContent="center"
         >
           Concern noted for:
         </Box>
-        <Box
-          display="flex"
-          style={{
-            border: '0.0469em solid #757575',
-            borderRadius: '4px',
-          }}
-          flexWrap="nowrap"
-          flexDirection="column"
-        >
+        <Box display="flex" flexWrap="nowrap" flexDirection="column">
           <List dense>
             {denwis?.q1Breathing.id === 'at0031' && (
               <ListItem>
@@ -126,79 +132,66 @@ export const DenwisSummary = () => {
       </Box>
       <Box p={1}>
         <Box
-          style={{
-            backgroundColor: '#515F9C',
-            color: '#fff',
-            maxWidth: '150px',
-          }}
+          className={clsx(classes.root, classes.label)}
           display="flex"
           justifyContent="center"
         >
           Other Notes:
         </Box>
-        <Box
-          display="flex"
-          style={{
-            border: '0.0469em solid #757575',
-            borderRadius: '4px',
-          }}
-          flexWrap="nowrap"
-          flexDirection="column"
-        >
-          <Box pl={1}>
-            {' '}
-            <ListItemText primary={denwis?.q10OtherComment} />
-          </Box>
+        <Box display="flex" flexWrap="nowrap" flexDirection="column">
+          <List dense>
+            <ListItem>
+              <ListItemText primary={denwis?.q10OtherComment} />
+            </ListItem>
+          </List>
         </Box>
       </Box>
-      <div style={{ width: '100%' }}>
-        <Box
-          display="flex"
-          flexWrap="nowrap"
-          alignItems="center"
-          style={{
-            backgroundColor:
-              denwisResult.value === 0
-                ? 'grey'
-                : denwisResult.value > 4
-                ? 'red'
-                : 'green',
-            color: '#fff',
-          }}
-        >
-          <Box width={3 / 4}>
-            <Box
-              width="100%"
-              display="flex"
-              fontWeight="fontWeightBold"
-              flexDirection="column"
-              justifyContent="center"
-              alignItems="center"
-            >
-              <Box>{`DENWIS Outcome : ${denwisResult?.value}`}</Box>
+      {denwisResult && (
+        <BoxWrapper>
+          <Box
+            display="flex"
+            flexWrap="nowrap"
+            alignItems="center"
+            style={{
+              backgroundColor:
+                denwisResult?.value === 0
+                  ? 'grey'
+                  : denwisResult?.value > 4
+                  ? 'red'
+                  : 'green',
+              color: '#fff',
+              border: '2px solid #fff',
+              borderRadius: '15px',
+              padding: '10px',
+            }}
+          >
+            <Box width={3 / 4}>
+              <Box
+                width="100%"
+                display="flex"
+                fontWeight="fontWeightBold"
+                flexDirection="column"
+                justifyContent="center"
+                alignItems="center"
+              >
+                <Box>{`DENWIS Outcome : ${denwisResult?.value}`}</Box>
+              </Box>
+            </Box>
+            <Box width={1 / 4} pr={1}>
+              <Paper elevation={0}>
+                <Box
+                  display="flex"
+                  width={'100%'}
+                  alignItems="center"
+                  justifyContent="center"
+                >
+                  {denwisResult && <DenwisIcon denwis={denwisResult} />}
+                </Box>
+              </Paper>
             </Box>
           </Box>
-          <Box width={1 / 4} pr={1}>
-            <div
-              style={{
-                backgroundColor: '#fff',
-                color: '#000',
-                border: '0.0469em solid red',
-              }}
-            >
-              <Box
-                display="flex"
-                width={'100%'}
-                alignItems="center"
-                justifyContent="center"
-                // pb={1} pt={1} alignItems="center"
-              >
-                <DenwisIcon denwis={denwisResult} />
-              </Box>
-            </div>
-          </Box>
-        </Box>
-      </div>
+        </BoxWrapper>
+      )}
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles, Theme } from '@material-ui/core/styles';
 import MuiButton from '@material-ui/core/Button';
 
 export const ButtonSuccess = withStyles(() => ({
@@ -10,27 +10,40 @@ export const ButtonSuccess = withStyles(() => ({
   },
 }))(MuiButton);
 
-export const ButtonSecondary = withStyles(() => ({
+export const ButtonSecondary = withStyles((theme: Theme) => ({
   contained: {
     minWidth: '100%',
-    backgroundColor: '#4B6171',
-    color: '#fff',
+    backgroundColor: theme.palette.secondary.main,
+    color: theme.palette.secondary.contrastText,
+    '&:hover': {
+      backgroundColor: theme.palette.secondary.dark,
+      boxShadow: 'none',
+      color: '#00000',
+    },
+    '&:active': {
+      backgroundColor: theme.palette.secondary.dark,
+      boxShadow: 'none',
+      color: '#00000',
+    },
+    '&:focus': {
+      boxShadow: '0 0 0 0.2rem rgba(0,123,255,.5)',
+      color: '#00000',
+    },
   },
   root: {
     minWidth: '100%',
-    textTransform: 'none',
   },
 }))(MuiButton);
 
-export const ButtonPrimmary = withStyles(() => ({
+export const ButtonPrimmary = withStyles((theme: Theme) => ({
   contained: {
     minWidth: '100%',
     textTransform: 'none',
-    backgroundColor: '#fff',
-    color: '#000',
+    backgroundColor: theme.palette.primary.main,
+    color: theme.palette.primary.contrastText,
   },
   outlined: {
     minWidth: '100%',
-    textTransform: 'none',
+    color: theme.palette.primary.main,
   },
 }))(MuiButton);

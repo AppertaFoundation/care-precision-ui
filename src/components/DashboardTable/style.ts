@@ -1,11 +1,14 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 export const useStyles = makeStyles({
+  root: {
+    border: '2px solid #DADADA',
+    backgroundColor: '#fff',
+    padding: '25px 10px 25px 10px',
+    borderRadius: '35px',
+  },
   table: {
-    borderCollapse: 'separate',
-    borderSpacing: '0 5px',
-    padding: '5px',
-    color: 'rgb(77, 77, 77)',
+    width: '100%',
   },
   row: {
     outlineColor: 'black',
@@ -13,6 +16,7 @@ export const useStyles = makeStyles({
     outlineWidth: '1px',
     boxShadow: '0 4px 2px -2px gray',
   },
-  cell: { width: '', borderBottom: 'none' },
-  subheader: () => ({ color: '#4D4D4D' }),
+  cell: { borderBottom: 'none' },
+  xsCell: { width: '25%', height: 52 },
+  xsCellButton: { height: 52 },
 });

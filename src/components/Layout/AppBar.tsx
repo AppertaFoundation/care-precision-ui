@@ -1,7 +1,6 @@
 import React from 'react';
 import {
   Toolbar,
-  IconButton,
   Typography,
   AppBar as MuiAppBar,
   Grid,
@@ -10,18 +9,22 @@ import {
   DialogTitle,
   Dialog,
   DialogContentText,
+  Box,
 } from '@material-ui/core';
-import CloseIcon from '@material-ui/icons/Close';
 import { useNavigate } from 'react-router-dom';
 import { useStyles } from './style';
 import { makeStyles } from '@material-ui/core/styles';
 import { Button } from 'components';
+import LogoDark from './assets/LogoDark.png';
+// import FullLogo from './assets/FullLogo.png';
 
 const useAppBarStyles = makeStyles({
   appBar: {
     width: `calc(100% - ${240}px)`,
     marginLeft: 240,
+    height: 64,
   },
+  height: { height: 64 },
 });
 
 interface Props {
@@ -44,30 +47,39 @@ const AppBar: React.FC<Props> = ({
   const [open, setOpen] = React.useState(false);
 
   const handleClose = e => setOpen(false);
-  const goBack = e => {
-    if (notSubmitedData) {
-      setOpen(true);
-    }
-  };
+  // const goBack = e => {
+  //   if (notSubmitedData) {
+  //     setOpen(true);
+  //   }
+  // };
   const exit = e => {
     cleanFunction();
     navigate('/');
   };
+
   return (
     <>
       <MuiAppBar
         position="fixed"
-        {...(xsSM || !withBottomBar ? {} : { className: appBar.appBar })}
+        {...(xsSM || !withBottomBar
+          ? { className: appBar.height }
+          : { className: appBar.appBar })}
       >
         <Toolbar>
-          {!withBottomBar && (
+          {/* {!withBottomBar && (
             <IconButton className={classes.closeIcon} onClick={goBack}>
               <CloseIcon />
             </IconButton>
-          )}
-          <Typography variant="h6" className={classes.title}>
-            {header}
-          </Typography>
+          )} */}
+          <Box m={1}>
+            <img height={40} src={LogoDark} alt="Care Protect logo" />
+          </Box>
+          <Box ml={1}>
+            <Typography variant="h6" className={classes.title}>
+              {header}
+            </Typography>
+          </Box>
+
           {/* // <User /> */}
         </Toolbar>
       </MuiAppBar>

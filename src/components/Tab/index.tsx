@@ -9,24 +9,32 @@ interface StyledTabProps {
 export const Tab = withStyles((theme: Theme) =>
   createStyles({
     root: {
-      background: '#8187A0',
-      border: '2px solid #ffff',
+      background: theme.palette.primary.light,
+      // border: '2px solid #ffff',
       marginTop: theme.spacing(2),
-      marginBottom: theme.spacing(2),
+      marginBottom: 0,
       color: '#fff',
       fontWeight: theme.typography.fontWeightMedium,
       textTransform: 'none',
+      borderTop: '2px solid #DADADA',
+      borderRadius: '15px 15px 0px 0px',
       '&:hover': {
-        color: '#40a9ff',
-        opacity: 1,
+        boxShadow: '0 0 0 0.2rem rgba(0,123,255,.5)',
+        // color: '#40a9ff',
+        // opacity: 1,
       },
       '&$selected': {
         fontWeight: theme.typography.fontWeightBold,
-        background: '#515F9C',
-        color: '#ffff',
+        background: theme.palette.primary.main,
+        color: theme.palette.primary.contrastText,
       },
       '&:focus': {
-        color: '#40a9ff',
+        fontWeight: theme.typography.fontWeightBold,
+        background: theme.palette.primary.main,
+        color: theme.palette.primary.contrastText,
+        boxShadow: '0 0 0 0.2rem rgba(0,123,255,.5)',
+
+        // color: '#40a9ff',
       },
     },
     selected: {},

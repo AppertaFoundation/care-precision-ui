@@ -1,21 +1,14 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
-import { Grid } from '@material-ui/core';
-// import { makeStyles } from '@material-ui/styles';
+import { Grid, Divider } from '@material-ui/core';
+import { makeStyles } from '@material-ui/styles';
 import { useNavigate } from 'react-router-dom';
-import {
-  useSelector,
-  // , useDispatch
-} from 'react-redux';
-// import { actions } from '../slice';
+import { useSelector } from 'react-redux';
 import {
   selectNews2Response,
   selectSepsis,
   selectDenwis,
   selectCovid,
-  // selectResponseActions,
-  // selectSituation,
-  // selectBackground,
 } from '../selectors';
 
 import { BottomBar, Button } from 'components';
@@ -25,42 +18,63 @@ import { DenwisResult } from './response/DenwisResult';
 import { CovidResult } from './response/CovidResult';
 import { ResponseActions } from './response/actions/ResponseActions';
 
-// const useStyles = makeStyles((theme: any) => ({
-//   root: {
-//     minWidth: '300px',
-//     margin: '0 auto',
-//   },
-// }));
+const useStyles = makeStyles((theme: any) => ({
+  root: {
+    backgroundColor: '#ffff',
+    color: 'black',
+    border: '2px solid #DADADA',
+    borderRadius: '0px 0px 15px 15px',
+    marginBottom: '50px',
+  },
+}));
 
 const Response = () => {
-  // const classess = useStyles();
-  // const dispatch = useDispatch();
+  const classes = useStyles();
   const navigate = useNavigate();
 
   const news2 = useSelector(selectNews2Response);
   const sepsis = useSelector(selectSepsis);
   const denwis = useSelector(selectDenwis);
   const covid = useSelector(selectCovid);
-  // const responseActions = useSelector(selectResponseActions);
-  // const situation = useSelector(selectSituation);
-  // const background = useSelector(selectBackground);
 
   const handleSubmit = e => {
     navigate('/');
   };
   return (
-    <Grid container justify="center" alignItems="center" direction="row">
-      <Grid item xs={12}>
-        {news2 && <News2Result />}
-        {sepsis?.response && <SepsisResult />}
-        {denwis?.response && <DenwisResult />}
-        {covid?.response && <CovidResult />}
-      </Grid>
+    <Grid
+      container
+      justify="center"
+      alignItems="center"
+      direction="row"
+      className={classes.root}
+    >
+      {news2 && (
+        <Grid item xs={12}>
+          <News2Result />
+          <Divider />
+        </Grid>
+      )}
+      {sepsis?.response && (
+        <Grid item xs={12}>
+          <SepsisResult /> <Divider />
+        </Grid>
+      )}
+      {denwis?.response && (
+        <Grid item xs={12}>
+          <DenwisResult /> <Divider />
+        </Grid>
+      )}
+      {covid?.response && (
+        <Grid item xs={12}>
+          <CovidResult /> <Divider />
+        </Grid>
+      )}
+
       <ResponseActions />
       <BottomBar>
-        <Button.Success variant="contained" onClick={handleSubmit}>
+        <Button.Secondary variant="contained" onClick={handleSubmit}>
           Finish and Save Observation
-        </Button.Success>
+        </Button.Secondary>
       </BottomBar>
     </Grid>
   );

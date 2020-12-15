@@ -51,6 +51,13 @@ const useStyles = makeStyles((theme: Theme) =>
     root: {
       width: '100%',
     },
+    form: {
+      borderBottomColor: '#DADADA',
+      borderBottomWidth: 2,
+      borderBottomStyle: 'solid',
+      borderRadius: '0px 0px 15px 15px',
+      marginBottom: '50px',
+    },
   }),
 );
 
@@ -195,92 +202,93 @@ export function Background() {
   const required = 'this field is required';
 
   return (
-    <Box>
+    <>
       <form id={`isbar-1`} onSubmit={handleSubmit(onSubmit)}>
-        <Paper elevation={0} square>
-          <Grid container spacing={2}>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                value={height}
-                onChange={onChange}
-                label="Height"
-                name="height"
-                fullWidth
-                variant="outlined"
-                inputRef={register({ required })}
-                InputProps={{
-                  endAdornment: (
-                    <InputAdornment position="end">cm</InputAdornment>
-                  ),
-                }}
-              />
-              {errors && <ErrorMsg name={'height'} errors={errors} />}
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                value={weight}
-                onChange={onChange}
-                inputRef={register({ required })}
-                fullWidth
-                label="Weight"
-                name="weight"
-                variant="outlined"
-                InputProps={{
-                  endAdornment: (
-                    <InputAdornment position="end">kg</InputAdornment>
-                  ),
-                }}
-              />
-              {errors && <ErrorMsg name={'weight'} errors={errors} />}
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <div onClick={e => setOpen(true)}>
-                <TextField
-                  variant="outlined"
-                  onClick={e => setOpen(true)}
-                  label="Current Clinical Frailty"
-                  fullWidth
-                  name="frailty"
-                  value={frailty.label || ''}
-                  InputProps={{
-                    readOnly: true,
-                    endAdornment: (
-                      <InputAdornment position="end">
-                        <ArrowDropDownIcon />
-                      </InputAdornment>
-                    ),
-                  }}
-                >
-                  {FRAILTY_OPTIONS.map(({ label, icon }) => (
-                    <MenuItem key={uniqid()} value={label}>
-                      <Grid container direction="row">
-                        <Grid item>
-                          <Avatar src={icon}></Avatar>
+        <Paper elevation={0} square className={classes.form}>
+          <Box m={1}>
+            <Grid container spacing={2}>
+              <Grid item xs={12} sm={6}>
+                <Box mt={2}>
+                  <TextField
+                    value={height}
+                    onChange={onChange}
+                    label="Height"
+                    name="height"
+                    fullWidth
+                    variant="outlined"
+                    inputRef={register({ required })}
+                    InputProps={{
+                      endAdornment: (
+                        <InputAdornment position="end">cm</InputAdornment>
+                      ),
+                    }}
+                  />
+                  {errors && <ErrorMsg name={'height'} errors={errors} />}
+                </Box>
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <Box mt={2}>
+                  <TextField
+                    value={weight}
+                    onChange={onChange}
+                    inputRef={register({ required })}
+                    fullWidth
+                    label="Weight"
+                    name="weight"
+                    variant="outlined"
+                    InputProps={{
+                      endAdornment: (
+                        <InputAdornment position="end">kg</InputAdornment>
+                      ),
+                    }}
+                  />
+                  {errors && <ErrorMsg name={'weight'} errors={errors} />}
+                </Box>
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <div onClick={e => setOpen(true)}>
+                  <TextField
+                    variant="outlined"
+                    onClick={e => setOpen(true)}
+                    label="Current Clinical Frailty"
+                    fullWidth
+                    name="frailty"
+                    value={frailty.label || ''}
+                    InputProps={{
+                      readOnly: true,
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <ArrowDropDownIcon />
+                        </InputAdornment>
+                      ),
+                    }}
+                  >
+                    {FRAILTY_OPTIONS.map(({ label, icon }) => (
+                      <MenuItem key={uniqid()} value={label}>
+                        <Grid container direction="row">
+                          <Grid item>
+                            <Avatar src={icon}></Avatar>
+                          </Grid>
+                          <Grid item>
+                            <ListItemText primary={label} />
+                          </Grid>
                         </Grid>
-                        <Grid item>
-                          <ListItemText primary={label} />
-                        </Grid>
-                      </Grid>
-                    </MenuItem>
-                  ))}
-                </TextField>
-              </div>
-              {errors && <ErrorMsg name={'frailty'} errors={errors} />}
-            </Grid>
-            <Grid item xs={12}>
-              <Box mt={1}>
-                <Paper elevation={1} variant="outlined" square>
-                  <Typography align="center" variant="subtitle1">
-                    <Box mr={1} fontWeight="fontWeightBold">
-                      Share Care Record Information
-                    </Box>
+                      </MenuItem>
+                    ))}
+                  </TextField>
+                </div>
+                {errors && <ErrorMsg name={'frailty'} errors={errors} />}
+              </Grid>
+              <Grid item xs={12}>
+                <Box mt={1} mb={1}>
+                  <Typography align="center" variant="h6">
+                    Share Care Record Information
                   </Typography>
                   <Carousel steps={careRecordInfo} />
-                </Paper>
-              </Box>
+                </Box>
+              </Grid>
             </Grid>
-          </Grid>
-
+          </Box>
           <Dialog
             fullWidth={true}
             maxWidth={'md'}
@@ -329,10 +337,10 @@ export function Background() {
       </form>
 
       <BottomBar>
-        <Button.Success variant="contained" form={`isbar-1`} type="submit">
-          Save Background
-        </Button.Success>
+        <Button.Secondary variant="contained" form={`isbar-1`} type="submit">
+          SAVE BACKGROUND
+        </Button.Secondary>
       </BottomBar>
-    </Box>
+    </>
   );
 }

@@ -17,7 +17,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { actions } from '../slice';
 import { selectSituation } from '../selectors';
-import { ErrorMsg } from 'components';
+import { ErrorMsg, BoxWrapper } from 'components';
 import uniqid from 'uniqid';
 import { BottomBar, Button } from 'components';
 
@@ -25,6 +25,13 @@ const useStyles = makeStyles((theme: any) => ({
   root: {
     minWidth: '280px',
     margin: '0 auto',
+  },
+  form: {
+    borderBottomColor: '#DADADA',
+    borderBottomWidth: 2,
+    borderBottomStyle: 'solid',
+    borderRadius: '0px 0px 15px 15px',
+    marginBottom: '50px',
   },
 }));
 
@@ -133,118 +140,132 @@ const Situation = () => {
   };
 
   return (
-    <Box>
+    <>
       <form id={`isbar-0`} onSubmit={handleSubmit(onSubmit)}>
-        <Box mr={3} ml={1}>
-          <Paper elevation={0} square>
-            <Box m={1}>
-              <FormLabel component="legend">
-                Enter situation information (why are you concerned?)
-              </FormLabel>
-            </Box>
-
-            <Box pl={2} pb={2}>
-              <Grid container alignItems="flex-start">
-                {Chips.map((item, index) => {
-                  return (
-                    <Grid item xs={12} sm={6} md={4} key={uniqid()}>
+        <Paper elevation={0} square className={classess.form}>
+          <Box m={1}>
+            <Grid container spacing={2}>
+              <Grid item xs={12} sm={6}>
+                <Box mt={2}>
+                  <FormLabel component="legend">
+                    Enter situation information (why are you concerned?)
+                  </FormLabel>
+                </Box>
+              </Grid>
+              <Grid item>
+                <Box pl={2} pb={2}>
+                  <Grid container alignItems="flex-start">
+                    {Chips.map((item, index) => {
+                      return (
+                        <Grid item xs={12} sm={6} md={4} key={uniqid()}>
+                          <Box ml={2} mb={1}>
+                            <Chip
+                              clickable
+                              {...(isSelected(item)
+                                ? {}
+                                : { variant: 'outlined' })}
+                              color="primary"
+                              size="small"
+                              label={item}
+                              onClick={handleChange}
+                              className={classess.root}
+                            />
+                          </Box>
+                        </Grid>
+                      );
+                    })}
+                    <Grid item xs={12}>
                       <Box ml={2} mb={1}>
                         <Chip
                           clickable
-                          {...(isSelected(item) ? {} : { variant: 'outlined' })}
+                          {...(isSelected('Other')
+                            ? {}
+                            : { variant: 'outlined' })}
                           color="primary"
                           size="small"
-                          label={item}
-                          onClick={handleChange}
+                          label={'Other'}
+                          onClick={hanldeChangeOther}
                           className={classess.root}
                         />
                       </Box>
                     </Grid>
-                  );
-                })}
-                <Grid item xs={12}>
-                  <Box ml={2} mb={1}>
-                    <Chip
-                      clickable
-                      {...(isSelected('Other') ? {} : { variant: 'outlined' })}
-                      color="primary"
-                      size="small"
-                      label={'Other'}
-                      onClick={hanldeChangeOther}
-                      className={classess.root}
-                    />
-                  </Box>
-                </Grid>
-                {errors && <ErrorMsg name={'softSigns'} errors={errors} />}
+                    {errors && <ErrorMsg name={'softSigns'} errors={errors} />}
 
-                <Grid item>
-                  {other && (
-                    <TextField
-                      inputRef={
-                        other
-                          ? register({
-                              required: 'This field is required',
-                            })
-                          : register
-                      }
-                      InputLabelProps={{ shrink: true }}
-                      name="other"
-                      label="Other"
-                      placeholder="Other"
-                    />
-                  )}
-                  {errors && <ErrorMsg name={'other'} errors={errors} />}
-                </Grid>
-              </Grid>
-            </Box>
-
-            <Box m={1}>
-              <div style={{ width: '100%' }}>
-                <Box flex="auto" display="flex">
-                  <Box flex="auto" width={3 / 4}>
-                    <InputLabel>Notes</InputLabel>
-                    <TextField
-                      InputLabelProps={{ shrink: true }}
-                      name="notes"
-                      multiline
-                      rows="5"
-                      fullWidth
-                      onChange={handleChangeAvaibleCharts}
-                      inputRef={register({
-                        required: 'This field is required',
-                      })}
-                      placeholder="Please enter patient information at this point to indicate what that patient situation is."
-                    />
-                    {errors && <ErrorMsg name={'notes'} errors={errors} />}
-                  </Box>
-                  <Divider variant="middle" flexItem orientation="vertical" />
-                  <Box flex="auto">
-                    <Box>
-                      <Grid
-                        container
-                        direction="column"
-                        justify="center"
-                        alignItems="center"
-                        spacing={4}
-                      >
-                        <Grid item>
-                          <Typography variant="button">{`${avaibleChars}/${MAX_CHARS_ISB_TABS}`}</Typography>
-                        </Grid>
-                      </Grid>
-                    </Box>
-                  </Box>
+                    <Grid item>
+                      {other && (
+                        <TextField
+                          inputRef={
+                            other
+                              ? register({
+                                  required: 'This field is required',
+                                })
+                              : register
+                          }
+                          InputLabelProps={{ shrink: true }}
+                          name="other"
+                          label="Other"
+                          placeholder="Other"
+                        />
+                      )}
+                      {errors && <ErrorMsg name={'other'} errors={errors} />}
+                    </Grid>
+                  </Grid>
                 </Box>
-              </div>
-            </Box>
-          </Paper>
-        </Box>
+              </Grid>
+              <Grid item xs={12}>
+                <Box m={1}>
+                  <BoxWrapper>
+                    <Box flex="auto" display="flex">
+                      <Box flex="auto" width={3 / 4}>
+                        <InputLabel>Notes</InputLabel>
+                        <TextField
+                          InputLabelProps={{ shrink: true }}
+                          name="notes"
+                          multiline
+                          rows="5"
+                          fullWidth
+                          onChange={handleChangeAvaibleCharts}
+                          inputRef={register({
+                            required: 'This field is required',
+                          })}
+                          placeholder="Please enter patient information at this point to indicate what that patient situation is."
+                        />
+                        {errors && <ErrorMsg name={'notes'} errors={errors} />}
+                      </Box>
+                      <Divider
+                        variant="middle"
+                        flexItem
+                        orientation="vertical"
+                      />
+                      <Box flex="auto">
+                        <Box>
+                          <Grid
+                            container
+                            direction="column"
+                            justify="center"
+                            alignItems="center"
+                            spacing={4}
+                          >
+                            <Grid item>
+                              <Typography variant="button">{`${avaibleChars}/${MAX_CHARS_ISB_TABS}`}</Typography>
+                            </Grid>
+                          </Grid>
+                        </Box>
+                      </Box>
+                    </Box>
+                  </BoxWrapper>
+                </Box>
+              </Grid>
+            </Grid>
+          </Box>
+        </Paper>
       </form>
       <BottomBar>
-        <Button.Success variant="contained" form={`isbar-0`} type="submit">
-          Save Situation
-        </Button.Success>
+        <Button.Secondary variant="contained" form={`isbar-0`} type="submit">
+          SAVE SITUATION
+        </Button.Secondary>
       </BottomBar>
-    </Box>
+    </>
   );
 };
 (Situation as any).whyDidYouRender = {

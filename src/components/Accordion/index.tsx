@@ -1,4 +1,4 @@
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles, Theme } from '@material-ui/core/styles';
 import MuiAccordion from '@material-ui/core/Accordion';
 import MuiAccordionDetails from '@material-ui/core/AccordionDetails';
 import MuiAccordionSummary from '@material-ui/core/AccordionSummary';
@@ -14,17 +14,16 @@ const Accordion = withStyles(theme => ({
       display: 'none',
     },
     '&$expanded': {},
-    marginBottom: theme.spacing(4),
   },
   expanded: {},
 }))(MuiAccordion);
 
-const AccordionSummary = withStyles({
+const AccordionSummary = withStyles((theme: Theme) => ({
   root: {
-    backgroundColor: '#515F9C',
+    backgroundColor: theme.palette.primary.main,
     color: '#fff',
-    borderBottom: '1px solid rgba(0, 0, 0, .125)',
-    border: '1px solid #fff',
+    border: '2px solid #fff',
+    borderRadius: '15px',
     marginBottom: -1,
     minHeight: 20,
     '&$expanded': {
@@ -37,7 +36,7 @@ const AccordionSummary = withStyles({
     },
   },
   expanded: {},
-})(MuiAccordionSummary);
+}))(MuiAccordionSummary);
 
 const AccordionDetails = withStyles(theme => ({
   root: {

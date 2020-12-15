@@ -24,6 +24,7 @@ const useStyles = makeStyles((theme: any) => ({
     margin: '0 auto',
     height: '100%',
   },
+  fullWidth: { width: '100%' },
 }));
 
 const SYMPTOMS = [
@@ -117,7 +118,7 @@ export const Covid = ({ onOpenSummary, disabled }) => {
     }
   };
   //TODO[15] I dont like how those methods looks,
-  // to figure out something smatrter
+  // to figure out something better
   const addElement = (key, value) => {
     if (key === 'symptoms') {
       const newTable = [value, ...symptoms];
@@ -159,7 +160,7 @@ export const Covid = ({ onOpenSummary, disabled }) => {
 
   return (
     <form
-      style={{ width: '100%' }}
+      className={classess.fullWidth}
       id={`isbar-2-covid`}
       onSubmit={handleSubmit(onSubmit)}
     >
@@ -167,7 +168,7 @@ export const Covid = ({ onOpenSummary, disabled }) => {
         <Paper elevation={0} square>
           <Box m={1}>
             <FormLabel component="legend">
-              Date of onset of first symptoms
+              Date of onset or first symptoms
             </FormLabel>
           </Box>
           <Box m={1} ml={1}>

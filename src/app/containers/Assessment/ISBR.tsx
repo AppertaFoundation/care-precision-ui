@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import MuiTabs from '@material-ui/core/Tabs';
 import uniqid from 'uniqid';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Situation } from './isbarContent/Situation';
 import { Background } from './isbarContent/Background';
@@ -16,11 +16,25 @@ const StyledTabs = withStyles({
   },
 })(MuiTabs);
 
+const useStyles = makeStyles((theme: Theme) => ({
+  panel: {
+    borderTopColor: theme.palette.primary.main,
+    borderTopWidth: 2,
+    borderTopStyle: 'solid',
+  },
+  tabDivider: {
+    height: '5px',
+    backgroundColor: theme.palette.primary.main,
+  },
+}));
+
 const a11yProps = index => ({ id: `${index}` });
 
 const ISBR = () => {
   const { tab, id, obsType } = useParams();
   const navigate = useNavigate();
+  const classes = useStyles();
+
   const activeTab = parseInt(tab);
   const [value, setValue] = useState(0);
   const useEffectOnMount = (effect: React.EffectCallback) => {
@@ -61,6 +75,8 @@ const ISBR = () => {
           />
         ))}
       </StyledTabs>
+      <div className={classes.tabDivider} />
+
       {
         {
           0: <Situation />,

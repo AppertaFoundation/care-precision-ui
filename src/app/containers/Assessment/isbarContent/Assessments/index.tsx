@@ -5,7 +5,7 @@ import {
   assessmentsTypesArraySelector,
   assessmentTypeSelector,
 } from 'store/assessmentTypeReducer';
-import { Grid, Typography, Box } from '@material-ui/core';
+import { Grid, Typography, Box, makeStyles } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { useNavigate } from 'react-router-dom';
@@ -22,10 +22,21 @@ import { Sepsis } from './Sepsis';
 import { Denwis } from './Denwis';
 import { Covid } from './Covid';
 import Summary from './Summary';
+
+const useStyles = makeStyles((theme: any) => ({
+  form: {
+    borderBottomColor: '#DADADA',
+    borderBottomWidth: 2,
+    borderBottomStyle: 'solid',
+    borderRadius: '0px 0px 15px 15px',
+    marginBottom: '50px',
+  },
+}));
+
 export const Assessments = ({ obsType, id }) => {
   const choosenAssessmentType = useSelector(assessmentTypeSelector) || obsType;
   const assessmentsTypesArray: [] = useSelector(assessmentsTypesArraySelector);
-
+  const classes = useStyles();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [expanded, setExpanded] = React.useState({
@@ -71,7 +82,7 @@ export const Assessments = ({ obsType, id }) => {
   const renderDenwis = renderAssessment(assessmentsTypesArray, 'denwis');
   return (
     <>
-      <Grid container justify="center">
+      <Grid container justify="center" className={classes.form}>
         {renderNews2 && (
           <Grid item xs={12}>
             <Accordion
@@ -171,14 +182,15 @@ export const Assessments = ({ obsType, id }) => {
           </Grid>
         )}
       </Grid>
+
       <BottomBar>
-        <Button.Success
+        <Button.Secondary
           variant="contained"
           form={`isbar-2-${obsType}`}
           type="submit"
         >
-          Submit Assessment
-        </Button.Success>
+          SUBMIT ASSESSMENT{' '}
+        </Button.Secondary>
       </BottomBar>
       <Summary
         open={openSummary}

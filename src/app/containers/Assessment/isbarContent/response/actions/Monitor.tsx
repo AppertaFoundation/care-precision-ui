@@ -1,7 +1,7 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from 'react';
 import {
   Grid,
-  Typography,
   DialogContent,
   DialogTitle,
   Dialog,
@@ -38,9 +38,9 @@ const Monitor = () => {
   };
   return (
     <Box m={1}>
-      <Button.Secondary onClick={handleOpen} variant="outlined">
+      <Button.Primary onClick={handleOpen} variant="outlined">
         Monitor
-      </Button.Secondary>
+      </Button.Primary>
 
       <Dialog
         fullWidth={true}
@@ -49,9 +49,7 @@ const Monitor = () => {
         keepMounted
         onClose={handleClose}
       >
-        <DialogTitle>
-          <Typography align="left">Request Observation Monitor Task</Typography>
-        </DialogTitle>
+        <DialogTitle>Request Observation Monitor Task</DialogTitle>
 
         <DialogContent>
           <DialogContentText>
@@ -114,26 +112,17 @@ const Monitor = () => {
           </FormProvider>
         </DialogContent>
         <DialogActions>
-          <Grid
-            container
-            direction="row"
-            justify="flex-end"
-            alignItems="flex-end"
-            spacing={2}
+          <Button.Primary onClick={handleClose} color="primary">
+            Cancel
+          </Button.Primary>
+          <Button.Secondary
+            color="primary"
+            variant="contained"
+            form={`monitor-frequency`}
+            type="submit"
           >
-            <Grid item>
-              <Button.Secondary onClick={handleClose}>Cancel</Button.Secondary>
-            </Grid>
-            <Grid item>
-              <Button.Secondary
-                variant="contained"
-                form={`monitor-frequency`}
-                type="submit"
-              >
-                Confirm
-              </Button.Secondary>
-            </Grid>
-          </Grid>
+            Confirm
+          </Button.Secondary>
         </DialogActions>
       </Dialog>
     </Box>

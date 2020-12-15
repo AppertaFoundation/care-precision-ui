@@ -3,9 +3,8 @@ import {
   CardHeader,
   CardActions,
   Box,
-  Grid,
-  Typography,
   IconButton,
+  CardActionArea,
   Divider,
 } from '@material-ui/core';
 import MuiCardContent from '@material-ui/core/CardContent';
@@ -20,13 +19,12 @@ import { IAssessmentIcons } from 'types';
 
 import NewCareEventDialog from '../NewCareEventDialog';
 import LatestResponse from './LatestResponse';
-import { ClickableElement } from '../ClickableElement';
 
 const CardContent = withStyles({
   root: {
     paddingTop: 0,
     paddingRight: '16px',
-    paddingBottom: 0,
+    paddingBottom: '16px',
   },
 })(MuiCardContent);
 
@@ -34,7 +32,7 @@ interface Props {
   name?: string;
   identifier?: string;
   id?: string;
-  children: JSX.Element;
+  children?: JSX.Element;
   assesments?: IAssessmentIcons;
   handleClick?: (
     event:
@@ -47,7 +45,6 @@ const Card: React.FC<Props> = ({
   name,
   identifier,
   assesments,
-  handleClick,
   children,
   id,
 }) => {
@@ -62,65 +59,32 @@ const Card: React.FC<Props> = ({
   const latestResponseBar = (
     <LatestResponse sm={!sm} assessments={assesments} />
   );
+  const redirectToPatientOverview = e => console.log('jest');
   return (
     <>
       <Box className={clsx(classes.card, classes.roundedCorners)}>
-        <CardHeader
-          className={classes.headerRoot}
-          disableTypography
-          title={
-            <ClickableElement onClick={handleClick}>
-              <Box>
-                <Grid container direction="row">
-                  <Grid item>
-                    <Typography component="div" className={classes.subheader}>
-                      <Box mr={1} fontWeight="fontWeightBold">
-                        {name}
-                      </Box>
-                    </Typography>
-                  </Grid>
-                </Grid>
-              </Box>
-            </ClickableElement>
-          }
-          subheader={
-            <Box>
-              <Grid container>
-                <Grid item xs={12} sm={6}>
-                  <ClickableElement onClick={handleClick}>
-                    <Grid item>
-                      <Typography component="div" color="textSecondary">
-                        <Box mr={1} fontWeight="fontWeightBold">
-                          {identifier}
-                        </Box>
-                      </Typography>
-                    </Grid>
-                  </ClickableElement>
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                  {!sm && latestResponseBar}
-                </Grid>
-              </Grid>
-            </Box>
-          }
-          action={
-            <CardActions disableSpacing>
-              {sm && latestResponseBar}
-              <Divider orientation="vertical" flexItem />
-              <IconButton edge={'end'} onClick={handleOpen}>
-                <MoreVertIcon />
-              </IconButton>
-            </CardActions>
-          }
-        />
-        {handleClick ? (
-          <ClickableElement onClick={handleClick}>
-            <CardContent className={classes.rootContent}>
-              {children}
-            </CardContent>
-          </ClickableElement>
-        ) : (
-          <CardContent>{children}</CardContent>
+        <CardActionArea onDoubleClick={redirectToPatientOverview}>
+          <CardHeader
+            title={name}
+            subheader={identifier}
+            action={
+              <CardActions disableSpacing>
+                <Divider orientation="vertical" flexItem />
+                <IconButton edge={'end'} onClick={handleOpen}>
+                  <MoreVertIcon />
+                </IconButton>
+              </CardActions>
+            }
+          />
+
+          <CardContent className={classes.rootContent}>{children}</CardContent>
+        </CardActionArea>
+        {children && (
+          <>
+            <Divider variant="middle" />
+
+            <CardActions>{latestResponseBar}</CardActions>
+          </>
         )}
       </Box>
       {open && (

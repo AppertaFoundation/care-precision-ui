@@ -15,7 +15,7 @@ import { sliceKey, reducer, actions } from './slice';
 import { useParams } from 'react-router-dom';
 import { selectError, selectLoading, selectPatient } from './selectors';
 
-import { Box, Divider } from '@material-ui/core';
+import { Box } from '@material-ui/core';
 import { useStyles } from './style';
 
 import { Card, CardContent, AppBar, Spinner } from 'components';
@@ -27,7 +27,6 @@ export function Assessment() {
   const dispatch = useDispatch();
   const { id, obsType } = useParams();
   const classes = useStyles();
-  const ref = React.useRef(null);
 
   const error = useSelector(selectError);
   const isLoading = useSelector(selectLoading);
@@ -65,35 +64,32 @@ export function Assessment() {
   return (
     <>
       <Helmet>
-        <title>{`Observation- ${header}`}</title>
-        <meta name="description" content={`A Observation Event- ${header}`} />
+        <title>{`Assessment- ${header}`}</title>
+        <meta name="description" content={`A Assessment Event- ${header}`} />
       </Helmet>
 
-      <div className={classes.fixed} ref={ref}>
-        <AppBar
-          header={`Observation- ${header}`}
-          xsSM={true}
-          withBottomBar={false}
-          notSubmitedData={true}
-          cleanFunction={cleanStore}
-        />
-        <Box mr={1} ml={1}>
-          <Card
-            name={patient?.name}
-            identifier={patient?.nhsnumber}
-            assesments={patient?.assessment}
-            id={patient?.id}
-          >
-            <CardContent
-              birthDate={patient?.birthDate}
-              gender={patient?.gender}
-              location={patient?.location}
-            />
-          </Card>
-        </Box>
-      </div>
+      <AppBar
+        header={`Assessment: ${header}`}
+        xsSM={true}
+        withBottomBar={false}
+        notSubmitedData={true}
+        cleanFunction={cleanStore}
+      />
+      <Box mr={1} ml={1}>
+        <Card
+          name={patient?.name}
+          identifier={patient?.nhsnumber}
+          assesments={patient?.assessment}
+          id={patient?.id}
+        >
+          <CardContent
+            birthDate={patient?.birthDate}
+            gender={patient?.gender}
+            location={patient?.location}
+          />
+        </Card>
+      </Box>
       <Box className={classes.root}>
-        <Divider />
         <ISBR />
       </Box>
     </>

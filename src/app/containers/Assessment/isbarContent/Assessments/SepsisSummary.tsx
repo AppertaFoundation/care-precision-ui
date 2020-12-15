@@ -1,5 +1,6 @@
 import React from 'react';
 import { Grid, Box, Typography } from '@material-ui/core';
+import { makeStyles, Theme } from '@material-ui/core/styles';
 import { SepsisIcon } from 'components';
 import { useSelector } from 'react-redux';
 import {
@@ -8,12 +9,28 @@ import {
   selectPatientName,
 } from '../../selectors';
 
+import clsx from 'clsx';
+
+const useStyles = makeStyles((theme: Theme) => ({
+  root: {
+    backgroundColor: '#DADADA',
+    border: '2px solid #fff',
+    borderRadius: '15px',
+    padding: '10px',
+  },
+  label: {
+    backgroundColor: theme.palette.primary.main,
+    color: theme.palette.primary.contrastText,
+  },
+}));
+
 const Section: React.FC<{
   indicators?: string[];
   redFlagAcute?: string[];
   amberFlagAcute?: string[];
   section: string;
 }> = ({ indicators = [], redFlagAcute = [], amberFlagAcute = [], section }) => {
+  const classes = useStyles();
   if ([...indicators, ...redFlagAcute, ...amberFlagAcute].length === 0) {
     return null;
   }
@@ -21,26 +38,14 @@ const Section: React.FC<{
     <>
       <Box pt={1}>
         <Box
-          style={{
-            backgroundColor: '#515F9C',
-            color: '#fff',
-            maxWidth: '250px',
-          }}
+          className={clsx(classes.root, classes.label)}
           display="flex"
           justifyContent="center"
         >
           {section}
         </Box>
       </Box>
-      <Box
-        display="flex"
-        style={{
-          border: '0.0469em solid #757575',
-          borderRadius: '4px',
-        }}
-        flexWrap="nowrap"
-        flexDirection="column"
-      >
+      <Box display="flex" flexWrap="nowrap" flexDirection="column">
         {indicators && indicators.map(item => <Box p={1}>{item}</Box>)}
         {redFlagAcute &&
           redFlagAcute.map(item => (
@@ -62,6 +67,7 @@ const Section: React.FC<{
 };
 
 export const SepsisSummary = () => {
+  const classes = useStyles();
   const sepsis = useSelector(selectSepsis);
   const nhsNo = useSelector(selectPatientNHS);
   const name = useSelector(selectPatientName);
@@ -91,22 +97,22 @@ export const SepsisSummary = () => {
   };
   const isEmpty = isEmptyScreening();
   return (
-    <div style={{ border: '1px solid black', borderRadius: 2 }}>
+    <div>
       <Grid
         container
         direction="column"
         justify="center"
         alignItems="flex-start"
-        style={{ backgroundColor: 'lightgrey' }}
+        className={classes.root}
       >
         <Grid item>
-          <Box ml={1}>
-            <Typography align="left" component="h6" noWrap>
+          <Box>
+            <Typography align="left" component="h6" variant="h6" noWrap>
               <Box fontWeight={500}>{name}</Box>
             </Typography>
           </Box>
-          <Box ml={1}>
-            <Typography align="left" component="h6" noWrap>
+          <Box>
+            <Typography align="left" variant="body1" noWrap>
               <Box fontWeight={500}>{nhsNo}</Box>
             </Typography>
           </Box>

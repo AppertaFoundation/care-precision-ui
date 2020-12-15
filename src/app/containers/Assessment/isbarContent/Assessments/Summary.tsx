@@ -1,10 +1,13 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { selectLoadingResult, selectErrorResult } from '../../selectors';
-import { Grid, Box } from '@material-ui/core';
-import { Dialog, Button, Spinner } from 'components';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
-import { useTheme } from '@material-ui/core/styles';
+import {
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  DialogActions,
+} from '@material-ui/core';
+import { Button, Spinner } from 'components';
 import { News2Summary } from './News2Summary';
 import { SepsisSummary } from './SepsisSummary';
 import { DenwisSummary } from './DenwisSummary';
@@ -17,9 +20,6 @@ const AssessmentSummary: React.FC<{
   handleConfirm: any;
   obsType: string;
 }> = ({ open, handleClose, handleConfirm, obsType }) => {
-  const theme = useTheme();
-  const xs = useMediaQuery(theme.breakpoints?.only('xs'));
-
   const error = useSelector(selectErrorResult);
   const isLoading = useSelector(selectLoadingResult);
 
@@ -31,7 +31,7 @@ const AssessmentSummary: React.FC<{
   }[obsType];
   const title = {
     news2: 'PATIENT MONITORING SUMMARY',
-    sepsis: 'SEPSIS Screening (Pre- Hospital)',
+    sepsis: 'SEPSIS Screening',
     denwis: 'Concern Assessment (DENWIS)',
     covid: 'Covid Assessment Summary',
   }[obsType];
@@ -42,33 +42,17 @@ const AssessmentSummary: React.FC<{
     return <ErrorText>{repoErrorText(error)}</ErrorText>;
   }
   return (
-    <Dialog
-      open={open}
-      handleClose={handleClose}
-      title={title}
-      fullScreen={xs}
-      maxWidth="sm"
-      fullWidth
-      bottomActions={
-        <Grid
-          container
-          direction="row"
-          justify="flex-end"
-          alignItems="flex-end"
-          spacing={2}
-        >
-          <Grid item>
-            <Button.Secondary onClick={handleClose}>Cancel</Button.Secondary>
-          </Grid>
-          <Grid item>
-            <Button.Success variant="contained" onClick={handleConfirm}>
-              Confirm
-            </Button.Success>
-          </Grid>
-        </Grid>
-      }
-    >
-      <Box m={1}>{summary}</Box>
+    <Dialog open={open} onClose={handleClose} scroll={'paper'}>
+      <DialogTitle id="scroll-dialog-title">{title}</DialogTitle>
+      <DialogContent dividers={true}>{summary}</DialogContent>
+      <DialogActions>
+        <Button.Primary onClick={handleClose} color="primary">
+          Cancel
+        </Button.Primary>
+        <Button.Secondary onClick={handleClose} color="primary">
+          Confirm
+        </Button.Secondary>
+      </DialogActions>
     </Dialog>
   );
 };

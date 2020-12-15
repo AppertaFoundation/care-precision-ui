@@ -8,6 +8,7 @@ import { Helmet } from 'react-helmet-async';
 import uniqid from 'uniqid';
 
 import { patientsListFromSaga } from './saga';
+
 import { sliceKey, reducer, actions } from './slice';
 import {
   selectPatients,
@@ -17,7 +18,7 @@ import {
   selectFilters,
 } from './selectors';
 
-import { Box, List } from '@material-ui/core';
+import { Box, List, Toolbar } from '@material-ui/core';
 import {
   Card,
   CardContent,
@@ -26,12 +27,19 @@ import {
   Sort,
   Spinner,
 } from 'components';
-import { ToolBar } from './ToolBar';
+import { useStyles } from './styles';
+
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { useTheme } from '@material-ui/core/styles';
 
 const RecordsList = () => {
   //redux configuration
   useInjectReducer({ key: sliceKey, reducer: reducer });
   useInjectSaga({ key: sliceKey, saga: patientsListFromSaga });
+  const classes = useStyles();
+  const ref = React.useRef(null);
+  const muiTheme = useTheme();
+  const xsSM = useMediaQuery(muiTheme.breakpoints?.between('xs', 'sm'));
 
   const dispatch = useDispatch();
   const error = useSelector(selectError);
@@ -68,15 +76,17 @@ const RecordsList = () => {
         <meta name="description" content={'A Patient List'} />
       </Helmet>
       <>
+        <div className={classes.fixed} ref={ref}>
+          <Toolbar {...(xsSM ? {} : { className: classes.appBar })}>
+            <Search onSearch={handleSearch} defaultValue={search} />
+            <SortPoper>
+              <Sort onFilterSort={handleSortFilter} defaultValues={filters} />
+            </SortPoper>
+          </Toolbar>
+        </div>
         {patients?.length > 0 && (
           <>
-            <ToolBar>
-              <Search onSearch={handleSearch} defaultValue={search} />
-              <SortPoper>
-                <Sort onFilterSort={handleSortFilter} defaultValues={filters} />
-              </SortPoper>
-            </ToolBar>
-            <Box m={1} mb={8}>
+            <Box m={1} mb={8} style={{ marginTop: '120px' }}>
               <List>
                 {patients.map(
                   ({

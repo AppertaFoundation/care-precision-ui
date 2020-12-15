@@ -1,7 +1,6 @@
 import React from 'react';
 import {
   Grid,
-  Typography,
   DialogContent,
   DialogTitle,
   Dialog,
@@ -27,9 +26,9 @@ const FurtherAssessment = () => {
   };
   return (
     <Box m={1}>
-      <Button.Secondary onClick={handleOpen} variant="outlined">
+      <Button.Primary onClick={handleOpen} variant="outlined">
         Further Assessment
-      </Button.Secondary>
+      </Button.Primary>
 
       <Dialog
         fullWidth={true}
@@ -38,9 +37,7 @@ const FurtherAssessment = () => {
         keepMounted
         onClose={handleClose}
       >
-        <DialogTitle>
-          <Typography align="center">Further Assessment</Typography>
-        </DialogTitle>
+        <DialogTitle>Further Assessment</DialogTitle>
 
         <DialogContent>
           <Grid
@@ -80,7 +77,6 @@ const FurtherAssessment = () => {
                   onClick={handleRedirect}
                   variant="outlined"
                   value="sepsis"
-                  // disabled
                   fullWidth
                 >
                   SEPSIS Screen{' '}

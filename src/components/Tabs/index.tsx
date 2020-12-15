@@ -1,16 +1,13 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react';
-import { Box } from '@material-ui/core';
 import MuiTabs from '@material-ui/core/Tabs';
 import { Tab } from '../Tab';
+
 import uniqid from 'uniqid';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles, Theme } from '@material-ui/core/styles';
 import { useParams, useNavigate } from 'react-router-dom';
 
-const StyledTabs = withStyles({
-  indicator: {
-    visibility: 'hidden',
-  },
-})(MuiTabs);
+const StyledTabs = withStyles((theme: Theme) => ({}))(MuiTabs);
 
 const a11yProps = index => ({ id: `${index}` });
 
@@ -42,7 +39,6 @@ const Tabs: React.FC<{
       <StyledTabs
         value={value}
         onChange={handleChange}
-        indicatorColor="primary"
         variant="fullWidth"
         textColor="primary"
       >
@@ -57,9 +53,6 @@ const Tabs: React.FC<{
         ))}
       </StyledTabs>
       {children}
-      {/* {children.map((child, index) =>
-        value === index ? <Box key={uniqid()}>{child}</Box> : null,
-      )} */}
     </>
   );
 };

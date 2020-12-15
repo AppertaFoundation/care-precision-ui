@@ -14,6 +14,7 @@ import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import ViewListIcon from '@material-ui/icons/ViewList';
 import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
+import fullLogoWhite from './assets/fullLogoWhite.png';
 
 interface Props {
   login?: boolean;
@@ -38,10 +39,17 @@ const SideDrawer: React.FC<Props> = ({ login }) => {
       }}
       anchor="left"
     >
+      <img src={fullLogoWhite} height={50} alt="full logo" />
       <div {...(login ? {} : { className: classes.toolbar })} />
       <Divider />
       <List>
-        <ListItem button key={'/'} id={'/'} onClick={handleChange}>
+        <ListItem
+          selected={navPath === '/'}
+          button
+          key={'/'}
+          id={'/'}
+          onClick={handleChange}
+        >
           <ListItemIcon
             className={navPath === '/' ? classes.selected : undefined}
           >
@@ -56,7 +64,7 @@ const SideDrawer: React.FC<Props> = ({ login }) => {
           button
           key={'/dashboard'}
           id={'/dashboard'}
-          // selected={navPath === '/dashboard'}
+          selected={navPath === '/dashboard'}
           onClick={handleChange}
         >
           <ListItemIcon
