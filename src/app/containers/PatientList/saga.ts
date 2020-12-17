@@ -14,19 +14,25 @@ function getRequestURL(params) {
   const filter = params.filter ? params.filter : null;
   const sort = params.sort ? params.sort : null;
 
-  const filterURL = filter
-    ? `filter_key=${filter.key}&filter_value=${filter.value}`
+  const filterURL = filter?.sepsis
+    ? `filter_key=${filter.sepsis.key}&filter_value=${filter.sepsis.value}`
     : '';
-  const order = sort ? `sort_key=${sort.key}&sort_value=${sort.value}` : '';
+  const filterURLdenwis = filter?.denwis
+    ? '&filter_key=denwis&filter_gte=4'
+    : '';
+  const order = sort?.key
+    ? `&sort_key=${sort.key}&sort_value=${sort.value}`
+    : '';
   const searchValue = search
-    ? `search_key=combisearch&search_value=${search}`
+    ? `&search_key=combisearch&search_value=${search}`
     : '';
-  return `${base}?${filterURL}&${searchValue}&${order}`;
+  return `${base}?${filterURL}${filterURLdenwis}${searchValue}${order}`;
 }
 
 export function* getRecords(action) {
   yield delay(500);
   const requestURL = getRequestURL(action.payload);
+  console.log(requestURL);
   if (process.env.REACT_APP_STATIC) {
     return yield put(
       actions.recordsLoaded(patientListParser(keysToCamel(fake.PATIENT_LIST))),

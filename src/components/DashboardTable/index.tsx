@@ -9,7 +9,6 @@ import {
   TableHead,
   TableContainer,
   TableBody,
-  FormLabel,
   Grid,
 } from '@material-ui/core';
 import { withStyles, useTheme } from '@material-ui/core/styles';
