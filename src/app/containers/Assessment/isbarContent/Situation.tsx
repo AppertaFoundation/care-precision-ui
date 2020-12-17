@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react';
 import {
   Chip,
@@ -75,27 +74,28 @@ const Situation = () => {
   const [selected, setSelected] = useState<string[]>([]);
   const [avaibleChars, setAvaibleChars] = useState(0);
   const [other, setOther] = useState<boolean>(false);
-
-  const useEffectOnMount = (effect: React.EffectCallback) => {
-    useEffect(effect, []);
-  };
-
-  const validate = () => {
+  const validate = React.useCallback(() => {
     const softSigns = getValues('softSigns');
     return softSigns.length > 0 || 'Please select any option';
-  };
+  }, [getValues]);
 
-  useEffectOnMount(() => {
+  useEffect(() => {
     register({ name: 'softSigns' }, { validate });
-    setSelected(situationDefault?.softSigns || []);
-    const defaultNotes = situationDefault?.notes;
-    if (defaultNotes) {
-      setAvaibleChars(defaultNotes.length);
-    }
-    if (situationDefault?.other) {
-      setOther(true);
-    }
-  });
+    // setSelected(situationDefault?.softSigns || []);
+    // const defaultNotes = situationDefault?.notes;
+    // if (defaultNotes) {
+    //   setAvaibleChars(defaultNotes.length);
+    // }
+    // if (situationDefault?.other) {
+    //   setOther(true);
+    // }
+  }, [
+    register,
+    situationDefault?.notes,
+    situationDefault?.other,
+    situationDefault?.softSigns,
+    validate,
+  ]);
 
   const useEffectOnSaveChips = (effect: React.EffectCallback) => {
     useEffect(effect, [selected]);
@@ -103,9 +103,6 @@ const Situation = () => {
 
   useEffectOnSaveChips(() => {
     setValue('softSigns', selected);
-    if (errors.softSigns) {
-      trigger('softSigns');
-    }
   });
   const isSelected = value => {
     return selected.includes(value);

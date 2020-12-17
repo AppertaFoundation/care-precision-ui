@@ -49,12 +49,12 @@ export const DenwisSummary = () => {
       >
         <Grid item>
           <Box>
-            <Typography align="left" component="h6" variant="h6" noWrap>
+            <Typography align="left" component="div" variant="h6" noWrap>
               <Box fontWeight={500}>{name}</Box>
             </Typography>
           </Box>
           <Box>
-            <Typography align="left" variant="body1" noWrap>
+            <Typography align="left" variant="body1" component="div" noWrap>
               <Box fontWeight={500}>{nhsNo}</Box>
             </Typography>
           </Box>

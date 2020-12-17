@@ -12,6 +12,7 @@ import { selectCovid } from '../../selectors';
 import { CovidIcon } from 'components';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme, makeStyles, Theme } from '@material-ui/core/styles';
+import uniqid from 'uniqid';
 
 const useStyles = makeStyles((theme: Theme) => ({
   fullHeight: {
@@ -100,7 +101,7 @@ export const CovidResult = () => {
                   dense
                 >
                   {covid?.symptoms.map(item => (
-                    <ListItem>
+                    <ListItem key={uniqid()}>
                       <ListItemText primary={item} />
                     </ListItem>
                   ))}

@@ -8,7 +8,7 @@ import {
   selectPatientNHS,
   selectPatientName,
 } from '../../selectors';
-
+import uniqid from 'uniqid';
 import clsx from 'clsx';
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -46,7 +46,12 @@ const Section: React.FC<{
         </Box>
       </Box>
       <Box display="flex" flexWrap="nowrap" flexDirection="column">
-        {indicators && indicators.map(item => <Box p={1}>{item}</Box>)}
+        {indicators &&
+          indicators.map(item => (
+            <Box key={uniqid()} p={1}>
+              {item}
+            </Box>
+          ))}
         {redFlagAcute &&
           redFlagAcute.map(item => (
             <Box p={1}>
@@ -107,12 +112,12 @@ export const SepsisSummary = () => {
       >
         <Grid item>
           <Box>
-            <Typography align="left" component="h6" variant="h6" noWrap>
+            <Typography align="left" component="div" variant="h6" noWrap>
               <Box fontWeight={500}>{name}</Box>
             </Typography>
           </Box>
           <Box>
-            <Typography align="left" variant="body1" noWrap>
+            <Typography align="left" variant="body1" component="div" noWrap>
               <Box fontWeight={500}>{nhsNo}</Box>
             </Typography>
           </Box>

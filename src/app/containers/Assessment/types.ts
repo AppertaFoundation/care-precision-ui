@@ -18,6 +18,9 @@ export interface AssessmentEvent {
   errorResult?: PatientErrorType | null;
   result: any;
   responseActions: any;
+  pending: boolean;
+  success: boolean | null;
+  submissionError: any;
 }
 
 export enum PatientErrorType {

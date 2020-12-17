@@ -2,7 +2,7 @@ import { call, put, takeLatest, delay } from 'redux-saga/effects';
 import { request } from 'utils/request';
 import { fake } from 'utils/fake';
 import { patientParser, keysToCamel } from 'utils/formatters';
-
+import { serializeAssessmentJSON } from 'utils/formatters/serialize';
 import { PatientErrorType } from './types';
 import { actions } from './slice';
 
@@ -35,11 +35,7 @@ export function* getRecord(action) {
 
 export function* makeCalculations(action) {
   yield delay(500);
-  // const requestURL =
-  const {
-    obsType,
-    //  assessmentForm
-  } = action.payload;
+  const { obsType } = action.payload;
   if (process.env.REACT_APP_STATIC) {
     yield put(
       {
@@ -74,10 +70,36 @@ export function* makeCalculations(action) {
   //   yield put(actions.calculationError(PatientErrorType.RESPONSE_ERROR));
   // }
 }
+
+export function* submitAssessment(action) {
+  yield delay(500);
+  const requestURL = ``;
+
+  // if (process.env.REACT_APP_STATIC) {
+  //   return yield put(actions.successAssesment());
+  // }
+  const formatedAssessment = serializeAssessmentJSON(action.payload);
+  try {
+    yield call(request, requestURL, {
+      method: 'POST',
+      mode: 'cors',
+      cache: 'no-cache',
+      // credentials: 'include',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: JSON.stringify(formatedAssessment),
+    });
+    yield put(actions.successAssesment());
+  } catch (err) {
+    yield put(actions.submissionError(PatientErrorType.RESPONSE_ERROR));
+  }
+}
 /**
  * Root saga manages watcher lifecycle
  */
 export function* assessmentEventSaga() {
   yield takeLatest(actions.loadRecord.type, getRecord);
   yield takeLatest(actions.calculateResult.type, makeCalculations);
+  yield takeLatest(actions.pendingAssessment.type, submitAssessment);
 }

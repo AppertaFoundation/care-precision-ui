@@ -83,3 +83,17 @@ export const selectResponseActions = createSelector(
   [selectDomain],
   assessmentEventSaga => assessmentEventSaga.responseActions,
 );
+
+export const selectSuccess = createSelector(
+  [selectDomain],
+  assessmentEventSaga => assessmentEventSaga.success,
+);
+export const selectPending = createSelector(
+  [selectDomain],
+  assessmentEventSaga => assessmentEventSaga.pending,
+);
+
+export const selectSubmissionError = createSelector(
+  [selectDomain],
+  assessmentEventSaga => assessmentEventSaga.submissionError,
+);

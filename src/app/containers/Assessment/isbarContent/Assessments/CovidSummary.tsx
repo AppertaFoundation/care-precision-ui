@@ -16,6 +16,7 @@ import {
   selectCovid,
 } from '../../selectors';
 import clsx from 'clsx';
+import uniqid from 'uniqid';
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
@@ -47,12 +48,12 @@ export const CovidSummary = () => {
       >
         <Grid item>
           <Box>
-            <Typography align="left" component="h6" variant="h6" noWrap>
+            <Typography align="left" component="div" variant="h6" noWrap>
               <Box fontWeight={500}>{name}</Box>
             </Typography>
           </Box>
           <Box>
-            <Typography align="left" variant="body1" noWrap>
+            <Typography component="div" align="left" variant="body1" noWrap>
               <Box fontWeight={500}>{nhsNo}</Box>
             </Typography>
           </Box>
@@ -90,7 +91,7 @@ export const CovidSummary = () => {
           <List dense>
             {covid?.symptoms &&
               covid.symptoms.map(symptom => (
-                <ListItem>
+                <ListItem key={uniqid()}>
                   <ListItemText primary={symptom} />
                 </ListItem>
               ))}

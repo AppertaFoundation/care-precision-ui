@@ -30,6 +30,9 @@ export const initialState: ContainerState = {
   covid: {},
   denwis: {},
   responseActions: {},
+  pending: false,
+  success: false,
+  submissionError: null,
 };
 
 const assessmentEventSlice = createSlice({
@@ -106,6 +109,21 @@ const assessmentEventSlice = createSlice({
     },
     cleanAssessment(state) {
       state = initialState;
+    },
+    pendingAssessment(state, action) {
+      state.pending = true;
+      state.submissionError = null;
+      state.success = false;
+    },
+    successAssesment(state) {
+      state.pending = false;
+      state.success = true;
+      state.submissionError = null;
+    },
+    submissionError(state, action) {
+      state.pending = false;
+      state.success = true;
+      state.submissionError = action.payload;
     },
   },
 });
