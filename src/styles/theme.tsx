@@ -37,7 +37,7 @@ const theme = responsiveFontSizes(
     overrides: {
       MuiCssBaseline: {
         '@global': {
-          '@font-face': ['Open Snas'],
+          // '@font-face': ["Open Snas"],
           body: {
             backgroundColor: '#DADADA',
           },
