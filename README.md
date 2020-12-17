@@ -54,7 +54,13 @@ The application is at a very early stage of development. The prototype and the f
 
 - Static one
 
-  `$ REACT_APP_STATIC=true yarn build`
+  - Add in to file .env.production (root directory)
+
+    `REACT_APP_STATIC=true`
+
+  - Run in consol:
+    `$ yarn build`
+  - Add in to file .env.production (root directory)
 
 2. Install globally a server
 
@@ -72,8 +78,14 @@ And your app is served [localhost:5000](localhost:5000)
 
   ~~`$ yarn start`~~
 
-- Run Static one
+- Static one
 
-  `$ REACT_APP_STATIC=true yarn run`
+  - Add in to file .env.local (root directory)
+
+    `REACT_APP_STATIC=true`
+
+  - Run in consol:
+    `$ yarn build`
+  - Add in to file .env.production (root directory)
 
 And you app is running on [localhost:3000](localhost:3000)
