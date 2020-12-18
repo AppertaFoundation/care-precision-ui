@@ -75,7 +75,7 @@ export function Assessment() {
         notSubmitedData={true}
         cleanFunction={cleanStore}
       />
-      <Box mr={1} ml={1}>
+      <Box mr={1} ml={1} style={{ marginTop: '70px' }}>
         <Card
           name={patient?.name}
           identifier={patient?.nhsnumber}

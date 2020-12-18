@@ -104,6 +104,8 @@ const News2 = ({ disabled, onOpenSummary }) => {
             </AccordionSummary>
             <AccordionDetails>
               <Grid container wrap="nowrap" direction="column" spacing={2}>
+                <Box mb={3} />
+
                 <Grid item md={12}>
                   <TextField
                     disabled={disabled}

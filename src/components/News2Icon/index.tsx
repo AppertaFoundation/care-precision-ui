@@ -23,29 +23,31 @@ export const mapCirleParametrColor = score => {
     '0': '#2E7D32',
   }[score];
 };
-export const mapScoreParametrColor = score => (score === 3 ? '#fff' : '#000');
+export const mapScoreParametrColor = score =>
+  parseInt(score) === 3 ? '#fff' : '#000';
 
 const News2Icon: React.FC<{
   news2: {
     value: number;
-    clinicalRisk: string;
+    clinicalRisk: string | number;
     trend?: string;
   };
   isParametr?: Boolean;
 }> = ({ news2, isParametr }) => {
   const { value, clinicalRisk, trend } = news2;
-  const circleColor = mapCircleColors(clinicalRisk || '');
-  const scoreColor = mapScoreColors(clinicalRisk || '');
 
-  const circleColorParametr = mapCirleParametrColor(clinicalRisk || '');
-  const scoreColorParametr = mapScoreParametrColor(clinicalRisk || '');
   const double = news2.value.toString().length === 2;
-  const circle = isParametr ? circleColorParametr : circleColor;
-  const score = isParametr ? scoreColorParametr : scoreColor;
+  const circle = isParametr
+    ? mapCirleParametrColor(clinicalRisk)
+    : mapCircleColors(clinicalRisk.toString() || '');
+  const score = isParametr
+    ? mapScoreParametrColor(clinicalRisk)
+    : mapScoreColors(clinicalRisk || '');
+
   const classes = useStyles(circle, score, double);
   return (
     <div style={classes.root}>
-      {clinicalRisk ? (
+      {clinicalRisk || clinicalRisk >= 0 ? (
         <Box
           display="flex"
           flexWrap="nowrap"

@@ -1,6 +1,12 @@
 import React from 'react';
-import { Grid, Box, Typography, Paper } from '@material-ui/core';
-import { makeStyles, Theme } from '@material-ui/core/styles';
+import {
+  Grid,
+  Box,
+  Typography,
+  Badge as MuiBadge,
+  Paper,
+} from '@material-ui/core';
+import { makeStyles, Theme, withStyles } from '@material-ui/core/styles';
 import uniqid from 'uniqid';
 
 import { News2Icon, BoxWrapper } from 'components';
@@ -11,8 +17,15 @@ import {
   selectPatientNHS,
 } from '../../selectors';
 
-import clsx from 'clsx';
-
+const Badge = withStyles({
+  root: {
+    width: '100%',
+  },
+  badge: {
+    minWidth: '50px',
+    top: '-6px',
+  },
+})(MuiBadge);
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
     backgroundColor: '#DADADA',
@@ -38,6 +51,14 @@ const mapTotalScoreBackground = (score: string): string => {
 const mapTotalScoreColor = clinicalRisk =>
   clinicalRisk === 'at0060' || clinicalRisk === 'at0057' ? '#fff' : '#000';
 
+const clinicalRiskCodeMapping = value =>
+  ({
+    at0057: 'Low',
+    at0058: 'Low-medium',
+    at0059: 'Medium',
+    at0060: 'Hight',
+  }[value]);
+
 const Parametr = ({ parametr, value, valueUnits, score }) => {
   return (
     <BoxWrapper>
@@ -57,47 +78,46 @@ const Parametr = ({ parametr, value, valueUnits, score }) => {
 };
 
 const Section = ({ items, section }) => {
-  const classes = useStyles();
   return (
-    <>
-      <Box pt={1}>
-        <Box
-          className={clsx(classes.root, classes.label)}
-          display="flex"
-          justifyContent="center"
-        >
-          {section}
-        </Box>
-      </Box>
-      {items.map(({ label, value, units, ordinal }) => {
-        return (
-          <Box pb={1} key={uniqid()}>
-            <Box display="flex">
-              <BoxWrapper>
-                <Box
-                  display="flex"
-                  alignItems="center"
-                  style={{
-                    border: '0.0469em solid #757575',
-                    borderRadius: '4px',
-                    alignItems: 'center',
-                  }}
-                >
-                  <Box width={'100%'} mr={1}>
-                    <Parametr
-                      parametr={label}
-                      valueUnits={`${value} ${units ? units : ''}`}
-                      value={value}
-                      score={ordinal}
-                    />
+    <BoxWrapper>
+      <Badge
+        anchorOrigin={{
+          vertical: 'top',
+          horizontal: 'left',
+        }}
+        color="primary"
+        badgeContent={section}
+      >
+        <BoxWrapper>
+          <Box pb={2} flexDirection="column">
+            {items.map(({ label, value, units, ordinal }) => {
+              return (
+                <Box pb={1} key={uniqid()}>
+                  <Box
+                    display="flex"
+                    alignItems="center"
+                    style={{
+                      border: '0.0469em solid #757575',
+                      borderRadius: '4px',
+                      alignItems: 'center',
+                    }}
+                  >
+                    <Box width={'100%'} mr={1}>
+                      <Parametr
+                        parametr={label}
+                        valueUnits={`${value} ${units ? units : ''}`}
+                        value={value}
+                        score={ordinal}
+                      />
+                    </Box>
                   </Box>
                 </Box>
-              </BoxWrapper>
-            </Box>
+              );
+            })}
           </Box>
-        );
-      })}
-    </>
+        </BoxWrapper>
+      </Badge>
+    </BoxWrapper>
   );
 };
 
@@ -127,7 +147,9 @@ const TotalNEWSScore = ({ score, clinicalRisk }) => {
             alignItems="center"
           >
             <Box>{`Total NEWS Score : ${absoluteScore}`}</Box>
-            <Box>{`Clinical Risk: ${clinicalRisk}`}</Box>
+            <Box>{`Clinical Risk: ${clinicalRiskCodeMapping(
+              clinicalRisk,
+            )}`}</Box>
           </Box>
         </Box>
         <Box width={1 / 4} pr={1}>
@@ -169,7 +191,7 @@ export function News2Summary() {
         </Grid>
       </Grid>
       {response && (
-        <Box m={1}>
+        <Box m={2}>
           <Section
             items={[
               {

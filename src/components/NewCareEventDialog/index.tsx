@@ -4,13 +4,22 @@ import {
   Typography,
   DialogContent,
   DialogTitle,
-  Dialog,
+  Dialog as MuiDialog,
+  Divider,
+  Box,
 } from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
 import Button from '../Button';
 import { setAssessmentType } from 'store/assessmentTypeReducer';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
+const Dialog = withStyles({
+  paper: {
+    borderRadius: '35px',
+    padding: '15px',
+  },
+})(MuiDialog);
 interface Props {
   open: boolean;
   title?: string;
@@ -49,96 +58,102 @@ const NewCareEventDialog: React.FC<Props> = ({
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleRedirectToProfile = (
+  const redirectToProfile = (
     event: React.MouseEvent<HTMLElement, MouseEvent>,
   ): void => {
     navigate(`/patient-overview/${identifier}`, { replace: true });
   };
+  const startCovidPathway = (
+    event: React.MouseEvent<HTMLElement, MouseEvent>,
+  ): void => {
+    navigate(`/covid-menagment/${identifier}`, { replace: true });
+  };
   return (
     <Dialog
-      fullWidth={true}
-      maxWidth={'md'}
+      fullWidth
+      maxWidth={'sm'}
       open={open}
       keepMounted
       onClose={handleClose}
     >
       <DialogTitle>
-        <Grid
-          container
-          direction="column"
-          justify="center"
-          alignContent="center"
-        >
-          <Grid item>
-            <Typography align="center">New Care Event for</Typography>
-          </Grid>
-          <Grid item>
-            <Typography align="center">{title}</Typography>
-          </Grid>
-        </Grid>
+        <Typography component="div" noWrap variant="h5">
+          {title}
+        </Typography>
+        <Typography color="textSecondary" variant="body1">
+          {identifier}
+        </Typography>
       </DialogTitle>
 
       <DialogContent>
-        <Grid
-          container
-          direction="column"
-          justify="space-around"
-          alignItems="center"
-          spacing={2}
-        >
+        <Grid container spacing={2}>
+          <Grid item xs={12} sm={6}>
+            <Button.Primary
+              onClick={startCovidPathway}
+              variant="outlined"
+              fullWidth
+            >
+              Covid Pathway
+            </Button.Primary>
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <Button.Primary
+              onClick={redirectToProfile}
+              variant="outlined"
+              fullWidth
+            >
+              Patient Details
+            </Button.Primary>
+          </Grid>
+        </Grid>
+        <Box mt={3} mb={3}>
+          <Divider variant="middle" />
+        </Box>
+        <Grid container spacing={2}>
           <Grid item xs={12}>
+            <Typography variant="body1" color="textSecondary" align="center">
+              New Care Event:
+            </Typography>
+          </Grid>
+          <Grid item xs={12} sm={6}>
             <Button.Primary
               onClick={handleRedirect}
               variant="outlined"
               value="news2"
               fullWidth
-              width={200}
             >
               Observation
             </Button.Primary>
           </Grid>
-          <Grid item xs={12}>
+          <Grid item xs={12} sm={6}>
             <Button.Primary
               onClick={handleRedirect}
               variant="outlined"
               value="denwis"
               fullWidth
-              width={200}
             >
-              Concern Assessment
+              Concern
             </Button.Primary>
           </Grid>
-          <Grid item xs={12}>
+          <Grid item xs={12} sm={6}>
             <Button.Primary
               onClick={handleRedirect}
               variant="outlined"
               value="sepsis"
               fullWidth
-              width={200}
             >
               SEPSIS Screening
             </Button.Primary>
           </Grid>
-          <Grid item xs={12}>
+          <Grid item xs={12} sm={6}>
+            {' '}
             <Button.Primary
               onClick={handleRedirect}
               variant="outlined"
               value="covid"
               fullWidth
-              width={200}
             >
               COVID Assessment
-            </Button.Primary>
-          </Grid>
-          <Grid item xs={12}>
-            <Button.Primary
-              onClick={handleRedirectToProfile}
-              variant="outlined"
-              value="patient-overview"
-              fullWidth
-              width={200}
-            >
-              Patient Details
             </Button.Primary>
           </Grid>
         </Grid>

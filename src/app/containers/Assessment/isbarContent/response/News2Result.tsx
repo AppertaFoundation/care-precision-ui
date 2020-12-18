@@ -80,7 +80,5 @@ export const News2Result = () => {
         </Box>
       </Grid>
     </Grid>
-    //   </Paper>
-    // </Box>
   );
 };

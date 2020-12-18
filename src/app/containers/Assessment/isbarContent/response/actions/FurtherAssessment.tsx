@@ -3,13 +3,22 @@ import {
   Grid,
   DialogContent,
   DialogTitle,
-  Dialog,
+  Dialog as MuiDialog,
   Box,
+  Typography,
 } from '@material-ui/core';
 import { Button } from 'components';
 import { useDispatch } from 'react-redux';
 import { setAssessmentType } from 'store/assessmentTypeReducer';
 import { useNavigate, useParams } from 'react-router-dom';
+import { withStyles } from '@material-ui/core/styles';
+
+const Dialog = withStyles({
+  paper: {
+    borderRadius: '35px',
+    padding: '15px',
+  },
+})(MuiDialog);
 const FurtherAssessment = () => {
   const [open, setOpen] = React.useState(false);
   const navigate = useNavigate();
@@ -37,7 +46,11 @@ const FurtherAssessment = () => {
         keepMounted
         onClose={handleClose}
       >
-        <DialogTitle>Further Assessment</DialogTitle>
+        <DialogTitle>
+          <Typography component="div" noWrap variant="h6">
+            Further Assessment
+          </Typography>
+        </DialogTitle>
 
         <DialogContent>
           <Grid
@@ -83,18 +96,7 @@ const FurtherAssessment = () => {
                 </Button.Primary>
               </Box>
             </Grid>
-            <Grid item xs={12}>
-              <Box width="250px">
-                <Button.Primary
-                  onClick={handleRedirect}
-                  variant="outlined"
-                  value="covid"
-                  fullWidth
-                >
-                  SEPSIS Screem (Pre-Admission){' '}
-                </Button.Primary>
-              </Box>
-            </Grid>
+
             <Grid item xs={12}>
               <Box width="250px">
                 <Button.Primary

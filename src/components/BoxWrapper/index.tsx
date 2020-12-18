@@ -1,6 +1,10 @@
-import styled from 'styled-components/macro';
-
-const BoxWrapper = styled.div`
-  width: '100%';
-`;
+import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+const useStyles = makeStyles({
+  root: { width: '100%' },
+});
+const BoxWrapper = ({ children }) => {
+  const classes = useStyles();
+  return <div className={classes.root}>{children}</div>;
+};
 export default BoxWrapper;

@@ -4,7 +4,7 @@ import {
   Typography,
   DialogContent,
   DialogTitle,
-  Dialog,
+  Dialog as MuiDialog,
   Box,
   DialogActions,
   TextField,
@@ -13,7 +13,14 @@ import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { Button } from 'components';
 import { actions } from '../../../slice';
+import { withStyles } from '@material-ui/core/styles';
 
+const Dialog = withStyles({
+  paper: {
+    borderRadius: '35px',
+    padding: '15px',
+  },
+})(MuiDialog);
 const NoFurtherAction = () => {
   const [open, setOpen] = React.useState(false);
   const handleClose = () => setOpen(false);
@@ -40,7 +47,9 @@ const NoFurtherAction = () => {
         onClose={handleClose}
       >
         <DialogTitle>
-          <Typography align="left">Request no further Action</Typography>
+          <Typography component="div" noWrap variant="h6">
+            Request no further Action{' '}
+          </Typography>
         </DialogTitle>
 
         <DialogContent>
