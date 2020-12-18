@@ -61,12 +61,12 @@ const NewCareEventDialog: React.FC<Props> = ({
   const redirectToProfile = (
     event: React.MouseEvent<HTMLElement, MouseEvent>,
   ): void => {
-    navigate(`/patient-overview/${identifier}`, { replace: true });
+    navigate(`/patient-overview/${id}`, { replace: true });
   };
   const startCovidPathway = (
     event: React.MouseEvent<HTMLElement, MouseEvent>,
   ): void => {
-    navigate(`/covid-menagment/${identifier}`, { replace: true });
+    navigate(`/covid-menagment/${id}`, { replace: true });
   };
   return (
     <Dialog

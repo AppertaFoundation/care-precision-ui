@@ -58,6 +58,12 @@ const useStyles = makeStyles((theme: Theme) =>
       borderRadius: '0px 0px 15px 15px',
       marginBottom: '50px',
     },
+    shareRecords: {
+      backgroundColor: '#DADADA',
+      border: '2px solid #fff',
+      borderRadius: '35px',
+      padding: '15px',
+    },
   }),
 );
 
@@ -280,7 +286,7 @@ export function Background() {
                 {errors && <ErrorMsg name={'frailty'} errors={errors} />}
               </Grid>
               <Grid item xs={12}>
-                <Box mt={1} mb={1}>
+                <Box mt={1} mb={1} className={classes.shareRecords}>
                   <Typography align="center" variant="h6">
                     Share Care Record Information
                   </Typography>

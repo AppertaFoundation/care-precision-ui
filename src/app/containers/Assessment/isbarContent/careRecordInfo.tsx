@@ -8,7 +8,7 @@ const useStyles = makeStyles(theme => ({
     flexGrow: 1,
   },
   demo: {
-    backgroundColor: theme.palette.background.paper,
+    backgroundColor: 'transparent',
     height: 150,
     margin: theme.spacing(2),
   },
@@ -49,6 +49,7 @@ const CareRecordInfo = ({ register }) => {
                   label="Existing Conditions"
                   inputRef={register}
                   fullWidth
+                  variant="outlined"
                 />
               </CarouselCard>
             </Box>
@@ -66,6 +67,7 @@ const CareRecordInfo = ({ register }) => {
                   multiline
                   rows="6"
                   inputRef={register}
+                  variant="outlined"
                   fullWidth
                 />
               </CarouselCard>
@@ -84,6 +86,7 @@ const CareRecordInfo = ({ register }) => {
                 rows="6"
                 inputRef={register}
                 fullWidth
+                variant="outlined"
               />
             </CarouselCard>
           </Grid>
@@ -102,6 +105,7 @@ const CareRecordInfo = ({ register }) => {
                 fullWidth
                 size="small"
                 rows="6"
+                variant="outlined"
               />
             </CarouselCard>
           </Grid>
@@ -121,6 +125,7 @@ const CareRecordInfo = ({ register }) => {
             fullWidth
             rows="6"
             size="small"
+            variant="outlined"
           />
         </CarouselCard>,
         <CarouselCard>
@@ -136,6 +141,7 @@ const CareRecordInfo = ({ register }) => {
             fullWidth
             rows="6"
             size="small"
+            variant="outlined"
           />
         </CarouselCard>,
         <CarouselCard>
@@ -151,6 +157,7 @@ const CareRecordInfo = ({ register }) => {
             fullWidth
             size="small"
             rows="6"
+            variant="outlined"
           />
         </CarouselCard>,
         <CarouselCard>
@@ -167,6 +174,7 @@ const CareRecordInfo = ({ register }) => {
             fullWidth
             size="small"
             rows="6"
+            variant="outlined"
           />
         </CarouselCard>,
       ];
