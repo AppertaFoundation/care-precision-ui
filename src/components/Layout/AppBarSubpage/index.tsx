@@ -6,17 +6,18 @@ import { useStyles } from '../style';
 
 interface Props {
   header: string;
-  actionButton?: React.ReactNode;
+  children?: React.ReactNode;
 }
-export const AppBarSubpage: React.FC<Props> = ({ header, actionButton }) => {
+export const AppBarSubpage: React.FC<Props> = ({ header, children }) => {
   const classes = useStyles();
   return (
     <AppBar open={false}>
       <Toolbar>
-        {actionButton}
+        {children}
         <Box m={1}>
           <img height={40} src={LogoDark} alt="Care Protect logo" />
         </Box>
+
         <Box ml={1}>
           <Typography variant="h6" className={classes.title}>
             {header}

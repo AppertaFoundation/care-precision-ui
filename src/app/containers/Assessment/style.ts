@@ -16,4 +16,7 @@ export const useStyles = makeStyles(theme => ({
   santizedGrid: {
     minWidth: '100%',
   },
+  closeButton: {
+    marginRight: theme.spacing(2),
+  },
 }));
