@@ -78,7 +78,7 @@ const RecordsList = () => {
         </div>
         {patients?.length > 0 && (
           <>
-            <Box m={1} mb={8} style={{ marginTop: '120px' }}>
+            <Box m={1} mb={8} style={{ marginTop: '50px' }}>
               <PatientRecordTable patients={patients} />
             </Box>
           </>

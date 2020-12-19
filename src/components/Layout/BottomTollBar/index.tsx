@@ -7,7 +7,7 @@ import AssignmentIcon from '@material-ui/icons/Assignment';
 import ViewListIcon from '@material-ui/icons/ViewList';
 
 import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
-import { useStyles, MyBottomNavigationAction } from './style';
+import { useStyles, MyBottomNavigationAction } from '../style';
 
 const BottomToolBar = () => {
   const classes = useStyles();

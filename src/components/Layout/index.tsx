@@ -1,53 +1,107 @@
 import React from 'react';
-import { useStyles } from './style';
-import { ThemeProvider } from '@material-ui/core';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
+import {
+  CssBaseline,
+  Toolbar,
+  Typography,
+  IconButton,
+  Box,
+  ThemeProvider,
+} from '@material-ui/core';
+import MenuIcon from '@material-ui/icons/Menu';
 import { useTheme } from '@material-ui/core/styles';
-import { CssBaseline } from '@material-ui/core';
 
-import AppBar from './AppBar';
-import SideDrawer from './SideDrawer';
+import { useStyles } from './style';
+import { AppBar } from './AppBar';
+import { Drawer } from './Drawer';
 import BottomToolBar from './BottomTollBar';
-import theme from 'styles/theme';
+import lightTheme from 'styles/theme';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+
+import clsx from 'clsx';
+import LogoDark from './assets/LogoDark.png';
 
 interface Props {
+  header?: string;
   children: React.ReactNode;
   login?: boolean;
-  header?: string;
   bottomToolBar?: boolean;
 }
-
 const Layout: React.FC<Props> = ({
+  header,
   children,
   login,
-  header,
+
   bottomToolBar,
 }) => {
   const classes = useStyles();
-  const muiTheme = useTheme();
-  const xsSM = useMediaQuery(muiTheme.breakpoints?.between('xs', 'sm'));
+  const theme = useTheme();
+  const xsSM = useMediaQuery(theme.breakpoints?.between('xs', 'sm'));
 
+  const [open, setOpen] = React.useState(false);
+
+  const handleDrawerOpen = () => {
+    setOpen(true);
+  };
+
+  const handleDrawerClose = () => {
+    setOpen(false);
+  };
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={lightTheme}>
       <div className={classes.root}>
-        {header && (
-          <AppBar
-            header={header}
-            xsSM={xsSM}
-            withBottomBar={Boolean(bottomToolBar)}
-          />
-        )}
         <CssBaseline />
+        {header ? (
+          <>
+            <AppBar open={open}>
+              <Toolbar>
+                <IconButton
+                  color="inherit"
+                  aria-label="open drawer"
+                  onClick={handleDrawerOpen}
+                  edge="start"
+                  className={clsx(classes.menuButton, open && classes.hide)}
+                >
+                  <MenuIcon />
+                </IconButton>
+                {/* <Typography variant="h6" noWrap>
+            Persistent drawer
+          </Typography> */}
+                <Box m={1}>
+                  <img height={40} src={LogoDark} alt="Care Protect logo" />
+                </Box>
+                <Box ml={1}>
+                  <Typography variant="h6" className={classes.title}>
+                    {header}
+                  </Typography>
+                </Box>
+              </Toolbar>
+            </AppBar>
+            <Drawer onClose={handleDrawerClose} open={open} />
 
-        {bottomToolBar && !xsSM && header && <SideDrawer login={login} />}
-        {bottomToolBar && xsSM && header && <BottomToolBar />}
-        <main className={classes.content}>
-          {!login && <div className={classes.toolbar} />}
-          {children}
-        </main>
+            <main
+              className={clsx(classes.content, classes.withDrawer, {
+                [classes.contentShift]: open,
+              })}
+            >
+              <div className={classes.drawerHeader} />
+              {children}
+            </main>
+          </>
+        ) : (
+          <>
+            <main
+              className={clsx(classes.content, {
+                [classes.contentShift]: open,
+              })}
+            >
+              <div className={classes.drawerHeader} />
+              {children}
+            </main>
+            {bottomToolBar && xsSM && <BottomToolBar />}
+          </>
+        )}
       </div>
     </ThemeProvider>
   );
 };
-
 export default Layout;

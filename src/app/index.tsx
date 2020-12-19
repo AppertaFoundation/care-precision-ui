@@ -15,7 +15,7 @@ import { Navigate, Outlet } from 'react-router-dom';
 import { GlobalStyle } from 'styles/global-styles';
 
 import { sessionSelector } from 'utils/selectors';
-import { Layout } from 'components';
+import Layout from 'components/Layout';
 import { PatientList } from './containers/PatientList/Loadable';
 import { AcuityDashboard } from './containers/AcuityDashboard/Loadable';
 import { Assessment } from './containers/Assessment';

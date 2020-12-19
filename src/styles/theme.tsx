@@ -9,7 +9,7 @@ function pxToRem(value) {
 }
 
 const breakpoints = createBreakpoints({});
-const theme = responsiveFontSizes(
+const lightTheme = responsiveFontSizes(
   createMuiTheme({
     typography: {
       fontFamily: ['"Open Snas"', 'sans-serif'].join(','),
@@ -109,4 +109,4 @@ const theme = responsiveFontSizes(
   }),
 );
 
-export default theme;
+export default lightTheme;

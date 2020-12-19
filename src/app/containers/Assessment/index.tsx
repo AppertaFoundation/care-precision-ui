@@ -18,7 +18,7 @@ import { selectError, selectLoading, selectPatient } from './selectors';
 import { Box } from '@material-ui/core';
 import { useStyles } from './style';
 
-import { Card, CardContent, AppBar, Spinner } from 'components';
+import { Card, CardContent, AppBarSubpage, Spinner } from 'components';
 import ISBR from './ISBR';
 
 export function Assessment() {
@@ -51,9 +51,9 @@ export function Assessment() {
   const include = (assessmentsTypesArray: Array<string>, key: string) =>
     assessmentsTypesArray.includes(key);
 
-  const cleanStore = e => {
-    dispatch(actions.cleanAssessment());
-  };
+  // const cleanStore = e => {
+  //   dispatch(actions.cleanAssessment());
+  // };
   if (error) {
     return <p>{error}</p>;
   }
@@ -68,14 +68,8 @@ export function Assessment() {
         <meta name="description" content={`A Assessment Event- ${header}`} />
       </Helmet>
 
-      <AppBar
-        header={`Assessment: ${header}`}
-        xsSM={true}
-        withBottomBar={false}
-        notSubmitedData={true}
-        cleanFunction={cleanStore}
-      />
-      <Box mr={1} ml={1} style={{ marginTop: '70px' }}>
+      <AppBarSubpage header={`Assessment: ${header}`} />
+      <Box mr={1} ml={1}>
         <Card
           name={patient?.name}
           identifier={patient?.nhsnumber}

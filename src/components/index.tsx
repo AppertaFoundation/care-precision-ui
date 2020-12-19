@@ -11,7 +11,7 @@ import CovidIcon from './CovidIcon';
 import DenwisIcon from './DenwisIcon';
 import { ClickableElement } from './ClickableElement';
 import NewCareEventDialog from './NewCareEventDialog';
-import AppBar from './Layout/AppBar';
+import { AppBarSubpage } from './Layout/AppBarSubpage';
 import { ErrorMsg } from './ErrorMessage';
 // import Tabs from './Tabs';
 import { Tab } from './Tab/index';
@@ -37,7 +37,7 @@ export {
   DenwisIcon,
   ClickableElement,
   NewCareEventDialog,
-  AppBar,
+  AppBarSubpage,
   // Tabs,
   Tab,
   ErrorMsg,

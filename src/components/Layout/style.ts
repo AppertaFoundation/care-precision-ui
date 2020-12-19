@@ -1,35 +1,70 @@
 import {
-  createStyles,
-  Theme,
   makeStyles,
+  Theme,
   withStyles,
+  createStyles,
 } from '@material-ui/core/styles';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 
-const DRAWER_WIDTH = 240;
+const drawerWidth = 240;
 
 export const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       display: 'flex',
-      color: '#ffff',
     },
     appBar: {
-      width: `calc(100% - ${DRAWER_WIDTH}px)`,
-      marginLeft: DRAWER_WIDTH,
+      transition: theme.transitions.create(['margin', 'width'], {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.leavingScreen,
+      }),
+    },
+    appBarShift: {
+      width: `calc(100% - ${drawerWidth}px)`,
+      marginLeft: drawerWidth,
+      transition: theme.transitions.create(['margin', 'width'], {
+        easing: theme.transitions.easing.easeOut,
+        duration: theme.transitions.duration.enteringScreen,
+      }),
+    },
+    menuButton: {
+      marginRight: theme.spacing(2),
+    },
+    hide: {
+      display: 'none',
     },
     drawer: {
-      width: DRAWER_WIDTH,
+      width: drawerWidth,
       flexShrink: 0,
     },
     drawerPaper: {
-      width: DRAWER_WIDTH,
+      width: drawerWidth,
     },
-    // necessary for content to be below app bar
-    toolbar: { height: 14 },
+    drawerHeader: {
+      display: 'flex',
+      alignItems: 'center',
+      padding: theme.spacing(0, 1),
+      // necessary for content to be below app bar
+      ...theme.mixins.toolbar,
+      justifyContent: 'flex-end',
+    },
     content: {
       flexGrow: 1,
-      padding: theme.spacing(1),
+      padding: theme.spacing(3),
+      transition: theme.transitions.create('margin', {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.leavingScreen,
+      }),
+    },
+    withDrawer: {
+      marginLeft: -drawerWidth,
+    },
+    contentShift: {
+      transition: theme.transitions.create('margin', {
+        easing: theme.transitions.easing.easeOut,
+        duration: theme.transitions.duration.enteringScreen,
+      }),
+      marginLeft: 0,
     },
     title: {
       flexGrow: 1,
@@ -38,12 +73,10 @@ export const useStyles = makeStyles((theme: Theme) =>
     selected: {
       color: '#29375D',
     },
-    closeIcon: {
-      color: '#fff',
-    },
-    bottomRoot: {
-      minWidth: 75,
-    },
+    // root: {
+    //   display: 'flex',
+    //   color: '#ffff',
+    // },
     wrapper: {
       position: 'fixed',
       right: 0,
@@ -57,7 +90,6 @@ export const useStyles = makeStyles((theme: Theme) =>
     },
   }),
 );
-
 export const MyBottomNavigationAction = withStyles((theme: Theme) => ({
   root: {
     color: theme.palette.primary.contrastText,

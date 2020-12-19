@@ -1,26 +1,32 @@
 import React from 'react';
-import { useStyles } from './style';
-import { useNavigate } from 'react-router-dom';
-import { useLocation } from 'react-router';
 import {
-  Drawer,
+  Drawer as MuiDrawer,
+  IconButton,
   Divider,
   List,
   ListItem,
-  ListItemIcon,
   ListItemText,
+  ListItemIcon,
 } from '@material-ui/core';
+import { useTheme } from '@material-ui/core/styles';
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import ViewListIcon from '@material-ui/icons/ViewList';
 import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
-import fullLogoWhite from './assets/fullLogoWhite.png';
+import { useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router';
+import { useStyles } from '../style';
 
 interface Props {
-  login?: boolean;
+  open: boolean;
+  onClose: any;
 }
-const SideDrawer: React.FC<Props> = ({ login }) => {
+export const Drawer: React.FC<Props> = ({ open, onClose }) => {
   const classes = useStyles();
+  const theme = useTheme();
+
   const navigate = useNavigate();
   const location = useLocation();
   const { pathname } = location;
@@ -30,17 +36,26 @@ const SideDrawer: React.FC<Props> = ({ login }) => {
     navigate(e.currentTarget.id, { replace: true });
     setNavPath(pathname);
   };
+
   return (
-    <Drawer
+    <MuiDrawer
       className={classes.drawer}
-      variant="permanent"
+      variant="persistent"
+      anchor="left"
+      open={open}
       classes={{
         paper: classes.drawerPaper,
       }}
-      anchor="left"
     >
-      <img src={fullLogoWhite} height={50} alt="full logo" />
-      <div {...(login ? {} : { className: classes.toolbar })} />
+      <div className={classes.drawerHeader}>
+        <IconButton onClick={onClose}>
+          {theme.direction === 'ltr' ? (
+            <ChevronLeftIcon />
+          ) : (
+            <ChevronRightIcon />
+          )}
+        </IconButton>
+      </div>
       <Divider />
       <List>
         <ListItem
@@ -114,8 +129,6 @@ const SideDrawer: React.FC<Props> = ({ login }) => {
           />
         </ListItem>
       </List>
-    </Drawer>
+    </MuiDrawer>
   );
 };
-
-export default SideDrawer;
