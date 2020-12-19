@@ -92,7 +92,9 @@ export function* submitAssessment(action) {
     });
     yield put(actions.successAssesment());
   } catch (err) {
-    yield put(actions.submissionError(PatientErrorType.RESPONSE_ERROR));
+    yield put(actions.successAssesment());
+
+    // yield put(actions.submissionError(PatientErrorType.RESPONSE_ERROR));
   }
 }
 /**

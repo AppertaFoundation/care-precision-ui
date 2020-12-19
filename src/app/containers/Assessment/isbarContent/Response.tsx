@@ -1,8 +1,19 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
-import { Grid, Divider } from '@material-ui/core';
-import { makeStyles } from '@material-ui/styles';
-import { useNavigate } from 'react-router-dom';
+import {
+  Grid,
+  Divider,
+  DialogContent,
+  DialogTitle,
+  Dialog as MuiDialog,
+  DialogContentText,
+  DialogActions,
+  Typography,
+} from '@material-ui/core';
+import createBreakpoints from '@material-ui/core/styles/createBreakpoints';
+
+import { makeStyles, withStyles } from '@material-ui/core/styles';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import {
   selectNews2,
@@ -34,10 +45,20 @@ const useStyles = makeStyles((theme: any) => ({
     marginBottom: '50px',
   },
 }));
+const breakpoints = createBreakpoints({});
 
+const Dialog = withStyles({
+  paper: {
+    [breakpoints.up('sm')]: {
+      borderRadius: '35px',
+      padding: '15px',
+    },
+  },
+})(MuiDialog);
 const Response = () => {
   const classes = useStyles();
   const navigate = useNavigate();
+  const { id } = useParams();
   const dispatch = useDispatch();
   const news2 = useSelector(selectNews2);
   const sepsis = useSelector(selectSepsis);
@@ -49,15 +70,12 @@ const Response = () => {
   const pending = useSelector(selectPending);
   const submissionError = useSelector(selectSubmissionError);
 
-  const useEffectOnMount = (effect: React.EffectCallback) => {
-    React.useEffect(effect, [success]);
-  };
-  useEffectOnMount(() => {
-    if (success) {
-      navigate('/');
-    }
-  });
+  const [open, setOpen] = React.useState(false);
 
+  const goToPatientList = () => navigate('/');
+  const handleClose = () => setOpen(false);
+
+  const goToOverview = () => navigate(`/overview${id}`);
   const handleSubmit = e => {
     dispatch(
       actions.pendingAssessment({
@@ -69,15 +87,9 @@ const Response = () => {
         denwis: denwis,
       }),
     );
-    navigate('/');
+    setOpen(true);
   };
 
-  if (submissionError) {
-    return <p>{submissionError}</p>;
-  }
-  if (pending) {
-    return <Spinner />;
-  }
   return (
     <Grid
       container
@@ -114,6 +126,58 @@ const Response = () => {
           Finish and Save Observation
         </Button.Secondary>
       </BottomBar>
+      <Dialog
+        fullWidth
+        maxWidth={'sm'}
+        open={open}
+        keepMounted
+        onClose={handleClose}
+      >
+        {pending ? (
+          <Spinner />
+        ) : (
+          <>
+            <DialogTitle>
+              <Typography component="div" noWrap variant="h6">
+                {`${
+                  success
+                    ? 'The results were saved correctly'
+                    : 'Something went wrong'
+                }`}
+              </Typography>
+            </DialogTitle>
+
+            <DialogContent>
+              <DialogContentText>
+                {`${
+                  success ? 'Choose where you want to go now' : submissionError
+                }`}
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              {success && (
+                <>
+                  <Button.Secondary onClick={goToPatientList} color="secondary">
+                    Patient List
+                  </Button.Secondary>
+                  <Button.Secondary color="secondary" onClick={goToOverview}>
+                    Patient Overview
+                  </Button.Secondary>
+                </>
+              )}
+              {submissionError && (
+                <Button.Secondary
+                  color="secondary"
+                  variant="contained"
+                  onClick={handleSubmit}
+                >
+                  Try Again
+                </Button.Secondary>
+              )}
+            </DialogActions>
+          </>
+        )}
+      </Dialog>
     </Grid>
   );
 };
