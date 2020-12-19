@@ -6,6 +6,7 @@ import {
   IconButton,
   CardActionArea,
   Divider,
+  Typography,
 } from '@material-ui/core';
 import MuiCardContent from '@material-ui/core/CardContent';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
@@ -63,20 +64,31 @@ const Card: React.FC<Props> = ({
   return (
     <>
       <Box className={clsx(classes.card, classes.roundedCorners)}>
+        <CardHeader
+          title={
+            <CardActionArea onDoubleClick={redirectToPatientOverview}>
+              <Typography variant="h5" display="block">
+                {name}
+              </Typography>
+            </CardActionArea>
+          }
+          subheader={
+            <CardActionArea onDoubleClick={redirectToPatientOverview}>
+              <Typography variant="body1" color="textSecondary">
+                {identifier}
+              </Typography>
+            </CardActionArea>
+          }
+          action={
+            <CardActions disableSpacing>
+              <Divider orientation="vertical" flexItem />
+              <IconButton edge={'end'} onClick={handleOpen}>
+                <MoreVertIcon />
+              </IconButton>
+            </CardActions>
+          }
+        />
         <CardActionArea onDoubleClick={redirectToPatientOverview}>
-          <CardHeader
-            title={name}
-            subheader={identifier}
-            action={
-              <CardActions disableSpacing>
-                <Divider orientation="vertical" flexItem />
-                <IconButton edge={'end'} onClick={handleOpen}>
-                  <MoreVertIcon />
-                </IconButton>
-              </CardActions>
-            }
-          />
-
           <CardContent className={classes.rootContent}>{children}</CardContent>
         </CardActionArea>
         {children && (
