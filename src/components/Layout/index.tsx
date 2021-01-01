@@ -54,18 +54,17 @@ const Layout: React.FC<Props> = ({
           <>
             <AppBar open={open}>
               <Toolbar>
-                <IconButton
-                  color="inherit"
-                  aria-label="open drawer"
-                  onClick={handleDrawerOpen}
-                  edge="start"
-                  className={clsx(classes.menuButton, open && classes.hide)}
-                >
-                  <MenuIcon />
-                </IconButton>
-                {/* <Typography variant="h6" noWrap>
-            Persistent drawer
-          </Typography> */}
+                {!xsSM && bottomToolBar && (
+                  <IconButton
+                    color="inherit"
+                    aria-label="open drawer"
+                    onClick={handleDrawerOpen}
+                    edge="start"
+                    className={clsx(classes.menuButton, open && classes.hide)}
+                  >
+                    <MenuIcon />
+                  </IconButton>
+                )}
                 <Box m={1}>
                   <img height={40} src={LogoDark} alt="Care Protect logo" />
                 </Box>
@@ -76,6 +75,7 @@ const Layout: React.FC<Props> = ({
                 </Box>
               </Toolbar>
             </AppBar>
+
             <Drawer onClose={handleDrawerClose} open={open} />
 
             <main
@@ -86,6 +86,7 @@ const Layout: React.FC<Props> = ({
               <div className={classes.drawerHeader} />
               {children}
             </main>
+            {bottomToolBar && xsSM && <BottomToolBar />}
           </>
         ) : (
           <>
@@ -97,7 +98,6 @@ const Layout: React.FC<Props> = ({
               <div className={classes.drawerHeader} />
               {children}
             </main>
-            {bottomToolBar && xsSM && <BottomToolBar />}
           </>
         )}
       </div>
