@@ -32,11 +32,12 @@ export const Drawer: React.FC<Props> = ({ open, onClose }) => {
   const { pathname } = location;
   const [navPath, setNavPath] = React.useState(pathname);
 
+  React.useEffect(() => {
+    setNavPath(pathname);
+  }, [pathname]);
   const handleChange = e => {
     navigate(e.currentTarget.id, { replace: true });
-    setNavPath(pathname);
   };
-
   return (
     <MuiDrawer
       className={classes.drawer}
