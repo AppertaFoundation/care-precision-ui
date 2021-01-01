@@ -23,6 +23,7 @@ import NativeSelect from './NativeSelect';
 import RadioGroup from './RadioGroup';
 import Dialog from './Dialog';
 import Spinner from './Spinner';
+import Text from './Text';
 export {
   Layout,
   Card,
@@ -51,4 +52,5 @@ export {
   RadioGroup,
   Dialog,
   Spinner,
+  Text,
 };

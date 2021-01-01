@@ -12,11 +12,11 @@ const useStyles = makeStyles({
 
 //TODO[5]: minimalis amount of ErrorMessage, in some places is
 // used  styled component somewhere   is used this component
-interface ErrorMessage {
+interface Props {
   name: string;
   errors: Object;
 }
-const ErrorMsg: React.FC<ErrorMessage> = ({ name, errors }) => {
+const ErrorMsg: React.FC<Props> = ({ name, errors }) => {
   const classes = useStyles();
 
   return (

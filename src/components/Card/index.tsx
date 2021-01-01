@@ -14,6 +14,7 @@ import { withStyles } from '@material-ui/core/styles';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { useTheme } from '@material-ui/core/styles';
 import { useStyles } from './style';
+import { Text } from 'components';
 import clsx from 'clsx';
 
 import { IAssessmentIcons } from 'types';
@@ -33,6 +34,7 @@ interface Props {
   name?: string;
   identifier?: string;
   id?: string;
+  isDashboard?: boolean;
   children?: JSX.Element;
   assesments?: IAssessmentIcons;
   handleClick?: (
@@ -40,6 +42,7 @@ interface Props {
       | React.MouseEvent<HTMLDivElement>
       | React.KeyboardEvent<HTMLDivElement>,
   ) => void;
+  location?: any;
 }
 
 const Card: React.FC<Props> = ({
@@ -48,6 +51,8 @@ const Card: React.FC<Props> = ({
   assesments,
   children,
   id,
+  isDashboard,
+  location,
 }) => {
   const classes = useStyles();
   const [open, setOpen] = useState<boolean>(false);
@@ -77,10 +82,12 @@ const Card: React.FC<Props> = ({
               <Typography variant="body1" color="textSecondary">
                 {identifier}
               </Typography>
+              {location && <Text label="Location">{location}</Text>}
             </CardActionArea>
           }
           action={
             <CardActions disableSpacing>
+              {isDashboard && sm && latestResponseBar}
               <Divider orientation="vertical" flexItem />
               <IconButton edge={'end'} onClick={handleOpen}>
                 <MoreVertIcon />
@@ -88,10 +95,14 @@ const Card: React.FC<Props> = ({
             </CardActions>
           }
         />
-        <CardActionArea onDoubleClick={redirectToPatientOverview}>
-          <CardContent className={classes.rootContent}>{children}</CardContent>
-        </CardActionArea>
         {children && (
+          <CardActionArea onDoubleClick={redirectToPatientOverview}>
+            <CardContent className={classes.rootContent}>
+              {children}
+            </CardContent>
+          </CardActionArea>
+        )}
+        {!(isDashboard && sm) && (
           <>
             <Divider variant="middle" />
 

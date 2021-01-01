@@ -5,8 +5,10 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useInjectReducer, useInjectSaga } from 'utils/redux-injectors';
 
 import { Helmet } from 'react-helmet-async';
+import uniqid from 'uniqid';
 
 import { patientsListFromSaga } from '../PatientList/saga';
+
 import { sliceKey, reducer, actions } from '../PatientList/slice';
 import {
   selectPatients,
@@ -16,15 +18,21 @@ import {
   selectFilters,
 } from '../PatientList/selectors';
 
-import { Box, Toolbar } from '@material-ui/core';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
-import { useTheme } from '@material-ui/core/styles';
-import { Search, SortPoper, Sort, Spinner } from 'components';
+import { Box, List, Toolbar } from '@material-ui/core';
+import {
+  Card,
+  // CardContent,
+  Search,
+  SortPoper,
+  Sort,
+  Spinner,
+} from 'components';
 import { useStyles } from '../PatientList/styles';
 
-import PatientRecordTable from 'components/DashboardTable';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { useTheme } from '@material-ui/core/styles';
 
-const RecordsList = () => {
+const AcuityList = () => {
   //redux configuration
   useInjectReducer({ key: sliceKey, reducer: reducer });
   useInjectSaga({ key: sliceKey, saga: patientsListFromSaga });
@@ -78,8 +86,31 @@ const RecordsList = () => {
         </div>
         {patients?.length > 0 && (
           <>
-            <Box m={1} mb={8} style={{ marginTop: '50px' }}>
-              <PatientRecordTable patients={patients} />
+            <Box mb={8} style={{ marginTop: '50px' }}>
+              <List>
+                {patients.map(
+                  ({
+                    name,
+                    nhsnumber,
+                    birthDate,
+                    gender,
+                    location,
+                    assessment,
+                    id,
+                  }) => (
+                    <Box key={uniqid()}>
+                      <Card
+                        name={name}
+                        identifier={nhsnumber}
+                        assesments={assessment}
+                        id={id}
+                        isDashboard
+                        location={location}
+                      ></Card>
+                    </Box>
+                  ),
+                )}
+              </List>
             </Box>
           </>
         )}
@@ -87,4 +118,4 @@ const RecordsList = () => {
     </>
   );
 };
-export default RecordsList;
+export default AcuityList;

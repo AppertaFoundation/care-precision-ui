@@ -1,7 +1,7 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
 
-import RecordsTable from './RecordsTable';
+import AcuityList from './List';
 
 export function AcuityDashboard() {
   return (
@@ -10,7 +10,7 @@ export function AcuityDashboard() {
         <title>{'Acuity Dashboard'}</title>
         <meta name="description" content={'A Acuity Dashboard'} />
       </Helmet>
-      <RecordsTable />
+      <AcuityList />
     </>
   );
 }
