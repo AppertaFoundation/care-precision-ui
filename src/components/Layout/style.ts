@@ -12,6 +12,7 @@ export const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       display: 'flex',
+      flexDirection: 'column',
     },
     appBar: {
       transition: theme.transitions.create(['margin', 'width'], {
@@ -57,14 +58,14 @@ export const useStyles = makeStyles((theme: Theme) =>
       }),
     },
     withDrawer: {
-      marginLeft: -drawerWidth,
+      // marginLeft: -drawerWidth,
     },
     contentShift: {
       transition: theme.transitions.create('margin', {
         easing: theme.transitions.easing.easeOut,
         duration: theme.transitions.duration.enteringScreen,
       }),
-      marginLeft: 0,
+      marginLeft: 240,
     },
     title: {
       flexGrow: 1,
@@ -87,6 +88,11 @@ export const useStyles = makeStyles((theme: Theme) =>
       textAlign: 'center',
       paddingTop: 5,
       paddingBottom: 5,
+    },
+    footer: {
+      backgroundColor: '#001031',
+      color: theme.palette.primary.contrastText,
+      padding: '16px 24px',
     },
   }),
 );

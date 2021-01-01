@@ -54,7 +54,7 @@ const Layout: React.FC<Props> = ({
           <>
             <AppBar open={open}>
               <Toolbar>
-                {!xsSM && bottomToolBar && (
+                {!xsSM && (
                   <IconButton
                     color="inherit"
                     aria-label="open drawer"
@@ -86,7 +86,18 @@ const Layout: React.FC<Props> = ({
               <div className={classes.drawerHeader} />
               {children}
             </main>
-            {bottomToolBar && xsSM && <BottomToolBar />}
+            {bottomToolBar &&
+              (xsSM ? (
+                <BottomToolBar />
+              ) : (
+                <footer
+                  className={clsx(classes.footer, {
+                    [classes.contentShift]: open,
+                  })}
+                >
+                  © 2020 Company. All rights reserved.
+                </footer>
+              ))}
           </>
         ) : (
           <>
