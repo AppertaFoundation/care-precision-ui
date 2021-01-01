@@ -20,6 +20,9 @@ export const useStyles = makeStyles((theme: Theme) =>
         duration: theme.transitions.duration.leavingScreen,
       }),
     },
+    appBarHeight: {
+      height: 65,
+    },
     appBarShift: {
       width: `calc(100% - ${drawerWidth}px)`,
       marginLeft: drawerWidth,
@@ -56,6 +59,8 @@ export const useStyles = makeStyles((theme: Theme) =>
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
       }),
+      height: '100%',
+      minHeight: 'calc(100vh - 52px)',
     },
     withDrawer: {
       // marginLeft: -drawerWidth,

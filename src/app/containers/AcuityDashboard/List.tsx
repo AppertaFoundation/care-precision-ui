@@ -18,7 +18,7 @@ import {
   selectFilters,
 } from '../PatientList/selectors';
 
-import { Box, List, Toolbar } from '@material-ui/core';
+import { Box, List, Toolbar, Grid } from '@material-ui/core';
 import {
   Card,
   // CardContent,
@@ -29,17 +29,12 @@ import {
 } from 'components';
 import { useStyles } from '../PatientList/styles';
 
-import useMediaQuery from '@material-ui/core/useMediaQuery';
-import { useTheme } from '@material-ui/core/styles';
-
 const AcuityList = () => {
   //redux configuration
   useInjectReducer({ key: sliceKey, reducer: reducer });
   useInjectSaga({ key: sliceKey, saga: patientsListFromSaga });
   const classes = useStyles();
   const ref = React.useRef(null);
-  const muiTheme = useTheme();
-  const xsSM = useMediaQuery(muiTheme.breakpoints?.between('xs', 'sm'));
 
   const dispatch = useDispatch();
   const error = useSelector(selectError);
@@ -77,11 +72,25 @@ const AcuityList = () => {
       </Helmet>
       <>
         <div className={classes.fixed} ref={ref}>
-          <Toolbar {...(xsSM ? {} : { className: classes.appBar })}>
-            <Search onSearch={handleSearch} defaultValue={search} />
-            <SortPoper>
-              <Sort onFilterSort={handleSortFilter} defaultValues={filters} />
-            </SortPoper>
+          <Toolbar>
+            <Grid
+              direction="row"
+              alignItems="center"
+              justify={'flex-end'}
+              container
+            >
+              <Grid item xs={10} sm={6} md={3}>
+                <Search onSearch={handleSearch} defaultValue={search} />
+              </Grid>
+              <Grid item>
+                <SortPoper>
+                  <Sort
+                    onFilterSort={handleSortFilter}
+                    defaultValues={filters}
+                  />
+                </SortPoper>
+              </Grid>
+            </Grid>
           </Toolbar>
         </div>
         {patients?.length > 0 && (

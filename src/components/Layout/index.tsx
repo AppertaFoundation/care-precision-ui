@@ -53,7 +53,7 @@ const Layout: React.FC<Props> = ({
         {header ? (
           <>
             <AppBar open={open}>
-              <Toolbar>
+              <Toolbar className={classes.appBarHeight}>
                 {!xsSM && (
                   <IconButton
                     color="inherit"

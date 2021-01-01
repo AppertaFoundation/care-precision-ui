@@ -8,7 +8,7 @@ import {
   Divider,
   Box,
 } from '@material-ui/core';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles, makeStyles } from '@material-ui/core/styles';
 import Button from '../Button';
 import { setAssessmentType } from 'store/assessmentTypeReducer';
 import { useNavigate } from 'react-router-dom';
@@ -20,6 +20,9 @@ const Dialog = withStyles({
     padding: '15px',
   },
 })(MuiDialog);
+const useStyles = makeStyles({
+  content: { padding: 24 },
+});
 interface Props {
   open: boolean;
   title?: string;
@@ -34,6 +37,7 @@ const NewCareEventDialog: React.FC<Props> = ({
   identifier,
   id,
 }) => {
+  const classes = useStyles();
   const [path, setPath] = React.useState<never | string>();
 
   const useEffectOnMount = (effect: React.EffectCallback) => {
@@ -85,7 +89,7 @@ const NewCareEventDialog: React.FC<Props> = ({
         </Typography>
       </DialogTitle>
 
-      <DialogContent>
+      <DialogContent className={classes.content}>
         <Grid container spacing={2}>
           <Grid item xs={12} sm={6}>
             <Button.Primary
