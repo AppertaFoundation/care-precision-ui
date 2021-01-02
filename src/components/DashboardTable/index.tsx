@@ -9,6 +9,7 @@ import {
   TableHead,
   TableContainer,
   TableBody,
+  Grid,
 } from '@material-ui/core';
 import { withStyles, useTheme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
@@ -59,49 +60,42 @@ const PatientDashboardTable: React.FC<{ patients: tPatientsList[] }> = ({
   const theme = useTheme();
   const downSM = useMediaQuery(theme.breakpoints.down(600));
   return (
-    <>
-      <TableContainer component={Paper}>
-        <Table className={classes.table} aria-label="simple table">
-          <TableHead>
-            <TableRow>
+    <Grid container className={classes.root}>
+      <Grid item xs={12}>
+        <TableContainer component={Paper}>
+          <Table aria-label="simple table">
+            <TableHead>
               {!downSM && (
-                <TableCell colSpan={2} padding="checkbox"></TableCell>
+                <TableRow>
+                  <TableCell colSpan={2} padding="checkbox"></TableCell>
+
+                  <TableCell padding="none" align="center">
+                    <Typography variant="caption">DENWIS</Typography>
+                  </TableCell>
+                  <TableCell padding="none" align="center">
+                    <Typography variant="caption">COVID</Typography>
+                  </TableCell>
+                  <TableCell padding="none" align="center">
+                    <Typography variant="caption">SEPSIS</Typography>
+                  </TableCell>
+                  <TableCell padding="none" align="center">
+                    <Typography variant="caption">NEWS2</Typography>
+                  </TableCell>
+                  <TableCell padding="none" align="center">
+                    <Typography variant="caption">ACTION</Typography>
+                  </TableCell>
+                </TableRow>
               )}
-              <TableCell padding="checkbox" align="center">
-                <Typography noWrap variant="subtitle2">
-                  DENWIS
-                </Typography>
-              </TableCell>
-              <TableCell padding="checkbox" align="center">
-                <Typography noWrap variant="subtitle2">
-                  COVID
-                </Typography>
-              </TableCell>
-              <TableCell padding="checkbox" align="center">
-                <Typography noWrap variant="subtitle2">
-                  SEPSIS
-                </Typography>
-              </TableCell>
-              <TableCell padding="checkbox" align="center">
-                <Typography noWrap variant="subtitle2">
-                  NEWS2
-                </Typography>
-              </TableCell>
-              <TableCell padding="checkbox" align="center">
-                <Typography noWrap variant="subtitle2">
-                  Action
-                </Typography>
-              </TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {rows.map(row => (
-              <Row key={uniqid()} downSM={downSM} {...row} />
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-    </>
+            </TableHead>
+            <TableBody>
+              {rows.map(row => (
+                <Row key={uniqid()} downSM={downSM} {...row} />
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </Grid>
+    </Grid>
   );
 };
 

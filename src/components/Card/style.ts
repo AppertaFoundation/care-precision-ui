@@ -4,28 +4,25 @@ import { Theme } from '@material-ui/core/styles';
 export const useStyles = makeStyles((theme: Theme) => ({
   card: () => ({
     width: '100%',
-    height: '128px',
     marginBottom: '0.5em',
     display: 'inline-block',
     verticalAlign: 'top',
     backgroundColor: '#ffff',
-    border: '1px solid #666666',
-    boxShadow: '10px 11px 7px -7px rgba(102,102,102,0.45);',
+    border: 'none',
+    boxShadow: 'none',
     color: '#4D4D4D',
-    [theme.breakpoints.down('sm')]: {
-      height: 'auto',
-    },
+    padding: '15px',
   }),
   header: () => ({
     backgroundColor: '#ffff',
     paddingBottom: '0px',
   }),
-  subheader: () => ({ color: '#4D4D4D' }),
   roundedCorners: () => ({
-    borderRadius: '5px',
+    borderRadius: '35px',
+    zIndex: 1000,
   }),
   rootContent: {
-    paddingBottom: 0,
+    paddingBottom: '10px',
     paddingTop: 0,
     color: '#4D4D4D',
   },

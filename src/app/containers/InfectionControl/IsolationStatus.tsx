@@ -103,7 +103,7 @@ export function IsolationStatus() {
           </Grid>
         </Grid>
       </Box>
-      <Dialog
+      {/* <Dialog
         open={open}
         handleClose={handleClose}
         title={'Update Isolation Status'}
@@ -205,6 +205,7 @@ export function IsolationStatus() {
           </Grid>
         </Box>
       </Dialog>
+    */}
     </>
   );
 }

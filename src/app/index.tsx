@@ -15,9 +15,10 @@ import { Navigate, Outlet } from 'react-router-dom';
 import { GlobalStyle } from 'styles/global-styles';
 
 import { sessionSelector } from 'utils/selectors';
-import { Layout } from 'components';
+import Layout from 'components/Layout';
 import { PatientList } from './containers/PatientList/Loadable';
 import { AcuityDashboard } from './containers/AcuityDashboard/Loadable';
+import { Assessment } from './containers/Assessment';
 import { NotFoundPage } from 'components/NotFoundPage/Loadable';
 import { InfectionControl } from './containers/InfectionControl';
 
@@ -63,7 +64,7 @@ export function App() {
             path="/"
           />
           <PrivateRoute
-            header="Patient List"
+            header="Acuity Dasboard"
             appBar
             bottomToolBar
             element={<AcuityDashboard />}
@@ -72,9 +73,21 @@ export function App() {
           <PrivateRoute
             header={false}
             bottomToolBar
+            path="/covid-menagment/:id/"
             element={<InfectionControl />}
-            path="/covid-management/:id/"
           />
+          <PrivateRoute
+            header={false}
+            bottomToolBar
+            element={<Assessment />}
+            path="/assessment/:id/:tab/:obsType"
+          />
+          {/* <PrivateRoute
+            header={false}
+            bottomToolBar
+            element={<Assessment step={'background'}/>}
+            path="/assessment/:id/1"
+          /> */}
         </Route>
         <Route element={<NotFoundPage />} />
       </Routes>

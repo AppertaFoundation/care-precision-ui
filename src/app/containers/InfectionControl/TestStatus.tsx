@@ -150,7 +150,7 @@ export function TestStatus() {
           </Grid>
         </Grid>
       </Box>
-      <Dialog
+      {/* <Dialog
         open={requestTest}
         handleClose={closeRequest}
         title={'Request Test'}
@@ -247,6 +247,7 @@ export function TestStatus() {
           </Grid>
         </Box>
       </Dialog>
+    */}
     </>
   );
 }

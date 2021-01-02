@@ -69,7 +69,7 @@ interface Props {
     filter: { key: string; value: string };
   };
 }
-const ACTIVE_BTN = '#3f51b5';
+const ACTIVE_BTN = '#29375d';
 const Sort: React.FC<Props> = React.forwardRef(
   ({ onFilterSort, defaultValues }, ref) => {
     const [state, setState] = React.useState<any>({
@@ -98,9 +98,13 @@ const Sort: React.FC<Props> = React.forwardRef(
       e: React.ChangeEvent<HTMLInputElement>,
     ): void => {
       const value = e.target.value;
+      const name = e.target.name;
       setState(oldState => ({
         ...oldState,
-        filter: { key: 'sepsis', value },
+        filter: {
+          ...oldState.filter,
+          [name]: { key: `${name}`, value },
+        },
       }));
     };
 
@@ -136,6 +140,17 @@ const Sort: React.FC<Props> = React.forwardRef(
       clearFilter();
       onFilterSort({ sort: null, filter: null });
     };
+    const clearFilters = name => {
+      setState(oldState => ({
+        ...oldState,
+        filter: {
+          ...oldState.filter,
+          [name]: null,
+        },
+      }));
+    };
+    const clearSepsis = () => clearFilters('sepsis');
+    const clearDenwis = () => clearFilters('denwis');
     return (
       <Box p={1} m={1}>
         <Box
@@ -196,8 +211,8 @@ const Sort: React.FC<Props> = React.forwardRef(
                   Sepsis Flag:
                 </FormLabel>
                 <RadioGroup
-                  name={'sortBy'}
-                  value={state.filter ? state.filter.value : ''}
+                  name={'sepsis'}
+                  value={state.filter?.sepsis ? state.filter.sepsis.value : ''}
                   onChange={handleChangeSelect}
                   row
                 >
@@ -205,7 +220,25 @@ const Sort: React.FC<Props> = React.forwardRef(
                     const { id, name } = item;
                     return <RadioItem key={uniqid()} value={id} label={name} />;
                   })}
-                  <IconButton size="small" onClick={setDesc}>
+                  <IconButton size="small" onClick={clearSepsis}>
+                    <DeleteIcon htmlColor={ACTIVE_BTN} />
+                  </IconButton>
+                </RadioGroup>
+              </FormControl>
+            </Box>
+            <Box mt={2}>
+              <FormControl component="fieldset">
+                <FormLabel disabled component="legend">
+                  DENWIS output:
+                </FormLabel>
+                <RadioGroup
+                  name={'denwis'}
+                  value={state.filter?.denwis ? state.filter.denwis.value : ''}
+                  onChange={handleChangeSelect}
+                  row
+                >
+                  <RadioItem key={uniqid()} value={'denwis'} label={'DENWIS'} />
+                  <IconButton size="small" onClick={clearDenwis}>
                     <DeleteIcon htmlColor={ACTIVE_BTN} />
                   </IconButton>
                 </RadioGroup>
@@ -213,17 +246,18 @@ const Sort: React.FC<Props> = React.forwardRef(
             </Box>
           </Box>
         </Box>
+
         <Box display="flex" flexDirection="row-reverse">
           <Box p={1}>
             {' '}
-            <Button.Primary variant="contained" onClick={handleFilterSort}>
-              Applay
-            </Button.Primary>
+            <Button.Secondary variant="contained" onClick={handleFilterSort}>
+              Apply
+            </Button.Secondary>
           </Box>
           <Box p={1}>
-            <Button.Secondary variant="contained" onClick={clearAll}>
+            <Button.Primary variant="contained" onClick={clearAll}>
               Clear all
-            </Button.Secondary>
+            </Button.Primary>
           </Box>
         </Box>
       </Box>

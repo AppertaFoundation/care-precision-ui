@@ -3,9 +3,9 @@ import { Grid } from '@material-ui/core';
 import Text from '../Text/';
 
 interface Props {
-  birthDate: string;
-  location: string;
-  gender: string;
+  birthDate?: string;
+  location?: string;
+  gender?: string;
 }
 
 const CardContent: React.FC<Props> = ({ location, gender, birthDate }) => {

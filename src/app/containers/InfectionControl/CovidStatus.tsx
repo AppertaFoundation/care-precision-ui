@@ -74,7 +74,7 @@ export function CovidStatus() {
           </Grid>
         </Grid>
       </Box>
-      <Dialog
+      {/* <Dialog
         open={open}
         handleClose={handleClose}
         title={'Update COVID Status'}
@@ -124,7 +124,7 @@ export function CovidStatus() {
             </Box>
           </Grid>
         </Grid>
-      </Dialog>
+      </Dialog> */}
     </>
   );
 }

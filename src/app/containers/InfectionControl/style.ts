@@ -15,6 +15,9 @@ export const useStyles = makeStyles(theme => ({
       marginTop: '216px',
     },
   },
+  closeButton: {
+    marginRight: theme.spacing(2),
+  },
   chip: {
     minWidth: '300px',
     margin: '0 auto',

@@ -3,10 +3,10 @@ import {
   CardHeader,
   CardActions,
   Box,
-  Grid,
-  Typography,
   IconButton,
+  CardActionArea,
   Divider,
+  Typography,
 } from '@material-ui/core';
 import MuiCardContent from '@material-ui/core/CardContent';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
@@ -14,48 +14,49 @@ import { withStyles } from '@material-ui/core/styles';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { useTheme } from '@material-ui/core/styles';
 import { useStyles } from './style';
+import { Text } from 'components';
 import clsx from 'clsx';
 
 import { IAssessmentIcons } from 'types';
 
 import NewCareEventDialog from '../NewCareEventDialog';
 import LatestResponse from './LatestResponse';
-import { ClickableElement } from '../ClickableElement';
 
 const CardContent = withStyles({
   root: {
     paddingTop: 0,
     paddingRight: '16px',
-    paddingBottom: 0,
+    paddingBottom: '16px',
   },
 })(MuiCardContent);
 
 interface Props {
-  name: string;
-  identifier: string;
-  id: string;
-  children: JSX.Element;
-  assesments: IAssessmentIcons;
+  name?: string;
+  identifier?: string;
+  id?: string;
+  isDashboard?: boolean;
+  children?: JSX.Element;
+  assesments?: IAssessmentIcons;
   handleClick?: (
     event:
       | React.MouseEvent<HTMLDivElement>
       | React.KeyboardEvent<HTMLDivElement>,
   ) => void;
+  location?: any;
 }
 
 const Card: React.FC<Props> = ({
   name,
   identifier,
   assesments,
-  handleClick,
   children,
   id,
+  isDashboard,
+  location,
 }) => {
   const classes = useStyles();
   const [open, setOpen] = useState<boolean>(false);
-  if (open) {
-    console.log('');
-  }
+
   const handleOpen = (): void => setOpen(true);
   const handleClose = (): void => setOpen(false);
 
@@ -65,50 +66,29 @@ const Card: React.FC<Props> = ({
   const latestResponseBar = (
     <LatestResponse sm={!sm} assessments={assesments} id={id} />
   );
+  const redirectToPatientOverview = e => console.log('jest');
   return (
     <>
       <Box className={clsx(classes.card, classes.roundedCorners)}>
         <CardHeader
-          className={classes.headerRoot}
-          disableTypography
           title={
-            <ClickableElement onClick={handleClick}>
-              <Box>
-                <Grid container direction="row">
-                  <Grid item>
-                    <Typography component="div" className={classes.subheader}>
-                      <Box mr={1} fontWeight="fontWeightBold">
-                        {name}
-                      </Box>
-                    </Typography>
-                  </Grid>
-                </Grid>
-              </Box>
-            </ClickableElement>
+            <CardActionArea onDoubleClick={redirectToPatientOverview}>
+              <Typography variant="h5" display="block">
+                {name}
+              </Typography>
+            </CardActionArea>
           }
           subheader={
-            <Box>
-              <Grid container>
-                <Grid item xs={12} sm={6}>
-                  <ClickableElement onClick={handleClick}>
-                    <Grid item>
-                      <Typography component="div" color="textSecondary">
-                        <Box mr={1} fontWeight="fontWeightBold">
-                          {identifier}
-                        </Box>
-                      </Typography>
-                    </Grid>
-                  </ClickableElement>
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                  {!sm && latestResponseBar}
-                </Grid>
-              </Grid>
-            </Box>
+            <CardActionArea onDoubleClick={redirectToPatientOverview}>
+              <Typography variant="body1" color="textSecondary">
+                {identifier}
+              </Typography>
+              {location && <Text label="Location">{location}</Text>}
+            </CardActionArea>
           }
           action={
             <CardActions disableSpacing>
-              {sm && latestResponseBar}
+              {isDashboard && sm && latestResponseBar}
               <Divider orientation="vertical" flexItem />
               <IconButton edge={'end'} onClick={handleOpen}>
                 <MoreVertIcon />
@@ -116,14 +96,19 @@ const Card: React.FC<Props> = ({
             </CardActions>
           }
         />
-        {handleClick ? (
-          <ClickableElement onClick={handleClick}>
+        {children && (
+          <CardActionArea onDoubleClick={redirectToPatientOverview}>
             <CardContent className={classes.rootContent}>
               {children}
             </CardContent>
-          </ClickableElement>
-        ) : (
-          <CardContent>{children}</CardContent>
+          </CardActionArea>
+        )}
+        {!(isDashboard && sm) && (
+          <>
+            <Divider variant="middle" />
+
+            <CardActions>{latestResponseBar}</CardActions>
+          </>
         )}
       </Box>
       {open && (
@@ -131,7 +116,8 @@ const Card: React.FC<Props> = ({
           open={open}
           handleClose={handleClose}
           title={name}
-          identifier={identifier}
+          identifier={identifier || ''}
+          id={id || ''}
         />
       )}
     </>

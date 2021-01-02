@@ -1,13 +1,13 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router';
-import { BottomNavigation, BottomNavigationAction } from '@material-ui/core';
+import { BottomNavigation } from '@material-ui/core';
 import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import ViewListIcon from '@material-ui/icons/ViewList';
 
 import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
-import { useStyles } from './style';
+import { useStyles, MyBottomNavigationAction } from '../style';
 
 const BottomToolBar = () => {
   const classes = useStyles();
@@ -20,27 +20,32 @@ const BottomToolBar = () => {
   };
   return (
     <div className={classes.wrapper}>
-      <BottomNavigation value={pathname} showLabels onChange={handleChange}>
-        <BottomNavigationAction
+      <BottomNavigation
+        style={{ backgroundColor: '#28365b' }}
+        value={pathname}
+        showLabels
+        onChange={handleChange}
+      >
+        <MyBottomNavigationAction
           className={classes.root}
           label="Patients"
           value="/"
           icon={<AssignmentIndIcon />}
         />
-        <BottomNavigationAction
+        <MyBottomNavigationAction
           className={classes.root}
           label="Acuity Dashboard"
           value="/dashboard"
           icon={<ViewListIcon />}
         />
-        <BottomNavigationAction
+        <MyBottomNavigationAction
           className={classes.root}
           label="Tasks"
           value="/tasks"
           icon={<AssignmentIcon />}
           disabled
         />
-        <BottomNavigationAction
+        <MyBottomNavigationAction
           className={classes.root}
           label="Admin"
           value="/admin"

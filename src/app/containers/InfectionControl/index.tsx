@@ -9,10 +9,11 @@ import { sliceKey, reducer, actions } from './slice';
 import { useParams } from 'react-router-dom';
 import { selectError, selectLoading, selectPatient } from './selectors';
 
-import { Box, Grid, Paper, Typography } from '@material-ui/core';
+import { Box, Grid, Paper, Typography, IconButton } from '@material-ui/core';
 import { useStyles } from './style';
+import CloseIcon from '@material-ui/icons/Close';
 
-import { Card, CardContent, AppBar } from 'components';
+import { Card, CardContent, AppBar, AppBarSubpage } from 'components';
 import { CovidStatus } from './CovidStatus';
 import { TestStatus } from './TestStatus';
 import { IsolationStatus } from './IsolationStatus';
@@ -53,11 +54,16 @@ export function InfectionControl() {
       </Helmet>
 
       <div className={classes.fixed} ref={ref}>
-        <AppBar
-          header={`Patient Covid Status`}
-          xsSM={true}
-          withBottomBar={true}
-        />
+        <AppBarSubpage header={`Patient Covid Status`}>
+          <IconButton
+            color="inherit"
+            onClick={() => console.log('exit')}
+            edge="start"
+            className={classes.closeButton}
+          >
+            <CloseIcon />
+          </IconButton>
+        </AppBarSubpage>
         {patient && (
           <Box mr={1} ml={1}>
             <Card

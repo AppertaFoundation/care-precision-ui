@@ -9,12 +9,11 @@ function pxToRem(value) {
 }
 
 const breakpoints = createBreakpoints({});
-const theme = responsiveFontSizes(
+const lightTheme = responsiveFontSizes(
   createMuiTheme({
     typography: {
       fontFamily: ['"Open Snas"', 'sans-serif'].join(','),
       subtitle1: {
-        color: '#4D4D4D',
         lineHeight: '24px',
       },
     },
@@ -22,24 +21,36 @@ const theme = responsiveFontSizes(
       background: {
         default: '#0000',
       },
+      primary: {
+        light: '#546088',
+        main: '#28365b',
+        dark: '#001031',
+        contrastText: '#fff',
+      },
+      secondary: {
+        light: '#ffa441',
+        main: '#EE7402',
+        dark: '#e94e1b',
+        contrastText: '#000000',
+      },
     },
     overrides: {
       MuiCssBaseline: {
         '@global': {
-          '@font-face': ['Open Snas'],
+          // '@font-face': ["Open Snas"],
           body: {
-            backgroundColor: '#ffff',
+            backgroundColor: '#DADADA',
           },
         },
       },
-      MuiListItem: {
-        root: {
-          '&$selected': {
-            backgroundColor: '#3F51B5',
-            color: '#fff',
-          },
-        },
-      },
+      // MuiListItem: {
+      //   root: {
+      //     '&$selected': {
+      //       backgroundColor: '#28365b',
+      //       color: '#fff',
+      //     },
+      //   },
+      // },
       MuiChip: {
         labelSmall: {
           display: 'table',
@@ -65,11 +76,6 @@ const theme = responsiveFontSizes(
         },
       },
       MuiPaper: { outlined: { border: '1px solid rgba(0, 0, 0, 0.87)' } },
-      MuiInputBase: {
-        root: { backgroundColor: '#fff' },
-        input: { color: '#4D4D4D' },
-      },
-      MuiOutlinedInput: { root: { backgroundColor: '#fff' } },
       MuiButton: {
         label: {
           [breakpoints.up('sm')]: {
@@ -78,68 +84,29 @@ const theme = responsiveFontSizes(
         },
       },
       MuiTypography: {
-        body2: {
-          // fontSize: pxToRem(24),
-          // [breakpoints.up('sm')]: {
-          //   fontSize: pxToRem(20),
-          // },
-        },
+        body2: {},
         h6: {
-          // fontSize: pxToRem(24),
           [breakpoints.up('sm')]: {
             fontSize: pxToRem(24),
           },
         },
         h5: {
-          // fontSize: pxToRem(24),
           [breakpoints.up('sm')]: {
             fontSize: pxToRem(26),
           },
         },
         subtitle2: {
           fontSize: pxToRem(16),
-          // [breakpoints.up('sm')]: {
-          //   fontSize: pxToRem(26),
-          // },
         },
         caption: {
           fontSize: pxToRem(10),
           [breakpoints.up('sm')]: {
-            color: 'grey',
             fontSize: pxToRem(14),
           },
         },
       },
     },
-    secondary: {
-      light: '#fff',
-      main: '#fff',
-      // dark: will be calculated from palette.secondary.main,
-      contrastText: '#000',
-    },
   }),
 );
 
-// const login = {
-//   ...main,
-//   ...createMuiTheme({
-//     palette: {
-//       background: {
-//         default: '#9FC9D9',
-//       },
-//     },
-//     overrides: {
-//       MuiInputBase: { root: { backgroundColor: '#fff' } },
-//       MuiOutlinedInput: { root: { borderRadius: 8, backgroundColor: '#fff' } },
-//       MuiCssBaseline: {
-//         '@global': {
-//           body: {
-//             backgroundColor: '#9FC9D9',
-//           },
-//         },
-//       },
-//     },
-//   }),
-// };
-
-export default theme;
+export default lightTheme;

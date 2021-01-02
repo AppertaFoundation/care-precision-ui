@@ -1,8 +1,13 @@
 import React, { useState } from 'react';
 
-import MuiTableCell from '@material-ui/core/TableCell';
-import { Box, IconButton, Typography, TableRow } from '@material-ui/core';
-import { withStyles } from '@material-ui/core/styles';
+import {
+  Box,
+  IconButton,
+  Typography,
+  TableRow,
+  FormLabel,
+  TableCell,
+} from '@material-ui/core';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { IPatient, IAssessmentIcons } from 'types';
 
@@ -15,14 +20,9 @@ import {
   NewCareEventDialog,
 } from 'components';
 import { useNavigate } from 'react-router-dom';
+import { Home } from './assets/Home';
 
 import { useStyles } from './style';
-
-const TableCell = withStyles(() => ({
-  body: {
-    color: 'rgb(77, 77, 77)',
-  },
-}))(MuiTableCell);
 
 export const Row: React.FC<
   IPatient & IAssessmentIcons & { downSM: boolean; key: string }
@@ -30,7 +30,7 @@ export const Row: React.FC<
   const {
     name,
     id,
-    location,
+    // location,
     nhsnumber,
     sepsis,
     covid,
@@ -49,96 +49,28 @@ export const Row: React.FC<
   return (
     <>
       {downSM ? (
-        <TableRow className={classes.row}>
-          <TableCell colSpan={5} padding={'none'}>
-            <ClickableElement onClick={handlePatientOverview}>
-              <Box pl={1} pt={1} display="flex" flexDirection="row">
-                <Box flexShrink={1}>
-                  <Typography display="block" align="left" variant="body1">
-                    {`${'Bed'}`}
-                  </Typography>
-                  <Typography display="block" align="left" variant="body1">
-                    {`${'11'}`}
-                  </Typography>
-                </Box>
-                <Box pl={1}>
-                  <Typography
-                    component="div"
-                    noWrap
-                    className={classes.subheader}
-                  >
-                    <Box mr={1} fontWeight="fontWeightBold">
-                      {name}
-                    </Box>
-                  </Typography>{' '}
-                  <Typography component="div" noWrap color="textSecondary">
-                    <Box mr={1} fontWeight="fontWeightBold">
-                      {nhsnumber}
-                    </Box>
-                  </Typography>
-                </Box>
-              </Box>
-            </ClickableElement>
-            <table>
+        <TableRow>
+          <TableCell padding={'none'}>
+            <table className={classes.table}>
               <tbody>
-                <tr style={{ width: '100%' }}>
-                  <TableCell
-                    className={classes.cell}
-                    padding="checkbox"
-                    align="center"
-                  >
-                    <IconButton>
-                      {denwis.value ? (
-                        <DenwisIcon denwis={denwis.value} />
-                      ) : (
-                        <div style={{ width: 51, height: 23 }}>-</div>
-                      )}
-                    </IconButton>
+                <tr className={classes.table}>
+                  <TableCell padding="checkbox" className={classes.cell}>
+                    <Home />
                   </TableCell>
-                  <TableCell
-                    className={classes.cell}
-                    padding="checkbox"
-                    align="center"
-                  >
-                    <IconButton>
-                      {covid.value ? (
-                        <CovidIcon value={covid.value} />
-                      ) : (
-                        <div style={{ width: 35, height: 23 }}>-</div>
-                      )}
-                    </IconButton>
+                  <TableCell padding="checkbox" className={classes.cell}>
+                    <Typography component="div" noWrap variant="h6">
+                      <Box mr={1} fontWeight="fontWeightBold">
+                        {name}
+                      </Box>
+                    </Typography>
+                    <Typography component="div" noWrap variant="body1">
+                      <Box mr={1} fontWeight="fontWeightBold">
+                        {nhsnumber}
+                      </Box>
+                    </Typography>
                   </TableCell>
-                  <TableCell
-                    padding="checkbox"
-                    className={classes.cell}
-                    align="center"
-                  >
-                    <IconButton>
-                      {sepsis.value ? (
-                        <SepsisIcon value={sepsis.value} />
-                      ) : (
-                        <div style={{ width: 24, height: 23 }}>-</div>
-                      )}
-                    </IconButton>
-                  </TableCell>
-                  <TableCell
-                    padding="checkbox"
-                    align="center"
-                    className={classes.cell}
-                  >
-                    <IconButton>
-                      {news2.value ? (
-                        <News2Icon news2={news2.value} />
-                      ) : (
-                        <div style={{ width: 51, height: 23 }}>-</div>
-                      )}
-                    </IconButton>
-                  </TableCell>
-                  <TableCell
-                    padding="checkbox"
-                    align="center"
-                    className={classes.cell}
-                  >
+
+                  <TableCell padding="checkbox" className={classes.cell}>
                     <IconButton onClick={handleOpen}>
                       <MoreVertIcon />
                     </IconButton>
@@ -146,61 +78,104 @@ export const Row: React.FC<
                 </tr>
               </tbody>
             </table>
+
+            <table className={classes.table}>
+              <tbody>
+                <tr className={classes.table}>
+                  <td className={classes.xsCell}>
+                    <FormLabel component="legend">DENWIS</FormLabel>
+
+                    <IconButton className={classes.xsCellButton}>
+                      {denwis.value ? (
+                        <DenwisIcon denwis={denwis.value} />
+                      ) : (
+                        <div className={classes.xsCell}>-</div>
+                      )}
+                    </IconButton>
+                  </td>
+                  <td className={classes.xsCell}>
+                    <FormLabel component="legend">COVID</FormLabel>
+
+                    <IconButton className={classes.xsCellButton}>
+                      {covid.value ? (
+                        <CovidIcon value={covid.value} />
+                      ) : (
+                        <div className={classes.xsCell}>-</div>
+                      )}
+                    </IconButton>
+                  </td>
+                  <td className={classes.xsCell}>
+                    <FormLabel component="legend">SEPSIS</FormLabel>
+
+                    <IconButton className={classes.xsCellButton}>
+                      {sepsis.value ? (
+                        <SepsisIcon value={sepsis.value} />
+                      ) : (
+                        <div className={classes.xsCell}>-</div>
+                      )}
+                    </IconButton>
+                  </td>
+                  <td className={classes.xsCell}>
+                    <FormLabel component="legend">NEWS2</FormLabel>
+
+                    <IconButton className={classes.xsCellButton}>
+                      {news2.value ? (
+                        <News2Icon news2={news2.value} />
+                      ) : (
+                        <div className={classes.xsCell}>-</div>
+                      )}
+                    </IconButton>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </TableCell>
         </TableRow>
       ) : (
-        <TableRow key={id} className={classes.row}>
+        <TableRow key={id}>
           <TableCell padding="checkbox" align="left" component="th" scope="row">
             <ClickableElement onClick={handlePatientOverview}>
-              <Typography
-                display="block"
-                align="center"
-                variant="body1"
-              >{`${location}`}</Typography>
+              <Home />
             </ClickableElement>
           </TableCell>
           <TableCell padding="checkbox" align="left">
             <ClickableElement onClick={handlePatientOverview}>
               <>
-                <Typography
-                  component="div"
-                  noWrap
-                  className={classes.subheader}
-                >
+                <Typography component="div" noWrap variant="h6">
                   <Box mr={1} fontWeight="fontWeightBold">
                     {name}
                   </Box>
                 </Typography>{' '}
-                <Typography component="div" noWrap color="textSecondary">
+                <Typography component="div" noWrap variant="body1">
                   <Box mr={1} fontWeight="fontWeightBold">
                     {nhsnumber}
                   </Box>
-                </Typography>{' '}
+                </Typography>
               </>
             </ClickableElement>
           </TableCell>
 
-          <TableCell padding="checkbox" align="center">
+          <TableCell padding="checkbox" align="left">
             <IconButton>
               {denwis.value ? <DenwisIcon denwis={denwis.value} /> : ''}
             </IconButton>
           </TableCell>
-          <TableCell padding="checkbox" align="center">
+          <TableCell padding="checkbox" align="left">
             <IconButton>
               {covid.value ? <CovidIcon value={covid.value} /> : ''}
             </IconButton>
           </TableCell>
-          <TableCell padding="checkbox" align="center">
+          <TableCell padding="checkbox" align="left">
             <IconButton>
               {sepsis.value ? <SepsisIcon value={sepsis.value} /> : ''}
             </IconButton>
           </TableCell>
-          <TableCell padding="checkbox" align="center">
+          <TableCell padding="checkbox" align="left">
             <IconButton>
               {news2.value ? <News2Icon news2={news2.value} /> : ''}
             </IconButton>
           </TableCell>
-          <TableCell padding="checkbox" align="right">
+          <TableCell padding="checkbox" align="left">
             <IconButton onClick={handleOpen}>
               <MoreVertIcon />
             </IconButton>
@@ -212,7 +187,8 @@ export const Row: React.FC<
           open={open}
           handleClose={handleClose}
           title={name}
-          identifier={id}
+          identifier={nhsnumber}
+          id={id}
         />
       )}
     </>
