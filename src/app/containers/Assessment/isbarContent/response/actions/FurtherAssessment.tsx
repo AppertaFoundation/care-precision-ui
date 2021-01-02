@@ -1,24 +1,10 @@
 import React from 'react';
-import {
-  Grid,
-  DialogContent,
-  DialogTitle,
-  Dialog as MuiDialog,
-  Box,
-  Typography,
-} from '@material-ui/core';
-import { Button } from 'components';
+import { Grid, DialogContent, Box, Typography } from '@material-ui/core';
+import { Button, Dialog, DialogTitle } from 'components';
 import { useDispatch } from 'react-redux';
 import { setAssessmentType } from 'store/assessmentTypeReducer';
 import { useNavigate, useParams } from 'react-router-dom';
-import { withStyles } from '@material-ui/core/styles';
 
-const Dialog = withStyles({
-  paper: {
-    borderRadius: '35px',
-    padding: '15px',
-  },
-})(MuiDialog);
 const FurtherAssessment = () => {
   const [open, setOpen] = React.useState(false);
   const navigate = useNavigate();
@@ -39,14 +25,8 @@ const FurtherAssessment = () => {
         Further Assessment
       </Button.Primary>
 
-      <Dialog
-        fullWidth={true}
-        maxWidth={'sm'}
-        open={open}
-        keepMounted
-        onClose={handleClose}
-      >
-        <DialogTitle>
+      <Dialog open={open} onClose={handleClose}>
+        <DialogTitle id="title" onClose={handleClose}>
           <Typography component="div" noWrap variant="h6">
             Further Assessment
           </Typography>

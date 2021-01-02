@@ -2,8 +2,6 @@
 import React, { useState, useEffect } from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import {
-  Dialog,
-  DialogTitle,
   DialogContent,
   MenuItem,
   Typography,
@@ -39,7 +37,14 @@ import TerminallyIll from './assests/terminally-ill.jpeg';
 import { CareRecordInfo } from './careRecordInfo';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import uniqid from 'uniqid';
-import { ErrorMsg, BottomBar, Button, Carousel } from 'components';
+import {
+  ErrorMsg,
+  BottomBar,
+  Button,
+  Carousel,
+  Dialog,
+  DialogTitle,
+} from 'components';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -295,14 +300,8 @@ export function Background() {
               </Grid>
             </Grid>
           </Box>
-          <Dialog
-            fullWidth={true}
-            maxWidth={'md'}
-            open={open}
-            keepMounted
-            onClose={handleClose}
-          >
-            <DialogTitle>
+          <Dialog open={open} onClose={handleClose}>
+            <DialogTitle id="title" onClose={handleClose}>
               <Grid
                 container
                 direction="column"

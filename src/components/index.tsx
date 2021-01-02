@@ -22,6 +22,8 @@ import { AccordionSummary, Accordion, AccordionDetails } from './Accordion';
 import NativeSelect from './NativeSelect';
 import RadioGroup from './RadioGroup';
 import Dialog from './Dialog';
+import { DialogTitle } from './Dialog/DialogTitle';
+import { DialogActions } from './Dialog/DialogActions';
 import Spinner from './Spinner';
 import Text from './Text';
 export {
@@ -51,6 +53,8 @@ export {
   NativeSelect,
   RadioGroup,
   Dialog,
+  DialogTitle,
+  DialogActions,
   Spinner,
   Text,
 };

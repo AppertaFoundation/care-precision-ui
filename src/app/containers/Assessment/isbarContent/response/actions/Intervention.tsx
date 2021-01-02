@@ -1,13 +1,6 @@
 import React from 'react';
-import {
-  Grid,
-  Typography,
-  DialogContent,
-  DialogTitle,
-  Dialog,
-  Box,
-} from '@material-ui/core';
-import { Button } from 'components';
+import { Grid, Typography, DialogContent, Box } from '@material-ui/core';
+import { Button, Dialog, DialogTitle } from 'components';
 
 const Intervention: React.FC = () => {
   const [open, setOpen] = React.useState(false);
@@ -19,14 +12,8 @@ const Intervention: React.FC = () => {
         Intervention
       </Button.Secondary>
 
-      <Dialog
-        fullWidth={true}
-        maxWidth={'sm'}
-        open={open}
-        keepMounted
-        onClose={handleClose}
-      >
-        <DialogTitle>
+      <Dialog open={open} onClose={handleClose}>
+        <DialogTitle id="title" onClose={handleClose}>
           <Typography align="center">Intervantion</Typography>
         </DialogTitle>
 

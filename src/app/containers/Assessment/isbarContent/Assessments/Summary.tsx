@@ -1,32 +1,20 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { selectLoadingResult, selectErrorResult } from '../../selectors';
+import { DialogContent } from '@material-ui/core';
 import {
-  Dialog as MuiDialog,
-  DialogContent,
+  Button,
+  Spinner,
+  Dialog,
   DialogTitle,
   DialogActions,
-} from '@material-ui/core';
-import { Button, Spinner } from 'components';
+} from 'components';
 import { News2Summary } from './News2Summary';
 import { SepsisSummary } from './SepsisSummary';
 import { DenwisSummary } from './DenwisSummary';
 import { CovidSummary } from './CovidSummary';
 import styled from 'styled-components/macro';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
-import { useTheme, withStyles } from '@material-ui/core/styles';
-import createBreakpoints from '@material-ui/core/styles/createBreakpoints';
 
-const breakpoints = createBreakpoints({});
-
-const Dialog = withStyles({
-  paper: {
-    [breakpoints.up('sm')]: {
-      borderRadius: '35px',
-      padding: '15px',
-    },
-  },
-})(MuiDialog);
 const AssessmentSummary: React.FC<{
   open: boolean;
   handleClose: any;
@@ -35,8 +23,6 @@ const AssessmentSummary: React.FC<{
 }> = ({ open, handleClose, handleConfirm, obsType }) => {
   const error = useSelector(selectErrorResult);
   const isLoading = useSelector(selectLoadingResult);
-  const theme = useTheme();
-  const fullScreen = useMediaQuery(theme.breakpoints.down('xs'));
   const summary = {
     news2: <News2Summary />,
     sepsis: <SepsisSummary />,
@@ -56,15 +42,10 @@ const AssessmentSummary: React.FC<{
     return <ErrorText>{repoErrorText(error)}</ErrorText>;
   }
   return (
-    <Dialog
-      fullScreen={fullScreen}
-      fullWidth
-      maxWidth={'sm'}
-      open={open}
-      onClose={handleClose}
-      scroll={'paper'}
-    >
-      <DialogTitle id="scroll-dialog-title">{title}</DialogTitle>
+    <Dialog open={open} onClose={handleClose}>
+      <DialogTitle id="scroll-dialog-title" onClose={handleClose}>
+        {title}
+      </DialogTitle>
       <DialogContent dividers={true}>{summary}</DialogContent>
       <DialogActions>
         <Button.Primary onClick={handleClose} color="primary">

@@ -4,15 +4,11 @@ import {
   Grid,
   Divider,
   DialogContent,
-  DialogTitle,
-  Dialog as MuiDialog,
   DialogContentText,
-  DialogActions,
   Typography,
 } from '@material-ui/core';
-import createBreakpoints from '@material-ui/core/styles/createBreakpoints';
 
-import { makeStyles, withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import {
@@ -27,7 +23,14 @@ import {
   selectSuccess,
 } from '../selectors';
 
-import { BottomBar, Button, Spinner } from 'components';
+import {
+  BottomBar,
+  Button,
+  Spinner,
+  Dialog,
+  DialogTitle,
+  DialogActions,
+} from 'components';
 import { News2Result } from './response/News2Result';
 import { SepsisResult } from './response/SepsisResult';
 import { DenwisResult } from './response/DenwisResult';
@@ -45,16 +48,7 @@ const useStyles = makeStyles((theme: any) => ({
     marginBottom: '50px',
   },
 }));
-const breakpoints = createBreakpoints({});
 
-const Dialog = withStyles({
-  paper: {
-    [breakpoints.up('sm')]: {
-      borderRadius: '35px',
-      padding: '15px',
-    },
-  },
-})(MuiDialog);
 const Response = () => {
   const classes = useStyles();
   const navigate = useNavigate();
@@ -126,18 +120,12 @@ const Response = () => {
           Finish and Save Observation
         </Button.Secondary>
       </BottomBar>
-      <Dialog
-        fullWidth
-        maxWidth={'sm'}
-        open={open}
-        keepMounted
-        onClose={handleClose}
-      >
+      <Dialog open={open} onClose={handleClose}>
         {pending ? (
           <Spinner />
         ) : (
           <>
-            <DialogTitle>
+            <DialogTitle id="title" onClose={handleClose}>
               <Typography component="div" noWrap variant="h6">
                 {`${
                   success
@@ -153,9 +141,43 @@ const Response = () => {
                   success ? 'Choose where you want to go now' : submissionError
                 }`}
               </DialogContentText>
+              {success ? (
+                <Grid container spacing={2} direction="column">
+                  <Grid item xs={12}>
+                    <Button.Secondary
+                      onClick={goToPatientList}
+                      color="secondary"
+                      variant="outlined"
+                    >
+                      Patient List
+                    </Button.Secondary>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <Button.Secondary
+                      color="secondary"
+                      onClick={goToOverview}
+                      variant="outlined"
+                    >
+                      Patient Overview
+                    </Button.Secondary>
+                  </Grid>
+                </Grid>
+              ) : (
+                <Grid container spacing={3}>
+                  <Grid item>
+                    <Button.Secondary
+                      color="secondary"
+                      variant="contained"
+                      onClick={handleSubmit}
+                    >
+                      Try Again
+                    </Button.Secondary>
+                  </Grid>
+                </Grid>
+              )}
             </DialogContent>
             <DialogActions>
-              {success && (
+              {/* {success && (
                 <>
                   <Button.Secondary onClick={goToPatientList} color="secondary">
                     Patient List
@@ -173,7 +195,7 @@ const Response = () => {
                 >
                   Try Again
                 </Button.Secondary>
-              )}
+              )} */}
             </DialogActions>
           </>
         )}

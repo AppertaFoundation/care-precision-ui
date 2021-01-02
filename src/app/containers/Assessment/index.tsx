@@ -17,33 +17,27 @@ import { selectError, selectLoading, selectPatient } from './selectors';
 
 import {
   DialogContent,
-  DialogTitle,
-  Dialog as MuiDialog,
   DialogContentText,
   Box,
-  DialogActions,
   Typography,
   IconButton,
 } from '@material-ui/core';
-import { withStyles } from '@material-ui/core/styles';
 
 import { useStyles } from './style';
 import CloseIcon from '@material-ui/icons/Close';
-import createBreakpoints from '@material-ui/core/styles/createBreakpoints';
 
-import { Card, CardContent, AppBarSubpage, Spinner, Button } from 'components';
+import {
+  Card,
+  CardContent,
+  AppBarSubpage,
+  Spinner,
+  Button,
+  DialogActions,
+  Dialog,
+  DialogTitle,
+} from 'components';
 import ISBR from './ISBR';
 
-const breakpoints = createBreakpoints({});
-
-const Dialog = withStyles({
-  paper: {
-    [breakpoints.up('sm')]: {
-      borderRadius: '35px',
-      padding: '15px',
-    },
-  },
-})(MuiDialog);
 export function Assessment() {
   useInjectReducer({ key: sliceKey, reducer: reducer });
   useInjectSaga({ key: sliceKey, saga: assessmentEventSaga });
@@ -126,14 +120,8 @@ export function Assessment() {
         <ISBR />
       </Box>
 
-      <Dialog
-        fullWidth
-        maxWidth={'sm'}
-        open={open}
-        keepMounted
-        onClose={handleClose}
-      >
-        <DialogTitle>
+      <Dialog open={open} onClose={handleClose}>
+        <DialogTitle id="title" onClose={handleClose}>
           <Typography component="div" noWrap variant="h6">
             Are you sure?
           </Typography>

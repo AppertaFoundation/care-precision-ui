@@ -3,23 +3,17 @@ import {
   Grid,
   Typography,
   DialogContent,
-  DialogTitle,
-  Dialog as MuiDialog,
   Divider,
   Box,
 } from '@material-ui/core';
-import { withStyles, makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Button from '../Button';
+import Dialog from '../Dialog';
+import { DialogTitle } from '../Dialog/DialogTitle';
 import { setAssessmentType } from 'store/assessmentTypeReducer';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
-const Dialog = withStyles({
-  paper: {
-    borderRadius: '35px',
-    padding: '15px',
-  },
-})(MuiDialog);
 const useStyles = makeStyles({
   content: { padding: 24 },
 });
@@ -73,14 +67,8 @@ const NewCareEventDialog: React.FC<Props> = ({
     navigate(`/covid-menagment/${id}`, { replace: true });
   };
   return (
-    <Dialog
-      fullWidth
-      maxWidth={'sm'}
-      open={open}
-      keepMounted
-      onClose={handleClose}
-    >
-      <DialogTitle>
+    <Dialog open={open} onClose={handleClose}>
+      <DialogTitle id="title" onClose={handleClose}>
         <Typography component="div" noWrap variant="h5">
           {title}
         </Typography>
