@@ -1,15 +1,25 @@
 import React from 'react';
-import { Box, TextField, Grid, Typography, FormLabel } from '@material-ui/core';
-import { Button, Dialog, NativeSelect } from 'components';
+import {
+  Box,
+  TextField,
+  Grid,
+  Typography,
+  FormLabel,
+  DialogContent,
+  DialogActions,
+} from '@material-ui/core';
+import { Button, Dialog, NativeSelect, DialogTitle } from 'components';
+import { useForm } from 'react-hook-form';
 import { useTheme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
-import { useForm } from 'react-hook-form';
 
 export function TestStatus() {
-  const theme = useTheme();
-  const downSm = useMediaQuery(theme.breakpoints?.down('sm'));
   const [open, setOpen] = React.useState(false);
   const [requestTest, setRequestTest] = React.useState(false);
+
+  const theme = useTheme();
+  const small = useMediaQuery(theme.breakpoints?.between('xs', 'sm'));
+  const upLG = useMediaQuery(theme.breakpoints?.up(1280));
 
   const closeRequest = () => setRequestTest(false);
   const openRequest = () => setRequestTest(true);
@@ -18,146 +28,167 @@ export function TestStatus() {
   const { control } = useForm();
   return (
     <>
-      <Box m={1} p={1}>
-        <Grid
-          container
-          direction="column"
-          justify="space-between"
-          alignItems="stretch"
-          style={{ height: `${downSm ? 'auto' : '450px'}` }}
-        >
-          <Grid item>
-            <Grid
-              container
-              direction="column"
-              justify="flex-start"
-              alignItems="stretch"
-              spacing={2}
-              //   spacing={4}
-            >
-              <Grid item>
-                <Typography variant="h6">Test Status</Typography>
-                <FormLabel component="legend">Testing</FormLabel>
-              </Grid>
-              {/* <Grid item>
-                <FormLabel component="legend">Testing</FormLabel>
-              </Grid> */}
-              <Grid item>
-                <TextField
-                  size="small"
-                  id="outlined-read-only-input"
-                  label="Current Test Status"
-                  defaultValue="No tests requested"
-                  InputProps={{
-                    readOnly: true,
-                  }}
-                  fullWidth
+      <Grid
+        container
+        justify="space-between"
+        spacing={2}
+        // style={{ height: `${small ? 'auto' : md ? '450px' : '245px'}` }}
+        style={{ height: `${small ? 'auto' : upLG ? '245px' : '450px'}` }}
+      >
+        <Grid item lg={6} xs={12}>
+          <Grid
+            container
+            direction="column"
+            justify="space-between"
+            style={{ height: `${small ? 'auto' : upLG ? '249px' : '225px'}` }}
+            spacing={1}
+          >
+            <Grid item>
+              <FormLabel component="legend">Testing</FormLabel>
+            </Grid>
+            <Grid item>
+              <TextField
+                size="small"
+                id="read-only-input-test"
+                label="Current Test Status"
+                defaultValue="No tests requested"
+                InputProps={{
+                  readOnly: true,
+                }}
+                fullWidth
+                variant="outlined"
+              />
+            </Grid>
+            <Grid item>
+              <TextField
+                size="small"
+                id="read-only-input-reason"
+                label="Test Reason"
+                defaultValue="N/A"
+                InputProps={{
+                  readOnly: true,
+                }}
+                fullWidth
+                variant="outlined"
+              />
+            </Grid>
+            <Grid item>
+              <TextField
+                size="small"
+                id="read-only-input-test-date"
+                label="Date Last Updated"
+                type="date"
+                defaultValue="2020-08-22"
+                InputProps={{
+                  readOnly: true,
+                }}
+                fullWidth
+                variant="outlined"
+              />
+            </Grid>
+            <Grid>
+              <Box mt={1}>
+                <Button.Secondary
+                  color="secondary"
                   variant="outlined"
-                />
-              </Grid>
-              <Grid item>
-                <TextField
-                  size="small"
-                  id="outlined-read-only-input"
-                  label="Test Reason"
-                  defaultValue="N/A"
-                  InputProps={{
-                    readOnly: true,
-                  }}
-                  fullWidth
-                  variant="outlined"
-                />
-              </Grid>
-              <Grid item>
-                <TextField
-                  size="small"
-                  id="outlined-read-only-input"
-                  label="Date Last Updated"
-                  type="date"
-                  defaultValue="2020-08-22"
-                  InputProps={{
-                    readOnly: true,
-                  }}
-                  fullWidth
-                  variant="outlined"
-                />
-              </Grid>
+                  onClick={handleOpen}
+                >
+                  Update Status
+                </Button.Secondary>
+              </Box>
+            </Grid>
+          </Grid>
+        </Grid>
+        <Grid item lg={6} xs={12}>
+          <Grid
+            container
+            direction="column"
+            justify="space-between"
+            style={{ height: `${small ? 'auto' : upLG ? '253px' : '225px'}` }}
+            spacing={1}
+          >
+            <Grid item>
+              <FormLabel component="legend">Test Result</FormLabel>
+            </Grid>
+            <Grid item>
+              <TextField
+                size="small"
+                id="read-only-input-test-recent"
+                label="Most Recent Result"
+                defaultValue="Positive"
+                InputProps={{
+                  readOnly: true,
+                }}
+                fullWidth
+                variant="outlined"
+              />
+            </Grid>
+            <Grid item>
+              <TextField
+                size="small"
+                id="read-only-input"
+                label="Date Last Result Received"
+                type="date"
+                defaultValue="2020-08-22"
+                InputProps={{
+                  readOnly: true,
+                }}
+                fullWidth
+                variant="outlined"
+              />
+            </Grid>
 
-              <Grid item>
-                <Button.Primary
+            <Grid item>
+              <Box mt={1}>
+                <Button.Secondary
                   size="small"
-                  variant="contained"
+                  variant="outlined"
+                  color="secondary"
                   onClick={openRequest}
                 >
                   Request Test
-                </Button.Primary>
-              </Grid>
+                </Button.Secondary>
+              </Box>
             </Grid>
           </Grid>
+        </Grid>
+      </Grid>
 
-          <Grid item>
+      <Dialog open={requestTest} onClose={closeRequest}>
+        <DialogTitle id="title" onClose={closeRequest}>
+          <Typography component="div" noWrap variant="h6">
+            Request Test
+          </Typography>
+        </DialogTitle>
+
+        <DialogContent>
+          <Box m={4}>
             <Grid
               container
               direction="column"
               justify="flex-start"
-              alignItems="stretch"
-              spacing={2}
+              alignItems="center"
             >
-              <Grid item>
-                <Box mt={1}>
-                  <FormLabel component="legend">Test Result</FormLabel>
-                </Box>
-              </Grid>
-              <Grid item>
-                <TextField
-                  size="small"
-                  id="outlined-read-only-input"
-                  label="Most Recent Result"
-                  defaultValue="Positive"
-                  InputProps={{
-                    readOnly: true,
-                  }}
-                  fullWidth
-                  variant="outlined"
-                />
-              </Grid>
-              <Grid item>
-                <TextField
-                  size="small"
-                  id="outlined-read-only-input"
-                  label="Date Last Result Received"
-                  type="date"
-                  defaultValue="2020-08-22"
-                  InputProps={{
-                    readOnly: true,
-                  }}
-                  fullWidth
-                  variant="outlined"
-                />
-              </Grid>
+              <NativeSelect
+                options={[
+                  { value: 'Symptoms', label: 'Symptoms' },
+
+                  { value: 'Recovery Check', label: 'Recovery Check' },
+                  {
+                    value: 'Contact with symptoms',
+                    label: 'Contact with symptoms',
+                  },
+                  { value: 'Routine Test', label: 'Routine Test' },
+                ]}
+                label="Reason for test"
+                name="reason"
+                control={control}
+                defaultValue=""
+              />
             </Grid>
-          </Grid>
-          <Grid item>
-            <Box mt={1}>
-              <Button.Primary
-                size="small"
-                variant="contained"
-                onClick={handleOpen}
-              >
-                Update test result
-              </Button.Primary>
-            </Box>
-          </Grid>
-        </Grid>
-      </Box>
-      {/* <Dialog
-        open={requestTest}
-        handleClose={closeRequest}
-        title={'Request Test'}
-        fullScreen={downSm}
-        maxWidth="sm"
-        fullWidth
-        bottomActions={
+          </Box>
+        </DialogContent>
+        <DialogActions>
           <Grid
             container
             direction="row"
@@ -166,49 +197,45 @@ export function TestStatus() {
             spacing={2}
           >
             <Grid item>
-              <Button.Secondary onClick={closeRequest}>Cancel</Button.Secondary>
+              <Button.Primary onClick={closeRequest}>Cancel</Button.Primary>
             </Grid>
             <Grid item>
-              <Button.Success variant="contained" onClick={closeRequest}>
+              <Button.Secondary variant="contained" onClick={closeRequest}>
                 Confirm
-              </Button.Success>
+              </Button.Secondary>
             </Grid>
           </Grid>
-        }
-      >
-        <Box m={4}>
-          <Grid
-            container
-            direction="column"
-            justify="flex-start"
-            alignItems="center"
-          >
-            <NativeSelect
-              options={[
-                { value: 'Symptoms', label: 'Symptoms' },
-
-                { value: 'Recovery Check', label: 'Recovery Check' },
-                {
-                  value: 'Contact with symptoms',
-                  label: 'Contact with symptoms',
-                },
-                { value: 'Routine Test', label: 'Routine Test' },
-              ]}
-              label="Reason for test"
-              name="reason"
-              control={control}
-            />
-          </Grid>
-        </Box>
+        </DialogActions>
       </Dialog>
-      <Dialog
-        open={open}
-        handleClose={handleClose}
-        title={'Update Test Result'}
-        fullScreen={downSm}
-        maxWidth="sm"
-        fullWidth
-        bottomActions={
+
+      <Dialog open={open} onClose={handleClose}>
+        <DialogTitle id="title" onClose={handleClose}>
+          <Typography variant="h6">Update Test Result</Typography>
+        </DialogTitle>
+
+        <DialogContent>
+          <Box m={4}>
+            <Grid
+              container
+              direction="column"
+              justify="flex-start"
+              alignItems="center"
+            >
+              <NativeSelect
+                options={[
+                  { value: 'Positive', label: 'Positive' },
+
+                  { value: 'Negative', label: 'Negative' },
+                ]}
+                label="Reason for test"
+                name="reason"
+                control={control}
+                defaultValue=""
+              />
+            </Grid>
+          </Box>
+        </DialogContent>
+        <DialogActions>
           <Grid
             container
             direction="row"
@@ -217,37 +244,16 @@ export function TestStatus() {
             spacing={2}
           >
             <Grid item>
-              <Button.Secondary onClick={handleClose}>Cancel</Button.Secondary>
+              <Button.Primary onClick={handleClose}>Cancel</Button.Primary>
             </Grid>
             <Grid item>
-              <Button.Success variant="contained" onClick={handleClose}>
+              <Button.Secondary variant="contained" onClick={handleClose}>
                 Confirm
-              </Button.Success>
+              </Button.Secondary>
             </Grid>
           </Grid>
-        }
-      >
-        <Box m={4}>
-          <Grid
-            container
-            direction="column"
-            justify="flex-start"
-            alignItems="center"
-          >
-            <NativeSelect
-              options={[
-                { value: 'Positive', label: 'Positive' },
-
-                { value: 'Negative', label: 'Negative' },
-              ]}
-              label="Reason for test"
-              name="reason"
-              control={control}
-            />
-          </Grid>
-        </Box>
+        </DialogActions>
       </Dialog>
-    */}
     </>
   );
 }

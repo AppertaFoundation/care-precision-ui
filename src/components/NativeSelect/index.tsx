@@ -23,7 +23,7 @@ const NativeSelects: React.FC<{
   options: { value: string; label: string }[];
   label: string;
   name: string;
-  defaultValue?: any;
+  defaultValue: any;
   disabled?: boolean;
   control: any;
 }> = ({ options, label, name, defaultValue, disabled, control }) => {

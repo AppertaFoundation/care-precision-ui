@@ -21,8 +21,7 @@ const IconButtonNews2 = withStyles({
 const LatestResponse = ({ assessments, sm, id }) => {
   const classes = useStylesLastResponse();
   const navigate = useNavigate();
-  console.log(id);
-  const goToCovid = e => navigate(`/covid-management/${id}`);
+  const goToCovid = e => navigate(`/covid-menagment/${id}`);
   return (
     <Box mr={1}>
       <Grid

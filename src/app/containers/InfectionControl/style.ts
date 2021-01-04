@@ -35,4 +35,9 @@ export const useStyles = makeStyles(theme => ({
   santizedGrid: {
     minWidth: '100%',
   },
+  section: {
+    backgroundColor: '#fff',
+    borderRadius: '35px',
+    padding: '15px',
+  },
 }));

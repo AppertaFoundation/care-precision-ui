@@ -9,14 +9,31 @@ import { sliceKey, reducer, actions } from './slice';
 import { useParams } from 'react-router-dom';
 import { selectError, selectLoading, selectPatient } from './selectors';
 
-import { Box, Grid, Paper, Typography, IconButton } from '@material-ui/core';
+import {
+  Box,
+  Grid,
+  Typography,
+  IconButton,
+  List,
+  ListItemText,
+  ListItem,
+} from '@material-ui/core';
 import { useStyles } from './style';
 import CloseIcon from '@material-ui/icons/Close';
 
-import { Card, CardContent, AppBar, AppBarSubpage } from 'components';
+import {
+  Card,
+  CardContent,
+  AppBarSubpage,
+  AccordionDetails,
+  AccordionSummary,
+  Accordion,
+  Spinner,
+} from 'components';
 import { CovidStatus } from './CovidStatus';
 import { TestStatus } from './TestStatus';
 import { IsolationStatus } from './IsolationStatus';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 export function InfectionControl() {
   useInjectReducer({ key: sliceKey, reducer: reducer });
@@ -24,7 +41,7 @@ export function InfectionControl() {
   const dispatch = useDispatch();
   const { id } = useParams();
   const classes = useStyles();
-  const ref = React.useRef(null);
+  // const ref = React.useRef(null);
 
   const error = useSelector(selectError);
   const isLoading = useSelector(selectLoading);
@@ -37,14 +54,21 @@ export function InfectionControl() {
     dispatch(actions.loadRecord(id));
   });
 
-  const include = (assessmentsTypesArray: Array<string>, key: string) =>
-    assessmentsTypesArray.includes(key);
+  const [expanded, setExpanded] = React.useState({
+    covid: 'covid',
+    test: 'test',
+    isolation: 'isolation',
+  });
+
+  const handleChange = panel => (event, isExpanded) => {
+    setExpanded({ ...expanded, [panel]: isExpanded ? panel : false });
+  };
 
   if (error) {
     return <p>{error}</p>;
   }
   if (isLoading) {
-    return <p>loading</p>;
+    return <Spinner />;
   }
   return (
     <>
@@ -52,20 +76,24 @@ export function InfectionControl() {
         <title>{`Patient Covid Status`}</title>
         <meta name="description" content={`Patient Covid Status`} />
       </Helmet>
-
-      <div className={classes.fixed} ref={ref}>
-        <AppBarSubpage header={`Patient Covid Status`}>
-          <IconButton
-            color="inherit"
-            onClick={() => console.log('exit')}
-            edge="start"
-            className={classes.closeButton}
-          >
-            <CloseIcon />
-          </IconButton>
-        </AppBarSubpage>
+      <AppBarSubpage header={`Patient Covid Status`}>
+        <IconButton
+          color="inherit"
+          onClick={() => console.log('exit')}
+          edge="start"
+          className={classes.closeButton}
+        >
+          <CloseIcon />
+        </IconButton>
+      </AppBarSubpage>
+      <Box
+        display="flex"
+        flexWrap="nowrap"
+        flexDirection="column"
+        css={{ maxWidth: '100%' }}
+      >
         {patient && (
-          <Box mr={1} ml={1}>
+          <Box width="100%">
             <Card
               name={patient?.name || ''}
               identifier={patient?.nhsnumber || ''}
@@ -80,40 +108,93 @@ export function InfectionControl() {
             </Card>
           </Box>
         )}
-      </div>
-      <Box className={classes.root}>
-        <Grid container justify="center" alignItems="center" direction="column">
-          <Box p={1} width="100%">
-            <Paper elevation={1} variant="outlined" square>
-              <Grid
-                container
-                justify="space-between"
-                alignItems="flex-start"
-                direction="row"
-              >
-                <Grid xs={12} sm={4} item>
-                  <CovidStatus />
+
+        <Box width="100%" className={classes.section}>
+          <Grid
+            container
+            justify="center"
+            alignItems="center"
+            direction="column"
+          >
+            <Box p={1} width="100%">
+              <Grid container justify="center">
+                <Grid item xs={12} md={4}>
+                  <Accordion
+                    expanded={expanded.covid === 'covid'}
+                    onChange={handleChange('covid')}
+                  >
+                    <AccordionSummary
+                      IconButtonProps={{ color: 'inherit' }}
+                      expandIcon={<ExpandMoreIcon />}
+                    >
+                      <Typography variant="subtitle2" component="h6">
+                        <Box fontWeight={900}>COVID</Box>
+                      </Typography>
+                    </AccordionSummary>
+                    <AccordionDetails>
+                      <CovidStatus />
+                    </AccordionDetails>
+                  </Accordion>
                 </Grid>
-                <Grid xs={12} sm={4} item>
-                  <TestStatus />
+                <Grid item xs={12} md={4}>
+                  <Accordion
+                    expanded={expanded.test === 'test'}
+                    onChange={handleChange('test')}
+                  >
+                    <AccordionSummary
+                      IconButtonProps={{ color: 'inherit' }}
+                      expandIcon={<ExpandMoreIcon />}
+                    >
+                      <Typography variant="subtitle2" component="h6">
+                        <Box fontWeight={900}>Test Status</Box>
+                      </Typography>
+                    </AccordionSummary>
+                    <AccordionDetails>
+                      <TestStatus />
+                    </AccordionDetails>
+                  </Accordion>
                 </Grid>
-                <Grid xs={12} sm={4} item>
-                  <IsolationStatus />
+                <Grid item xs={12} md={4}>
+                  <Accordion
+                    expanded={expanded.isolation === 'isolation'}
+                    onChange={handleChange('isolation')}
+                  >
+                    <AccordionSummary
+                      IconButtonProps={{ color: 'inherit' }}
+                      expandIcon={<ExpandMoreIcon />}
+                    >
+                      <Typography variant="subtitle2" component="h6">
+                        <Box fontWeight={900}>Isolation Status</Box>
+                      </Typography>
+                    </AccordionSummary>
+                    <AccordionDetails>
+                      <IsolationStatus />
+                    </AccordionDetails>
+                  </Accordion>
                 </Grid>
               </Grid>
-            </Paper>
-          </Box>
-        </Grid>
+            </Box>
+          </Grid>
 
-        <Grid container justify="center" alignItems="center" direction="column">
-          <Box p={1} width="100%">
-            <Paper elevation={1} variant="outlined" square>
-              <Box m={1} p={1}>
-                <Typography variant="h6">COVID Status History</Typography>
-              </Box>
-            </Paper>
+          <Box p={1}>
+            <Box p={1}>
+              <Typography align="left" variant="subtitle1">
+                <Box mr={1} fontWeight="fontWeightBold">
+                  Covid History
+                </Box>
+              </Typography>
+
+              <List dense>
+                <ListItem>
+                  <ListItemText primary="User ZYX - Requested Test" />
+                </ListItem>
+                <ListItem>
+                  <ListItemText primary="User ZYX - Requested Test and 14 days Isolation" />
+                </ListItem>
+              </List>
+            </Box>
           </Box>
-        </Grid>
+        </Box>
       </Box>
     </>
   );
