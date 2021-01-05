@@ -3,7 +3,7 @@ import { request } from 'utils/request';
 import { fake } from 'utils/fake';
 import { patientParser, keysToCamel } from 'utils/formatters';
 
-import { PatientErrorType } from './types';
+import { InfectionControlErrorType } from './types';
 import { actions } from './slice';
 
 export function* getRecord(action) {
@@ -26,10 +26,22 @@ export function* getRecord(action) {
     if (Object.keys(patient).length > 0) {
       yield put(actions.recordLoaded(patientParser(keysToCamel(patient))));
     } else {
-      yield put(actions.recordError(PatientErrorType.USER_HAS_NO_RECORDS));
+      yield put(
+        actions.recordError(InfectionControlErrorType.USER_HAS_NO_RECORDS),
+      );
     }
   } catch (err) {
-    yield put(actions.recordError(PatientErrorType.RESPONSE_ERROR));
+    yield put(actions.recordError(InfectionControlErrorType.RESPONSE_ERROR));
+  }
+}
+
+export function* getInfectionControl(action) {
+  yield delay(500);
+
+  if (process.env.REACT_APP_STATIC) {
+    return yield put(
+      actions.infectionControlLoaded(keysToCamel(fake.COVID_MENAGMENT)),
+    );
   }
 }
 
@@ -38,4 +50,5 @@ export function* getRecord(action) {
  */
 export function* infectionControlSaga() {
   yield takeLatest(actions.loadRecord.type, getRecord);
+  yield takeLatest(actions.loadInfectionControl.type, getInfectionControl);
 }

@@ -8,6 +8,15 @@ import {
   DialogActions,
   DialogContent,
 } from '@material-ui/core';
+import { useSelector } from 'react-redux';
+import {
+  selectIsolationStatus,
+  selectIsolationReason,
+  selectCovidStatusDate,
+  selectEndOfIsolation,
+  selectIsolationDays,
+  selectDayOfIsolation,
+} from './selectors';
 import { useTheme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { Button, Dialog, NativeSelect, DialogTitle } from 'components';
@@ -17,6 +26,12 @@ export function IsolationStatus() {
   const theme = useTheme();
   const small = useMediaQuery(theme.breakpoints?.between('xs', 'sm'));
   const large = useMediaQuery(theme.breakpoints?.up(1280));
+  const isolationReason = useSelector(selectIsolationReason);
+  const isolationStatus = useSelector(selectIsolationStatus);
+  const updateDate = useSelector(selectCovidStatusDate);
+  const isolationEnd = useSelector(selectEndOfIsolation);
+  const isolationDays = useSelector(selectIsolationDays);
+  const dayOfIsolation = useSelector(selectDayOfIsolation);
 
   const { control } = useForm();
   const [open, setOpen] = React.useState(false);
@@ -40,7 +55,8 @@ export function IsolationStatus() {
                 size="small"
                 id="read-only-input-isolation-days"
                 label="Current Isolation Status"
-                defaultValue="Isolating- 10 Days"
+                value={isolationStatus || ''}
+                // defaultValue={isolationStatus}
                 InputProps={{
                   readOnly: true,
                 }}
@@ -53,7 +69,8 @@ export function IsolationStatus() {
                 size="small"
                 id="outlined-read-only-input"
                 label="Isolation Reason"
-                defaultValue="Tested Positive"
+                value={isolationReason || ''}
+                // defaultValue={isolationReason}
                 InputProps={{
                   readOnly: true,
                 }}
@@ -67,7 +84,8 @@ export function IsolationStatus() {
                 id="read-only-input-isolation-date"
                 label="Last Updated"
                 type="date"
-                defaultValue="2020-08-18"
+                InputLabelProps={{ shrink: true }}
+                value={updateDate || ''}
                 InputProps={{
                   readOnly: true,
                 }}
@@ -81,7 +99,8 @@ export function IsolationStatus() {
                 id="outlined-read-only-input"
                 label="Isolation End Date"
                 type="date"
-                defaultValue="2020-08-28"
+                value={isolationEnd || ''}
+                InputLabelProps={{ shrink: true }}
                 InputProps={{
                   readOnly: true,
                 }}
@@ -91,7 +110,11 @@ export function IsolationStatus() {
             </Grid>
             <Grid item xs={12}>
               <Typography variant="subtitle2">
-                Isolating on day 6 of 10
+                <Box fontWeight={500}>
+                  {dayOfIsolation && isolationDays
+                    ? ` Isolating on day ${dayOfIsolation} of ${isolationDays}`
+                    : 'N / A'}
+                </Box>
               </Typography>
             </Grid>
           </Grid>
@@ -142,9 +165,9 @@ export function IsolationStatus() {
                     },
                   ]}
                   label="Isolation Status"
-                  name="reason"
+                  name="isolationStatus"
                   control={control}
-                  defaultValue=""
+                  defaultValue={isolationStatus || ''}
                 />
               </Grid>
 
@@ -152,41 +175,37 @@ export function IsolationStatus() {
                 <NativeSelect
                   options={[
                     {
-                      value: 'Symptoms (10 days duration)',
-                      label: 'Symptoms (10 days duration)',
+                      value: 'Symptoms (10 days)',
+                      label: 'Symptoms (10 days)',
                     },
 
                     {
-                      value: 'Tested Positive (10 days duration)',
-                      label: 'Tested Positive (10 days duration)',
+                      value: 'Tested Positive (10 days)',
+                      label: 'Tested Positive (10 days)',
                     },
                     {
                       value: 'Contact with Symptoms or Positive Case (14 days)',
                       label: 'Contact with Symptoms or Positive Case (14 days)',
                     },
                     {
-                      value: 'Following discharge (14 days duration)',
-                      label: 'Following discharge (14 days duration)',
+                      value: 'Following discharge (14 days)',
+                      label: 'Following discharge (14 days)',
                     },
                   ]}
                   label="Isolation Reason"
-                  name="reason"
+                  name="isolationReason"
                   control={control}
-                  defaultValue=""
+                  defaultValue={isolationReason || ''}
                 />
               </Grid>
               <Grid item xs={12}>
                 <TextField
                   size="small"
-                  id="read-only-input-isolation-end"
                   label="Isolation End Date"
+                  name={'isolationDateEnd'}
                   type="date"
-                  defaultValue="2020-08-28"
-                  InputProps={
-                    {
-                      //   readOnly: true,
-                    }
-                  }
+                  InputLabelProps={{ shrink: true }}
+                  defaultValue={isolationEnd || ''}
                   fullWidth
                   variant="outlined"
                 />
@@ -213,7 +232,6 @@ export function IsolationStatus() {
           </Grid>
         </DialogActions>
       </Dialog>
-      *
     </>
   );
 }

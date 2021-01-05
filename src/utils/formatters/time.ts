@@ -12,7 +12,7 @@ const MONTHS = [
   'Nov',
   'Dec',
 ];
-export const daysDifference = (start?: string, end?: string) => {
+export const daysDifference = (start?: any, end?: any) => {
   if (start) {
     const oneDay = 24 * 60 * 60 * 1000;
     const startDate = new Date(start);

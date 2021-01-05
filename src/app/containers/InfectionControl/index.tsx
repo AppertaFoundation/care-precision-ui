@@ -52,6 +52,7 @@ export function InfectionControl() {
   };
   useEffectOnMount(() => {
     dispatch(actions.loadRecord(id));
+    dispatch(actions.loadInfectionControl(id));
   });
 
   const [expanded, setExpanded] = React.useState({

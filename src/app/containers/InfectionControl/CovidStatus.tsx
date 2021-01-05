@@ -8,6 +8,9 @@ import {
   DialogActions,
   FormLabel,
 } from '@material-ui/core';
+import { selectCovidStatus, selectCovidStatusDate } from './selectors';
+import { useSelector } from 'react-redux';
+
 import { Button, NativeSelect, Dialog, DialogTitle } from 'components';
 import { useForm } from 'react-hook-form';
 import { useTheme } from '@material-ui/core/styles';
@@ -20,6 +23,10 @@ export function CovidStatus() {
 
   const { control } = useForm();
   const [open, setOpen] = React.useState(false);
+
+  const covidStatus = useSelector(selectCovidStatus);
+  const covideUpdateDate = useSelector(selectCovidStatusDate);
+
   const handleClose = () => {
     setOpen(false);
   };
@@ -47,14 +54,15 @@ export function CovidStatus() {
             </Grid>
             <Grid item>
               <TextField
-                id="read-only-input-covid"
                 size="small"
                 label="Current Covid Status"
-                defaultValue="Positive"
+                value={covidStatus || ''}
+                defaultValue={covidStatus}
                 InputProps={{
                   readOnly: true,
                 }}
                 fullWidth
+                name={'suspectedCovidStatus'}
                 variant="outlined"
               />
             </Grid>
@@ -63,12 +71,14 @@ export function CovidStatus() {
                 id="read-only-input-covid-date"
                 label="Date Last Updated"
                 type="date"
-                defaultValue="2020-08-22"
+                InputLabelProps={{ shrink: true }}
+                value={covideUpdateDate || ''}
                 InputProps={{
                   readOnly: true,
                 }}
                 fullWidth
                 size="small"
+                name="startTime"
                 variant="outlined"
               />
             </Grid>
@@ -112,9 +122,9 @@ export function CovidStatus() {
                     { value: 'Symptoms', label: 'Symptoms' },
                   ]}
                   label="Current COVID Status"
-                  name="covidStatus"
+                  name="suspectedCovidStatus"
                   control={control}
-                  defaultValue=""
+                  defaultValue={covidStatus || ''}
                 />
               </Box>
             </Grid>

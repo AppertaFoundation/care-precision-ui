@@ -2,7 +2,8 @@ import { IAssessmentIcons, IPatient } from 'types';
 /* --- STATE --- */
 export interface InfectionControl {
   loading: boolean;
-  error?: PatientErrorType | null;
+  error?: InfectionControlErrorType | null;
+  covidMenagment: null | any;
   patient:
     | null
     | (IPatient & {
@@ -10,7 +11,7 @@ export interface InfectionControl {
       });
 }
 
-export enum PatientErrorType {
+export enum InfectionControlErrorType {
   RESPONSE_ERROR = 1,
   USER_HAS_NO_RECORDS = 2,
 }

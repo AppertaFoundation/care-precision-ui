@@ -9,10 +9,16 @@ import {
   DialogActions,
 } from '@material-ui/core';
 import { Button, Dialog, NativeSelect, DialogTitle } from 'components';
+import { useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { useTheme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
+import {
+  selectTestRequestReason,
+  selectTestRequestStatusUpdate,
+  selectCurrentTestRequest,
+} from './selectors';
 export function TestStatus() {
   const [open, setOpen] = React.useState(false);
   const [requestTest, setRequestTest] = React.useState(false);
@@ -20,6 +26,10 @@ export function TestStatus() {
   const theme = useTheme();
   const small = useMediaQuery(theme.breakpoints?.between('xs', 'sm'));
   const upLG = useMediaQuery(theme.breakpoints?.up(1280));
+
+  const testRequestReason = useSelector(selectTestRequestReason);
+  const testRequestStatus = useSelector(selectCurrentTestRequest);
+  const testRequestTime = useSelector(selectTestRequestStatusUpdate);
 
   const closeRequest = () => setRequestTest(false);
   const openRequest = () => setRequestTest(true);
@@ -32,7 +42,6 @@ export function TestStatus() {
         container
         justify="space-between"
         spacing={2}
-        // style={{ height: `${small ? 'auto' : md ? '450px' : '245px'}` }}
         style={{ height: `${small ? 'auto' : upLG ? '245px' : '450px'}` }}
       >
         <Grid item lg={6} xs={12}>
@@ -51,7 +60,7 @@ export function TestStatus() {
                 size="small"
                 id="read-only-input-test"
                 label="Current Test Status"
-                defaultValue="No tests requested"
+                defaultValue={testRequestStatus || 'No tests requested'}
                 InputProps={{
                   readOnly: true,
                 }}
@@ -64,7 +73,7 @@ export function TestStatus() {
                 size="small"
                 id="read-only-input-reason"
                 label="Test Reason"
-                defaultValue="N/A"
+                defaultValue={testRequestReason || 'N/A'}
                 InputProps={{
                   readOnly: true,
                 }}
@@ -78,7 +87,8 @@ export function TestStatus() {
                 id="read-only-input-test-date"
                 label="Date Last Updated"
                 type="date"
-                defaultValue="2020-08-22"
+                InputLabelProps={{ shrink: true }}
+                value={testRequestTime || ''}
                 InputProps={{
                   readOnly: true,
                 }}
@@ -89,11 +99,12 @@ export function TestStatus() {
             <Grid>
               <Box mt={1}>
                 <Button.Secondary
-                  color="secondary"
+                  size="small"
                   variant="outlined"
-                  onClick={handleOpen}
+                  color="secondary"
+                  onClick={openRequest}
                 >
-                  Update Status
+                  Request Test
                 </Button.Secondary>
               </Box>
             </Grid>
@@ -141,12 +152,11 @@ export function TestStatus() {
             <Grid item>
               <Box mt={1}>
                 <Button.Secondary
-                  size="small"
-                  variant="outlined"
                   color="secondary"
-                  onClick={openRequest}
+                  variant="outlined"
+                  onClick={handleOpen}
                 >
-                  Request Test
+                  Update Status
                 </Button.Secondary>
               </Box>
             </Grid>
@@ -227,7 +237,7 @@ export function TestStatus() {
 
                   { value: 'Negative', label: 'Negative' },
                 ]}
-                label="Reason for test"
+                label="Test Result"
                 name="reason"
                 control={control}
                 defaultValue=""

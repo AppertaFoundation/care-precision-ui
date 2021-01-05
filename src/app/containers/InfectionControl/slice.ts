@@ -13,12 +13,13 @@
 
 import { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '../../../utils/@reduxjs/toolkit';
-import { ContainerState, PatientErrorType } from './types';
+import { ContainerState, InfectionControlErrorType } from './types';
 import { IPatient, IAssessmentIcons } from 'types';
 // The initial state of the PatientList container
 export const initialState: ContainerState = {
   loading: false,
   error: null,
+  covidMenagment: null,
   patient: null,
 };
 
@@ -44,7 +45,25 @@ const infectionControlSlice = createSlice({
       const patient = action.payload;
       state.patient = patient;
     },
-    recordError(state, action: PayloadAction<PatientErrorType>) {
+    recordError(state, action: PayloadAction<InfectionControlErrorType>) {
+      state.error = action.payload;
+      state.loading = false;
+    },
+    loadInfectionControl(state, action) {
+      state.loading = true;
+      state.error = null;
+      state.covidMenagment = null;
+    },
+    infectionControlLoaded(state, action) {
+      state.loading = false;
+      state.error = null;
+      const covidMenagment = action.payload;
+      state.covidMenagment = covidMenagment;
+    },
+    infectionControlError(
+      state,
+      action: PayloadAction<InfectionControlErrorType>,
+    ) {
       state.error = action.payload;
       state.loading = false;
     },
