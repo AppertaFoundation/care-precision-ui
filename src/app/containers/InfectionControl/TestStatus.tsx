@@ -8,8 +8,8 @@ import {
   DialogContent,
   DialogActions,
 } from '@material-ui/core';
-import { Button, Dialog, NativeSelect, DialogTitle } from 'components';
-import { useSelector } from 'react-redux';
+import { Button, Dialog, NativeSelect, DialogTitle, Spinner } from 'components';
+import { useSelector, useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { useTheme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
@@ -18,7 +18,11 @@ import {
   selectTestRequestReason,
   selectTestRequestStatusUpdate,
   selectCurrentTestRequest,
+  selectResultCS,
+  selectID,
 } from './selectors';
+import { actions } from './slice';
+
 export function TestStatus() {
   const [open, setOpen] = React.useState(false);
   const [requestTest, setRequestTest] = React.useState(false);
@@ -35,7 +39,60 @@ export function TestStatus() {
   const openRequest = () => setRequestTest(true);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const { control } = useForm();
+  const { control, handleSubmit } = useForm();
+  const { control: controlResult } = useForm();
+  const dispatch = useDispatch();
+
+  const id = useSelector(selectID);
+  const result = useSelector(selectResultCS);
+  const { pending, success, error } = result;
+
+  React.useEffect(() => {
+    if (success) {
+      dispatch(actions.loadInfectionControl(id));
+      setOpen(false);
+    }
+  }, [success, id, dispatch]);
+
+  const onSubmit = data => {
+    const testRequest = {
+      covidTestRequest: {
+        reasonForRequest: data.reasonForRequest,
+        status:
+          testRequestStatus === 'Service request sent'
+            ? {
+                code: 'at0026',
+                value: 'Service request sent',
+                terminology: 'localy',
+              }
+            : {
+                code: 'at0005',
+                value: 'Service activity complete',
+                terminology: 'local',
+              },
+        statusTime: Date.now(),
+      },
+    };
+    const testResult = {
+      covidTestResult: {
+        testResult:
+          data.testResult === 'Positive'
+            ? {
+                code: '1300721000000109',
+                value: 'COVID-19 confirmed by laboratory test',
+                terminology: 'SNOMED-CT',
+              }
+            : {
+                code: '1321111000000101',
+                value: 'COVID-19 excluded by laboratory test',
+                terminology: 'SNOMED-CT',
+              },
+        specimenTakenTime: Date.now(),
+      },
+    };
+    dispatch(actions.pending({ ...testRequest, ...testResult }));
+  };
+
   return (
     <>
       <Grid
@@ -172,6 +229,9 @@ export function TestStatus() {
         </DialogTitle>
 
         <DialogContent>
+          {error && <p>{error}</p>}
+          {pending && <Spinner />}
+
           <Box m={4}>
             <Grid
               container
@@ -179,22 +239,24 @@ export function TestStatus() {
               justify="flex-start"
               alignItems="center"
             >
-              <NativeSelect
-                options={[
-                  { value: 'Symptoms', label: 'Symptoms' },
+              <form id="test-status-form" onSubmit={handleSubmit(onSubmit)}>
+                <NativeSelect
+                  options={[
+                    { value: 'Symptoms', label: 'Symptoms' },
 
-                  { value: 'Recovery Check', label: 'Recovery Check' },
-                  {
-                    value: 'Contact with symptoms',
-                    label: 'Contact with symptoms',
-                  },
-                  { value: 'Routine Test', label: 'Routine Test' },
-                ]}
-                label="Reason for test"
-                name="reason"
-                control={control}
-                defaultValue=""
-              />
+                    { value: 'Recovery Check', label: 'Recovery Check' },
+                    {
+                      value: 'Contact with symptoms',
+                      label: 'Contact with symptoms',
+                    },
+                    { value: 'Routine Test', label: 'Routine Test' },
+                  ]}
+                  label="Reason for test"
+                  name="reasonForRequest"
+                  control={control}
+                  defaultValue=""
+                />
+              </form>
             </Grid>
           </Box>
         </DialogContent>
@@ -210,7 +272,11 @@ export function TestStatus() {
               <Button.Primary onClick={closeRequest}>Cancel</Button.Primary>
             </Grid>
             <Grid item>
-              <Button.Secondary variant="contained" onClick={closeRequest}>
+              <Button.Secondary
+                variant="contained"
+                type="submit"
+                form="test-status-form"
+              >
                 Confirm
               </Button.Secondary>
             </Grid>
@@ -231,17 +297,19 @@ export function TestStatus() {
               justify="flex-start"
               alignItems="center"
             >
-              <NativeSelect
-                options={[
-                  { value: 'Positive', label: 'Positive' },
+              <form id="test-result-form" onSubmit={handleSubmit(onSubmit)}>
+                <NativeSelect
+                  options={[
+                    { value: 'Positive', label: 'Positive' },
 
-                  { value: 'Negative', label: 'Negative' },
-                ]}
-                label="Test Result"
-                name="reason"
-                control={control}
-                defaultValue=""
-              />
+                    { value: 'Negative', label: 'Negative' },
+                  ]}
+                  label="Test Result"
+                  name="testResult"
+                  control={controlResult}
+                  defaultValue=""
+                />
+              </form>
             </Grid>
           </Box>
         </DialogContent>
@@ -257,7 +325,11 @@ export function TestStatus() {
               <Button.Primary onClick={handleClose}>Cancel</Button.Primary>
             </Grid>
             <Grid item>
-              <Button.Secondary variant="contained" onClick={handleClose}>
+              <Button.Secondary
+                variant="contained"
+                form="test-result-form"
+                type="submit"
+              >
                 Confirm
               </Button.Secondary>
             </Grid>

@@ -8,10 +8,15 @@ import {
   DialogActions,
   FormLabel,
 } from '@material-ui/core';
-import { selectCovidStatus, selectCovidStatusDate } from './selectors';
-import { useSelector } from 'react-redux';
-
-import { Button, NativeSelect, Dialog, DialogTitle } from 'components';
+import {
+  selectCovidStatus,
+  selectCovidStatusDate,
+  selectResultCS,
+  selectID,
+} from './selectors';
+import { useSelector, useDispatch } from 'react-redux';
+import { actions } from './slice';
+import { Button, NativeSelect, Dialog, DialogTitle, Spinner } from 'components';
 import { useForm } from 'react-hook-form';
 import { useTheme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
@@ -21,11 +26,22 @@ export function CovidStatus() {
   const small = useMediaQuery(theme.breakpoints?.between('xs', 'sm'));
   const large = useMediaQuery(theme.breakpoints?.up(1280));
 
-  const { control } = useForm();
+  const dispatch = useDispatch();
+  const { control, handleSubmit } = useForm();
   const [open, setOpen] = React.useState(false);
 
   const covidStatus = useSelector(selectCovidStatus);
   const covideUpdateDate = useSelector(selectCovidStatusDate);
+  const id = useSelector(selectID);
+  const result = useSelector(selectResultCS);
+  const { pending, success, error } = result;
+
+  React.useEffect(() => {
+    if (success) {
+      dispatch(actions.loadInfectionControl(id));
+      setOpen(false);
+    }
+  }, [success, id, dispatch]);
 
   const handleClose = () => {
     setOpen(false);
@@ -33,6 +49,7 @@ export function CovidStatus() {
   const handleOpen = () => {
     setOpen(true);
   };
+  const onSubmit = data => dispatch(actions.pending(data));
   return (
     <>
       <Grid
@@ -57,7 +74,6 @@ export function CovidStatus() {
                 size="small"
                 label="Current Covid Status"
                 value={covidStatus || ''}
-                defaultValue={covidStatus}
                 InputProps={{
                   readOnly: true,
                 }}
@@ -104,6 +120,9 @@ export function CovidStatus() {
         </DialogTitle>
 
         <DialogContent>
+          {error && <p>{error}</p>}
+          {pending && <Spinner />}
+
           <Grid
             container
             direction="row"
@@ -112,20 +131,22 @@ export function CovidStatus() {
           >
             <Grid item xs={12}>
               <Box p={1}>
-                <NativeSelect
-                  options={[
-                    { value: 'Positive', label: 'Positive' },
+                <form id="covid-status-form" onSubmit={handleSubmit(onSubmit)}>
+                  <NativeSelect
+                    options={[
+                      { value: 'Positive', label: 'Positive' },
 
-                    { value: 'Negative', label: 'Negative' },
-                    { value: 'Recovered', label: 'Recovered' },
-                    { value: 'Contact', label: 'Contact' },
-                    { value: 'Symptoms', label: 'Symptoms' },
-                  ]}
-                  label="Current COVID Status"
-                  name="suspectedCovidStatus"
-                  control={control}
-                  defaultValue={covidStatus || ''}
-                />
+                      { value: 'Negative', label: 'Negative' },
+                      { value: 'Recovered', label: 'Recovered' },
+                      { value: 'Contact', label: 'Contact' },
+                      { value: 'Symptoms', label: 'Symptoms' },
+                    ]}
+                    label="Current COVID Status"
+                    name="suspectedCovidStatus"
+                    control={control}
+                    defaultValue={covidStatus || ''}
+                  />
+                </form>
               </Box>
             </Grid>
           </Grid>
@@ -142,7 +163,11 @@ export function CovidStatus() {
               <Button.Primary onClick={handleClose}>Cancel</Button.Primary>
             </Grid>
             <Grid item>
-              <Button.Secondary variant="contained" onClick={handleClose}>
+              <Button.Secondary
+                variant="contained"
+                type="submit"
+                form="covid-status-form"
+              >
                 Confirm
               </Button.Secondary>
             </Grid>

@@ -1,20 +1,5 @@
 const COVID_MENAGMENT = {
   start_time: '2021-01-04T21:04:10.789Z', //ISO DateTime
-  setting: 'nursing home care', //Fixed
-  composer: {
-    //Clinical author of the document
-    name: 'RN Joyce Brown',
-    id_scheme: 'NMC', // From Demographics
-    id: '12342341', //From demographics
-    id_namespace: 'uk.org.nmc', //from demographics
-  },
-  healthcare_facility: {
-    //Clinical author of the document
-    name: 'Glen Carse Care Home',
-    id_scheme: 'CQC', // From Demographics
-    id: '44832', //From demographics
-    id_namespace: 'uk.org.cqc', //from demographics
-  },
   suspected_covid_status: 'Symptoms',
   isolation_request: {
     reason_for_request: {

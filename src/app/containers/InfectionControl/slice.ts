@@ -21,6 +21,11 @@ export const initialState: ContainerState = {
   error: null,
   covidMenagment: null,
   patient: null,
+  update: {
+    pending: false,
+    success: false,
+    error: null,
+  },
 };
 
 const infectionControlSlice = createSlice({
@@ -53,6 +58,9 @@ const infectionControlSlice = createSlice({
       state.loading = true;
       state.error = null;
       state.covidMenagment = null;
+      state.update.pending = false;
+      state.update.success = false;
+      state.update.error = null;
     },
     infectionControlLoaded(state, action) {
       state.loading = false;
@@ -66,6 +74,27 @@ const infectionControlSlice = createSlice({
     ) {
       state.error = action.payload;
       state.loading = false;
+    },
+
+    pending(state, action) {
+      state.update.pending = true;
+      state.update.error = null;
+      state.update.success = false;
+    },
+    success(state) {
+      state.update.pending = false;
+      state.update.success = true;
+      state.update.error = null;
+    },
+    error(state, action) {
+      state.update.pending = false;
+      state.update.success = true;
+      state.update.error = action.payload;
+    },
+    pendingRequestTest(state, action) {
+      state.update.pending = true;
+      state.update.error = null;
+      state.update.success = false;
     },
   },
 });

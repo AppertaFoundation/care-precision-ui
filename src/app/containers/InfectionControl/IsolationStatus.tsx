@@ -8,7 +8,7 @@ import {
   DialogActions,
   DialogContent,
 } from '@material-ui/core';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import {
   selectIsolationStatus,
   selectIsolationReason,
@@ -16,16 +16,43 @@ import {
   selectEndOfIsolation,
   selectIsolationDays,
   selectDayOfIsolation,
+  selectResultCS,
+  selectID,
 } from './selectors';
+import { actions } from './slice';
 import { useTheme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
-import { Button, Dialog, NativeSelect, DialogTitle } from 'components';
+import { Button, Dialog, NativeSelect, DialogTitle, Spinner } from 'components';
 import { useForm } from 'react-hook-form';
 
+const isolationReasonToRequest = value =>
+  ({
+    'Symptoms (10 days duration)': {
+      code: '840544004',
+      value: 'Suspected disease caused by 2019 novel coronavirus',
+      terminology: 'SNOMED-CT',
+    },
+    'Tested Positive (10 days duration)': {
+      code: '840539006',
+      value: 'Disease caused by 2019-nCoV',
+      terminology: 'SNOMED-CT',
+    },
+    'Contact with Symptoms or Positive Case (14 days duration)': {
+      code: '840546002',
+      value: 'Exposure to 2019 novel coronavirus',
+      terminology: 'SNOMED-CT',
+    },
+    'Following discharge (14 days)': {
+      code: '840546002',
+      value: 'Exposure to 2019 novel coronavirus',
+      terminology: 'SNOMED-CT',
+    },
+  }[value]);
 export function IsolationStatus() {
   const theme = useTheme();
   const small = useMediaQuery(theme.breakpoints?.between('xs', 'sm'));
   const large = useMediaQuery(theme.breakpoints?.up(1280));
+
   const isolationReason = useSelector(selectIsolationReason);
   const isolationStatus = useSelector(selectIsolationStatus);
   const updateDate = useSelector(selectCovidStatusDate);
@@ -33,8 +60,37 @@ export function IsolationStatus() {
   const isolationDays = useSelector(selectIsolationDays);
   const dayOfIsolation = useSelector(selectDayOfIsolation);
 
-  const { control } = useForm();
+  const id = useSelector(selectID);
+  const result = useSelector(selectResultCS);
+  const { pending, success, error } = result;
+  const { control, handleSubmit } = useForm();
+  const dispatch = useDispatch();
   const [open, setOpen] = React.useState(false);
+
+  React.useEffect(() => {
+    if (success) {
+      dispatch(actions.loadInfectionControl(id));
+      setOpen(false);
+    }
+  }, [success, id, dispatch]);
+  const onSubmit = data => {
+    const end = new Date(data.isolationEndDate);
+    // debugger;
+    const startDate = end.getDate() - parseInt(isolationDays);
+    const isolation = {
+      isolation_request: {
+        reason_for_request: isolationReasonToRequest(data.reasonForIsolation),
+        reasonForIsolation: data.reasonForIsolation,
+        isolationDuration: data.reasonForIsolation.includes('10 days')
+          ? 'P10D'
+          : 'P14D',
+        dateIsolationDueToStart: startDate,
+        dateIsolationDueToEnd: data.isolationEndDate,
+      },
+    };
+    dispatch(actions.pending(isolation));
+  };
+
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   return (
@@ -139,78 +195,84 @@ export function IsolationStatus() {
           </Typography>
         </DialogTitle>
         <DialogContent>
+          {error && <p>{error}</p>}
+          {pending && <Spinner />}
           <Box m={4}>
-            <Grid
-              container
-              direction="column"
-              justify="flex-start"
-              alignItems="stretch"
-              spacing={4}
-            >
-              <Grid item xs={12}>
-                <NativeSelect
-                  options={[
-                    {
-                      value: 'Isolation not required',
-                      label: 'Isolation not required',
-                    },
+            <form id="isolation-status-form" onSubmit={handleSubmit(onSubmit)}>
+              <Grid
+                container
+                direction="column"
+                justify="flex-start"
+                alignItems="stretch"
+                spacing={4}
+              >
+                <Grid item xs={12}>
+                  <NativeSelect
+                    options={[
+                      {
+                        value: 'Isolation not required',
+                        label: 'Isolation not required',
+                      },
 
-                    {
-                      value: 'Isolating',
-                      label: 'Isolating',
-                    },
-                    {
-                      value: 'Isolating Completed',
-                      label: 'Isolating Completed',
-                    },
-                  ]}
-                  label="Isolation Status"
-                  name="isolationStatus"
-                  control={control}
-                  defaultValue={isolationStatus || ''}
-                />
-              </Grid>
+                      {
+                        value: 'Isolating',
+                        label: 'Isolating',
+                      },
+                      {
+                        value: 'Isolating Completed',
+                        label: 'Isolating Completed',
+                      },
+                    ]}
+                    label="Isolation Status"
+                    name="isolationStatus"
+                    control={control}
+                    defaultValue={isolationStatus || ''}
+                  />
+                </Grid>
 
-              <Grid item xs={12}>
-                <NativeSelect
-                  options={[
-                    {
-                      value: 'Symptoms (10 days)',
-                      label: 'Symptoms (10 days)',
-                    },
+                <Grid item xs={12}>
+                  <NativeSelect
+                    options={[
+                      {
+                        value: 'Symptoms (10 days)',
+                        label: 'Symptoms (10 days)',
+                      },
 
-                    {
-                      value: 'Tested Positive (10 days)',
-                      label: 'Tested Positive (10 days)',
-                    },
-                    {
-                      value: 'Contact with Symptoms or Positive Case (14 days)',
-                      label: 'Contact with Symptoms or Positive Case (14 days)',
-                    },
-                    {
-                      value: 'Following discharge (14 days)',
-                      label: 'Following discharge (14 days)',
-                    },
-                  ]}
-                  label="Isolation Reason"
-                  name="isolationReason"
-                  control={control}
-                  defaultValue={isolationReason || ''}
-                />
+                      {
+                        value: 'Tested Positive (10 days)',
+                        label: 'Tested Positive (10 days)',
+                      },
+                      {
+                        value:
+                          'Contact with Symptoms or Positive Case (14 days)',
+                        label:
+                          'Contact with Symptoms or Positive Case (14 days)',
+                      },
+                      {
+                        value: 'Following discharge (14 days)',
+                        label: 'Following discharge (14 days)',
+                      },
+                    ]}
+                    label="Isolation Reason"
+                    name="reasonForIsolation"
+                    control={control}
+                    defaultValue={isolationReason || ''}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    size="small"
+                    label="Isolation End Date"
+                    name={'isolationEndDate'}
+                    type="date"
+                    InputLabelProps={{ shrink: true }}
+                    // defaultValue={isolationEnd || ''}
+                    fullWidth
+                    variant="outlined"
+                  />
+                </Grid>
               </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  size="small"
-                  label="Isolation End Date"
-                  name={'isolationDateEnd'}
-                  type="date"
-                  InputLabelProps={{ shrink: true }}
-                  defaultValue={isolationEnd || ''}
-                  fullWidth
-                  variant="outlined"
-                />
-              </Grid>
-            </Grid>
+            </form>
           </Box>
         </DialogContent>
         <DialogActions>
@@ -225,7 +287,11 @@ export function IsolationStatus() {
               <Button.Primary onClick={handleClose}>Cancel</Button.Primary>
             </Grid>
             <Grid item>
-              <Button.Secondary variant="contained" onClick={handleClose}>
+              <Button.Secondary
+                variant="contained"
+                type="submit"
+                form="isolation-status-form"
+              >
                 Confirm
               </Button.Secondary>
             </Grid>

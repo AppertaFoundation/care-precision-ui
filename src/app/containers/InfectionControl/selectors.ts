@@ -141,3 +141,13 @@ export const selectCurrentTestResult = createSelector(
       null: 'N/A',
     }[infectionControlSaga.covidMenagment?.covidTestRequest?.status?.value]),
 );
+
+export const selectResultCS = createSelector(
+  [selectDomain],
+  infectionControlSaga => infectionControlSaga.update,
+);
+
+export const selectID = createSelector(
+  [selectDomain],
+  infectionControlSaga => infectionControlSaga?.patient?.id,
+);

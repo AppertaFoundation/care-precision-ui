@@ -9,6 +9,11 @@ export interface InfectionControl {
     | (IPatient & {
         assessment: IAssessmentIcons;
       });
+  update: {
+    pending: boolean;
+    success: boolean;
+    error: null | InfectionControlErrorType;
+  };
 }
 
 export enum InfectionControlErrorType {
