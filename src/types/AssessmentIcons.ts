@@ -24,10 +24,8 @@ export interface ISepsis {
 }
 
 export interface IAssessmentIcons {
-  // assessment: {
   covid: ICovid;
   news2: INews2;
   sepsis: ISepsis;
   denwis: INews2;
-  // };
 }

@@ -3,8 +3,6 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-// import { useFormContext } from 'react-hook-form';
-// import ErrorMessage from '../ErrorMsg/';
 import { Controller } from 'react-hook-form';
 import uniqid from 'uniqid';
 
@@ -23,15 +21,18 @@ const NativeSelects: React.FC<{
   options: { value: string; label: string }[];
   label: string;
   name: string;
-  defaultValue?: any;
+  defaultValue: any;
   disabled?: boolean;
   control: any;
 }> = ({ options, label, name, defaultValue, disabled, control }) => {
   const classes = useStyles();
 
-  const [value, setValue] = React.useState<string | unknown>(
-    defaultValue || '',
-  );
+  const [value, setValue] = React.useState<string | unknown>('');
+  React.useEffect(() => {
+    if (defaultValue) {
+      setValue(defaultValue);
+    }
+  }, [defaultValue]);
 
   const handleChange = (
     event: React.ChangeEvent<{ name?: string; value: unknown }>,

@@ -63,7 +63,7 @@ const Card: React.FC<Props> = ({
   const theme = useTheme();
   const sm = useMediaQuery(theme.breakpoints.up('sm'));
   const latestResponseBar = (
-    <LatestResponse sm={!sm} assessments={assesments} />
+    <LatestResponse sm={!sm} assessments={assesments} id={id} />
   );
   const redirectToPatientOverview = e => console.log('jest');
   return (
