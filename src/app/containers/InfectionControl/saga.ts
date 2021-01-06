@@ -38,10 +38,12 @@ export function* getRecord(action) {
       ),
     );
   }
+  debugger;
   try {
     const patient = yield call(request, requestURL);
-    if (Object.keys(patient).length > 0) {
-      yield put(actions.recordLoaded(patientParser(keysToCamel(patient))));
+    console.log(patient);
+    if (Object.keys(patient[0]).length > 0) {
+      yield put(actions.recordLoaded(patientParser(keysToCamel(patient[0]))));
     } else {
       yield put(
         actions.recordError(InfectionControlErrorType.USER_HAS_NO_RECORDS),
@@ -67,7 +69,7 @@ const patientId = state => state.infectionControl.patient.id;
 
 export function* updateCovidPathway(action) {
   yield delay(500);
-  const id = yield select(patientId);
+  // const id = yield select(patientId);
 
   const requestURL = '';
   const covidMenagment = yield select(covidMenagmentForm);

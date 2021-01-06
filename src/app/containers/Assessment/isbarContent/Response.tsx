@@ -21,6 +21,7 @@ import {
   selectSubmissionError,
   selectPending,
   selectSuccess,
+  selectResult,
 } from '../selectors';
 
 import {
@@ -63,6 +64,7 @@ const Response = () => {
   const success = useSelector(selectSuccess);
   const pending = useSelector(selectPending);
   const submissionError = useSelector(selectSubmissionError);
+  const result = useSelector(selectResult);
 
   const [open, setOpen] = React.useState(false);
 
@@ -103,7 +105,7 @@ const Response = () => {
           <SepsisResult /> <Divider />
         </Grid>
       )}
-      {denwis?.response && (
+      {result?.denwis?.value && (
         <Grid item xs={12}>
           <DenwisResult /> <Divider />
         </Grid>

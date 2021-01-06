@@ -4,8 +4,8 @@ import TrendArrow from '../TrendArrow';
 import { useStyles } from './style';
 
 const DenwisIcon = ({ denwis }) => {
-  const { value, trend } = denwis;
-  const color = value === 0 ? 'grey' : value > 4 ? 'red' : 'green';
+  const color =
+    denwis?.value === 0 ? 'grey' : denwis?.value > 4 ? 'red' : 'green';
   const classes = useStyles(color);
   return (
     <div style={{ width: 51 }}>
@@ -15,13 +15,13 @@ const DenwisIcon = ({ denwis }) => {
         alignItems="center"
         justifyContent="center"
       >
-        {trend && (
+        {denwis?.trend && (
           <Box style={{ zIndex: 2 }} width={1 / 3}>
-            <TrendArrow trend={trend} />
+            <TrendArrow trend={denwis?.trend} />
           </Box>
         )}
         <div style={classes.root}>
-          <div style={classes.inside}>{value}</div>
+          <div style={classes.inside}>{denwis?.value}</div>
         </div>
       </Box>
     </div>

@@ -190,18 +190,18 @@ export function News2Summary() {
           </Box>
         </Grid>
       </Grid>
-      {response && (
+      {/* {response && (
         <Box m={2}>
           <Section
             items={[
               {
-                ...response.respirationRate,
+                ...response?.respirationRate,
                 label: 'Respiration Rate',
                 units: 'bpm',
               },
 
               {
-                ...response.spoScale_1,
+                ...response?.spoScale_1,
                 label: 'Oxygen Saturation',
                 units: '%',
               },
@@ -211,13 +211,13 @@ export function News2Summary() {
           <Section
             items={[
               {
-                ...response.systolicBloodPressure,
+                ...response?.systolicBloodPressure,
                 label: 'Systolic B. P.',
                 units: 'mmHg',
               },
 
               {
-                ...response.pulse,
+                ...response?.pulse,
                 label: 'Pulse Rate',
                 units: 'bpm',
               },
@@ -227,13 +227,13 @@ export function News2Summary() {
           <Section
             items={[
               {
-                ...response.consciousness,
+                ...response?.consciousness,
                 label: 'Consciousness',
                 units: '',
               },
 
               {
-                ...response.temperature,
+                ...response?.temperature,
                 label: 'Temperature',
                 units: "'C",
               },
@@ -246,7 +246,7 @@ export function News2Summary() {
             clinicalRisk={response?.clinicalRiskCategory.code}
           />
         </Box>
-      )}
+      )} */}
     </div>
   );
 }

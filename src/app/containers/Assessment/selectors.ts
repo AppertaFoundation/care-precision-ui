@@ -60,14 +60,14 @@ export const selectDenwis = createSelector(
   assessmentEventSaga => assessmentEventSaga.denwis,
 );
 
-export const selectCovid = createSelector(
-  [selectDomain],
-  assessmentEventSaga => assessmentEventSaga.covid,
-);
-
 export const selectResult = createSelector(
   [selectDomain],
   assessmentEventSaga => assessmentEventSaga.result,
+);
+
+export const selectCovid = createSelector(
+  [selectDomain],
+  assessmentEventSaga => assessmentEventSaga.covid,
 );
 
 export const selectErrorResult = createSelector(

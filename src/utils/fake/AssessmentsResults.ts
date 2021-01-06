@@ -52,9 +52,11 @@ const ASSESSMENTS_RESULT = {
     },
   },
   denwis: {
-    value: {
-      trend: 'decreasing',
-      value: 14,
+    denwis: {
+      value: {
+        trend: 'decreasing',
+        value: 14,
+      },
     },
   },
   covid: {

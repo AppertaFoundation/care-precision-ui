@@ -38,20 +38,26 @@ const AssessmentSummary: React.FC<{
   if (isLoading) {
     <Spinner />;
   }
-  if (error) {
-    return <ErrorText>{repoErrorText(error)}</ErrorText>;
-  }
+
   return (
     <Dialog open={open} onClose={handleClose}>
       <DialogTitle id="scroll-dialog-title" onClose={handleClose}>
         {title}
       </DialogTitle>
-      <DialogContent dividers={true}>{summary}</DialogContent>
+      <DialogContent dividers={true}>
+        {summary}
+        {isLoading && <Spinner />}
+        {error && <ErrorText>{repoErrorText(error)}</ErrorText>}
+      </DialogContent>
       <DialogActions>
         <Button.Primary onClick={handleClose} color="primary">
           Cancel
         </Button.Primary>
-        <Button.Secondary onClick={handleConfirm} variant="contained">
+        <Button.Secondary
+          onClick={handleConfirm}
+          variant="contained"
+          disabled={Boolean(error)}
+        >
           Confirm
         </Button.Secondary>
       </DialogActions>
@@ -62,6 +68,8 @@ export default AssessmentSummary;
 
 export const repoErrorText = error => {
   switch (error) {
+    case 2:
+      return 'There is no result, close dialog and try again';
     default:
       return 'An error has occurred!';
   }

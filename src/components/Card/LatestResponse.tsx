@@ -30,48 +30,48 @@ const LatestResponse = ({ assessments, sm, id }) => {
         alignItems="center"
         {...(sm ? { className: classes.container } : {})}
       >
-        {assessments?.denwis.value && (
+        {assessments?.denwis?.value && (
           <Grid item>
             <IconButtonNews2
               onClick={() => console.log('denwis')}
               {...(sm ? { size: 'small' } : {})}
             >
-              <DenwisIcon denwis={assessments?.denwis.value} />
+              <DenwisIcon denwis={assessments?.denwis?.value} />
             </IconButtonNews2>
           </Grid>
         )}
-        {assessments?.sepsis.value && (
+        {assessments?.sepsis?.value && (
           <>
             <Grid item>
               <IconButton
                 onClick={() => console.log('sepsis')}
                 {...(sm ? { size: 'small' } : {})}
               >
-                <SepsisIcon value={assessments.sepsis.value} />
+                <SepsisIcon value={assessments?.sepsis?.value} />
               </IconButton>
             </Grid>
           </>
         )}
-        {assessments?.news2.value && (
+        {assessments?.news2?.value && (
           <>
             <Grid item>
               <IconButtonNews2
                 onClick={() => console.log('news2')}
                 {...(sm ? { size: 'small' } : {})}
               >
-                <News2Icon news2={assessments.news2.value} />
+                <News2Icon news2={assessments?.news2?.value} />
               </IconButtonNews2>
             </Grid>
           </>
         )}
-        {assessments?.covid.value && (
+        {assessments?.covid?.value && (
           <>
             <Grid item>
               <IconButton
                 onClick={goToCovid}
                 {...(sm ? { size: 'small' } : {})}
               >
-                <CovidIcon value={assessments.covid.value} />
+                <CovidIcon value={assessments?.covid?.value} />
               </IconButton>
             </Grid>
           </>

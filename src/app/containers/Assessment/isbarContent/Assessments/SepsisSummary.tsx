@@ -54,14 +54,14 @@ const Section: React.FC<{
           ))}
         {redFlagAcute &&
           redFlagAcute.map(item => (
-            <Box p={1}>
+            <Box p={1} key={uniqid()}>
               <SepsisIcon value={{ value: 'red' }} />
               {item}
             </Box>
           ))}
         {amberFlagAcute &&
           amberFlagAcute.map(item => (
-            <Box p={1}>
+            <Box p={1} key={uniqid()}>
               <SepsisIcon value={{ value: 'amber' }} />
               {item}
             </Box>

@@ -62,7 +62,7 @@ const Situation = () => {
     register,
     setValue,
     errors,
-    trigger,
+    // trigger,
   } = useForm({
     defaultValues: situationDefault,
   });
@@ -98,6 +98,7 @@ const Situation = () => {
   ]);
 
   const useEffectOnSaveChips = (effect: React.EffectCallback) => {
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(effect, [selected]);
   };
 

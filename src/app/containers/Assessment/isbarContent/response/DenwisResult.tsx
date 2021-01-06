@@ -11,7 +11,7 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme, makeStyles, Theme } from '@material-ui/core/styles';
 import { useSelector } from 'react-redux';
 import { DenwisIcon } from 'components';
-import { selectDenwis } from '../../selectors';
+import { selectDenwis, selectResult } from '../../selectors';
 
 const useStyles = makeStyles((theme: Theme) => ({
   fullHeight: {
@@ -33,8 +33,8 @@ const useStyles = makeStyles((theme: Theme) => ({
 export const DenwisResult = () => {
   const classes = useStyles();
   const denwis = useSelector(selectDenwis);
-  const denwisResponse = denwis.response;
-
+  const result = useSelector(selectResult);
+  const denwisResponse = result?.denwis?.value;
   const theme = useTheme();
   const xs = useMediaQuery(theme.breakpoints.only('xs'));
   return (
@@ -65,7 +65,7 @@ export const DenwisResult = () => {
                     </Typography>
                   </Grid>
                   <Grid item>
-                    <DenwisIcon denwis={denwisResponse?.value} />
+                    <DenwisIcon denwis={denwisResponse} />
                   </Grid>
                 </Grid>
               </Grid>

@@ -15,6 +15,7 @@ import {
   selectPatientName,
   selectPatientNHS,
   selectDenwis,
+  selectResult,
 } from '../../selectors';
 
 import clsx from 'clsx';
@@ -37,7 +38,8 @@ export const DenwisSummary = () => {
   const denwis = useSelector(selectDenwis);
   const nhsNo = useSelector(selectPatientNHS);
   const name = useSelector(selectPatientName);
-  const denwisResult = denwis?.response?.value;
+  const result = useSelector(selectResult);
+  const denwisResult = result?.denwis?.value;
   return (
     <div>
       <Grid
@@ -70,10 +72,10 @@ export const DenwisSummary = () => {
         </Box>
         <Box display="flex" flexWrap="nowrap" flexDirection="column">
           <List dense>
-            {denwis?.q1Breathing.id === 'at0031' && (
+            {denwis?.q1Breathing?.id === 'at0031' && (
               <ListItem>
                 <ListItemText
-                  primary={denwis?.q1Breathing.value}
+                  primary={denwis?.q1Breathing?.value}
                   secondary={
                     denwis?.breathingIndicator &&
                     denwis?.breathingIndicator.join(', ')
@@ -81,10 +83,10 @@ export const DenwisSummary = () => {
                 />
               </ListItem>
             )}
-            {denwis?.q2Circulation.id === 'at0036' && (
+            {denwis?.q2Circulation?.id === 'at0036' && (
               <ListItem>
                 <ListItemText
-                  primary={denwis?.q2Circulation.value}
+                  primary={denwis?.q2Circulation?.value}
                   secondary={
                     denwis?.circulationIndeticator &&
                     denwis?.circulationIndeticator.join(', ')
@@ -92,39 +94,39 @@ export const DenwisSummary = () => {
                 />
               </ListItem>
             )}
-            {denwis?.q3Temperature.id === 'at0105' && (
+            {denwis?.q3Temperature?.id === 'at0105' && (
               <ListItem>
-                <ListItemText primary={denwis?.q3Temperature.value} />
+                <ListItemText primary={denwis?.q3Temperature?.value} />
               </ListItem>
             )}
-            {denwis?.q4Mentation.id === 'at0045' && (
+            {denwis?.q4Mentation?.id === 'at0045' && (
               <ListItem>
-                <ListItemText primary={denwis?.q4Mentation.value} />
+                <ListItemText primary={denwis?.q4Mentation?.value} />
               </ListItem>
             )}
-            {denwis?.q5Agitation.id === 'at0049' && (
+            {denwis?.q5Agitation?.id === 'at0049' && (
               <ListItem>
-                <ListItemText primary={denwis?.q5Agitation.value} />
+                <ListItemText primary={denwis?.q5Agitation?.value} />
               </ListItem>
             )}
-            {denwis?.q6Pain.id === 'at0052' && (
+            {denwis?.q6Pain?.id === 'at0052' && (
               <ListItem>
-                <ListItemText primary={denwis?.q6Pain.value} />
+                <ListItemText primary={denwis?.q6Pain?.value} />
               </ListItem>
             )}
-            {denwis?.q7Trajectory.id === 'at0055' && (
+            {denwis?.q7Trajectory?.id === 'at0055' && (
               <ListItem>
-                <ListItemText primary={denwis?.q7Trajectory.value} />
+                <ListItemText primary={denwis?.q7Trajectory?.value} />
               </ListItem>
             )}
-            {denwis?.q8PatientSubjective.id === 'at0058' && (
+            {denwis?.q8PatientSubjective?.id === 'at0058' && (
               <ListItem>
-                <ListItemText primary={denwis?.q8PatientSubjective.value} />
+                <ListItemText primary={denwis?.q8PatientSubjective?.value} />
               </ListItem>
             )}
-            {denwis?.q9NurseSubjective.id === 'at0061' && (
+            {denwis?.q9NurseSubjective?.id === 'at0061' && (
               <ListItem>
-                <ListItemText primary={denwis?.q9NurseSubjective.value} />
+                <ListItemText primary={denwis?.q9NurseSubjective?.value} />
               </ListItem>
             )}
           </List>

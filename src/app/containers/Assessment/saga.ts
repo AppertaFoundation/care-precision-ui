@@ -1,7 +1,7 @@
 import { call, put, takeLatest, delay } from 'redux-saga/effects';
 import { request } from 'utils/request';
 import { fake } from 'utils/fake';
-import { patientParser, keysToCamel } from 'utils/formatters';
+import { patientParser, keysToCamel, keysToSnake } from 'utils/formatters';
 import { serializeAssessmentJSON } from 'utils/formatters/serialize';
 import { PatientErrorType } from './types';
 import { actions } from './slice';
@@ -23,8 +23,8 @@ export function* getRecord(action) {
   }
   try {
     const patient = yield call(request, requestURL);
-    if (Object.keys(patient).length > 0) {
-      yield put(actions.recordLoaded(patientParser(keysToCamel(patient))));
+    if (Object.keys(patient[0]).length > 0) {
+      yield put(actions.recordLoaded(patientParser(keysToCamel(patient[0]))));
     } else {
       yield put(actions.recordError(PatientErrorType.USER_HAS_NO_RECORDS));
     }
@@ -35,7 +35,8 @@ export function* getRecord(action) {
 
 export function* makeCalculations(action) {
   yield delay(500);
-  const { obsType } = action.payload;
+  const requestURL = `https://api.c19.devmode.xyz/c19-alpha/0.0.1/cdr/draft`;
+  const { obsType, assessmentForm } = action.payload;
   if (process.env.REACT_APP_STATIC) {
     yield put(
       {
@@ -59,25 +60,38 @@ export function* makeCalculations(action) {
       ),
     );
   }
-  // try {
-  //   const result = yield call(request, requestURL);
-  //   if (Object.keys(result).length > 0) {
-  //     yield put(actions.calculatedResult(parseCalulation(keysToCamel(result))));
-  //   } else {
-  //     yield put(actions.calculationError(PatientErrorType.USER_HAS_NO_RECORDS));
-  //   }
-  // } catch (err) {
-  //   yield put(actions.calculationError(PatientErrorType.RESPONSE_ERROR));
-  // }
+  try {
+    const result = yield call(request, requestURL, {
+      method: 'POST',
+      mode: 'cors',
+      cache: 'no-cache',
+      // credentials: 'include',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: JSON.stringify([
+        {},
+        { [`${obsType}`]: keysToSnake(assessmentForm) },
+      ]),
+    });
+
+    if (Object.keys(result).length > 0) {
+      yield put(actions.calculatedResult(keysToCamel(result)));
+    } else {
+      yield put(actions.calculationError(PatientErrorType.USER_HAS_NO_RECORDS));
+    }
+  } catch (err) {
+    yield put(actions.calculationError(PatientErrorType.RESPONSE_ERROR));
+  }
 }
 
 export function* submitAssessment(action) {
   yield delay(500);
-  const requestURL = ``;
+  const requestURL = 'https://api.c19.devmode.xyz/c19-alpha/0.0.1/cdr/';
 
-  // if (process.env.REACT_APP_STATIC) {
-  //   return yield put(actions.successAssesment());
-  // }
+  if (process.env.REACT_APP_STATIC) {
+    return yield put(actions.successAssesment());
+  }
   const formatedAssessment = serializeAssessmentJSON(action.payload);
   try {
     yield call(request, requestURL, {
@@ -88,13 +102,11 @@ export function* submitAssessment(action) {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
       },
-      body: JSON.stringify(formatedAssessment),
+      body: JSON.stringify([{}, formatedAssessment]),
     });
     yield put(actions.successAssesment());
   } catch (err) {
-    yield put(actions.successAssesment());
-
-    // yield put(actions.submissionError(PatientErrorType.RESPONSE_ERROR));
+    yield put(actions.calculationError(PatientErrorType.RESPONSE_ERROR));
   }
 }
 /**
