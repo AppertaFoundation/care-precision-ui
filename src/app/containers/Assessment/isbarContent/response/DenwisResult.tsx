@@ -12,6 +12,7 @@ import { useTheme, makeStyles, Theme } from '@material-ui/core/styles';
 import { useSelector } from 'react-redux';
 import { DenwisIcon } from 'components';
 import { selectDenwis, selectResult } from '../../selectors';
+import { formatTime, formatDate } from 'utils/formatters/time';
 
 const useStyles = makeStyles((theme: Theme) => ({
   fullHeight: {
@@ -35,6 +36,11 @@ export const DenwisResult = () => {
   const denwis = useSelector(selectDenwis);
   const result = useSelector(selectResult);
   const denwisResponse = result?.denwis?.value;
+  const updateDateTime = result?.denwis?.lastUpdate;
+
+  const lastUpdate = `${formatTime(updateDateTime)} ${formatDate(
+    updateDateTime,
+  )}`;
   const theme = useTheme();
   const xs = useMediaQuery(theme.breakpoints.only('xs'));
   return (
@@ -71,7 +77,7 @@ export const DenwisResult = () => {
               </Grid>
               <Grid item>
                 <Typography variant="body2">
-                  Last observation: 11:25 04 Aug 2020
+                  Last observation: {lastUpdate}
                 </Typography>
               </Grid>
             </Grid>

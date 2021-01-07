@@ -88,12 +88,11 @@ const assessmentEventSlice = createSlice({
     calculateResult(state, action) {
       state.loadingResult = true;
       state.errorResult = null;
-      state.result = null;
     },
     calculatedResult(state, action) {
       state.loadingResult = false;
       state.errorResult = null;
-      state.result = action.payload;
+      state.result = { ...state.result, ...action.payload };
     },
     calculationError(state, action: PayloadAction<PatientErrorType>) {
       state.errorResult = action.payload;

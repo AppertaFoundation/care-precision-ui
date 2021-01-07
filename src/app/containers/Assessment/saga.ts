@@ -37,27 +37,14 @@ export function* makeCalculations(action) {
   yield delay(500);
   const requestURL = `https://api.c19.devmode.xyz/c19-alpha/0.0.1/cdr/draft`;
   const { obsType, assessmentForm } = action.payload;
+  const now = new Date();
   if (process.env.REACT_APP_STATIC) {
-    yield put(
-      {
-        news2: actions.saveNews2({
-          response: keysToCamel(fake.ASSESSMENTS_RESULT[`${obsType}`]),
-        }),
-        sepsis: actions.saveSepsis({
-          response: keysToCamel(fake.ASSESSMENTS_RESULT[`${obsType}`]),
-        }),
-        denwis: actions.saveDenwis({
-          response: keysToCamel(fake.ASSESSMENTS_RESULT[`${obsType}`]),
-        }),
-        covid: actions.saveCovid({
-          response: keysToCamel(fake.ASSESSMENTS_RESULT[`${obsType}`]),
-        }),
-      }[obsType],
-    );
+    const result = keysToCamel(fake.ASSESSMENTS_RESULT[`${obsType}`]);
+    result[`${obsType}`].lastUpdate = now;
     return yield put(
-      actions.calculatedResult(
-        keysToCamel(fake.ASSESSMENTS_RESULT[`${obsType}`]),
-      ),
+      actions.calculatedResult({
+        ...result,
+      }),
     );
   }
   try {
@@ -76,7 +63,13 @@ export function* makeCalculations(action) {
     });
 
     if (Object.keys(result).length > 0) {
-      yield put(actions.calculatedResult(keysToCamel(result)));
+      result[`${obsType}`].lastUpdate = now;
+
+      yield put(
+        actions.calculatedResult({
+          ...keysToCamel(result),
+        }),
+      );
     } else {
       yield put(actions.calculationError(PatientErrorType.USER_HAS_NO_RECORDS));
     }

@@ -4,7 +4,8 @@ import { SepsisIcon } from 'components';
 import { useSelector } from 'react-redux';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme, makeStyles } from '@material-ui/core/styles';
-import { selectSepsis } from '../../selectors';
+import { selectSepsis, selectResult } from '../../selectors';
+import { formatTime, formatDate } from 'utils/formatters/time';
 import uniqid from 'uniqid';
 
 const useStyles = makeStyles({
@@ -21,8 +22,12 @@ const useStyles = makeStyles({
 export const SepsisResult = () => {
   const classes = useStyles();
   const sepsis = useSelector(selectSepsis);
-  const sepsisResponse = sepsis.response;
-
+  const result = useSelector(selectResult);
+  const sepsisResponse = result?.sepsis?.value;
+  const updateDateTime = result?.sepsis?.lastUpdate;
+  const lastUpdate = `${formatTime(updateDateTime)} ${formatDate(
+    updateDateTime,
+  )}`;
   const theme = useTheme();
   const xs = useMediaQuery(theme.breakpoints.only('xs'));
   return (
@@ -53,7 +58,7 @@ export const SepsisResult = () => {
                     </Typography>
                   </Grid>
                   <Grid item>
-                    <SepsisIcon value={sepsisResponse?.value} />
+                    <SepsisIcon value={sepsisResponse} />
                   </Grid>
                 </Grid>
               </Grid>
@@ -64,7 +69,7 @@ export const SepsisResult = () => {
               </Grid>
               <Grid item>
                 <Typography component="div" variant="body2">
-                  Last observation: 11:25 04 Aug 2020
+                  Last observation: {`${lastUpdate}`}
                 </Typography>
               </Grid>
             </Grid>

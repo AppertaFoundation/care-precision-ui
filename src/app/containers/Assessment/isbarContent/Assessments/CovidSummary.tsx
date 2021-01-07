@@ -14,6 +14,7 @@ import {
   selectPatientName,
   selectPatientNHS,
   selectCovid,
+  selectResult,
 } from '../../selectors';
 import clsx from 'clsx';
 import uniqid from 'uniqid';
@@ -36,7 +37,8 @@ export const CovidSummary = () => {
   const covid = useSelector(selectCovid);
   const nhsNo = useSelector(selectPatientNHS);
   const name = useSelector(selectPatientName);
-  const covidResult = covid?.response?.value;
+  const result = useSelector(selectResult);
+  const covidResult = result?.covid?.value;
   return (
     <div>
       <Grid

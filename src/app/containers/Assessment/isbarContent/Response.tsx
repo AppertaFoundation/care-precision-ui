@@ -94,13 +94,13 @@ const Response = () => {
       direction="row"
       className={classes.root}
     >
-      {news2?.response && (
+      {result?.news2?.totalScore && (
         <Grid item xs={12}>
           <News2Result />
           <Divider />
         </Grid>
       )}
-      {sepsis?.response && (
+      {result?.sepsis?.value && (
         <Grid item xs={12}>
           <SepsisResult /> <Divider />
         </Grid>
@@ -110,7 +110,7 @@ const Response = () => {
           <DenwisResult /> <Divider />
         </Grid>
       )}
-      {covid?.response && (
+      {result?.covid?.value && (
         <Grid item xs={12}>
           <CovidResult /> <Divider />
         </Grid>

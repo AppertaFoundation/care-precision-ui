@@ -5,7 +5,8 @@ import { useTheme, Theme, makeStyles } from '@material-ui/core/styles';
 import { News2Icon } from 'components';
 import { useSelector } from 'react-redux';
 import VitalSignsTable from './VitalSignsTable';
-import { selectNews2Response, selectNews2 } from '../../selectors';
+import { selectResult, selectNews2 } from '../../selectors';
+import { formatTime, formatDate } from 'utils/formatters/time';
 
 const useStyles = makeStyles((theme: Theme) => ({
   fullHeight: {
@@ -14,10 +15,15 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 export const News2Result = () => {
   const classes = useStyles();
-  const news2Response = useSelector(selectNews2Response);
+  const result = useSelector(selectResult);
+  const news2Response = result?.news2;
   const news2 = useSelector(selectNews2);
   const { totalScore, clinicalRiskCategory } = news2Response;
 
+  const updateDateTime = result?.news2?.lastUpdate;
+  const lastUpdate = `${formatTime(updateDateTime)} ${formatDate(
+    updateDateTime,
+  )}`;
   const theme = useTheme();
   const xs = useMediaQuery(theme.breakpoints.only('xs'));
   const upSm = useMediaQuery(theme.breakpoints.up('sm'));
@@ -68,7 +74,7 @@ export const News2Result = () => {
             </Grid>
             <Grid item>
               <Typography variant="body2">
-                Last observation: 11:25 04 Aug 2020
+                Last observation: {lastUpdate}
               </Typography>
             </Grid>
           </Grid>

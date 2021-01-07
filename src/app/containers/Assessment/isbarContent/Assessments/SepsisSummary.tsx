@@ -7,6 +7,7 @@ import {
   selectSepsis,
   selectPatientNHS,
   selectPatientName,
+  selectResult,
 } from '../../selectors';
 import uniqid from 'uniqid';
 import clsx from 'clsx';
@@ -76,6 +77,8 @@ export const SepsisSummary = () => {
   const sepsis = useSelector(selectSepsis);
   const nhsNo = useSelector(selectPatientNHS);
   const name = useSelector(selectPatientName);
+  // const result = useSelector(selectResult);
+  // const sepsisResult = result?.sepsis?.value;
 
   const isEmptyScreening = () => {
     const {

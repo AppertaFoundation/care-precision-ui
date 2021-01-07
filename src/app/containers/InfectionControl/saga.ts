@@ -38,10 +38,8 @@ export function* getRecord(action) {
       ),
     );
   }
-  debugger;
   try {
     const patient = yield call(request, requestURL);
-    console.log(patient);
     if (Object.keys(patient[0]).length > 0) {
       yield put(actions.recordLoaded(patientParser(keysToCamel(patient[0]))));
     } else {
@@ -65,7 +63,7 @@ export function* getInfectionControl(action) {
 }
 // State Selectors
 const covidMenagmentForm = state => state.infectionControl.covidMenagment;
-const patientId = state => state.infectionControl.patient.id;
+// const patientId = state => state.infectionControl.patient.id;
 
 export function* updateCovidPathway(action) {
   yield delay(500);

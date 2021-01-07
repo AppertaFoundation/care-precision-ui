@@ -13,6 +13,7 @@ import { News2Icon, BoxWrapper } from 'components';
 import { useSelector } from 'react-redux';
 import {
   selectNews2Response,
+  selectResult,
   selectPatientName,
   selectPatientNHS,
 } from '../../selectors';
@@ -164,10 +165,11 @@ const TotalNEWSScore = ({ score, clinicalRisk }) => {
 
 export function News2Summary() {
   const classes = useStyles();
-  const response = useSelector(selectNews2Response);
+  // const response = useSelector(selectNews2Response);
   const nhsNo = useSelector(selectPatientNHS);
   const name = useSelector(selectPatientName);
-
+  const result = useSelector(selectResult);
+  const response = result?.news2;
   return (
     <div>
       <Grid
@@ -190,7 +192,7 @@ export function News2Summary() {
           </Box>
         </Grid>
       </Grid>
-      {/* {response && (
+      {response && (
         <Box m={2}>
           <Section
             items={[
@@ -243,10 +245,10 @@ export function News2Summary() {
 
           <TotalNEWSScore
             score={response?.totalScore}
-            clinicalRisk={response?.clinicalRiskCategory.code}
+            clinicalRisk={response?.clinicalRiskCategory?.code}
           />
         </Box>
-      )} */}
+      )}
     </div>
   );
 }

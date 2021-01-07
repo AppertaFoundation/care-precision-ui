@@ -8,11 +8,12 @@ import {
   ListItemText,
 } from '@material-ui/core';
 import { useSelector } from 'react-redux';
-import { selectCovid } from '../../selectors';
+import { selectCovid, selectResult } from '../../selectors';
 import { CovidIcon } from 'components';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme, makeStyles, Theme } from '@material-ui/core/styles';
 import uniqid from 'uniqid';
+import { formatTime, formatDate } from 'utils/formatters/time';
 
 const useStyles = makeStyles((theme: Theme) => ({
   fullHeight: {
@@ -30,6 +31,12 @@ export const CovidResult = () => {
   const covid = useSelector(selectCovid);
   const theme = useTheme();
   const xs = useMediaQuery(theme.breakpoints.only('xs'));
+  const result = useSelector(selectResult);
+  const covidResult = result?.covid?.value;
+  const updateDateTime = result?.covid?.lastUpdate;
+  const lastUpdate = `${formatTime(updateDateTime)} ${formatDate(
+    updateDateTime,
+  )}`;
   return (
     <Box p={1}>
       <Grid
@@ -58,7 +65,7 @@ export const CovidResult = () => {
                     </Typography>
                   </Grid>
                   <Grid item>
-                    <CovidIcon value={covid?.response?.value} />
+                    <CovidIcon value={covidResult} />
                   </Grid>
                 </Grid>
               </Grid>
@@ -69,7 +76,7 @@ export const CovidResult = () => {
               </Grid>
               <Grid item>
                 <Typography component="div" variant="body2">
-                  Last observation: 11:25 04 Aug 2020
+                  Last observation: {lastUpdate}
                 </Typography>
               </Grid>
             </Grid>
