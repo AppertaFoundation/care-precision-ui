@@ -16,7 +16,7 @@ import { useTheme } from '@material-ui/core/styles';
 import { useStyles } from './style';
 import { Text } from 'components';
 import clsx from 'clsx';
-
+import { useNavigate } from 'react-router-dom';
 import { IAssessmentIcons } from 'types';
 
 import NewCareEventDialog from '../NewCareEventDialog';
@@ -62,6 +62,7 @@ const Card: React.FC<Props> = ({
   const handleClose = (): void => setOpen(false);
 
   const theme = useTheme();
+  const navigate = useNavigate();
   const sm = useMediaQuery(theme.breakpoints.up('sm'));
   const latestResponseBar = (
     <LatestResponse sm={!sm} assessments={assesments} id={id} />
@@ -69,7 +70,7 @@ const Card: React.FC<Props> = ({
   // const latestResponseTable = (
   //   <LatestResponseTable sm={!sm} assessments={assesments} id={id} />
   // );
-  const redirectToPatientOverview = e => console.log('jest');
+  const redirectToPatientOverview = e => navigate(`/patient-overview/${id}`);
   return (
     <>
       <Box className={clsx(classes.card, classes.roundedCorners)}>

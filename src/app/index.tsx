@@ -21,7 +21,7 @@ import { AcuityDashboard } from './containers/AcuityDashboard/Loadable';
 import { Assessment } from './containers/Assessment';
 import { NotFoundPage } from 'components/NotFoundPage/Loadable';
 import { InfectionControl } from './containers/InfectionControl';
-
+import { PatientOverview } from './containers/PatientOverview';
 /**
  * Decided to use a beta version of react-router(complete different api than v5)
  * Beta was released on 20 Jun 2020 and cover all cases incompatibles previous release
@@ -79,15 +79,15 @@ export function App() {
           <PrivateRoute
             header={false}
             bottomToolBar
+            path="/patient-overview/:id/"
+            element={<PatientOverview />}
+          />
+          <PrivateRoute
+            header={false}
+            bottomToolBar
             element={<Assessment />}
             path="/assessment/:id/:tab/:obsType"
           />
-          {/* <PrivateRoute
-            header={false}
-            bottomToolBar
-            element={<Assessment step={'background'}/>}
-            path="/assessment/:id/1"
-          /> */}
         </Route>
         <Route element={<NotFoundPage />} />
       </Routes>

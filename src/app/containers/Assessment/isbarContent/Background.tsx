@@ -72,7 +72,7 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-const FRAILTY_OPTIONS = [
+export const FRAILTY_OPTIONS = [
   {
     icon: VeryFit,
     label: '1. Very Fit',
