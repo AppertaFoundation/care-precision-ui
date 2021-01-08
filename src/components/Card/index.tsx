@@ -21,6 +21,7 @@ import { IAssessmentIcons } from 'types';
 
 import NewCareEventDialog from '../NewCareEventDialog';
 import LatestResponse from './LatestResponse';
+// import LatestResponseTable from './LatestResponseTable';
 
 const CardContent = withStyles({
   root: {
@@ -34,7 +35,7 @@ interface Props {
   name?: string;
   identifier?: string;
   id?: string;
-  isDashboard?: boolean;
+  // isDashboard?: boolean;
   children?: JSX.Element;
   assesments?: IAssessmentIcons;
   handleClick?: (
@@ -51,7 +52,7 @@ const Card: React.FC<Props> = ({
   assesments,
   children,
   id,
-  isDashboard,
+  // isDashboard,
   location,
 }) => {
   const classes = useStyles();
@@ -65,6 +66,9 @@ const Card: React.FC<Props> = ({
   const latestResponseBar = (
     <LatestResponse sm={!sm} assessments={assesments} id={id} />
   );
+  // const latestResponseTable = (
+  //   <LatestResponseTable sm={!sm} assessments={assesments} id={id} />
+  // );
   const redirectToPatientOverview = e => console.log('jest');
   return (
     <>
@@ -87,7 +91,9 @@ const Card: React.FC<Props> = ({
           }
           action={
             <CardActions disableSpacing>
-              {isDashboard && sm && latestResponseBar}
+              {sm && latestResponseBar}
+              {/* {isDashboard && sm && latestResponseTable} */}
+
               <Divider orientation="vertical" flexItem />
               <IconButton edge={'end'} onClick={handleOpen}>
                 <MoreVertIcon />
@@ -102,7 +108,7 @@ const Card: React.FC<Props> = ({
             </CardContent>
           </CardActionArea>
         )}
-        {!(isDashboard && sm) && (
+        {!sm && (
           <>
             <Divider variant="middle" />
 

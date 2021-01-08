@@ -16,7 +16,7 @@ export const patientParser = ({
 }) => {
   return {
     location,
-    nhsnumber,
+    nhsnumber: nhsnumber || '-',
     birthDate: `${formatDate(birthDateAsString)} ${formatAge(
       birthDateAsString,
     )}`,

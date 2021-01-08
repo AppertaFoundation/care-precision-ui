@@ -27,6 +27,9 @@ import { DialogTitle } from './Dialog/DialogTitle';
 import { DialogActions } from './Dialog/DialogActions';
 import Spinner from './Spinner';
 import Text from './Text';
+import { Table } from './AcuityTable';
+import { TdFirst, TdLast } from './AcuityTable/style';
+
 export {
   Layout,
   Card,
@@ -59,4 +62,7 @@ export {
   DialogActions,
   Spinner,
   Text,
+  Table,
+  TdFirst,
+  TdLast,
 };
