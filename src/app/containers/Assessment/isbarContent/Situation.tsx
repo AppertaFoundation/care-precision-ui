@@ -56,6 +56,7 @@ const Situation = () => {
   const situationDefault = useSelector(selectSituation);
   const { id, obsType } = useParams();
 
+  // console.log(situationDefault)
   const {
     handleSubmit,
     getValues,
@@ -81,14 +82,14 @@ const Situation = () => {
 
   useEffect(() => {
     register({ name: 'softSigns' }, { validate });
-    // setSelected(situationDefault?.softSigns || []);
-    // const defaultNotes = situationDefault?.notes;
-    // if (defaultNotes) {
-    //   setAvaibleChars(defaultNotes.length);
-    // }
-    // if (situationDefault?.other) {
-    //   setOther(true);
-    // }
+    setSelected(situationDefault?.softSigns || []);
+    const defaultNotes = situationDefault?.notes;
+    if (defaultNotes) {
+      setAvaibleChars(defaultNotes.length);
+    }
+    if (situationDefault?.other) {
+      setOther(true);
+    }
   }, [
     register,
     situationDefault?.notes,

@@ -151,9 +151,9 @@ export function Background() {
     defaultValues: backgroundDefault,
   });
   const [open, setOpen] = useState<boolean>(false);
-  const [frailty, setFrailty] = React.useState<any>(getValues('frailty') || {});
-  const [height, setHeight] = useState<string[]>(getValues('height') || '');
-  const [weight, setWeight] = useState<string[]>(getValues('weight') || '');
+  const [frailty, setFrailty] = React.useState<any>({});
+  const [height, setHeight] = useState<any>();
+  const [weight, setWeight] = useState<any>();
 
   const [selectedIndex, setSelectedIndex] = React.useState(
     FRAILTY_OPTIONS.indexOf(frailty),
@@ -170,6 +170,7 @@ export function Background() {
   };
   useEffectOnMount(() => {
     register({ name: 'frailty' }, { validate });
+    setFrailty(backgroundDefault.frailty);
   });
   const onSubmit = data => {
     dispatch(actions.saveBackground(data));
@@ -264,7 +265,7 @@ export function Background() {
                     label="Current Clinical Frailty"
                     fullWidth
                     name="frailty"
-                    value={frailty.label || ''}
+                    value={frailty?.label || ''}
                     InputProps={{
                       readOnly: true,
                       endAdornment: (
