@@ -1,7 +1,5 @@
 # Care Protect (UI)
 
-[TOC]
-
 <!---  See https://shields.io. You might want to include dependencies, project status and licence info here --->
 
 https://github.com/AppertaFoundation/care-protect-ui
@@ -97,11 +95,11 @@ Application created with [create-react-app](https://github.com/facebook/create-r
 
 **More detailed informations:**
 
-- [Application structure](https://github.com/AppertaFoundation/care-protect-ui/tree/main/development-docs/README.md)
-- [Architecture](https://github.com/AppertaFoundation/care-protect-ui/tree/main/development-docs/README.md)
+- [Application structure](https://github.com/AppertaFoundation/care-protect-ui/tree/main/development-docs/README.md/#Application-structure)
+- [Architecture](https://github.com/AppertaFoundation/care-protect-ui/tree/main/development-docs/README.md/#Architecture)
 - [Theme, Styling](https://github.com/AppertaFoundation/care-protect-ui/tree/main/development-docs/README.md)
 - [Using Static data (mocks)](https://github.com/AppertaFoundation/care-protect-ui/tree/main/development-docs/README.md)
-- [Testing](https://github.com/AppertaFoundation/care-protect-ui/tree/main/development-docs/README.md)
+- [Testing](https://github.com/AppertaFoundation/care-protect-ui/tree/main/development-docs/README.md/#Testing)
 
 ## Contributing to Care Protect UI
 
