@@ -19,7 +19,6 @@ import {
 } from '@material-ui/core';
 
 import { useForm } from 'react-hook-form';
-import { useNavigate, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectBackground } from '../selectors';
 import { actions } from '../slice';
@@ -135,9 +134,7 @@ export const FRAILTY_OPTIONS = [
 export function Background() {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const backgroundDefault = useSelector(selectBackground);
-  const { id, obsType } = useParams();
 
   const {
     handleSubmit,
@@ -152,8 +149,8 @@ export function Background() {
   });
   const [open, setOpen] = useState<boolean>(false);
   const [frailty, setFrailty] = React.useState<any>({});
-  const [height, setHeight] = useState<any>();
-  const [weight, setWeight] = useState<any>();
+  const [height, setHeight] = useState<any>('');
+  const [weight, setWeight] = useState<any>('');
 
   const [selectedIndex, setSelectedIndex] = React.useState(
     FRAILTY_OPTIONS.indexOf(frailty),
@@ -174,7 +171,6 @@ export function Background() {
   });
   const onSubmit = data => {
     dispatch(actions.saveBackground(data));
-    navigate(`/assessment/${id}/${2}/${obsType}`, { replace: true });
   };
   const handleListItemClick = (
     event: React.MouseEvent<HTMLDivElement, MouseEvent>,

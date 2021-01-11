@@ -1,6 +1,7 @@
 import React from 'react';
 import { DialogContent, ListItem, List, ListItemText } from '@material-ui/core';
 import { Button, Dialog, DialogTitle, DialogActions } from 'components';
+import uniqid from 'uniqid';
 
 const AssessmentError: React.FC<{
   open: boolean;
@@ -15,7 +16,7 @@ const AssessmentError: React.FC<{
       <DialogContent dividers={true}>
         <List dense={true}>
           {errors.map(error => (
-            <ListItem>
+            <ListItem key={uniqid()}>
               <ListItemText
                 primary={`• ${error}`}
                 primaryTypographyProps={{ variant: 'body1' }}

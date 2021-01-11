@@ -12,7 +12,7 @@ import {
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import { useForm } from 'react-hook-form';
-import { useParams, useNavigate } from 'react-router-dom';
+// import { useParams, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { actions } from '../slice';
 import { selectSituation } from '../selectors';
@@ -51,12 +51,11 @@ const MAX_CHARS_ISB_TABS = 255;
 const Situation = () => {
   const classess = useStyles();
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const situationDefault = useSelector(selectSituation);
-  const { id, obsType } = useParams();
+  // const { id, obsType } = useParams();
 
-  // console.log(situationDefault)
   const {
     handleSubmit,
     getValues,
@@ -69,7 +68,7 @@ const Situation = () => {
   });
   const onSubmit = data => {
     dispatch(actions.saveSituation(data));
-    navigate(`/assessment/${id}/${1}/${obsType}`, { replace: true });
+    // navigate(`/assessment/${id}/${1}/${obsType}`, { replace: true });
   };
 
   const [selected, setSelected] = useState<string[]>([]);
