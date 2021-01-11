@@ -40,7 +40,7 @@ export function* makeCalculations(action) {
   const now = new Date();
   if (process.env.REACT_APP_STATIC) {
     const result = keysToCamel(fake.ASSESSMENTS_RESULT[`${obsType}`]);
-    result[`${obsType}`].lastUpdate = now;
+    result[`${obsType}`].lastUpdate = now.toISOString();
     return yield put(
       actions.calculatedResult({
         ...result,
