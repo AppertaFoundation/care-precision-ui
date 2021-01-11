@@ -1,32 +1,29 @@
-# care-protect-ui
+# Care Protect (UI)
 
->
+[TOC]
 
-## Summary
+<!---  See https://shields.io. You might want to include dependencies, project status and licence info here --->
 
-Application is a User Interface in Care Protect Project.
+https://github.com/AppertaFoundation/care-protect-ui
 
-## Status
+![GitHub repo size](https://img.shields.io/github/repo-size/AppertaFoundation/care-protect-ui) ![GitHub contributors](https://img.shields.io/github/contributors/AppertaFoundation/care-protect-ui) ![GitHub stars](https://img.shields.io/github/stars/AppertaFoundation/care-protect-ui?style=social) ![GitHub forks](https://img.shields.io/github/forks/AppertaFoundation/care-protect-ui?style=social)
+![Twitter Follow](https://img.shields.io/twitter/follow/appertauk?style=social) ![Twitter Follow](https://img.shields.io/twitter/follow/opusvl?style=social)
 
-![](https://img.shields.io/badge/Status-unstable-orange)
+Care Protect, it is a web/mobile application which allows manage patient conditions, infection control and make any observation on patients in care homes. Also helps to efficiently plan further patient care as a request on current main neededs of care homes stafs.
+In this repository you can find user interface part.
 
-The application is at a very early stage of development. The prototype and the first release have not been published yet. We insist to have this in mind if you would like to run it. The current version is unstable and often updated.
+**Attention! The application is at an early stage of development, even before the first realse. We kindly ask for your understanding if something "doesn't work" :wink:. New changes and updates appear every day.**
 
-## Stack
+## Prerequisites
 
-- ReactJs
-- TypeScript
-- yarn
-- Material-UI
+Before you begin, ensure you have met the following requirements:
 
-## How to run?
+<!--- These are just example requirements. Add, duplicate or remove as required --->
 
-### Prep / deps
+- You have installed the latest version of yarn package manager. [Official docs](https://classic.yarnpkg.com/en/docs/install/#windows-stable)
+- You have a ~~download and set up a [Middleware]()~~ Middleware is not available yet, but you can run Client App Statically with prepared by us dummy data.
 
-1. Install and set up yarn package manager. [Official docs](https://classic.yarnpkg.com/en/docs/install/#windows-stable)
-2. ~~Download and set up a [Middleware]()~~ Middleware is not available yet, but you can run Client App Statically with prepared by us dummy data.
-
-### Installation
+## Installation
 
 1. Clone this repo
 
@@ -44,7 +41,7 @@ The application is at a very early stage of development. The prototype and the f
 
    `$ yarn install`
 
-### Build
+## Build
 
 1 .You have to options create static build(without middleware) ~~or with it.~~
 
@@ -72,7 +69,7 @@ The application is at a very early stage of development. The prototype and the f
 
 And your app is served [localhost:5000](localhost:5000)
 
-### Run locally in development mode
+## Run locally in development mode
 
 - ~~Run with middleware.~~
 
@@ -80,12 +77,46 @@ And your app is served [localhost:5000](localhost:5000)
 
 - Static one
 
-  - Add in to file .env.local (root directory)
+  - Add in to file .env.local (root directory) `REACT_APP_STATIC=true`
+  - And `$ yarn start`
 
-    `REACT_APP_STATIC=true`
+## Understand the structure of the Care Protect UI app
 
-  - Run in consol:
+### Technologies
 
-    `$ yarn build`
+Used Technologies
 
-And you app is running on [localhost:3000](localhost:3000)
+- [React](https://reactjs.org/)
+- [TypeScript](https://github.com/microsoft/TypeScript)
+- [Yarn](https://yarnpkg.com/)
+- [Material-UI](https://material-ui.com/)
+- [Styled Components](https://github.com/styled-components/styled-components)
+- [JestJs](https://jestjs.io/)
+
+Application created with [create-react-app](https://github.com/facebook/create-react-app) and template[React Boilerplate CRA](https://github.com/react-boilerplate/react-boilerplate-cra-template)
+
+**More detailed informations:**
+
+- [Application structure](https://github.com/AppertaFoundation/care-protect-ui/tree/main/development-docs/README.md)
+- [Architecture](https://github.com/AppertaFoundation/care-protect-ui/tree/main/development-docs/README.md)
+- [Theme, Styling](https://github.com/AppertaFoundation/care-protect-ui/tree/main/development-docs/README.md)
+- [Using Static data (mocks)](https://github.com/AppertaFoundation/care-protect-ui/tree/main/development-docs/README.md)
+- [Testing](https://github.com/AppertaFoundation/care-protect-ui/tree/main/development-docs/README.md)
+
+## Contributing to Care Protect UI
+
+To contribute to Care-Protect UI, follow these steps:
+
+`nedd to be specyfied`
+
+Alternatively see the GitHub documentation on [creating a pull request](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request).
+
+## Contributors
+
+[![](https://github.com/adabedi.png?size=50)](https://github.com/adabedi) [![](https://github.com/david-jobling.png?size=50)](https://github.com/david-jobling)
+
+## Contact
+
+## License
+
+This project uses the following license: [License](https://github.com/AppertaFoundation/care-protect-ui/blob/main/LICENSE>).
