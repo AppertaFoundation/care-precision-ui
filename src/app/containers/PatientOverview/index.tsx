@@ -14,7 +14,7 @@ import {
   CardContent,
   Carousel,
 } from 'components';
-import { IconButton, Box, Paper, Typography } from '@material-ui/core';
+import { IconButton, Box, Typography } from '@material-ui/core';
 import { selectError, selectLoading, selectPatient } from './selectors';
 import CloseIcon from '@material-ui/icons/Close';
 import { SituationBackgroundSteps } from './Secitons/SituatiionBackground';
@@ -37,7 +37,7 @@ export function PatientOverview() {
 
   React.useEffect(() => {
     dispatch(actions.loadRecord(id));
-  }, []);
+  }, [dispatch, id]);
 
   const goBack = () => navigate('/');
 

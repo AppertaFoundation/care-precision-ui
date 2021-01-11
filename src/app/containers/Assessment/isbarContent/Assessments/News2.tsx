@@ -22,7 +22,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { useForm } from 'react-hook-form';
 import { useSelector, useDispatch } from 'react-redux';
 
-const News2 = ({ disabled, onOpenSummary }) => {
+const News2 = ({ disabled, onOpenSummary, onValidate, openErrorDialog }) => {
   const news2Default = useSelector(selectNews2);
   const dispatch = useDispatch();
 
@@ -50,10 +50,14 @@ const News2 = ({ disabled, onOpenSummary }) => {
 
   const onSubmit = data => {
     dispatch(actions.saveNews2(data));
-    dispatch(
-      actions.calculateResult({ obsType: 'news2', assessmentForm: data }),
-    );
-    onOpenSummary();
+    if (onValidate()) {
+      dispatch(
+        actions.calculateResult({ obsType: 'news2', assessmentForm: data }),
+      );
+      onOpenSummary();
+    } else {
+      openErrorDialog();
+    }
   };
 
   const useEffectOnAirOrOxygenChange = (effect: React.EffectCallback) => {

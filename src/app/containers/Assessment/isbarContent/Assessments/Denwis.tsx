@@ -16,7 +16,12 @@ const useStyles = makeStyles((theme: any) => ({
   },
 }));
 
-export const Denwis = ({ onOpenSummary, disabled }) => {
+export const Denwis = ({
+  onOpenSummary,
+  disabled,
+  openErrorDialog,
+  onValidate,
+}) => {
   const classess = useStyles();
   const dispatch = useDispatch();
   const denwis = useSelector(selectDenwis);
@@ -174,10 +179,13 @@ export const Denwis = ({ onOpenSummary, disabled }) => {
 
   const onSubmit = data => {
     dispatch(actions.saveDenwis(data));
-    dispatch(
-      actions.calculateResult({ obsType: 'denwis', assessmentForm: data }),
-    );
-    onOpenSummary();
+    if (onValidate()) {
+      dispatch(
+        actions.calculateResult({ obsType: 'denwis', assessmentForm: data }),
+      );
+    } else {
+      openErrorDialog();
+    }
   };
   return (
     <form

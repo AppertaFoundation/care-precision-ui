@@ -5,6 +5,7 @@ import {
   assessmentsTypesArraySelector,
   assessmentTypeSelector,
 } from 'store/assessmentTypeReducer';
+import { selectBackground, selectSituation } from '../../selectors';
 import { Grid, Typography, Box, makeStyles } from '@material-ui/core';
 // import { useDispatch } from 'react-redux';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
@@ -22,6 +23,8 @@ import { Sepsis } from './Sepsis';
 import { Denwis } from './Denwis';
 import { Covid } from './Covid';
 import Summary from './Summary';
+import { validate } from './validationRules';
+import AssessmentError from './Error';
 
 const useStyles = makeStyles((theme: any) => ({
   form: {
@@ -36,6 +39,10 @@ const useStyles = makeStyles((theme: any) => ({
 export const Assessments = ({ obsType, id }) => {
   const choosenAssessmentType = useSelector(assessmentTypeSelector) || obsType;
   const assessmentsTypesArray: [] = useSelector(assessmentsTypesArraySelector);
+
+  const situation = useSelector(selectSituation);
+  const background = useSelector(selectBackground);
+
   const classes = useStyles();
   const navigate = useNavigate();
   // const dispatch = useDispatch();
@@ -46,9 +53,16 @@ export const Assessments = ({ obsType, id }) => {
     covid: '',
   });
   const [openSummary, setOpenSummary] = React.useState(false);
+  const [openError, setOpenError] = React.useState(false);
+  const [errors, setErrors] = React.useState<[] | string[]>([]);
   const handleCloseSummary = () => setOpenSummary(false);
   const handleOpenSummary = React.useCallback(() => {
     setOpenSummary(true);
+  }, []);
+
+  const handleCloseError = () => setOpenError(false);
+  const handleOpenError = React.useCallback(() => {
+    setOpenError(true);
   }, []);
 
   const useEffectOnMount = (effect: React.EffectCallback) => {
@@ -69,6 +83,13 @@ export const Assessments = ({ obsType, id }) => {
     handleCloseSummary();
     // dispatch(actions.cleanAssessment());
     navigate(`/assessment/${id}/${3}/${obsType}`, { replace: true });
+  };
+
+  const onValidate = () => {
+    const errors = validate(situation, background);
+    console.log(errors);
+    setErrors(errors);
+    return !(errors.length > 0);
   };
 
   const renderAssessment = (
@@ -102,6 +123,8 @@ export const Assessments = ({ obsType, id }) => {
                 <News2
                   disabled={choosenAssessmentType !== 'news2'}
                   onOpenSummary={handleOpenSummary}
+                  onValidate={onValidate}
+                  openErrorDialog={handleOpenError}
                 />
               </AccordionDetails>
             </Accordion>
@@ -126,6 +149,8 @@ export const Assessments = ({ obsType, id }) => {
                 <Sepsis
                   disabled={choosenAssessmentType !== 'sepsis'}
                   onOpenSummary={handleOpenSummary}
+                  onValidate={onValidate}
+                  openErrorDialog={handleOpenError}
                 />
               </AccordionDetails>
             </Accordion>
@@ -151,6 +176,8 @@ export const Assessments = ({ obsType, id }) => {
                 <Covid
                   disabled={choosenAssessmentType !== 'covid'}
                   onOpenSummary={handleOpenSummary}
+                  onValidate={onValidate}
+                  openErrorDialog={handleOpenError}
                 />
               </AccordionDetails>
             </Accordion>
@@ -176,6 +203,8 @@ export const Assessments = ({ obsType, id }) => {
                 <Denwis
                   disabled={choosenAssessmentType !== 'denwis'}
                   onOpenSummary={handleOpenSummary}
+                  onValidate={onValidate}
+                  openErrorDialog={handleOpenError}
                 />
               </AccordionDetails>
             </Accordion>
@@ -197,6 +226,11 @@ export const Assessments = ({ obsType, id }) => {
         handleClose={handleCloseSummary}
         handleConfirm={handleConfirmAssessment}
         obsType={choosenAssessmentType}
+      />
+      <AssessmentError
+        open={openError}
+        errors={errors}
+        handleClose={handleCloseError}
       />
     </>
   );

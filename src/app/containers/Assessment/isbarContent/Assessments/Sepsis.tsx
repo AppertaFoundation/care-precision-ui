@@ -56,10 +56,12 @@ const AMBER_FLAG_CHIPS = [
   'Clinical signs of wound infection',
 ];
 
-export const Sepsis: React.FC<{ disabled?: boolean; onOpenSummary: any }> = ({
-  disabled,
-  onOpenSummary,
-}) => {
+export const Sepsis: React.FC<{
+  disabled?: boolean;
+  onOpenSummary: any;
+  onValidate: any;
+  openErrorDialog: any;
+}> = ({ disabled, onOpenSummary, onValidate, openErrorDialog }) => {
   const classess = useStyles();
   const dispatch = useDispatch();
   const sepsisDefault = useSelector(selectSepsis);
@@ -133,10 +135,14 @@ export const Sepsis: React.FC<{ disabled?: boolean; onOpenSummary: any }> = ({
 
   const onSubmit = data => {
     dispatch(actions.saveSepsis(data));
-    dispatch(
-      actions.calculateResult({ obsType: 'sepsis', assessmentForm: data }),
-    );
-    onOpenSummary();
+    if (onValidate()) {
+      dispatch(
+        actions.calculateResult({ obsType: 'sepsis', assessmentForm: data }),
+      );
+      onOpenSummary();
+    } else {
+      openErrorDialog();
+    }
   };
 
   return (

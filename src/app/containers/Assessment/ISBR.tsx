@@ -7,7 +7,8 @@ import { Situation } from './isbarContent/Situation';
 import { Background } from './isbarContent/Background';
 import { Assessments } from './isbarContent/Assessments';
 import { Response } from './isbarContent/Response';
-
+import { useSelector } from 'react-redux';
+import { selectResult } from './selectors';
 import { Tab } from 'components';
 
 const StyledTabs = withStyles({
@@ -37,6 +38,8 @@ const ISBR = () => {
 
   const activeTab = parseInt(tab);
   const [value, setValue] = useState(0);
+  const obsResult = useSelector(selectResult);
+  const assessmentIsDone = Boolean(obsResult[obsType]);
   const useEffectOnMount = (effect: React.EffectCallback) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(effect, [activeTab]);
@@ -65,15 +68,18 @@ const ISBR = () => {
         variant="fullWidth"
         textColor="primary"
       >
-        {['S', 'B', 'A', 'R'].map((label, index) => (
-          <Tab
-            key={uniqid()}
-            label={label}
-            // disabled={tab.disabled}
-            // eslint-disable-next-line react/jsx-props-no-spreading
-            {...a11yProps(index)}
-          />
-        ))}
+        {['S', 'B', 'A', 'R'].map((label, index) => {
+          const disabled = index === 3 && !assessmentIsDone;
+          return (
+            <Tab
+              key={uniqid()}
+              label={label}
+              disabled={disabled}
+              // eslint-disable-next-line react/jsx-props-no-spreading
+              {...a11yProps(index)}
+            />
+          );
+        })}
       </StyledTabs>
       <div className={classes.tabDivider} />
 

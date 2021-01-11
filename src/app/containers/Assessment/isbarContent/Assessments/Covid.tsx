@@ -53,7 +53,12 @@ const CONTACT = [
   'Care settings has confirmed case',
 ];
 
-export const Covid = ({ onOpenSummary, disabled }) => {
+export const Covid = ({
+  onOpenSummary,
+  disabled,
+  onValidate,
+  openErrorDialog,
+}) => {
   const classess = useStyles();
   const theme = useTheme();
   const downSm = useMediaQuery(theme.breakpoints?.down('sm'));
@@ -152,10 +157,13 @@ export const Covid = ({ onOpenSummary, disabled }) => {
 
   const onSubmit = data => {
     dispatch(actions.saveCovid(data));
-    dispatch(
-      actions.calculateResult({ obsType: 'covid', assessmentForm: data }),
-    );
-    onOpenSummary();
+    if (onValidate()) {
+      dispatch(
+        actions.calculateResult({ obsType: 'covid', assessmentForm: data }),
+      );
+    } else {
+      openErrorDialog();
+    }
   };
 
   return (
