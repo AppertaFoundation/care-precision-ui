@@ -1,10 +1,8 @@
 import React from 'react';
 import {
-  Paper,
   List,
   ListItem,
   ListItemText,
-  makeStyles,
   Box,
   Typography,
   Grid,
@@ -61,7 +59,7 @@ const SituationBackgroundSteps = () => {
               <CarouselCard label="Softsigns">
                 <List dense={true}>
                   {['Just not themselves', 'Loss of appetite'].map(sign => (
-                    <ListItem>
+                    <ListItem key={uniqid()}>
                       <ListItemText
                         primary={sign}
                         primaryTypographyProps={{ variant: 'body1' }}
