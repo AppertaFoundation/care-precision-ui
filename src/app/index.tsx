@@ -16,8 +16,9 @@ import { GlobalStyle } from 'styles/global-styles';
 
 import { sessionSelector } from 'utils/selectors';
 import Layout from 'components/Layout';
-import { PatientList } from './containers/PatientList/Loadable';
-import { AcuityDashboard } from './containers/AcuityDashboard/Loadable';
+import { PatientsList } from './containers/PatientList/';
+import { AcuityDashboard } from './containers/AcuityDashboard';
+
 import { Assessment } from './containers/Assessment';
 import { NotFoundPage } from 'components/NotFoundPage/Loadable';
 import { InfectionControl } from './containers/InfectionControl';
@@ -60,7 +61,7 @@ export function App() {
             header="Patient List"
             appBar
             bottomToolBar
-            element={<PatientList />}
+            element={<PatientsList />}
             path="/"
           />
           <PrivateRoute
