@@ -161,6 +161,7 @@ export const Covid = ({
       dispatch(
         actions.calculateResult({ obsType: 'covid', assessmentForm: data }),
       );
+      onOpenSummary();
     } else {
       openErrorDialog();
     }

@@ -78,14 +78,23 @@ export function* makeCalculations(action) {
   }
 }
 
+function download(content, fileName, contentType) {
+  var a = document.createElement('a');
+  var file = new Blob([content], { type: contentType });
+  a.href = URL.createObjectURL(file);
+  a.download = fileName;
+  a.click();
+}
+
 export function* submitAssessment(action) {
   yield delay(500);
   const requestURL = 'https://api.c19.devmode.xyz/c19-alpha/0.0.1/cdr/';
+  const formatedAssessment = serializeAssessmentJSON(action.payload);
 
   if (process.env.REACT_APP_STATIC) {
+    download(JSON.stringify(formatedAssessment), 'json.txt', 'text/plain');
     return yield put(actions.successAssesment());
   }
-  const formatedAssessment = serializeAssessmentJSON(action.payload);
   try {
     yield call(request, requestURL, {
       method: 'POST',

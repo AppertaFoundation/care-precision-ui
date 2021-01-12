@@ -183,6 +183,7 @@ export const Denwis = ({
       dispatch(
         actions.calculateResult({ obsType: 'denwis', assessmentForm: data }),
       );
+      onOpenSummary();
     } else {
       openErrorDialog();
     }

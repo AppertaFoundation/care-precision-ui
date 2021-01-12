@@ -81,6 +81,7 @@ const Response = () => {
         sepsis: sepsis,
         covid: covid,
         denwis: denwis,
+        result: result,
       }),
     );
     setOpen(true);

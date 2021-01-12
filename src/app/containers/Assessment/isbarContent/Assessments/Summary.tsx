@@ -38,7 +38,6 @@ const AssessmentSummary: React.FC<{
   if (isLoading) {
     <Spinner />;
   }
-
   return (
     <Dialog open={open} onClose={handleClose}>
       <DialogTitle id="scroll-dialog-title" onClose={handleClose}>

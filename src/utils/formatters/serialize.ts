@@ -136,7 +136,7 @@ export const serializeSituation = function (o) {
   };
 };
 
-export const serializeNews2 = function (o) {
+export const serializeNews2 = function (o, news2Score) {
   if (!o || Object.keys(o).length < 1) {
     return null;
   }
@@ -173,7 +173,7 @@ export const serializeNews2 = function (o) {
       magnitude: parseFloat(o.diastolic),
       unit: '/min',
     },
-    news2Score: { ...o.response },
+    news2Score: news2Score,
   };
 };
 
@@ -195,7 +195,7 @@ export const serializeSepsisScreening = function (o) {
       o.amberFlagAcute.map(item => amberFlagAcuteCoded(item)),
   };
 };
-export const serializeDenwis = function (o) {
+export const serializeDenwis = function (o, totalScore) {
   if (!o || Object.keys(o).length < 1) {
     return null;
   }
@@ -265,7 +265,7 @@ export const serializeDenwis = function (o) {
       ordinal: o.q9NurseSubjective.code === 'at0061' ? 1 : 0,
     },
     q_10_other_comment: o.q10OtherComment,
-    total_score: o.response.value.value,
+    total_score: totalScore,
   };
 };
 
@@ -309,7 +309,7 @@ export const serializeAssessmentJSON = function ({
   situation,
   background,
   news2,
-  news2Score,
+  result,
   sepsis,
   denwis,
   covid,
@@ -317,13 +317,12 @@ export const serializeAssessmentJSON = function ({
   situation: any;
   background: any;
   news2?: any;
-  news2Score?: any;
+  result?: any;
   sepsis?: any;
   denwis?: any;
   covid?: any;
 }) {
   const header = {
-    templateId: 'open_eREACT-Care', //Fixed
     setting: 'other care', //Fixed
     healthcareFacility: 'Glen Carse Care Home', // Institution name
     composer: {
@@ -341,23 +340,32 @@ export const serializeAssessmentJSON = function ({
     : serializeSituation(situation);
   const backgroundSection =
     !isEmpty(background) && serializeBackground(background);
-  const news2Seciton = isEmpty(news2) ? null : serializeNews2(news2);
+  const news2Seciton = isEmpty(news2)
+    ? null
+    : serializeNews2(news2, result['news2']);
   const sepsisSection = isEmpty(sepsis)
     ? null
     : serializeSepsisScreening(sepsis);
-  const denwisSection = isEmpty(denwis) ? null : serializeDenwis(denwis);
+  const denwisSection = isEmpty(denwis)
+    ? null
+    : serializeDenwis(denwis, result?.denwis.value.value);
   const covidSection = isEmpty(covid) ? null : serializeCovid(covid);
-  return keysToSnake({
-    ...header,
-    situation: situationSection,
-    background: backgroundSection,
-    assessment: {
-      denwis: denwisSection,
-      sepsisScreening: sepsisSection,
-      covid: covidSection,
-      news2: news2Seciton,
+  return keysToSnake([
+    {
+      templateId: 'open_eREACT-Care', //Fixed
     },
-    response: {},
-    service: {},
-  });
+    {
+      ...header,
+      situation: situationSection,
+      background: backgroundSection,
+      assessment: {
+        denwis: denwisSection,
+        sepsisScreening: sepsisSection,
+        covid: covidSection,
+        news2: news2Seciton,
+      },
+      response: {},
+      service: {},
+    },
+  ]);
 };
