@@ -342,7 +342,7 @@ export const serializeAssessmentJSON = function ({
     !isEmpty(background) && serializeBackground(background);
   const news2Seciton = isEmpty(news2)
     ? null
-    : serializeNews2(news2, result['news2']);
+    : serializeNews2(news2, result['news2'].value.value);
   const sepsisSection = isEmpty(sepsis)
     ? null
     : serializeSepsisScreening(sepsis);

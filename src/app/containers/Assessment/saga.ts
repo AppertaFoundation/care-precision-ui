@@ -8,7 +8,7 @@ import { actions } from './slice';
 
 export function* getRecord(action) {
   yield delay(500);
-  const requestURL = `https://api.c19.devmode.xyz/c19-alpha/0.0.1/meta/demographics/patient_list?search_key=id&search_value=${action.payload}`;
+  const requestURL = `${process.env.REACT_APP_API}/meta/demographics/patient_list?search_key=id&search_value=${action.payload}`;
 
   if (process.env.REACT_APP_STATIC) {
     return yield put(
@@ -35,7 +35,7 @@ export function* getRecord(action) {
 
 export function* makeCalculations(action) {
   yield delay(500);
-  const requestURL = `https://api.c19.devmode.xyz/c19-alpha/0.0.1/cdr/draft`;
+  const requestURL = `${process.env.REACT_APP_API}/cdr/draft`;
   const { obsType, assessmentForm } = action.payload;
   const now = new Date();
   if (process.env.REACT_APP_STATIC) {
@@ -88,7 +88,7 @@ function download(content, fileName, contentType) {
 
 export function* submitAssessment(action) {
   yield delay(500);
-  const requestURL = 'https://api.c19.devmode.xyz/c19-alpha/0.0.1/cdr/';
+  const requestURL = `${process.env.REACT_APP_API}/cdr/`;
   const formatedAssessment = serializeAssessmentJSON(action.payload);
 
   if (process.env.REACT_APP_STATIC) {
@@ -104,7 +104,7 @@ export function* submitAssessment(action) {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
       },
-      body: JSON.stringify([{}, formatedAssessment]),
+      body: JSON.stringify(formatedAssessment),
     });
     yield put(actions.successAssesment());
   } catch (err) {

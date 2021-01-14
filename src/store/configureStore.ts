@@ -2,7 +2,7 @@
  * Create the store with dynamic reducers
  */
 
-// import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
+import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 import { createInjectorsEnhancer, forceReducerReload } from 'redux-injectors';
 import createSagaMiddleware from 'redux-saga';
 
@@ -25,30 +25,30 @@ export function configureAppStore() {
     }),
   ];
 
-  // const store = configureStore({
-  //   reducer: createReducer(),
-  //   middleware: [...getDefaultMiddleware(), ...middlewares],
-  //   devTools: process.env.NODE_ENV !== 'production',
-  //   enhancers,
-  // });
-  let composeEnhancers = compose;
-  const initialState = {
-    session: {
-      authenticated: false,
-      checked: false,
-      invalid: false,
-      user: {},
-    },
-    assessmentType: {
-      assessmentType: '',
-      assessmentsArray: [''],
-    },
-  };
-  const store = createStore(
-    createReducer(),
-    initialState,
-    composeEnhancers(...enhancers),
-  );
+  const store = configureStore({
+    reducer: createReducer(),
+    middleware: [...getDefaultMiddleware(), ...middlewares],
+    devTools: process.env.NODE_ENV !== 'production',
+    enhancers,
+  });
+  // let composeEnhancers = compose;
+  // const initialState = {
+  //   session: {
+  //     authenticated: false,
+  //     checked: false,
+  //     invalid: false,
+  //     user: {},
+  //   },
+  //   assessmentType: {
+  //     assessmentType: '',
+  //     assessmentsArray: [''],
+  //   },
+  // };
+  // const store = createStore(
+  //   createReducer(),
+  //   initialState,
+  //   composeEnhancers(...enhancers),
+  // );
 
   // Make reducers hot reloadable, see http://mxs.is/googmo
   /* istanbul ignore next */

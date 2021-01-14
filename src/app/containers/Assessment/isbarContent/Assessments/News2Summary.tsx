@@ -169,7 +169,7 @@ export function News2Summary() {
   const nhsNo = useSelector(selectPatientNHS);
   const name = useSelector(selectPatientName);
   const result = useSelector(selectResult);
-  const response = result?.news2;
+  const response = result?.news2?.value?.value;
   return (
     <div>
       <Grid

@@ -7,8 +7,7 @@ import { PatientsErrorType } from './types';
 import { actions } from './slice';
 
 function getRequestURL(params) {
-  const base =
-    'https://api.c19.devmode.xyz/c19-alpha/0.0.1/meta/demographics/patient_list';
+  const base = `${process.env.REACT_APP_API}/meta/demographics/patient_list`;
 
   const search = params.search ? params.search : null;
   const filter = params.filter ? params.filter : null;
