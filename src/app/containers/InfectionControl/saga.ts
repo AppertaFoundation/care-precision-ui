@@ -25,7 +25,7 @@ const demographic = {
 };
 export function* getRecord(action) {
   yield delay(500);
-  const requestURL = `https://api.c19.devmode.xyz/c19-alpha/0.0.1/meta/demographics/patient_list?search_key=id&search_value=${action.payload}`;
+  const requestURL = `${process.env.REACT_APP_API}/meta/demographics/patient_list?search_key=id&search_value=${action.payload}`;
 
   if (process.env.REACT_APP_STATIC) {
     return yield put(

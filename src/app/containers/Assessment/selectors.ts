@@ -97,3 +97,26 @@ export const selectSubmissionError = createSelector(
   [selectDomain],
   assessmentEventSaga => assessmentEventSaga.submissionError,
 );
+
+export const selectResponse = createSelector(
+  [selectDomain],
+  assessmentEventSaga => assessmentEventSaga.response,
+);
+
+const getInterventionAction = response => {
+  if (response.covidPathway) return response.covidPathway.recomendation;
+  if (response.internalEscalation)
+    return response.internalEscalation.recomendation;
+  if (response.externalEscalation)
+    return response.externalEscalation.externalEscalation;
+  return null;
+};
+export const selectInterventionAction = createSelector(
+  [selectDomain],
+  assessmentEventSaga => getInterventionAction(assessmentEventSaga.response),
+);
+
+export const selectMonitor = createSelector(
+  [selectDomain],
+  assessmentEventSaga => assessmentEventSaga.response.monitor,
+);

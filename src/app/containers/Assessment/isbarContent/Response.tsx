@@ -22,6 +22,7 @@ import {
   selectPending,
   selectSuccess,
   selectResult,
+  selectResponse,
 } from '../selectors';
 
 import {
@@ -65,14 +66,23 @@ const Response = () => {
   const pending = useSelector(selectPending);
   const submissionError = useSelector(selectSubmissionError);
   const result = useSelector(selectResult);
+  const response = useSelector(selectResponse);
 
   const [open, setOpen] = React.useState(false);
-
+  const [noAction, setNoAction] = React.useState(false);
+  console.log(noAction);
   const goToPatientList = () => navigate('/');
   const handleClose = () => setOpen(false);
+  const handleCloseNoAction = () => setNoAction(false);
 
-  const goToOverview = () => navigate(`/overview${id}`);
+  const goToOverview = () => navigate(`/patient-overview/${id}`);
+  const goToCovidMenagment = () => navigate(`/xovid-menagment/${id}`);
+
+  const isEmpty = obj => !Object.values(obj).some(x => x !== null && x !== '');
   const handleSubmit = e => {
+    if (isEmpty(response)) {
+      return setNoAction(true);
+    }
     dispatch(
       actions.pendingAssessment({
         situation: situation,
@@ -81,6 +91,8 @@ const Response = () => {
         sepsis: sepsis,
         covid: covid,
         denwis: denwis,
+        result: result,
+        response: response,
       }),
     );
     setOpen(true);
@@ -122,6 +134,36 @@ const Response = () => {
           Finish and Save Observation
         </Button.Secondary>
       </BottomBar>
+      {noAction && (
+        <Dialog open={noAction} onClose={handleCloseNoAction}>
+          <>
+            <DialogTitle id="title" onClose={handleClose}>
+              <Typography component="div" noWrap variant="h6">
+                Your assessment is incomplete.
+              </Typography>
+            </DialogTitle>
+
+            <DialogContent>
+              <DialogContentText>
+                You have to take Action (Intervention, Monitor, Futher
+                Assessment or no Action Require)
+              </DialogContentText>
+
+              <Grid container spacing={3}>
+                <Grid item>
+                  <Button.Secondary
+                    color="secondary"
+                    variant="contained"
+                    onClick={handleCloseNoAction}
+                  >
+                    OK
+                  </Button.Secondary>
+                </Grid>
+              </Grid>
+            </DialogContent>
+          </>
+        </Dialog>
+      )}
       <Dialog open={open} onClose={handleClose}>
         {pending ? (
           <Spinner />
@@ -145,24 +187,38 @@ const Response = () => {
               </DialogContentText>
               {success ? (
                 <Grid container spacing={2} direction="column">
-                  <Grid item xs={12}>
-                    <Button.Secondary
-                      onClick={goToPatientList}
-                      color="secondary"
-                      variant="outlined"
-                    >
-                      Patient List
-                    </Button.Secondary>
-                  </Grid>
-                  <Grid item xs={12}>
-                    <Button.Secondary
-                      color="secondary"
-                      onClick={goToOverview}
-                      variant="outlined"
-                    >
-                      Patient Overview
-                    </Button.Secondary>
-                  </Grid>
+                  {response.covidPathway ? (
+                    <Grid item xs={12}>
+                      <Button.Secondary
+                        onClick={goToCovidMenagment}
+                        color="secondary"
+                        variant="outlined"
+                      >
+                        COVID menagment
+                      </Button.Secondary>
+                    </Grid>
+                  ) : (
+                    <>
+                      <Grid item xs={12}>
+                        <Button.Secondary
+                          onClick={goToPatientList}
+                          color="secondary"
+                          variant="outlined"
+                        >
+                          Patient List
+                        </Button.Secondary>
+                      </Grid>
+                      <Grid item xs={12}>
+                        <Button.Secondary
+                          color="secondary"
+                          onClick={goToOverview}
+                          variant="outlined"
+                        >
+                          Patient Overview
+                        </Button.Secondary>
+                      </Grid>
+                    </>
+                  )}
                 </Grid>
               ) : (
                 <Grid container spacing={3}>

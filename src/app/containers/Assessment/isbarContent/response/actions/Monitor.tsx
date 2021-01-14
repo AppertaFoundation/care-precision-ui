@@ -8,7 +8,9 @@ import {
   InputAdornment,
   TextField,
   Typography,
+  IconButton,
 } from '@material-ui/core';
+import DeleteIcon from '@material-ui/icons/Delete';
 import { useForm, FormProvider } from 'react-hook-form';
 import {
   Button,
@@ -17,18 +19,25 @@ import {
   DialogActions,
   DialogTitle,
 } from 'components';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { actions } from '../../../slice';
+import { selectMonitor } from '../../../selectors';
 
 const Monitor = () => {
   const [open, setOpen] = React.useState(false);
   const [other, setOther] = React.useState(false);
+  const [defaultValue, setDefaultValue] = React.useState('');
   const handleClose = () => setOpen(false);
   const handleOpen = () => setOpen(true);
   const methods = useForm({});
   const dispatch = useDispatch();
-  const { watch, register, handleSubmit } = methods;
+  const monitor = useSelector(selectMonitor);
+  const monitorTime = monitor?.timing;
+  const { watch, register, handleSubmit, reset } = methods;
 
+  React.useEffect(() => {
+    setDefaultValue(monitorTime);
+  }, [monitorTime]);
   const useEffectOnOther = (effect: React.EffectCallback) => {
     useEffect(effect, [watch('monitorTime')]);
   };
@@ -37,12 +46,26 @@ const Monitor = () => {
     setOther(monitorTime === 'other');
   });
   const onSubmit = data => {
-    dispatch(actions.actionMonitor(data));
+    dispatch(
+      actions.addResponse({
+        type: 'monitor',
+        recommendation: data.monitorTime
+          ? {
+              recomendation: 'Enhanced monitoring',
+              timing: data.monitorTime,
+            }
+          : null,
+      }),
+    );
     handleClose();
   };
+
   return (
     <Box m={1}>
-      <Button.Primary onClick={handleOpen} variant="outlined">
+      <Button.Primary
+        onClick={handleOpen}
+        variant={monitorTime ? 'contained' : 'outlined'}
+      >
         Monitor
       </Button.Primary>
       <Dialog open={open} onClose={handleClose}>
@@ -53,10 +76,10 @@ const Monitor = () => {
         </DialogTitle>
 
         <DialogContent>
-          <DialogContentText>
+          {/* <DialogContentText>
             Patient News2 score was 3, we recommend you monitor the patient
             every 15 minutes
-          </DialogContentText>
+          </DialogContentText> */}
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(onSubmit)} id="monitor-frequency">
               <Grid
@@ -67,9 +90,12 @@ const Monitor = () => {
               >
                 <Grid item xs={12}>
                   <RadioGroup
+                    clear={() => true}
+                    required={false}
                     name="monitorTime"
                     label="Select Frequency:"
                     register={register}
+                    defaultValue={defaultValue}
                     values={[
                       {
                         id: '15',
@@ -83,10 +109,10 @@ const Monitor = () => {
                         id: '60',
                         value: 'Every 60 Minutes',
                       },
-                      {
-                        id: 'other',
-                        value: 'Other',
-                      },
+                      // {
+                      //   id: 'other',
+                      //   value: 'Other',
+                      // },
                     ]}
                   />
                 </Grid>

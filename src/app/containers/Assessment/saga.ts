@@ -8,7 +8,7 @@ import { actions } from './slice';
 
 export function* getRecord(action) {
   yield delay(500);
-  const requestURL = `https://api.c19.devmode.xyz/c19-alpha/0.0.1/meta/demographics/patient_list?search_key=id&search_value=${action.payload}`;
+  const requestURL = `${process.env.REACT_APP_API}/meta/demographics/patient_list?search_key=id&search_value=${action.payload}`;
 
   if (process.env.REACT_APP_STATIC) {
     return yield put(
@@ -35,7 +35,7 @@ export function* getRecord(action) {
 
 export function* makeCalculations(action) {
   yield delay(500);
-  const requestURL = `https://api.c19.devmode.xyz/c19-alpha/0.0.1/cdr/draft`;
+  const requestURL = `${process.env.REACT_APP_API}/cdr/draft`;
   const { obsType, assessmentForm } = action.payload;
   const now = new Date();
   if (process.env.REACT_APP_STATIC) {
@@ -78,29 +78,40 @@ export function* makeCalculations(action) {
   }
 }
 
+function download(content, fileName, contentType) {
+  var a = document.createElement('a');
+  var file = new Blob([content], { type: contentType });
+  a.href = URL.createObjectURL(file);
+  a.download = fileName;
+  a.click();
+}
+
 export function* submitAssessment(action) {
   yield delay(500);
-  const requestURL = 'https://api.c19.devmode.xyz/c19-alpha/0.0.1/cdr/';
+  // const requestURL = `${process.env.REACT_APP_API}/cdr/`;
+  const formatedAssessment = serializeAssessmentJSON(action.payload);
 
   if (process.env.REACT_APP_STATIC) {
+    download(JSON.stringify(formatedAssessment), 'json.txt', 'text/plain');
     return yield put(actions.successAssesment());
   }
-  const formatedAssessment = serializeAssessmentJSON(action.payload);
-  try {
-    yield call(request, requestURL, {
-      method: 'POST',
-      mode: 'cors',
-      cache: 'no-cache',
-      // credentials: 'include',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      body: JSON.stringify([{}, formatedAssessment]),
-    });
-    yield put(actions.successAssesment());
-  } catch (err) {
-    yield put(actions.calculationError(PatientErrorType.RESPONSE_ERROR));
-  }
+  return yield put(actions.successAssesment());
+
+  // try {
+  //   yield call(request, requestURL, {
+  //     method: 'POST',
+  //     mode: 'cors',
+  //     cache: 'no-cache',
+  //     // credentials: 'include',
+  //     headers: {
+  //       'Content-Type': 'application/x-www-form-urlencoded',
+  //     },
+  //     body: JSON.stringify(formatedAssessment),
+  //   });
+  //   yield put(actions.successAssesment());
+  // } catch (err) {
+  //   yield put(actions.calculationError(PatientErrorType.RESPONSE_ERROR));
+  // }
 }
 /**
  * Root saga manages watcher lifecycle

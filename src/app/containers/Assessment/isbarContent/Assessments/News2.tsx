@@ -72,7 +72,6 @@ const News2 = ({ disabled, onOpenSummary, onValidate, openErrorDialog }) => {
     }
   });
 
-  // const handleCloseSummary = () => setOpenSummary(false);
   const tempatureUnit = '\u2103';
 
   const bloodPreasureValidate = type => {
