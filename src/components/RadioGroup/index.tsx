@@ -71,9 +71,11 @@ const RadioGroupMUI: React.FC<IRadioGroup> = ({
     <div className="App">
       <FormLabel component="legend">
         {label}
-        <IconButton size="small" onClick={onClear}>
-          <DeleteIcon />
-        </IconButton>
+        {clear && (
+          <IconButton size="small" onClick={onClear}>
+            <DeleteIcon />
+          </IconButton>
+        )}
       </FormLabel>
       {device && (
         <Box color="warning.main">

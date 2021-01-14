@@ -88,28 +88,30 @@ function download(content, fileName, contentType) {
 
 export function* submitAssessment(action) {
   yield delay(500);
-  const requestURL = `${process.env.REACT_APP_API}/cdr/`;
+  // const requestURL = `${process.env.REACT_APP_API}/cdr/`;
   const formatedAssessment = serializeAssessmentJSON(action.payload);
 
   if (process.env.REACT_APP_STATIC) {
     download(JSON.stringify(formatedAssessment), 'json.txt', 'text/plain');
     return yield put(actions.successAssesment());
   }
-  try {
-    yield call(request, requestURL, {
-      method: 'POST',
-      mode: 'cors',
-      cache: 'no-cache',
-      // credentials: 'include',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      body: JSON.stringify(formatedAssessment),
-    });
-    yield put(actions.successAssesment());
-  } catch (err) {
-    yield put(actions.calculationError(PatientErrorType.RESPONSE_ERROR));
-  }
+  return yield put(actions.successAssesment());
+
+  // try {
+  //   yield call(request, requestURL, {
+  //     method: 'POST',
+  //     mode: 'cors',
+  //     cache: 'no-cache',
+  //     // credentials: 'include',
+  //     headers: {
+  //       'Content-Type': 'application/x-www-form-urlencoded',
+  //     },
+  //     body: JSON.stringify(formatedAssessment),
+  //   });
+  //   yield put(actions.successAssesment());
+  // } catch (err) {
+  //   yield put(actions.calculationError(PatientErrorType.RESPONSE_ERROR));
+  // }
 }
 /**
  * Root saga manages watcher lifecycle
