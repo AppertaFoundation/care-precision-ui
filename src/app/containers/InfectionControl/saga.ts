@@ -27,7 +27,7 @@ export function* getRecord(action) {
   yield delay(500);
   const requestURL = `${process.env.REACT_APP_API}/meta/demographics/patient_list?search_key=id&search_value=${action.payload}`;
 
-  if (process.env.REACT_APP_STATIC || process.env.REACT_APP_STATIC_COVID) {
+  if (process.env.REACT_APP_STATIC) {
     return yield put(
       actions.recordLoaded(
         patientParser(
@@ -78,6 +78,9 @@ export function* updateCovidPathway(action) {
     startTime: Date.now(), //ISO DateTime
     ...demographic,
   };
+  if (process.env.REACT_APP_STATIC || process.env.REACT_APP_STATIC_COVID) {
+    return yield put(actions.success());
+  }
 
   try {
     yield call(request, requestURL, {
