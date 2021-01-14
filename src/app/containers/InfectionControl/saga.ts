@@ -55,7 +55,7 @@ export function* getRecord(action) {
 export function* getInfectionControl(action) {
   yield delay(500);
 
-  if (process.env.REACT_APP_STATIC) {
+  if (process.env.REACT_APP_STATIC || process.env.REACT_APP_STATIC_COVID) {
     return yield put(
       actions.infectionControlLoaded(keysToCamel(fake.COVID_MENAGMENT)),
     );
@@ -78,6 +78,9 @@ export function* updateCovidPathway(action) {
     startTime: Date.now(), //ISO DateTime
     ...demographic,
   };
+  if (process.env.REACT_APP_STATIC || process.env.REACT_APP_STATIC_COVID) {
+    return yield put(actions.success());
+  }
 
   try {
     yield call(request, requestURL, {
