@@ -27,7 +27,7 @@ export function* getRecord(action) {
   yield delay(500);
   const requestURL = `${process.env.REACT_APP_API}/meta/demographics/patient_list?search_key=id&search_value=${action.payload}`;
 
-  if (process.env.REACT_APP_STATIC) {
+  if (process.env.REACT_APP_STATIC || process.env.REACT_APP_STATIC_COVID) {
     return yield put(
       actions.recordLoaded(
         patientParser(
@@ -55,7 +55,7 @@ export function* getRecord(action) {
 export function* getInfectionControl(action) {
   yield delay(500);
 
-  if (process.env.REACT_APP_STATIC) {
+  if (process.env.REACT_APP_STATIC || process.env.REACT_APP_STATIC_COVID) {
     return yield put(
       actions.infectionControlLoaded(keysToCamel(fake.COVID_MENAGMENT)),
     );
