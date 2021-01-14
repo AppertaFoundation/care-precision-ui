@@ -313,6 +313,7 @@ export const serializeAssessmentJSON = function ({
   sepsis,
   denwis,
   covid,
+  response,
 }: {
   situation: any;
   background: any;
@@ -321,6 +322,7 @@ export const serializeAssessmentJSON = function ({
   sepsis?: any;
   denwis?: any;
   covid?: any;
+  response?: any;
 }) {
   const header = {
     setting: 'other care', //Fixed
@@ -364,8 +366,7 @@ export const serializeAssessmentJSON = function ({
         covid: covidSection,
         news2: news2Seciton,
       },
-      response: {},
-      service: {},
+      response: response,
     },
   ]);
 };

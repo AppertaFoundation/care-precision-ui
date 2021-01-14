@@ -33,6 +33,14 @@ export const initialState: ContainerState = {
   pending: false,
   success: false,
   submissionError: null,
+  response: {
+    covidPathway: null,
+    monitor: null,
+    internalEscalation: null,
+    externalEscalation: null,
+    noAction: null,
+    keepComfortable: null,
+  },
 };
 
 const assessmentEventSlice = createSlice({
@@ -123,6 +131,20 @@ const assessmentEventSlice = createSlice({
       state.pending = false;
       state.success = true;
       state.submissionError = action.payload;
+    },
+    addResponse(state, action) {
+      const { type, recommendation } = action.payload;
+      state.response[`${type}`] = recommendation;
+    },
+    clearIntervention(state) {
+      state.response.covidPathway = null;
+      state.response.internalEscalation = null;
+      state.response.externalEscalation = null;
+      state.response.covidPathway = null;
+    },
+    clearNoAction(state) {
+      state.response.keepComfortable = null;
+      state.response.noAction = null;
     },
   },
 });

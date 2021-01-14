@@ -6,9 +6,11 @@ import {
   FormLabel,
   Box,
   Grid,
+  IconButton,
   Typography,
 } from '@material-ui/core';
 // import  from '../ErrorMsg/index';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 const RADIO_OPTIONS = [
   {
@@ -28,11 +30,12 @@ interface IRadioGroup {
   label?: string;
   disabled?: boolean;
   defaultValue?: string;
-  required?: string;
+  required?: string | boolean;
   device?: string;
   direction?: 'column' | 'row' | 'row-reverse' | 'column-reverse' | undefined;
   onChange?: any;
   register?: any;
+  clear?: any;
 }
 const RadioGroupMUI: React.FC<IRadioGroup> = ({
   values,
@@ -46,6 +49,7 @@ const RadioGroupMUI: React.FC<IRadioGroup> = ({
   direction = 'column',
   onChange,
   register,
+  clear,
 }) => {
   //   const { register, errors } = useFormContext();
   const [selection, setSelection] = React.useState({ [name]: defaultValue });
@@ -59,10 +63,18 @@ const RadioGroupMUI: React.FC<IRadioGroup> = ({
   };
 
   const options = values || RADIO_OPTIONS;
-
+  const onClear = e => {
+    setSelection({ ...selection, [name]: '' });
+    clear();
+  };
   return (
     <div className="App">
-      <FormLabel component="legend">{label}</FormLabel>
+      <FormLabel component="legend">
+        {label}
+        <IconButton size="small" onClick={onClear}>
+          <DeleteIcon />
+        </IconButton>
+      </FormLabel>
       {device && (
         <Box color="warning.main">
           <Typography>⚠ Patient has {device}</Typography>

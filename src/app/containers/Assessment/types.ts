@@ -21,6 +21,14 @@ export interface AssessmentEvent {
   pending: boolean;
   success: boolean | null;
   submissionError: any;
+  response: {
+    covidPathway: null | any;
+    monitor: null | any;
+    internalEscalation: null | any;
+    noAction: null | any;
+    externalEscalation: null | any;
+    keepComfortable: null | any;
+  };
 }
 
 export enum PatientErrorType {
