@@ -76,7 +76,7 @@ const Response = () => {
   const handleCloseNoAction = () => setNoAction(false);
 
   const goToOverview = () => navigate(`/patient-overview/${id}`);
-  const goToCovidMenagment = () => navigate(`/xovid-menagment/${id}`);
+  const goToCovidMenagment = () => navigate(`/covid-menagment/${id}`);
 
   const isEmpty = obj => !Object.values(obj).some(x => x !== null && x !== '');
   const handleSubmit = e => {
