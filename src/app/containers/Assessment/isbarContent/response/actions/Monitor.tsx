@@ -3,14 +3,11 @@ import React, { useEffect } from 'react';
 import {
   Grid,
   DialogContent,
-  DialogContentText,
   Box,
   InputAdornment,
   TextField,
   Typography,
-  IconButton,
 } from '@material-ui/core';
-import DeleteIcon from '@material-ui/icons/Delete';
 import { useForm, FormProvider } from 'react-hook-form';
 import {
   Button,
@@ -33,7 +30,7 @@ const Monitor = () => {
   const dispatch = useDispatch();
   const monitor = useSelector(selectMonitor);
   const monitorTime = monitor?.timing;
-  const { watch, register, handleSubmit, reset } = methods;
+  const { watch, register, handleSubmit } = methods;
 
   React.useEffect(() => {
     setDefaultValue(monitorTime);

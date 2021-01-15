@@ -2,6 +2,7 @@ import React from 'react';
 import { makeStyles, Box, Grid, TextField } from '@material-ui/core';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core/styles';
+import uniqid from 'uniqid';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -21,9 +22,6 @@ const CarouselCard = ({ children }) => {
   const classes = useStyles();
   return (
     <>
-      {/* <Typography variant="subtitle2" align="center">
-        {label}
-      </Typography> */}
       <div className={classes.demo}>{children}</div>
     </>
   );
@@ -34,15 +32,17 @@ const CareRecordInfo = ({ register }) => {
   const md = useMediaQuery(theme.breakpoints?.up('sm'));
   return md
     ? [
-        <Grid container direction="row" justify="center" alignItems="flex-end">
+        <Grid
+          container
+          direction="row"
+          justify="center"
+          alignItems="flex-end"
+          key={uniqid()}
+        >
           <Grid item sm={3} xs={12}>
             <Box mr={1}>
               <CarouselCard>
                 <TextField
-                  //       defaultValue="Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  // Vivamus mollis, augue et mollis fermentum, lectus risus
-                  // commodo lorem, id congue libero augue eget sapien. In semper
-                  // sollicitudin sempe"
                   name="pastHistory"
                   multiline
                   rows="6"
@@ -112,12 +112,8 @@ const CareRecordInfo = ({ register }) => {
         </Grid>,
       ]
     : [
-        <CarouselCard>
+        <CarouselCard key={uniqid()}>
           <TextField
-            // defaultValue="Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            // Vivamus mollis, augue et mollis fermentum, lectus risus
-            // commodo lorem, id congue libero augue eget sapien. In semper
-            // sollicitudin sempe"
             name="pastHistory"
             label="Existing Conditions"
             multiline
@@ -128,7 +124,7 @@ const CareRecordInfo = ({ register }) => {
             variant="outlined"
           />
         </CarouselCard>,
-        <CarouselCard>
+        <CarouselCard key={uniqid()}>
           <TextField
             defaultValue="Lorem ipsum dolor sit amet, consectetur adipiscing elit.
             Vivamus mollis, augue et mollis fermentum, lectus risus
@@ -144,7 +140,7 @@ const CareRecordInfo = ({ register }) => {
             variant="outlined"
           />
         </CarouselCard>,
-        <CarouselCard>
+        <CarouselCard key={uniqid()}>
           <TextField
             defaultValue="Lorem ipsum dolor sit amet, consectetur adipiscing elit.
             Vivamus mollis, augue et mollis fermentum, lectus risus
@@ -160,7 +156,7 @@ const CareRecordInfo = ({ register }) => {
             variant="outlined"
           />
         </CarouselCard>,
-        <CarouselCard>
+        <CarouselCard key={uniqid()}>
           <TextField
             defaultValue="Lorem ipsum dolor sit amet, consectetur adipiscing elit.
             Vivamus mollis, augue et mollis fermentum, lectus risus

@@ -3,13 +3,20 @@ import { Box, Typography, Grid } from '@material-ui/core';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core/styles';
 import { CarouselCard } from './SituatiionBackground';
+import uniqid from 'uniqid';
 
 const RecomendationsActions = () => {
   const theme = useTheme();
   const md = useMediaQuery(theme.breakpoints?.up('sm'));
   return md
     ? [
-        <Grid container direction="row" justify="center" alignItems="flex-end">
+        <Grid
+          container
+          direction="row"
+          justify="center"
+          alignItems="flex-end"
+          key={uniqid()}
+        >
           <Grid item sm={4} xs={12}>
             <Box mr={1}>
               <CarouselCard label="Assessment">
@@ -38,18 +45,18 @@ const RecomendationsActions = () => {
         </Grid>,
       ]
     : [
-        <CarouselCard label="Assessment">
+        <CarouselCard label="Assessment" key={uniqid()}>
           <Typography>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit.
           </Typography>
         </CarouselCard>,
 
-        <CarouselCard label="Intervention">
+        <CarouselCard label="Intervention" key={uniqid()}>
           <Typography>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit.
           </Typography>
         </CarouselCard>,
-        <CarouselCard label="Monitoring">
+        <CarouselCard label="Monitoring" key={uniqid()}>
           <Typography>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit.
           </Typography>

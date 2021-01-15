@@ -117,7 +117,7 @@ export function PatientOverview() {
                 Presenting Complaint & Background
               </Box>
             </Typography>
-            <Carousel steps={situationBackgroundSteps} />
+            <Carousel>{situationBackgroundSteps}</Carousel>
           </Box>
 
           <Box mt={1} mb={1} className={classes.section}>
@@ -126,7 +126,7 @@ export function PatientOverview() {
                 Assessment Overview{' '}
               </Box>
             </Typography>
-            <Carousel steps={assesmentOverview} />
+            <Carousel>{assesmentOverview}</Carousel>
           </Box>
 
           <Box mt={1} mb={1} className={classes.section}>
@@ -135,7 +135,7 @@ export function PatientOverview() {
                 Recomendations & Actions
               </Box>
             </Typography>
-            <Carousel steps={recomendationsActions} />
+            <Carousel>{recomendationsActions}</Carousel>
           </Box>
         </Box>
       )}

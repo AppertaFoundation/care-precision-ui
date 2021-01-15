@@ -12,7 +12,6 @@ import uniqid from 'uniqid';
 import { News2Icon, BoxWrapper } from 'components';
 import { useSelector } from 'react-redux';
 import {
-  selectNews2Response,
   selectResult,
   selectPatientName,
   selectPatientNHS,

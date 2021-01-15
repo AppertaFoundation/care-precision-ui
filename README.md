@@ -59,8 +59,12 @@ Before you begin, ensure you have met the following requirements:
 1 .You have to options create static build(without middleware) ~~or with it.~~
 
 - ~~To create a standard build.~~
-
-  ~~`$ yarn build`~~
+   - ~~- Add in to file .env.production (root directory) adress where your API is served~~
+   
+      ~~`REACT_APP_API=<your api>`~~
+   - ~~- And run in consol:~~
+   
+      ~~`$ yarn build`~~
 
 - Static one
 
@@ -82,7 +86,7 @@ Before you begin, ensure you have met the following requirements:
 
 And your app is served [localhost:5000](localhost:5000)
 
-### Development Mode (Recommended)
+### Development Mode 
 
 - ~~Run with middleware.~~
 
@@ -92,6 +96,11 @@ And your app is served [localhost:5000](localhost:5000)
 
   - Add in to file .env.local (root directory) `REACT_APP_STATIC=true`
   - And `$ yarn start`   
+  
+### Other configurations
+Switches (you can add them into .env.local or .env.production:
+1. To use fake api only for Infection control:
+REACT_APP_STATIC_COVID=true
 
 ## Understanding the structure of the Care Protect UI application
 
