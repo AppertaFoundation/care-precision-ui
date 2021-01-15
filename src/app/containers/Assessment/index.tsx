@@ -57,6 +57,7 @@ export function Assessment() {
     useEffect(effect, []);
   };
   useEffectOnMount(() => {
+    dispatch(actions.cleanAssessment());
     dispatch(actions.loadRecord(id));
     updateAssessmentsTypesArray();
   });

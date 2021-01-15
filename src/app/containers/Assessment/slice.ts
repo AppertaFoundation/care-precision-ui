@@ -115,7 +115,30 @@ const assessmentEventSlice = createSlice({
       state.responseActions = { recommendation: recommendation };
     },
     cleanAssessment(state) {
-      state = initialState;
+      state.loading = false;
+      state.error = null;
+      state.patient = null;
+      state.situation = {};
+      state.loadingResult = false;
+      state.errorResult = null;
+      state.result = {};
+      state.background = {};
+      state.news2 = {};
+      state.sepsis = {};
+      state.covid = {};
+      state.denwis = {};
+      state.responseActions = {};
+      state.pending = false;
+      state.success = false;
+      state.submissionError = null;
+      state.response = {
+        covidPathway: null,
+        monitor: null,
+        internalEscalation: null,
+        externalEscalation: null,
+        noAction: null,
+        keepComfortable: null,
+      };
     },
     pendingAssessment(state, action) {
       state.pending = true;
