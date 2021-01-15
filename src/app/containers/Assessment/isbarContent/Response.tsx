@@ -70,14 +70,24 @@ const Response = () => {
 
   const [open, setOpen] = React.useState(false);
   const [noAction, setNoAction] = React.useState(false);
-  console.log(noAction);
-  const goToPatientList = () => navigate('/');
+
+  const cleanStore = () => dispatch(actions.cleanAssessment());
+
   const handleClose = () => setOpen(false);
   const handleCloseNoAction = () => setNoAction(false);
 
-  const goToOverview = () => navigate(`/patient-overview/${id}`);
-  const goToCovidMenagment = () => navigate(`/covid-menagment/${id}`);
-
+  const goToPatientList = () => {
+    cleanStore();
+    navigate('/');
+  };
+  const goToOverview = () => {
+    navigate(`/patient-overview/${id}`);
+    cleanStore();
+  };
+  const goToCovidMenagment = () => {
+    navigate(`/covid-menagment/${id}`);
+    cleanStore();
+  };
   const isEmpty = obj => !Object.values(obj).some(x => x !== null && x !== '');
   const handleSubmit = e => {
     if (isEmpty(response)) {
