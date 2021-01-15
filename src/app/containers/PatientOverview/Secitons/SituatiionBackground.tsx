@@ -53,7 +53,13 @@ const SituationBackgroundSteps = () => {
   const md = useMediaQuery(theme.breakpoints?.up('sm'));
   return md
     ? [
-        <Grid container direction="row" justify="center" alignItems="flex-end">
+        <Grid
+          container
+          direction="row"
+          justify="center"
+          alignItems="flex-end"
+          key={uniqid()}
+        >
           <Grid item sm={4} xs={12}>
             <Box mr={1}>
               <CarouselCard label="Softsigns">
@@ -100,7 +106,13 @@ const SituationBackgroundSteps = () => {
             </CarouselCard>
           </Grid>
         </Grid>,
-        <Grid container direction="row" justify="center" alignItems="flex-end">
+        <Grid
+          container
+          direction="row"
+          justify="center"
+          alignItems="flex-end"
+          key={uniqid()}
+        >
           <Grid item xs={12} sm={4}>
             <Box mr={1}>
               <CarouselCard label="Current Medication">
@@ -129,7 +141,7 @@ const SituationBackgroundSteps = () => {
         </Grid>,
       ]
     : [
-        <CarouselCard label="Softsigns">
+        <CarouselCard label="Softsigns" key={uniqid()}>
           <List dense={true}>
             {['Just not themselves', 'Loss of appetite'].map(sign => (
               <ListItem key={uniqid()}>
@@ -141,14 +153,14 @@ const SituationBackgroundSteps = () => {
             ))}
           </List>
         </CarouselCard>,
-        <CarouselCard label="Patient Problem">
+        <CarouselCard label="Patient Problem" key={uniqid()}>
           <Typography>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
             mollis, augue et mollis fermentum, lectus risus commodo lorem, id
             congue libero augue eget sapien. In semper sollicitudin semper.{' '}
           </Typography>
         </CarouselCard>,
-        <CarouselCard label="Frality Overview">
+        <CarouselCard label="Frality Overview" key={uniqid()}>
           <Box display="flex" flexDirection="row">
             <Box>
               <img src={FRALITY['at0005']} alt="very fit" />
@@ -163,14 +175,14 @@ const SituationBackgroundSteps = () => {
             </Box>
           </Box>
         </CarouselCard>,
-        <CarouselCard label="Current Medication">
+        <CarouselCard label="Current Medication" key={uniqid()}>
           <Typography>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
             mollis, augue et mollis fermentum, lectus risus commodo lorem, id
             congue libero augue eget sapien. In semper sollicitudin semper.{' '}
           </Typography>
         </CarouselCard>,
-        <CarouselCard label="Comorbidities">
+        <CarouselCard label="Comorbidities" key={uniqid()}>
           <Typography>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
             mollis, augue et mollis fermentum, lectus risus commodo lorem, id

@@ -1,7 +1,7 @@
-import { call, put, takeLatest, delay, select } from 'redux-saga/effects';
+import { call, put, takeLatest, delay } from 'redux-saga/effects';
 import { request } from 'utils/request';
 import { fake } from 'utils/fake';
-import { patientParser, keysToCamel, keysToSnake } from 'utils/formatters';
+import { patientParser, keysToCamel } from 'utils/formatters';
 
 import { PatientOverviewErrorType } from './types';
 import { actions } from './slice';

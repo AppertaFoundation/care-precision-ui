@@ -7,7 +7,7 @@ import { createInjectorsEnhancer, forceReducerReload } from 'redux-injectors';
 import createSagaMiddleware from 'redux-saga';
 
 import { createReducer } from './reducers';
-import { createStore, applyMiddleware, compose } from 'redux';
+import { applyMiddleware } from 'redux';
 
 export function configureAppStore() {
   const reduxSagaMonitorOptions = {};
@@ -31,24 +31,6 @@ export function configureAppStore() {
     devTools: process.env.NODE_ENV !== 'production',
     enhancers,
   });
-  // let composeEnhancers = compose;
-  // const initialState = {
-  //   session: {
-  //     authenticated: false,
-  //     checked: false,
-  //     invalid: false,
-  //     user: {},
-  //   },
-  //   assessmentType: {
-  //     assessmentType: '',
-  //     assessmentsArray: [''],
-  //   },
-  // };
-  // const store = createStore(
-  //   createReducer(),
-  //   initialState,
-  //   composeEnhancers(...enhancers),
-  // );
 
   // Make reducers hot reloadable, see http://mxs.is/googmo
   /* istanbul ignore next */

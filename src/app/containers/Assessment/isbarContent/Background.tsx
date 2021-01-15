@@ -292,7 +292,8 @@ export function Background() {
                   <Typography align="center" variant="h6">
                     Share Care Record Information
                   </Typography>
-                  <Carousel steps={careRecordInfo} />
+                  {/* <CareRecordInfo register={register} /> */}
+                  <Carousel>{careRecordInfo}</Carousel>
                 </Box>
               </Grid>
             </Grid>

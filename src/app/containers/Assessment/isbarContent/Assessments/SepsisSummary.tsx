@@ -7,7 +7,6 @@ import {
   selectSepsis,
   selectPatientNHS,
   selectPatientName,
-  selectResult,
 } from '../../selectors';
 import uniqid from 'uniqid';
 import clsx from 'clsx';

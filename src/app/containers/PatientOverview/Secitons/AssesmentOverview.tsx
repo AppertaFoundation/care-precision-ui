@@ -1,29 +1,16 @@
 import React from 'react';
-import {
-  Paper,
-  makeStyles,
-  Box,
-  Typography,
-  Grid,
-  IconButton,
-} from '@material-ui/core';
+import { Box, Grid, IconButton } from '@material-ui/core';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core/styles';
-import { Text, DenwisIcon, News2Icon, SepsisIcon, CovidIcon } from 'components';
+import {
+  Text,
+  //  DenwisIcon,
+  News2Icon,
+  SepsisIcon,
+  CovidIcon,
+} from 'components';
 import { CarouselCard } from './SituatiionBackground';
-const useStyles = makeStyles(theme => ({
-  root: {
-    flexGrow: 1,
-  },
-  demo: {
-    backgroundColor: theme.palette.background.paper,
-    height: 100,
-    margin: theme.spacing(2),
-  },
-  title: {
-    margin: theme.spacing(4, 0, 2),
-  },
-}));
+import uniqid from 'uniqid';
 
 interface IAssesmentOverviewCard {
   assesmentType: string;
@@ -113,7 +100,13 @@ const AssesmentOverview = ({ news2, denwis, sepsis, covid }) => {
   const md = useMediaQuery(theme.breakpoints?.up('sm'));
   return md
     ? [
-        <Grid container direction="row" justify="center" alignItems="flex-end">
+        <Grid
+          container
+          direction="row"
+          justify="center"
+          alignItems="flex-end"
+          key={uniqid()}
+        >
           <Grid item sm={4} xs={12}>
             <Box mr={1}>
               <CarouselCard label="DENWIS">
@@ -149,7 +142,13 @@ const AssesmentOverview = ({ news2, denwis, sepsis, covid }) => {
             </CarouselCard>
           </Grid>
         </Grid>,
-        <Grid container direction="row" justify="center" alignItems="flex-end">
+        <Grid
+          container
+          direction="row"
+          justify="center"
+          alignItems="flex-end"
+          key={uniqid()}
+        >
           <Grid item xs={12} sm={4}>
             <Box mr={1}>
               <CarouselCard label="COVID">
@@ -165,7 +164,7 @@ const AssesmentOverview = ({ news2, denwis, sepsis, covid }) => {
         </Grid>,
       ]
     : [
-        <CarouselCard label="DENWIS">
+        <CarouselCard label="DENWIS" key={uniqid()}>
           <AssesmentOverviewCard
             assesmentType="denwis"
             taken="22-Feb-2020"
@@ -174,7 +173,7 @@ const AssesmentOverview = ({ news2, denwis, sepsis, covid }) => {
           />
         </CarouselCard>,
 
-        <CarouselCard label="NEWS2">
+        <CarouselCard label="NEWS2" key={uniqid()}>
           <AssesmentOverviewCard
             assesmentType="news2"
             taken="22-Feb-2020"
@@ -182,7 +181,7 @@ const AssesmentOverview = ({ news2, denwis, sepsis, covid }) => {
             keyInformation="None"
           />
         </CarouselCard>,
-        <CarouselCard label="SEPSIS">
+        <CarouselCard label="SEPSIS" key={uniqid()}>
           <AssesmentOverviewCard
             assesmentType="sepsis"
             taken="22-Feb-2020"
@@ -190,7 +189,7 @@ const AssesmentOverview = ({ news2, denwis, sepsis, covid }) => {
             keyInformation="None"
           />
         </CarouselCard>,
-        <CarouselCard label="COVID">
+        <CarouselCard label="COVID" key={uniqid()}>
           <AssesmentOverviewCard
             assesmentType="covid"
             taken="22-Feb-2020"
