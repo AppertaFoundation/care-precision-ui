@@ -2,11 +2,10 @@
 import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useSelector, useDispatch } from 'react-redux';
-import { useInjectReducer, useInjectSaga } from 'utils/redux-injectors';
-
+import { useInjectSaga, useInjectReducer } from 'utils/redux-injectors';
 import { infectionControlSaga } from './saga';
-import { sliceKey, reducer, actions } from './slice';
-import { useParams, useNavigate } from 'react-router-dom';
+import { sliceKey, actions, reducer } from './slice';
+import { useParams, useHistory } from 'react-router-dom';
 import { selectError, selectLoading, selectPatient } from './selectors';
 
 import {
@@ -36,11 +35,13 @@ import { IsolationStatus } from './IsolationStatus';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 export function InfectionControl() {
-  useInjectReducer({ key: sliceKey, reducer: reducer });
   useInjectSaga({ key: sliceKey, saga: infectionControlSaga });
+  useInjectReducer({ key: sliceKey, reducer });
+
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const { id } = useParams();
+  const history = useHistory();
+  const params = useParams();
+  const id = (params as any)?.id;
   const classes = useStyles();
   // const ref = React.useRef(null);
 
@@ -65,7 +66,7 @@ export function InfectionControl() {
   const handleChange = panel => (event, isExpanded) => {
     setExpanded({ ...expanded, [panel]: isExpanded ? panel : false });
   };
-  const goBack = () => navigate('/');
+  const goBack = () => history.push('/');
   if (error) {
     return <p>{error}</p>;
   }

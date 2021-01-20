@@ -9,7 +9,7 @@ import { selectBackground, selectSituation } from '../../selectors';
 import { Grid, Typography, Box, makeStyles } from '@material-ui/core';
 // import { useDispatch } from 'react-redux';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import { useNavigate } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 // import { actions } from '../../slice';
 import {
   Accordion,
@@ -44,7 +44,7 @@ export const Assessments = ({ obsType, id }) => {
   const background = useSelector(selectBackground);
 
   const classes = useStyles();
-  const navigate = useNavigate();
+  const history = useHistory();
   // const dispatch = useDispatch();
   const [expanded, setExpanded] = React.useState({
     news2: '',
@@ -82,7 +82,7 @@ export const Assessments = ({ obsType, id }) => {
   const handleConfirmAssessment = () => {
     handleCloseSummary();
     // dispatch(actions.cleanAssessment());
-    navigate(`/assessment/${id}/${3}/${obsType}`, { replace: true });
+    history.push(`/assessment/${id}/${3}/${obsType}`, { replace: true });
   };
 
   const onValidate = () => {

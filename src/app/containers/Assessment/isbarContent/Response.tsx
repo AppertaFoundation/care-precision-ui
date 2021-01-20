@@ -9,7 +9,7 @@ import {
 } from '@material-ui/core';
 
 import { makeStyles } from '@material-ui/core/styles';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import {
   selectNews2,
@@ -53,8 +53,9 @@ const useStyles = makeStyles((theme: any) => ({
 
 const Response = () => {
   const classes = useStyles();
-  const navigate = useNavigate();
-  const { id } = useParams();
+  const history = useHistory();
+  const params = useParams();
+  const id = (params as any)?.id;
   const dispatch = useDispatch();
   const news2 = useSelector(selectNews2);
   const sepsis = useSelector(selectSepsis);
@@ -76,6 +77,7 @@ const Response = () => {
   const handleClose = () => setOpen(false);
   const handleCloseNoAction = () => setNoAction(false);
 
+  const navigate = path => history.push(path);
   const goToPatientList = () => {
     cleanStore();
     navigate('/');

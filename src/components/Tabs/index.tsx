@@ -5,7 +5,7 @@ import { Tab } from '../Tab';
 
 import uniqid from 'uniqid';
 import { withStyles, Theme } from '@material-ui/core/styles';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 
 const StyledTabs = withStyles((theme: Theme) => ({}))(MuiTabs);
 
@@ -15,8 +15,10 @@ const Tabs: React.FC<{
   children: React.ReactNode[] | React.ReactNode;
   labels: string[];
 }> = ({ children, labels }) => {
-  const { tab, id } = useParams();
-  const navigate = useNavigate();
+  const params = useParams();
+  const id = (params as any)?.id;
+  const tab = (params as any)?.tab;
+  const history = useHistory();
   const activeTab = parseInt(tab);
   const [value, setValue] = useState(0);
   const useEffectOnMount = (effect: React.EffectCallback) => {
@@ -30,7 +32,7 @@ const Tabs: React.FC<{
   const handleChange = (e, activeTabVal) => {
     if (value !== activeTabVal) {
       setValue(activeTabVal);
-      navigate(`/assessment/${id}/${activeTabVal}`, { replace: true });
+      history.push(`/assessment/${id}/${activeTabVal}`, { replace: true });
     }
   };
 

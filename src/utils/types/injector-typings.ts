@@ -18,5 +18,5 @@ export interface InjectReducerParams<Key extends RootStateKeyType> {
 export interface InjectSagaParams {
   key: RootStateKeyType | string;
   saga: Saga;
-  mode?: SagaInjectionModes;
+  mode?: SagaInjectionModes | 'RESTART_ON_REMOUNT';
 }

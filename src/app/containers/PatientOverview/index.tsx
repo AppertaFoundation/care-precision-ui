@@ -1,10 +1,9 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
 
-import { useInjectReducer, useInjectSaga } from 'utils/redux-injectors';
+import { useInjectSaga, useInjectReducer } from 'utils/redux-injectors';
 import { useSelector, useDispatch } from 'react-redux';
-import { useNavigate, useParams } from 'react-router-dom';
-import { sliceKey, reducer, actions } from './slice';
+import { sliceKey, actions, reducer } from './slice';
 import { patientOverviewSaga } from './saga';
 
 import {
@@ -21,16 +20,17 @@ import { SituationBackgroundSteps } from './Secitons/SituatiionBackground';
 import { AssesmentOverview } from './Secitons/AssesmentOverview';
 import { RecomendationsActions } from './Secitons/RecomendationsActions';
 import { useStyles } from './style';
+import { useHistory, useParams } from 'react-router-dom';
 
 export function PatientOverview() {
-  useInjectReducer({ key: sliceKey, reducer: reducer });
   useInjectSaga({ key: sliceKey, saga: patientOverviewSaga });
+  useInjectReducer({ key: sliceKey, reducer });
 
   const classes = useStyles();
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const { id } = useParams();
-
+  const history = useHistory();
+  const params = useParams();
+  const id = (params as any)?.id;
   const isLoading = useSelector(selectLoading);
   const error = useSelector(selectError);
   const patient = useSelector(selectPatient);
@@ -39,7 +39,7 @@ export function PatientOverview() {
     dispatch(actions.loadRecord(id));
   }, [dispatch, id]);
 
-  const goBack = () => navigate('/');
+  const goBack = () => history.push('/');
 
   const situationBackgroundSteps = SituationBackgroundSteps();
   const assesmentOverview = AssesmentOverview({

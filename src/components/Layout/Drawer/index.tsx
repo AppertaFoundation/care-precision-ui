@@ -15,7 +15,8 @@ import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import ViewListIcon from '@material-ui/icons/ViewList';
 import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { useLocation } from 'react-router';
 import { useStyles } from '../style';
 
@@ -24,10 +25,10 @@ interface Props {
   onClose: any;
 }
 export const Drawer: React.FC<Props> = ({ open, onClose }) => {
+  const history = useHistory();
   const classes = useStyles();
   const theme = useTheme();
 
-  const navigate = useNavigate();
   const location = useLocation();
   const { pathname } = location;
   const [navPath, setNavPath] = React.useState(pathname);
@@ -36,7 +37,7 @@ export const Drawer: React.FC<Props> = ({ open, onClose }) => {
     setNavPath(pathname);
   }, [pathname]);
   const handleChange = e => {
-    navigate(e.currentTarget.id, { replace: true });
+    history.push(e.currentTarget.id);
   };
   return (
     <MuiDrawer

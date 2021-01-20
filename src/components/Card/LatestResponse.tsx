@@ -1,6 +1,6 @@
 import React from 'react';
 import { Grid, Box, IconButton } from '@material-ui/core';
-import { useNavigate } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 import { useStylesLastResponse } from './style';
 import MuiIconButton from '@material-ui/core/Button';
@@ -20,8 +20,8 @@ const IconButtonNews2 = withStyles({
 
 const LatestResponse = ({ assessments, sm, id }) => {
   const classes = useStylesLastResponse();
-  const navigate = useNavigate();
-  const goToCovid = e => navigate(`/covid-menagment/${id}`);
+  const history = useHistory();
+  const goToCovid = () => history.push(`/covid-menagment/${id}`);
   return (
     <Box mr={1}>
       <Grid

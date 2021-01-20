@@ -1,25 +1,23 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect } from 'react';
+import React from 'react';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { useInjectReducer, useInjectSaga } from 'utils/redux-injectors';
+import { useInjectSaga, useInjectReducer } from 'utils/redux-injectors';
 
 import { Helmet } from 'react-helmet-async';
 import uniqid from 'uniqid';
 
 import { IconButton } from '@material-ui/core';
-// import MuiIconButton from '@material-ui/core/Button';
 import {
   DenwisIcon,
   CovidIcon,
   SepsisIcon,
   NewCareEventDialog,
 } from 'components';
-import { patientsListFromSaga } from '../PatientList/saga';
-import { useNavigate } from 'react-router-dom';
+import { patientListFromSaga } from '../PatientList/saga';
+import { useHistory } from 'react-router-dom';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 
-import { sliceKey, reducer, actions } from '../PatientList/slice';
+import { sliceKey, actions, reducer } from '../PatientList/slice';
 import {
   selectPatients,
   selectError,
@@ -44,15 +42,15 @@ import { useTheme } from '@material-ui/core/styles';
 
 const AcuityList = () => {
   //redux configuration
-  useInjectReducer({ key: sliceKey, reducer: reducer });
-  useInjectSaga({ key: sliceKey, saga: patientsListFromSaga });
+  useInjectReducer({ key: sliceKey, reducer });
+  useInjectSaga({ key: sliceKey, saga: patientListFromSaga });
   const classes = useStyles();
   const ref = React.useRef(null);
   const theme = useTheme();
 
   const xs = useMediaQuery(theme.breakpoints.down(560));
   const sm = useMediaQuery(theme.breakpoints.up('sm'));
-  const navigate = useNavigate();
+  const history = useHistory();
 
   const dispatch = useDispatch();
   const error = useSelector(selectError);
@@ -65,21 +63,23 @@ const AcuityList = () => {
 
   const handleOpen = (): void => setOpen(true);
   const handleClose = (): void => setOpen(false);
-
-  const useEffectOnMount = (effect: React.EffectCallback) => {
-    useEffect(effect, []);
-  };
-  useEffectOnMount(() => {
+  React.useEffect(() => {
     dispatch(actions.loadRecords({}));
-  });
-  const handleSearch = React.useCallback(value => {
-    dispatch(actions.search(value));
-    dispatch(actions.loadRecords({ search: value }));
-  }, []);
-  const handleSortFilter = React.useCallback(filters => {
-    dispatch(actions.addFilters(filters));
-    dispatch(actions.loadRecords(filters));
-  }, []);
+  }, [dispatch]);
+  const handleSearch = React.useCallback(
+    value => {
+      dispatch(actions.search(value));
+      dispatch(actions.loadRecords({ search: value }));
+    },
+    [dispatch],
+  );
+  const handleSortFilter = React.useCallback(
+    filters => {
+      dispatch(actions.addFilters(filters));
+      dispatch(actions.loadRecords(filters));
+    },
+    [dispatch],
+  );
 
   if (error) {
     return <p>{error}</p>;
@@ -134,7 +134,8 @@ const AcuityList = () => {
                       assessment,
                       id,
                     }) => {
-                      const goToCovid = e => navigate(`/covid-menagment/${id}`);
+                      const goToCovid = e =>
+                        history.push(`/covid-menagment/${id}`);
                       return (
                         <React.Fragment key={uniqid()}>
                           <tr style={{ backgroundColor: '#fff' }}>

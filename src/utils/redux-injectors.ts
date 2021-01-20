@@ -16,6 +16,6 @@ export function useInjectReducer<Key extends RootStateKeyType>(
   return useReducer(params);
 }
 
-export function useInjectSaga(params: InjectSagaParams) {
+export function useInjectSaga(params: InjectSagaParams & { mode?: any }) {
   return useSaga(params);
 }

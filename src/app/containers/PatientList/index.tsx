@@ -1,16 +1,16 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
 
-import RecordsList from './RecordsList';
+import Records from './Records';
 
-export function PatientsList() {
+export function PatientList() {
   return (
     <>
       <Helmet>
         <title>{'Patient List'}</title>
         <meta name="description" content={'A Patient List'} />
       </Helmet>
-      <RecordsList />
+      <Records />
     </>
   );
 }

@@ -29,6 +29,7 @@ import Spinner from './Spinner';
 import Text from './Text';
 import { Table } from './AcuityTable';
 import { TdFirst, TdLast } from './AcuityTable/style';
+import { LoadingIndicator } from './LoadingIndicator';
 
 export {
   Layout,
@@ -65,4 +66,5 @@ export {
   Table,
   TdFirst,
   TdLast,
+  LoadingIndicator,
 };

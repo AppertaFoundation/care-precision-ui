@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { useLocation } from 'react-router';
 import { BottomNavigation } from '@material-ui/core';
 import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
@@ -11,12 +11,12 @@ import { useStyles, MyBottomNavigationAction } from '../style';
 
 const BottomToolBar = () => {
   const classes = useStyles();
-  const navigate = useNavigate();
+  const history = useHistory();
   const location = useLocation();
   const { pathname } = location;
 
   const handleChange = (e, value) => {
-    navigate(value, { replace: true });
+    history.push(value);
   };
   return (
     <div className={classes.wrapper}>

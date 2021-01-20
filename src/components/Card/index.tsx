@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import { IAssessmentIcons } from 'types';
+
 import {
   CardHeader,
   CardActions,
@@ -13,15 +16,12 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { withStyles } from '@material-ui/core/styles';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { useTheme } from '@material-ui/core/styles';
+
 import { useStyles } from './style';
-import { Text } from 'components';
 import clsx from 'clsx';
-import { useNavigate } from 'react-router-dom';
-import { IAssessmentIcons } from 'types';
 
 import NewCareEventDialog from '../NewCareEventDialog';
 import LatestResponse from './LatestResponse';
-// import LatestResponseTable from './LatestResponseTable';
 
 const CardContent = withStyles({
   root: {
@@ -35,15 +35,8 @@ interface Props {
   name?: string;
   identifier?: string;
   id?: string;
-  // isDashboard?: boolean;
   children?: JSX.Element;
   assesments?: IAssessmentIcons;
-  handleClick?: (
-    event:
-      | React.MouseEvent<HTMLDivElement>
-      | React.KeyboardEvent<HTMLDivElement>,
-  ) => void;
-  location?: any;
 }
 
 const Card: React.FC<Props> = ({
@@ -52,8 +45,6 @@ const Card: React.FC<Props> = ({
   assesments,
   children,
   id,
-  // isDashboard,
-  location,
 }) => {
   const classes = useStyles();
   const [open, setOpen] = useState<boolean>(false);
@@ -61,16 +52,16 @@ const Card: React.FC<Props> = ({
   const handleOpen = (): void => setOpen(true);
   const handleClose = (): void => setOpen(false);
 
+  const history = useHistory();
   const theme = useTheme();
-  const navigate = useNavigate();
+
   const sm = useMediaQuery(theme.breakpoints.up('sm'));
   const latestResponseBar = (
     <LatestResponse sm={!sm} assessments={assesments} id={id} />
   );
-  // const latestResponseTable = (
-  //   <LatestResponseTable sm={!sm} assessments={assesments} id={id} />
-  // );
-  const redirectToPatientOverview = e => navigate(`/patient-overview/${id}`);
+
+  const redirectToPatientOverview = () =>
+    history.push(`/patient-overview/${id}`);
   return (
     <>
       <Box className={clsx(classes.card, classes.roundedCorners)}>
@@ -87,14 +78,11 @@ const Card: React.FC<Props> = ({
               <Typography variant="body1" color="textSecondary">
                 {identifier}
               </Typography>
-              {location && <Text label="Location">{location}</Text>}
             </CardActionArea>
           }
           action={
             <CardActions disableSpacing>
               {sm && latestResponseBar}
-              {/* {isDashboard && sm && latestResponseTable} */}
-
               <Divider orientation="vertical" flexItem />
               <IconButton edge={'end'} onClick={handleOpen}>
                 <MoreVertIcon />
@@ -130,13 +118,4 @@ const Card: React.FC<Props> = ({
   );
 };
 
-let areEqual = function (prevProps, nextProps) {
-  const handleClick =
-    prevProps?.handleClick && nextProps?.hanldeClick
-      ? prevProps.handleClick.toString() === nextProps.handleClick.toString()
-      : false;
-
-  return handleClick && true;
-};
-
-export default React.memo(Card, areEqual);
+export default Card;

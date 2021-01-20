@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Acuity Dashboard /> should match snapshot 1`] = `
+<React.Fragment>
+  <Helmet
+    defer={true}
+    encodeSpecialCharacters={true}
+  >
+    <title>
+      Acuity Dashboard
+    </title>
+    <meta
+      content="A Acuity Dashboard"
+      name="description"
+    />
+  </Helmet>
+  <AcuityList />
+</React.Fragment>
+`;
