@@ -3,12 +3,13 @@ import { Grid, DialogContent, Box, Typography } from '@material-ui/core';
 import { Button, Dialog, DialogTitle } from 'components';
 import { useDispatch } from 'react-redux';
 import { setAssessmentType } from 'store/assessmentTypeReducer';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 
 const FurtherAssessment = () => {
   const [open, setOpen] = React.useState(false);
-  const navigate = useNavigate();
-  const { id } = useParams();
+  const history = useHistory();
+  const params = useParams();
+  const id = (params as any)?.id;
   const dispatch = useDispatch();
   const handleClose = () => setOpen(false);
   const handleOpen = () => setOpen(true);
@@ -17,7 +18,7 @@ const FurtherAssessment = () => {
   ): void => {
     const { value } = event.currentTarget as HTMLButtonElement;
     dispatch(setAssessmentType(value));
-    navigate(`/assessment/${id}/${2}/${value}`);
+    history.push(`/assessment/${id}/${2}/${value}`);
   };
   return (
     <Box m={1}>

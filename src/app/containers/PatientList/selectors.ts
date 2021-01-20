@@ -4,7 +4,7 @@ import { RootState } from '../../../types/RootState';
 import { initialState } from './slice';
 
 // First select the relevant part from the state
-const selectDomain = (state: RootState) => state.patientsList || initialState;
+const selectDomain = (state: RootState) => state?.patientsList || initialState;
 
 export const selectLoading = createSelector(
   [selectDomain],

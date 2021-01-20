@@ -103,7 +103,7 @@ const Layout: React.FC<Props> = ({
           <>
             <main
               className={clsx(classes.content, {
-                [classes.contentShift]: open,
+                [classes.contentShift]: false,
               })}
             >
               <div className={classes.drawerHeader} />

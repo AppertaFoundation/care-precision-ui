@@ -11,6 +11,8 @@ import { AssessmentEvent } from 'app/containers/Assessment/types';
 import { PatientOverview } from 'app/containers/PatientOverview/types';
 
 export interface RootState {
+  session?: any;
+  assessmentyType?: any;
   patientsList?: PatientsList;
   assessmentEvent?: AssessmentEvent;
   infectionControl?: InfectionControl;

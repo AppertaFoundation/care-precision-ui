@@ -9,9 +9,9 @@ import { actions } from './slice';
 function getRequestURL(params) {
   const base = `${process.env.REACT_APP_API}/meta/demographics/patient_list`;
 
-  const search = params.search ? params.search : null;
-  const filter = params.filter ? params.filter : null;
-  const sort = params.sort ? params.sort : null;
+  const search = params?.search ? params.search : null;
+  const filter = params?.filter ? params.filter : null;
+  const sort = params?.sort ? params.sort : null;
 
   const filterURL = filter?.sepsis
     ? `filter_key=${filter.sepsis.key}&filter_value=${filter.sepsis.value}`
@@ -31,7 +31,6 @@ function getRequestURL(params) {
 export function* getRecords(action) {
   yield delay(500);
   const requestURL = getRequestURL(action.payload);
-  console.log(requestURL);
   if (process.env.REACT_APP_STATIC) {
     return yield put(
       actions.recordsLoaded(patientListParser(keysToCamel(fake.PATIENT_LIST))),
@@ -55,6 +54,6 @@ export function* getRecords(action) {
 /**
  * Root saga manages watcher lifecycle
  */
-export function* patientsListFromSaga() {
+export function* patientListFromSaga() {
   yield takeLatest(actions.loadRecords.type, getRecords);
 }

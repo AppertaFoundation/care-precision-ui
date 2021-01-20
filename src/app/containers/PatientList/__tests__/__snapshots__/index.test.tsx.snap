@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<PatientList /> should match snapshot 1`] = `
+<React.Fragment>
+  <Helmet
+    defer={true}
+    encodeSpecialCharacters={true}
+  >
+    <title>
+      Patient List
+    </title>
+    <meta
+      content="A Patient List"
+      name="description"
+    />
+  </Helmet>
+  <Records />
+</React.Fragment>
+`;

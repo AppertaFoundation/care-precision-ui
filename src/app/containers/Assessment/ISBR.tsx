@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import MuiTabs from '@material-ui/core/Tabs';
 import uniqid from 'uniqid';
 import { withStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import { Situation } from './isbarContent/Situation';
 import { Background } from './isbarContent/Background';
 import { Assessments } from './isbarContent/Assessments';
@@ -32,8 +32,11 @@ const useStyles = makeStyles((theme: Theme) => ({
 const a11yProps = index => ({ id: `${index}` });
 
 const ISBR = () => {
-  const { tab, id, obsType } = useParams();
-  const navigate = useNavigate();
+  const params = useParams();
+  const tab = (params as any)?.tab;
+  const id = (params as any)?.id;
+  const obsType = (params as any)?.obsType;
+  const history = useHistory();
   const classes = useStyles();
 
   const activeTab = parseInt(tab);
@@ -53,7 +56,7 @@ const ISBR = () => {
   const handleChange = (e, activeTabVal) => {
     if (value !== activeTabVal) {
       setValue(activeTabVal);
-      navigate(`/assessment/${id}/${activeTabVal}/${obsType}`, {
+      history.push(`/assessment/${id}/${activeTabVal}/${obsType}`, {
         replace: true,
       });
     }

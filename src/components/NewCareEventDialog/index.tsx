@@ -1,4 +1,8 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { setAssessmentType } from 'store/assessmentTypeReducer';
+
 import {
   Grid,
   Typography,
@@ -7,12 +11,10 @@ import {
   Box,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+
 import Button from '../Button';
 import Dialog from '../Dialog';
 import { DialogTitle } from '../Dialog/DialogTitle';
-import { setAssessmentType } from 'store/assessmentTypeReducer';
-import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 
 const useStyles = makeStyles({
   content: { padding: 24 },
@@ -32,39 +34,34 @@ const NewCareEventDialog: React.FC<Props> = ({
   id,
 }) => {
   const classes = useStyles();
+  const history = useHistory();
   const [path, setPath] = React.useState<never | string>();
 
-  const useEffectOnMount = (effect: React.EffectCallback) => {
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    React.useEffect(effect, [path]);
-  };
-
-  useEffectOnMount(() => {
+  React.useEffect(() => {
     if (path) {
-      navigate(path);
+      history.push(path);
     }
-  });
+  }, [path, history]);
 
   const handleRedirect = (
     event: React.MouseEvent<HTMLElement, MouseEvent>,
   ): void => {
     const { value } = event.currentTarget as HTMLButtonElement;
     setPath(`/assessment/${id}/0/${value}`);
-    navigate(`/assessment/${id}/0/${value}`, { replace: true });
+    history.push(`/assessment/${id}/0/${value}`);
     dispatch(setAssessmentType(value));
   };
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const redirectToProfile = (
     event: React.MouseEvent<HTMLElement, MouseEvent>,
   ): void => {
-    navigate(`/patient-overview/${id}`, { replace: true });
+    history.push(`/patient-overview/${id}`);
   };
   const startCovidPathway = (
     event: React.MouseEvent<HTMLElement, MouseEvent>,
   ): void => {
-    navigate(`/covid-menagment/${id}`, { replace: true });
+    history.push(`/covid-menagment/${id}`);
   };
   return (
     <Dialog open={open} onClose={handleClose}>

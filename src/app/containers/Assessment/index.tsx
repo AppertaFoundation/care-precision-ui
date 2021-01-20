@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { useInjectReducer, useInjectSaga } from 'utils/redux-injectors';
+import { useInjectSaga, useInjectReducer } from 'utils/redux-injectors';
 import {
   assessmentTypeSelector,
   assessmentsTypesArraySelector,
@@ -11,8 +11,8 @@ import {
 } from 'store/assessmentTypeReducer';
 
 import { assessmentEventSaga } from './saga';
-import { sliceKey, reducer, actions } from './slice';
-import { useNavigate, useParams } from 'react-router-dom';
+import { sliceKey, actions, reducer } from './slice';
+import { useHistory, useParams } from 'react-router-dom';
 import { selectError, selectLoading, selectPatient } from './selectors';
 
 import {
@@ -39,11 +39,14 @@ import {
 import ISBR from './ISBR';
 
 export function Assessment() {
-  useInjectReducer({ key: sliceKey, reducer: reducer });
   useInjectSaga({ key: sliceKey, saga: assessmentEventSaga });
+  useInjectReducer({ key: sliceKey, reducer });
+
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const { id, obsType } = useParams();
+  const history = useHistory();
+  const params = useParams();
+  const id = (params as any)?.id;
+  const obsType = (params as any)?.obsType;
   const classes = useStyles();
 
   const [open, setOpen] = React.useState(false);
@@ -77,7 +80,7 @@ export function Assessment() {
   };
   const exitEvent = () => {
     cleanStore();
-    navigate('/');
+    history.push('/');
   };
   if (error) {
     return <p>{error}</p>;

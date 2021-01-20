@@ -63,6 +63,7 @@ export const RadioItem: React.FC<{
 );
 
 interface Props {
+  id?: string;
   onFilterSort: any;
   defaultValues: {
     sort: null | { key: string; value: string };
@@ -71,7 +72,7 @@ interface Props {
 }
 const ACTIVE_BTN = '#29375d';
 const Sort: React.FC<Props> = React.forwardRef(
-  ({ onFilterSort, defaultValues }, ref) => {
+  ({ id, onFilterSort, defaultValues }, ref) => {
     const [state, setState] = React.useState<any>({
       sort: null,
       filter: null,

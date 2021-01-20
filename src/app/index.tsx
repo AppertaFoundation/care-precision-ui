@@ -3,33 +3,36 @@
  * App
  *
  * This component is the skeleton around the actual pages, and should only
- * contain code that should be seen on all pages. (e.g. navigation bar)
+ * contain code that should be seen on all pages.
  */
 
 import * as React from 'react';
 import { Helmet } from 'react-helmet-async';
-import { Route, Routes, BrowserRouter } from 'react-router-dom';
-
 import { useSelector } from 'react-redux';
-import { Navigate, Outlet } from 'react-router-dom';
-import { GlobalStyle } from 'styles/global-styles';
+import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 
+import { assessmentReducer } from 'store/assessmentTypeReducer';
+import { sessionReducer } from 'redux-react-session';
 import { sessionSelector } from 'utils/selectors';
-import Layout from 'components/Layout';
-import { PatientsList } from './containers/PatientList/';
-import { AcuityDashboard } from './containers/AcuityDashboard';
+import { useInjectReducer } from 'redux-injectors';
 
+import { AcuityDashboard } from './containers/AcuityDashboard';
 import { Assessment } from './containers/Assessment';
-import { NotFoundPage } from 'components/NotFoundPage/Loadable';
 import { InfectionControl } from './containers/InfectionControl';
+import { NotFoundPage } from 'components/NotFoundPage/Loadable';
+import { PatientList } from './containers/PatientList/';
 import { PatientOverview } from './containers/PatientOverview';
-/**
- * Decided to use a beta version of react-router(complete different api than v5)
- * Beta was released on 20 Jun 2020 and cover all cases incompatibles previous release
- * with current react hooks and suspense api.
- */
+
+import { GlobalStyle } from 'styles/global-styles';
+import Layout from 'components/Layout';
 
 export function App() {
+  useInjectReducer({ key: 'session', reducer: sessionReducer });
+  useInjectReducer({ key: 'assessmentType', reducer: assessmentReducer });
+
+  const session = useSelector(sessionSelector);
+  const { checked, authenticated } = session;
+
   return (
     <BrowserRouter>
       <Helmet titleTemplate="%s -Care Protect" defaultTitle="Care Protect">
@@ -38,91 +41,76 @@ export function App() {
           content="Care Protect application"
         />
       </Helmet>
-      <Routes>
-        {/* <Route
-          path="/login"
-          element={
-            <Layout login={true}>
-              <Login />
-            </Layout>
-          }
-        /> */}
-        <Route element={<Unauthenticated />} path="/login">
-          <PrivateRoute
-            header="Login"
-            appBar
-            bottomToolBar
-            element={<div>login</div>}
-            path="/login"
-          />
-        </Route>
-        <Route element={<Authenticated />} path="/">
-          <PrivateRoute
+      {checked && (
+        <Switch>
+          <ProtectedRoute
+            exact
             header="Patient List"
-            appBar
-            bottomToolBar
-            element={<PatientsList />}
-            path="/"
+            path={process.env.PUBLIC_URL + '/'}
+            component={PatientList}
+            authenticated={authenticated}
           />
-          <PrivateRoute
+          <ProtectedRoute
+            exact
             header="Acuity Dasboard"
-            appBar
-            bottomToolBar
-            element={<AcuityDashboard />}
-            path="/dashboard"
+            path={process.env.PUBLIC_URL + '/dashboard'}
+            component={AcuityDashboard}
+            authenticated={authenticated}
           />
-          <PrivateRoute
-            header={false}
-            bottomToolBar
-            path="/covid-menagment/:id/"
-            element={<InfectionControl />}
+          <ProtectedRoute
+            exact
+            path={process.env.PUBLIC_URL + '/covid-menagment/:id'}
+            component={InfectionControl}
+            authenticated={authenticated}
           />
-          <PrivateRoute
-            header={false}
-            bottomToolBar
-            path="/patient-overview/:id/"
-            element={<PatientOverview />}
+          <ProtectedRoute
+            exact
+            path={process.env.PUBLIC_URL + '/patient-overview/:id'}
+            component={PatientOverview}
+            authenticated={authenticated}
           />
-          <PrivateRoute
-            header={false}
-            bottomToolBar
-            element={<Assessment />}
-            path="/assessment/:id/:tab/:obsType"
+          <ProtectedRoute
+            exact
+            path={process.env.PUBLIC_URL + '/assessment/:id/:tab/:obsType'}
+            component={Assessment}
+            authenticated={authenticated}
           />
-        </Route>
-        <Route element={<NotFoundPage />} />
-      </Routes>
 
+          <Route component={NotFoundPage} />
+        </Switch>
+      )}
       <GlobalStyle />
     </BrowserRouter>
   );
 }
-//Authentication wrapper
-const Authenticated = () => {
-  const isAuthenticated = useSelector(sessionSelector);
-  if (!isAuthenticated.checked && isAuthenticated.authenticated) {
-    return <Navigate to="/login" />;
-  }
-  return <Outlet />;
-};
 
-const Unauthenticated = () => {
-  const isAuthenticated = useSelector(sessionSelector);
-  if (isAuthenticated.checked && !isAuthenticated.authenticated) {
-    return <Outlet />;
-  }
-  return <Navigate to="/" />;
-};
-
-const PrivateRoute = ({ element, header, ...rest }) => {
+function ProtectedRoute({ component: Component, ...rest }) {
   return (
     <Route
       {...rest}
-      element={
-        <Layout header={header} bottomToolBar={Boolean(rest.bottomToolBar)}>
-          {element}
-        </Layout>
+      render={props =>
+        rest.authenticated ? (
+          <Layout
+            header={rest.header}
+            bottomToolBar={Boolean(rest.bottomToolBar)}
+          >
+            <Component {...props} />
+          </Layout>
+        ) : (
+          <Layout
+            header={rest.header}
+            bottomToolBar={Boolean(rest.bottomToolBar)}
+          >
+            <Component {...props} />
+          </Layout>
+          // <Redirect
+          //   to={{
+          //     pathname: '/login2',
+          //     state: { from: props.location },
+          //   }}
+          // />
+        )
       }
     />
   );
-};
+}

@@ -51,7 +51,6 @@ const MAX_CHARS_ISB_TABS = 255;
 const Situation = () => {
   const classess = useStyles();
   const dispatch = useDispatch();
-  // const navigate = useNavigate();
 
   const situationDefault = useSelector(selectSituation);
   // const { id, obsType } = useParams();
