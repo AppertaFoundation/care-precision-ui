@@ -7,7 +7,9 @@ import { PatientsErrorType } from './types';
 import { actions } from './slice';
 
 function getRequestURL(params) {
-  const base = `${process.env.REACT_APP_API}/meta/demographics/patient_list`;
+  const base = `${
+    (window as any)._env_.REACT_APP_API
+  }/meta/demographics/patient_list`;
 
   const search = params?.search ? params.search : null;
   const filter = params?.filter ? params.filter : null;
@@ -31,7 +33,7 @@ function getRequestURL(params) {
 export function* getRecords(action) {
   yield delay(500);
   const requestURL = getRequestURL(action.payload);
-  if (process.env.REACT_APP_STATIC) {
+  if ((window as any)._env_.REACT_APP_STATIC) {
     return yield put(
       actions.recordsLoaded(patientListParser(keysToCamel(fake.PATIENT_LIST))),
     );

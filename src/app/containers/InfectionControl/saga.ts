@@ -25,9 +25,13 @@ const demographic = {
 };
 export function* getRecord(action) {
   yield delay(500);
-  const requestURL = `${process.env.REACT_APP_API}/meta/demographics/patient_list?search_key=id&search_value=${action.payload}`;
+  const requestURL = `${
+    (window as any)._env_.REACT_APP_API
+  }/meta/demographics/patient_list?search_key=id&search_value=${
+    action.payload
+  }`;
 
-  if (process.env.REACT_APP_STATIC) {
+  if ((window as any)._env_.REACT_APP_STATIC) {
     return yield put(
       actions.recordLoaded(
         patientParser(
@@ -55,7 +59,10 @@ export function* getRecord(action) {
 export function* getInfectionControl(action) {
   yield delay(500);
 
-  if (process.env.REACT_APP_STATIC || process.env.REACT_APP_STATIC_COVID) {
+  if (
+    (window as any)._env_.REACT_APP_STATIC ||
+    (window as any)._env_.REACT_APP_STATIC_COVID
+  ) {
     return yield put(
       actions.infectionControlLoaded(keysToCamel(fake.COVID_MENAGMENT)),
     );
@@ -78,7 +85,10 @@ export function* updateCovidPathway(action) {
     startTime: Date.now(), //ISO DateTime
     ...demographic,
   };
-  if (process.env.REACT_APP_STATIC || process.env.REACT_APP_STATIC_COVID) {
+  if (
+    (window as any)._env_.REACT_APP_STATIC ||
+    (window as any)._env_.REACT_APP_STATIC_COVID
+  ) {
     return yield put(actions.success());
   }
 

@@ -8,8 +8,12 @@ import { actions } from './slice';
 
 export function* getRecord(action) {
   yield delay(500);
-  const requestURL = `${process.env.REACT_APP_API}/meta/demographics/patient_list?search_key=id&search_value=${action.payload}`;
-  if (process.env.REACT_APP_STATIC) {
+  const requestURL = `${
+    (window as any)._env_.REACT_APP_API
+  }/meta/demographics/patient_list?search_key=id&search_value=${
+    action.payload
+  }`;
+  if ((window as any)._env_.REACT_APP_STATIC) {
     return yield put(
       actions.recordLoaded(
         patientParser(

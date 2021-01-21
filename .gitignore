@@ -21,3 +21,5 @@ yarn.log
 generated-cra-app
 .cra-template-rb
 template
+public/env-config.js
+

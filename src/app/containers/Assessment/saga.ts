@@ -8,9 +8,13 @@ import { actions } from './slice';
 
 export function* getRecord(action) {
   yield delay(500);
-  const requestURL = `${process.env.REACT_APP_API}/meta/demographics/patient_list?search_key=id&search_value=${action.payload}`;
+  const requestURL = `${
+    (window as any)._env_.REACT_APP_API
+  }/meta/demographics/patient_list?search_key=id&search_value=${
+    action.payload
+  }`;
 
-  if (process.env.REACT_APP_STATIC) {
+  if ((window as any)._env_.REACT_APP_STATIC) {
     return yield put(
       actions.recordLoaded(
         patientParser(
@@ -35,10 +39,10 @@ export function* getRecord(action) {
 
 export function* makeCalculations(action) {
   yield delay(500);
-  const requestURL = `${process.env.REACT_APP_API}/cdr/draft`;
+  const requestURL = `${(window as any)._env_.REACT_APP_API}/cdr/draft`;
   const { obsType, assessmentForm } = action.payload;
   const now = new Date();
-  if (process.env.REACT_APP_STATIC) {
+  if ((window as any)._env_.REACT_APP_STATIC) {
     const result = keysToCamel(fake.ASSESSMENTS_RESULT[`${obsType}`]);
     result[`${obsType}`].lastUpdate = now.toISOString();
     return yield put(
@@ -88,10 +92,10 @@ function download(content, fileName, contentType) {
 
 export function* submitAssessment(action) {
   yield delay(500);
-  // const requestURL = `${process.env.REACT_APP_API}/cdr/`;
+  // const requestURL = `${(window as any)._env_.REACT_APP_API}/cdr/`;
   const formatedAssessment = serializeAssessmentJSON(action.payload);
 
-  if (process.env.REACT_APP_STATIC) {
+  if ((window as any)._env_.REACT_APP_STATIC) {
     download(JSON.stringify(formatedAssessment), 'json.txt', 'text/plain');
     return yield put(actions.successAssesment());
   }
