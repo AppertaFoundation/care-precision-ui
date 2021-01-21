@@ -32,9 +32,8 @@ This repository contains the front end user interface for the Care Protect produ
 Before you begin, ensure you have met the following requirements:
 
 <!--- These are just example requirements. Add, duplicate or remove as required --->
-
-- You have installed the latest version of yarn package manager. [Official docs](https://classic.yarnpkg.com/en/docs/install/#windows-stable)
-- ~~You have downloaded and set up a [Middleware]()~~ The middleware is currently being finalised, but you can run the Care Protect UI application statically using the dummy data provided.
+- **To use docker containers with Middleware**: Go to your repo https://github.com/OpusVL/C19-bundle and use prepared the bundle.
+- **To use localy in the development mode**: You have to installed the latest version of yarn package manager. [Official docs](https://classic.yarnpkg.com/en/docs/install/#windows-stable) and follow the instructions below.
 
 ### Installation
 
@@ -46,62 +45,28 @@ Before you begin, ensure you have met the following requirements:
 
    `$ cd care-protect-ui`
 
-3. Until the first release, please make sure that you are on the develop branch.
-
-   `$ git checkout develop`
-
 4. Install dependencies
 
    `$ yarn install`
    
-### Build
 
-1 .You have to options create static build(without middleware) ~~or with it.~~
+### Run Development Mode 
+- Copy the `.env.example` file to `.env` and modify as necessary.
 
-- ~~To create a standard build.~~
-   - ~~- Add in to file .env.production (root directory) adress where your API is served~~
-   
-      ~~`REACT_APP_API=<your api>`~~
-   - ~~- And run in consol:~~
-   
-      ~~`$ yarn build`~~
+- Run in terminal:
 
-- Static one
+  `$ yarn dev`
 
-  - Add in to file .env.production (root directory)
+- Go to: http://localhost:5000
 
-    `REACT_APP_STATIC=true`
+### Envariomental variables and Switches
 
-  - Run in consol:
-
-    `$ yarn build`
-
-2. Install globally a server
-
-   `$ yarn global add serve`
-
-3. The build folder is ready to be deployed. You may serve it with a static server:
-
-   `$ serve -s build`
-
-And your app is served [localhost:5000](localhost:5000)
-
-### Development Mode 
-
-- ~~Run with middleware.~~
-
-  ~~`$ yarn start`~~
-
-- Static one
-
-  - Add in to file .env.local (root directory) `REACT_APP_STATIC=true`
-  - And `$ yarn start`   
+  `REACT_APP_API=<url where you API is hosted>`
   
-### Other configurations
-Switches (you can add them into .env.local or .env.production:
-1. To use fake api only for Infection control:
-REACT_APP_STATIC_COVID=true
-
+  `REACT_APP_STATIC_COVID=true` Applay local fake api into Infection Control view
+  
+  `REACT_APP_STATIC=true`Applay local fake api into whole application
+  
 ## Understanding the structure of the Care Protect UI application
 
 ### Technologies
