@@ -8,7 +8,9 @@ import { actions } from './slice';
 
 function getRequestURL(params) {
   const base = `${
-    (window as any)._env_.REACT_APP_API
+    (window as any)[
+      `${process.env.NODE_ENV === 'production' ? 'injectedEnv' : '_env_'}`
+    ]['REACT_APP_API']
   }/meta/demographics/patient_list`;
 
   const search = params?.search ? params.search : null;
@@ -33,7 +35,11 @@ function getRequestURL(params) {
 export function* getRecords(action) {
   yield delay(500);
   const requestURL = getRequestURL(action.payload);
-  if ((window as any)._env_.REACT_APP_STATIC) {
+  if (
+    (window as any)[
+      `${process.env.NODE_ENV === 'production' ? 'injectedEnv' : '_env_'}`
+    ].REACT_APP_STATIC
+  ) {
     return yield put(
       actions.recordsLoaded(patientListParser(keysToCamel(fake.PATIENT_LIST))),
     );

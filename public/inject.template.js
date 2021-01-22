@@ -1,0 +1,6 @@
+window.injectedEnv = {
+  NODE_ENV: '${NODE_ENV}',
+  REACT_APP_API: '${REACT_APP_API}',
+  REACT_APP_STATIC_COVID: '${REACT_APP_STATIC_COVID}',
+  REACT_APP_STATIC: false,
+};

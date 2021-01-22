@@ -26,12 +26,18 @@ const demographic = {
 export function* getRecord(action) {
   yield delay(500);
   const requestURL = `${
-    (window as any)._env_.REACT_APP_API
+    (window as any)[
+      `${process.env.NODE_ENV === 'production' ? 'injectedEnv' : '_env_'}`
+    ].REACT_APP_API
   }/meta/demographics/patient_list?search_key=id&search_value=${
     action.payload
   }`;
 
-  if ((window as any)._env_.REACT_APP_STATIC) {
+  if (
+    (window as any)[
+      `${process.env.NODE_ENV === 'production' ? 'injectedEnv' : '_env_'}`
+    ].REACT_APP_STATIC
+  ) {
     return yield put(
       actions.recordLoaded(
         patientParser(
@@ -60,8 +66,12 @@ export function* getInfectionControl(action) {
   yield delay(500);
 
   if (
-    (window as any)._env_.REACT_APP_STATIC ||
-    (window as any)._env_.REACT_APP_STATIC_COVID
+    (window as any)[
+      `${process.env.NODE_ENV === 'production' ? 'injectedEnv' : '_env_'}`
+    ].REACT_APP_STATIC ||
+    (window as any)[
+      `${process.env.NODE_ENV === 'production' ? 'injectedEnv' : '_env_'}`
+    ].REACT_APP_STATIC_COVID
   ) {
     return yield put(
       actions.infectionControlLoaded(keysToCamel(fake.COVID_MENAGMENT)),
@@ -86,8 +96,12 @@ export function* updateCovidPathway(action) {
     ...demographic,
   };
   if (
-    (window as any)._env_.REACT_APP_STATIC ||
-    (window as any)._env_.REACT_APP_STATIC_COVID
+    (window as any)[
+      `${process.env.NODE_ENV === 'production' ? 'injectedEnv' : '_env_'}`
+    ].REACT_APP_STATIC ||
+    (window as any)[
+      `${process.env.NODE_ENV === 'production' ? 'injectedEnv' : '_env_'}`
+    ].REACT_APP_STATIC_COVID
   ) {
     return yield put(actions.success());
   }
