@@ -67,14 +67,14 @@ const Card: React.FC<Props> = ({
       <Box className={clsx(classes.card, classes.roundedCorners)}>
         <CardHeader
           title={
-            <CardActionArea onDoubleClick={redirectToPatientOverview}>
+            <CardActionArea onClick={redirectToPatientOverview}>
               <Typography variant="h5" display="block">
                 {name}
               </Typography>
             </CardActionArea>
           }
           subheader={
-            <CardActionArea onDoubleClick={redirectToPatientOverview}>
+            <CardActionArea onClick={redirectToPatientOverview}>
               <Typography variant="body1" color="textSecondary">
                 {identifier}
               </Typography>
@@ -91,7 +91,7 @@ const Card: React.FC<Props> = ({
           }
         />
         {children && (
-          <CardActionArea onDoubleClick={redirectToPatientOverview}>
+          <CardActionArea onClick={redirectToPatientOverview}>
             <CardContent className={classes.rootContent}>
               {children}
             </CardContent>

@@ -136,15 +136,21 @@ const AcuityList = () => {
                     }) => {
                       const goToCovid = e =>
                         history.push(`/covid-menagment/${id}`);
+                      const redirectToPatientOverview = () =>
+                        history.push(`/patient-overview/${id}`);
                       return (
                         <React.Fragment key={uniqid()}>
-                          <tr style={{ backgroundColor: '#fff' }}>
+                          <tr
+                            style={{ backgroundColor: '#fff' }}
+                            onClick={redirectToPatientOverview}
+                          >
                             <TdFirst>{location}</TdFirst>
                             <td
                               style={{
                                 paddingTop: '15px',
                                 paddingBottom: '15px',
                               }}
+                              onClick={redirectToPatientOverview}
                             >
                               <Typography variant="subtitle2" display="block">
                                 {name}

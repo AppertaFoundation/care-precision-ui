@@ -7,12 +7,7 @@ const ClickableElement: React.FC<{
   ) => void;
 }> = ({ children, onClick }) =>
   onClick ? (
-    <div
-      onDoubleClick={onClick}
-      onKeyPress={onClick}
-      role="button"
-      tabIndex={0}
-    >
+    <div onClick={onClick} onKeyPress={onClick} role="button" tabIndex={0}>
       {children}
     </div>
   ) : (

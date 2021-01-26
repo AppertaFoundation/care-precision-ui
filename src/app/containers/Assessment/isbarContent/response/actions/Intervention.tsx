@@ -73,9 +73,9 @@ const Intervention: React.FC = () => {
   const ambulance = event => {
     handleChange(event, 'externalEscalation', { recomendation: 'Ambulance' });
   };
-  const gpAdvaice = event => {
+  const gpAdvice = event => {
     handleChange(event, 'externalEscalation', {
-      recomendation: '111/GP Advaice',
+      recomendation: '111/GP Advice',
     });
   };
   return (
@@ -89,7 +89,7 @@ const Intervention: React.FC = () => {
 
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle id="title" onClose={handleClose}>
-          <Typography align="center">Intervantion</Typography>
+          <Typography align="center">Intervention</Typography>
         </DialogTitle>
 
         <DialogContent>
@@ -149,13 +149,13 @@ const Intervention: React.FC = () => {
             <Grid item xs={12}>
               <Chip
                 clickable
-                {...(selected === '111/GP Advaice'
+                {...(selected === '111/GP Advice'
                   ? {}
                   : { variant: 'outlined' })}
                 color="primary"
                 size="small"
-                label={'111/GP Advaice'}
-                onClick={gpAdvaice}
+                label={'111/GP Advice'}
+                onClick={gpAdvice}
                 className={classess.root}
               />
             </Grid>

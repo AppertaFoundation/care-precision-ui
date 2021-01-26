@@ -49,6 +49,7 @@ export function App() {
             path={process.env.PUBLIC_URL + '/'}
             component={PatientList}
             authenticated={authenticated}
+            bottomToolBar
           />
           <ProtectedRoute
             exact
@@ -56,6 +57,7 @@ export function App() {
             path={process.env.PUBLIC_URL + '/dashboard'}
             component={AcuityDashboard}
             authenticated={authenticated}
+            bottomToolBar
           />
           <ProtectedRoute
             exact

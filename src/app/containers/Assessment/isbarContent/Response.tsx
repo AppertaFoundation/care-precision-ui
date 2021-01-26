@@ -86,7 +86,7 @@ const Response = () => {
     navigate(`/patient-overview/${id}`);
     cleanStore();
   };
-  const goToCovidMenagment = () => {
+  const goToCovidManagement = () => {
     navigate(`/covid-menagment/${id}`);
     cleanStore();
   };
@@ -202,7 +202,7 @@ const Response = () => {
                   {response.covidPathway ? (
                     <Grid item xs={12}>
                       <Button.Secondary
-                        onClick={goToCovidMenagment}
+                        onClick={goToCovidManagement}
                         color="secondary"
                         variant="outlined"
                       >

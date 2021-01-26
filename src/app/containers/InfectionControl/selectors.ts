@@ -59,22 +59,22 @@ export const selectPatientNHS = createSelector(
 export const selectCovidStatus = createSelector(
   [selectDomain],
   infectionControlSaga =>
-    infectionControlSaga.covidMenagment?.suspectedCovidStatus,
+    infectionControlSaga.covidManagement?.suspectedCovidStatus,
 );
 
 export const selectCovidStatusDate = createSelector(
   [selectDomain],
   infectionControlSaga =>
-    infectionControlSaga.covidMenagment?.startTime?.slice(0, 10),
+    infectionControlSaga.covidManagement?.startTime?.slice(0, 10),
 );
 
 export const selectIsolationStatus = createSelector(
   [selectDomain],
   infectionControlSaga =>
     checkIsolationStatus(
-      infectionControlSaga.covidMenagment?.isolationRequest
+      infectionControlSaga.covidManagement?.isolationRequest
         ?.dateIsolationDueToStart,
-      infectionControlSaga.covidMenagment?.isolationRequest
+      infectionControlSaga.covidManagement?.isolationRequest
         ?.dateIsolationDueToEnd,
     ),
 );
@@ -82,13 +82,13 @@ export const selectIsolationStatus = createSelector(
 export const selectIsolationReason = createSelector(
   [selectDomain],
   infectionControlSaga =>
-    infectionControlSaga.covidMenagment?.isolationRequest?.reasonForIsolation,
+    infectionControlSaga.covidManagement?.isolationRequest?.reasonForIsolation,
 );
 
 export const selectEndOfIsolation = createSelector(
   [selectDomain],
   infectionControlSaga =>
-    infectionControlSaga.covidMenagment?.isolationRequest?.dateIsolationDueToEnd?.slice(
+    infectionControlSaga.covidManagement?.isolationRequest?.dateIsolationDueToEnd?.slice(
       0,
       10,
     ),
@@ -98,7 +98,7 @@ export const selectIsolationDays = createSelector(
   [selectDomain],
   infectionControlSaga =>
     getIsolationDays(
-      infectionControlSaga.covidMenagment?.isolationRequest?.isolationDuration,
+      infectionControlSaga.covidManagement?.isolationRequest?.isolationDuration,
     ),
 );
 
@@ -106,7 +106,7 @@ export const selectDayOfIsolation = createSelector(
   [selectDomain],
   infectionControlSaga =>
     getDayOfIsolation(
-      infectionControlSaga.covidMenagment?.isolationRequest
+      infectionControlSaga.covidManagement?.isolationRequest
         ?.dateIsolationDueToStart,
     ),
 );
@@ -114,13 +114,13 @@ export const selectDayOfIsolation = createSelector(
 export const selectTestRequestReason = createSelector(
   [selectDomain],
   infectionControlSaga =>
-    infectionControlSaga.covidMenagment?.covidTestRequest?.reasonForRequest,
+    infectionControlSaga.covidManagement?.covidTestRequest?.reasonForRequest,
 );
 
 export const selectTestRequestStatusUpdate = createSelector(
   [selectDomain],
   infectionControlSaga =>
-    infectionControlSaga.covidMenagment?.covidTestRequest?.statusTime.slice(
+    infectionControlSaga.covidManagement?.covidTestRequest?.statusTime.slice(
       0,
       10,
     ),
@@ -129,7 +129,7 @@ export const selectTestRequestStatusUpdate = createSelector(
 export const selectCurrentTestRequest = createSelector(
   [selectDomain],
   infectionControlSaga =>
-    infectionControlSaga.covidMenagment?.covidTestRequest?.status?.value,
+    infectionControlSaga.covidManagement?.covidTestRequest?.status?.value,
 );
 
 export const selectCurrentTestResult = createSelector(
@@ -139,7 +139,7 @@ export const selectCurrentTestResult = createSelector(
       1321111000000101: 'Negative',
       1300721000000109: 'Positive',
       null: 'N/A',
-    }[infectionControlSaga.covidMenagment?.covidTestRequest?.status?.value]),
+    }[infectionControlSaga.covidManagement?.covidTestRequest?.status?.value]),
 );
 
 export const selectResultCS = createSelector(

@@ -3,7 +3,7 @@ import { IAssessmentIcons, IPatient } from 'types';
 export interface InfectionControl {
   loading: boolean;
   error?: InfectionControlErrorType | null;
-  covidMenagment: null | any;
+  covidManagement: null | any;
   patient:
     | null
     | (IPatient & {

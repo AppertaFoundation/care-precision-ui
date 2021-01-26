@@ -142,7 +142,7 @@ export const SepsisSummary = () => {
           <Section
             redFlagAcute={sepsis?.redFlagAcute}
             amberFlagAcute={sepsis?.amberFlagAcute}
-            section="Servenity"
+            section="Severity"
           />
         </Box>
       )}

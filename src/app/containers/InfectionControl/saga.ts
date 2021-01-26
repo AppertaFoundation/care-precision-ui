@@ -79,7 +79,7 @@ export function* getInfectionControl(action) {
   }
 }
 // State Selectors
-const covidMenagmentForm = state => state.infectionControl.covidMenagment;
+const covidManagementForm = state => state.infectionControl.covidManagement;
 // const patientId = state => state.infectionControl.patient.id;
 
 export function* updateCovidPathway(action) {
@@ -87,10 +87,10 @@ export function* updateCovidPathway(action) {
   // const id = yield select(patientId);
 
   const requestURL = '';
-  const covidMenagment = yield select(covidMenagmentForm);
+  const covidManagement = yield select(covidManagementForm);
 
   const template = {
-    ...covidMenagment,
+    ...covidManagement,
     ...action.payload,
     startTime: Date.now(), //ISO DateTime
     ...demographic,

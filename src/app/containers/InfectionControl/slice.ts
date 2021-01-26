@@ -19,7 +19,7 @@ import { IPatient, IAssessmentIcons } from 'types';
 export const initialState: ContainerState = {
   loading: false,
   error: null,
-  covidMenagment: null,
+  covidManagement: null,
   patient: null,
   update: {
     pending: false,
@@ -57,7 +57,7 @@ const infectionControlSlice = createSlice({
     loadInfectionControl(state, action) {
       state.loading = true;
       state.error = null;
-      state.covidMenagment = null;
+      state.covidManagement = null;
       state.update.pending = false;
       state.update.success = false;
       state.update.error = null;
@@ -65,8 +65,8 @@ const infectionControlSlice = createSlice({
     infectionControlLoaded(state, action) {
       state.loading = false;
       state.error = null;
-      const covidMenagment = action.payload;
-      state.covidMenagment = covidMenagment;
+      const covidManagement = action.payload;
+      state.covidManagement = covidManagement;
     },
     infectionControlError(
       state,
