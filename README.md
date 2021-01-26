@@ -51,15 +51,14 @@ Before you begin, ensure you have met the following requirements:
    
 
 ### Run Development Mode 
-- Copy the `.env.example` file to `.env` and modify as necessary.
-
 - Run in terminal:
 
   `$ yarn dev`
 
-- Go to: http://localhost:5000
+- Go to: http://localhost:3000
 
 ### Envariomental variables and Switches
+- Set your environment variables in your the public/inject.js
 
   `REACT_APP_API=<url where you API is hosted>`
   
