@@ -4,7 +4,7 @@ import { RootState } from '../../../types/RootState';
 import { initialState } from './slice';
 import { daysDifference } from 'utils/formatters/time';
 
-const checkIsolationStatus = (start, end) => {
+const checkIsolationStatus = (start = '2021-01-04T22:39:31.826Z', end) => {
   const today = new Date();
   const endDate = new Date(end);
   if (!(start && end)) {

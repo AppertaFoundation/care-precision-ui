@@ -63,9 +63,10 @@ export function IsolationStatus() {
   const id = useSelector(selectID);
   const result = useSelector(selectResultCS);
   const { pending, success, error } = result;
-  const { control, handleSubmit } = useForm();
+  const { control, handleSubmit, watch } = useForm();
   const dispatch = useDispatch();
   const [open, setOpen] = React.useState(false);
+  const [isolated, setIsolated] = React.useState(false);
 
   React.useEffect(() => {
     if (success) {
@@ -73,17 +74,26 @@ export function IsolationStatus() {
       setOpen(false);
     }
   }, [success, id, dispatch]);
+
+  React.useEffect(() => {
+    const value = watch('isolationStatus') || isolationStatus;
+    if ((value && value === 'Isolating') || value === 'Isolating Completed') {
+      setIsolated(true);
+    } else setIsolated(false);
+  }, [watch, isolationStatus]);
+
   const onSubmit = data => {
     const end = new Date(data.isolationEndDate);
-    // debugger;
     const startDate = end.getDate() - parseInt(isolationDays);
     const isolation = {
       isolation_request: {
         reason_for_request: isolationReasonToRequest(data.reasonForIsolation),
         reasonForIsolation: data.reasonForIsolation,
-        isolationDuration: data.reasonForIsolation.includes('10 days')
-          ? 'P10D'
-          : 'P14D',
+        isolationDuration:
+          data?.reasonForIsolation &&
+          data?.reasonForIsolation.includes('10 days')
+            ? 'P10D'
+            : 'P14D',
         dateIsolationDueToStart: startDate,
         dateIsolationDueToEnd: data.isolationEndDate,
       },
@@ -126,7 +136,7 @@ export function IsolationStatus() {
                 id="outlined-read-only-input"
                 label="Isolation Reason"
                 value={isolationReason || ''}
-                // defaultValue={isolationReason}
+                defaultValue={isolationReason}
                 InputProps={{
                   readOnly: true,
                 }}
@@ -155,7 +165,7 @@ export function IsolationStatus() {
                 id="outlined-read-only-input"
                 label="Isolation End Date"
                 type="date"
-                value={isolationEnd || ''}
+                defaultValue={'2021-01-14'}
                 InputLabelProps={{ shrink: true }}
                 InputProps={{
                   readOnly: true,
@@ -167,9 +177,11 @@ export function IsolationStatus() {
             <Grid item xs={12}>
               <Typography variant="subtitle2">
                 <Box fontWeight={500}>
-                  {dayOfIsolation && isolationDays
+                  {dayOfIsolation &&
+                  isolationDays &&
+                  dayOfIsolation <= isolationDays
                     ? ` Isolating on day ${dayOfIsolation} of ${isolationDays}`
-                    : 'N / A'}
+                    : 'Isolation Completed'}
                 </Box>
               </Typography>
             </Grid>
@@ -226,51 +238,55 @@ export function IsolationStatus() {
                     label="Isolation Status"
                     name="isolationStatus"
                     control={control}
-                    defaultValue={isolationStatus || ''}
+                    defaultValue={'Isolating Completed' || ''}
                   />
                 </Grid>
 
-                <Grid item xs={12}>
-                  <NativeSelect
-                    options={[
-                      {
-                        value: 'Symptoms (10 days)',
-                        label: 'Symptoms (10 days)',
-                      },
+                {isolated && (
+                  <>
+                    <Grid item xs={12}>
+                      <NativeSelect
+                        options={[
+                          {
+                            value: 'Symptoms (10 days)',
+                            label: 'Symptoms (10 days)',
+                          },
 
-                      {
-                        value: 'Tested Positive (10 days)',
-                        label: 'Tested Positive (10 days)',
-                      },
-                      {
-                        value:
-                          'Contact with Symptoms or Positive Case (14 days)',
-                        label:
-                          'Contact with Symptoms or Positive Case (14 days)',
-                      },
-                      {
-                        value: 'Following discharge (14 days)',
-                        label: 'Following discharge (14 days)',
-                      },
-                    ]}
-                    label="Isolation Reason"
-                    name="reasonForIsolation"
-                    control={control}
-                    defaultValue={isolationReason || ''}
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <TextField
-                    size="small"
-                    label="Isolation End Date"
-                    name={'isolationEndDate'}
-                    type="date"
-                    InputLabelProps={{ shrink: true }}
-                    // defaultValue={isolationEnd || ''}
-                    fullWidth
-                    variant="outlined"
-                  />
-                </Grid>
+                          {
+                            value: 'Tested Positive (10 days)',
+                            label: 'Tested Positive (10 days)',
+                          },
+                          {
+                            value:
+                              'Contact with Symptoms or Positive Case (14 days)',
+                            label:
+                              'Contact with Symptoms or Positive Case (14 days)',
+                          },
+                          {
+                            value: 'Following discharge (14 days)',
+                            label: 'Following discharge (14 days)',
+                          },
+                        ]}
+                        label="Isolation Reason"
+                        name="reasonForIsolation"
+                        control={control}
+                        defaultValue={'Tested Positive (10 days)'}
+                      />
+                    </Grid>
+                    <Grid item xs={12}>
+                      <TextField
+                        size="small"
+                        label="Isolation End Date"
+                        name={'isolationEndDate'}
+                        type="date"
+                        InputLabelProps={{ shrink: true }}
+                        defaultValue={'2021-01-14'}
+                        fullWidth
+                        variant="outlined"
+                      />
+                    </Grid>
+                  </>
+                )}
               </Grid>
             </form>
           </Box>

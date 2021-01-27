@@ -1,6 +1,6 @@
 const COVID_MANAGEMENT = {
   start_time: '2021-01-04T21:04:10.789Z', //ISO DateTime
-  suspected_covid_status: 'Symptoms',
+  suspected_covid_status: 'Positive',
   isolation_request: {
     reason_for_request: {
       code: '840539006',
@@ -19,7 +19,7 @@ const COVID_MANAGEMENT = {
       value: 'Service request sent',
       terminology: 'local',
     },
-    status_time: '2020-11-13T16:57:22.995Z',
+    status_time: '2020-01-04T16:57:22.995Z',
   },
   covid_test_result: {
     test_result: {

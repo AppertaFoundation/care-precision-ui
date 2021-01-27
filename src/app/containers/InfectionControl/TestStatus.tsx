@@ -40,7 +40,10 @@ export function TestStatus() {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const { control, handleSubmit } = useForm();
-  const { control: controlResult } = useForm();
+  const {
+    control: controlResult,
+    handleSubmit: handleSubmitResult,
+  } = useForm();
   const dispatch = useDispatch();
 
   const id = useSelector(selectID);
@@ -145,7 +148,7 @@ export function TestStatus() {
                 label="Date Last Updated"
                 type="date"
                 InputLabelProps={{ shrink: true }}
-                value={testRequestTime || ''}
+                value={'2021-01-15' || ''}
                 InputProps={{
                   readOnly: true,
                 }}
@@ -183,7 +186,7 @@ export function TestStatus() {
                 size="small"
                 id="read-only-input-test-recent"
                 label="Most Recent Result"
-                defaultValue="Positive"
+                defaultValue="Negative"
                 InputProps={{
                   readOnly: true,
                 }}
@@ -197,7 +200,7 @@ export function TestStatus() {
                 id="read-only-input"
                 label="Date Last Result Received"
                 type="date"
-                defaultValue="2020-08-22"
+                defaultValue="2021-01-15"
                 InputProps={{
                   readOnly: true,
                 }}
@@ -250,11 +253,12 @@ export function TestStatus() {
                       label: 'Contact with symptoms',
                     },
                     { value: 'Routine Test', label: 'Routine Test' },
+                    { value: 'No test requested', label: 'No test requested' },
                   ]}
                   label="Reason for test"
                   name="reasonForRequest"
                   control={control}
-                  defaultValue=""
+                  defaultValue={'No test requested' || 'N/A'}
                 />
               </form>
             </Grid>
@@ -297,7 +301,10 @@ export function TestStatus() {
               justify="flex-start"
               alignItems="center"
             >
-              <form id="test-result-form" onSubmit={handleSubmit(onSubmit)}>
+              <form
+                id="test-result-form"
+                onSubmit={handleSubmitResult(onSubmit)}
+              >
                 <NativeSelect
                   options={[
                     { value: 'Positive', label: 'Positive' },
@@ -307,7 +314,7 @@ export function TestStatus() {
                   label="Test Result"
                   name="testResult"
                   control={controlResult}
-                  defaultValue=""
+                  defaultValue="Negative"
                 />
               </form>
             </Grid>
