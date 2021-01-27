@@ -118,7 +118,7 @@ const Response = () => {
       direction="row"
       className={classes.root}
     >
-      {result?.news2?.totalScore && (
+      {result?.news2?.value?.value?.totalScore && (
         <Grid item xs={12}>
           <News2Result />
           <Divider />
