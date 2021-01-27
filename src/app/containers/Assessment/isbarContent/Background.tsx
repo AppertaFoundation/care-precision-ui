@@ -32,6 +32,7 @@ import ModeratelyFrail from './assests/moderately-frail.jpeg';
 import SeverelyFrail from './assests/severely-frail.jpeg';
 import VerySeverelyFrail from './assests/very-severely-frail.jpeg';
 import TerminallyIll from './assests/terminally-ill.jpeg';
+import { useParams, useHistory } from 'react-router-dom';
 
 import { CareRecordInfo } from './careRecordInfo';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
@@ -135,6 +136,10 @@ export function Background() {
   const classes = useStyles();
   const dispatch = useDispatch();
   const backgroundDefault = useSelector(selectBackground);
+  const params = useParams();
+  const id = (params as any)?.id;
+  const obsType = (params as any)?.obsType;
+  const history = useHistory();
 
   const {
     handleSubmit,
@@ -149,8 +154,6 @@ export function Background() {
   });
   const [open, setOpen] = useState<boolean>(false);
   const [frailty, setFrailty] = React.useState<any>({});
-  const [height, setHeight] = useState<any>('');
-  const [weight, setWeight] = useState<any>('');
 
   const [selectedIndex, setSelectedIndex] = React.useState(
     FRAILTY_OPTIONS.indexOf(frailty),
@@ -171,6 +174,7 @@ export function Background() {
   });
   const onSubmit = data => {
     dispatch(actions.saveBackground(data));
+    history.push(`/assessment/${id}/${2}/${obsType}`, { replace: true });
   };
   const handleListItemClick = (
     event: React.MouseEvent<HTMLDivElement, MouseEvent>,
@@ -195,17 +199,17 @@ export function Background() {
 
   const handleClose = () => setOpen(false);
 
-  const onChange = e => {
-    e.preventDefault();
-    const value = e.target.value;
-    const name = e.target.name;
-    if (name === 'height') {
-      setHeight(value);
-    }
-    if (name === 'weight') {
-      setWeight(value);
-    }
-  };
+  // const onChange = e => {
+  //   e.preventDefault();
+  //   const value = e.target.value;
+  //   const name = e.target.name;
+  //   if (name === 'height') {
+  //     setHeight(value);
+  //   }
+  //   if (name === 'weight') {
+  //     setWeight(value);
+  //   }
+  // };
   const careRecordInfo = CareRecordInfo({ register });
   const required = 'this field is required';
 
@@ -218,8 +222,8 @@ export function Background() {
               <Grid item xs={12} sm={6}>
                 <Box mt={2}>
                   <TextField
-                    value={height}
-                    onChange={onChange}
+                    // value={height}
+                    // onChange={onChange}
                     label="Height"
                     name="height"
                     fullWidth
@@ -237,8 +241,8 @@ export function Background() {
               <Grid item xs={12} sm={6}>
                 <Box mt={2}>
                   <TextField
-                    value={weight}
-                    onChange={onChange}
+                    // value={weight}
+                    // onChange={onChange}
                     inputRef={register({ required })}
                     fullWidth
                     label="Weight"

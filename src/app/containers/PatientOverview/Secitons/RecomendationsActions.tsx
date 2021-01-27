@@ -20,46 +20,72 @@ const RecomendationsActions = () => {
           <Grid item sm={4} xs={12}>
             <Box mr={1}>
               <CarouselCard label="Assessment">
-                <Typography>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                <Typography variant="caption">
+                  <Box fontWeight="fontWeightBold">
+                    21/01/2021 - 15:33 - User XYZ
+                  </Box>
                 </Typography>
+                <Typography>DENWIS - Score 8</Typography>
+                <Typography>NEWS2 - Score 3</Typography>
+
+                <Typography variant="caption">
+                  <Box fontWeight="fontWeightBold">
+                    20/01/2021 - 22:24 - ZYX
+                  </Box>
+                </Typography>
+                <Typography>SEPSIS - No Concerns </Typography>
               </CarouselCard>
             </Box>
           </Grid>
           <Grid item xs={12} sm={4}>
             <Box mr={1}>
               <CarouselCard label="Intervention">
-                <Typography>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                <Typography variant="caption">
+                  <Box fontWeight="fontWeightBold">
+                    21/01/2021 - 15:33 - User XYZ
+                  </Box>
                 </Typography>
+                <Typography>Internal Escalation </Typography>
               </CarouselCard>
             </Box>
           </Grid>
           <Grid item xs={12} sm={4}>
             <CarouselCard label="Monitoring">
-              <Typography>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+              <Typography variant="caption">
+                <Box fontWeight="fontWeightBold">
+                  21/01/2021 - 15:33 - User XYZ
+                </Box>{' '}
               </Typography>
+              <Typography>Every 30 Minutes</Typography>
             </CarouselCard>
           </Grid>
         </Grid>,
       ]
     : [
         <CarouselCard label="Assessment" key={uniqid()}>
-          <Typography>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+          <Typography variant="caption">
+            <Box fontWeight="fontWeightBold">21/01/2021 - 15:33 - User XYZ</Box>
           </Typography>
+          <Typography>DENWIS - Score 8</Typography>
+          <Typography>NEWS2 - Score 3</Typography>
+
+          <Typography variant="caption">
+            <Box fontWeight="fontWeightBold">20/01/2021 - 22:24 - ZYX</Box>
+          </Typography>
+          <Typography>SEPSIS - No Concerns </Typography>
         </CarouselCard>,
 
         <CarouselCard label="Intervention" key={uniqid()}>
-          <Typography>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+          <Typography variant="caption">
+            <Box fontWeight="fontWeightBold">21/01/2021 - 15:33 - User XYZ</Box>
           </Typography>
+          <Typography>Internal Escalation </Typography>
         </CarouselCard>,
         <CarouselCard label="Monitoring" key={uniqid()}>
-          <Typography>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+          <Typography variant="caption">
+            <Box fontWeight="fontWeightBold">21/01/2021 - 15:33 - User XYZ</Box>{' '}
           </Typography>
+          <Typography>Every 30 Minutes</Typography>
         </CarouselCard>,
       ];
 };

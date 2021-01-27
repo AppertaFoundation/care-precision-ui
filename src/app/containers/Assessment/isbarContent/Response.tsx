@@ -87,7 +87,7 @@ const Response = () => {
     cleanStore();
   };
   const goToCovidManagement = () => {
-    navigate(`/covid-menagment/${id}`);
+    navigate(`/covid-management/${id}`);
     cleanStore();
   };
   const isEmpty = obj => !Object.values(obj).some(x => x !== null && x !== '');
@@ -206,7 +206,7 @@ const Response = () => {
                         color="secondary"
                         variant="outlined"
                       >
-                        COVID menagment
+                        COVID management
                       </Button.Secondary>
                     </Grid>
                   ) : (

@@ -20,7 +20,7 @@ const IconButtonNews2 = withStyles({
 
 const LatestResponseTable = ({ assessments, sm, id }) => {
   const history = useHistory();
-  const goToCovid = e => history.push(`/covid-menagment/${id}`);
+  const goToCovid = e => history.push(`/covid-management/${id}`);
   console.log(assessments, 'assessments');
   return (
     <Box mr={1} width="100%">

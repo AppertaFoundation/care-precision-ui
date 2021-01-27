@@ -74,7 +74,7 @@ export function* getInfectionControl(action) {
     ].REACT_APP_STATIC_COVID
   ) {
     return yield put(
-      actions.infectionControlLoaded(keysToCamel(fake.COVID_MENAGMENT)),
+      actions.infectionControlLoaded(keysToCamel(fake.COVID_MANAGEMENT)),
     );
   }
 }

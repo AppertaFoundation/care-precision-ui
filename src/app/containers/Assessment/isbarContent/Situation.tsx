@@ -12,7 +12,7 @@ import {
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import { useForm } from 'react-hook-form';
-// import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { actions } from '../slice';
 import { selectSituation } from '../selectors';
@@ -51,9 +51,12 @@ const MAX_CHARS_ISB_TABS = 255;
 const Situation = () => {
   const classess = useStyles();
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const situationDefault = useSelector(selectSituation);
-  // const { id, obsType } = useParams();
+  const params = useParams();
+  const id = (params as any)?.id;
+  const obsType = (params as any)?.obsType;
 
   const {
     handleSubmit,
@@ -67,7 +70,7 @@ const Situation = () => {
   });
   const onSubmit = data => {
     dispatch(actions.saveSituation(data));
-    // navigate(`/assessment/${id}/${1}/${obsType}`, { replace: true });
+    history.push(`/assessment/${id}/${1}/${obsType}`, { replace: true });
   };
 
   const [selected, setSelected] = useState<string[]>([]);
@@ -222,9 +225,7 @@ const Situation = () => {
                           rows="5"
                           fullWidth
                           onChange={handleChangeAvaibleCharts}
-                          inputRef={register({
-                            required: 'This field is required',
-                          })}
+                          inputRef={register}
                           placeholder="Please enter patient information at this point to indicate what that patient situation is."
                         />
                         {errors && <ErrorMsg name={'notes'} errors={errors} />}

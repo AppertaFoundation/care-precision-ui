@@ -21,7 +21,7 @@ const IconButtonNews2 = withStyles({
 const LatestResponse = ({ assessments, sm, id }) => {
   const classes = useStylesLastResponse();
   const history = useHistory();
-  const goToCovid = () => history.push(`/covid-menagment/${id}`);
+  const goToCovid = () => history.push(`/covid-management/${id}`);
   return (
     <Box mr={1}>
       <Grid

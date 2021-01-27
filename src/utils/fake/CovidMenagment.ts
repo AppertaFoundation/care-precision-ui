@@ -1,4 +1,4 @@
-const COVID_MENAGMENT = {
+const COVID_MANAGEMENT = {
   start_time: '2021-01-04T21:04:10.789Z', //ISO DateTime
   suspected_covid_status: 'Symptoms',
   isolation_request: {
@@ -30,4 +30,4 @@ const COVID_MENAGMENT = {
     specimenTakenTime: '2020-11-13T16:57:22.995Z',
   },
 };
-export default COVID_MENAGMENT;
+export default COVID_MANAGEMENT;

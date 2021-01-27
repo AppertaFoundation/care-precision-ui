@@ -61,7 +61,7 @@ const NewCareEventDialog: React.FC<Props> = ({
   const startCovidPathway = (
     event: React.MouseEvent<HTMLElement, MouseEvent>,
   ): void => {
-    history.push(`/covid-menagment/${id}`);
+    history.push(`/covid-management/${id}`);
   };
   return (
     <Dialog open={open} onClose={handleClose}>

@@ -12,6 +12,7 @@ import {
   CovidIcon,
   SepsisIcon,
   NewCareEventDialog,
+  News2Icon,
 } from 'components';
 import { patientListFromSaga } from '../PatientList/saga';
 import { useHistory } from 'react-router-dom';
@@ -136,7 +137,7 @@ const AcuityList = () => {
                       id,
                     }) => {
                       const goToCovid = e =>
-                        history.push(`/covid-menagment/${id}`);
+                        history.push(`/covid-management/${id}`);
                       const redirectToPatientOverview = () =>
                         history.push(`/patient-overview/${id}`);
                       return (
@@ -203,10 +204,8 @@ const AcuityList = () => {
                                 onClick={() => console.log('denwis')}
                                 {...(sm ? { size: 'small' } : {})}
                               >
-                                {assessment?.denwis?.value && (
-                                  <DenwisIcon
-                                    denwis={assessment?.denwis?.value}
-                                  />
+                                {assessment?.news2?.value && (
+                                  <News2Icon news2={assessment?.news2?.value} />
                                 )}
                               </IconButton>
                             </td>
