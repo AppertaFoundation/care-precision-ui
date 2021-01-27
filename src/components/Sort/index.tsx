@@ -121,7 +121,10 @@ const Sort: React.FC<Props> = React.forwardRef(
         sort: { ...oldState.sort, value: order },
       }));
     const clearOrder = () =>
-      setState(oldState => ({ ...oldState, sort: null }));
+      setState(oldState => ({
+        ...oldState,
+        sort: { value: 'DESC', key: 'news2' },
+      }));
     const clearFilter = () =>
       setState(oldState => ({ ...oldState, filter: null }));
 
@@ -139,7 +142,7 @@ const Sort: React.FC<Props> = React.forwardRef(
     const clearAll = e => {
       clearOrder();
       clearFilter();
-      onFilterSort({ sort: null, filter: null });
+      onFilterSort({ sort: { value: 'DESC', key: 'news2' }, filter: null });
     };
     const clearFilters = name => {
       setState(oldState => ({

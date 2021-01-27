@@ -21,7 +21,7 @@ export const initialState: ContainerState = {
   loading: false,
   error: null,
   patientsList: [],
-  filters: { sort: null, filter: null },
+  filters: { sort: { value: 'DESC', key: 'news2' }, filter: null },
   search: null,
 };
 

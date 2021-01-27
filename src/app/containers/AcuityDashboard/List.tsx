@@ -63,8 +63,9 @@ const AcuityList = () => {
 
   const handleOpen = (): void => setOpen(true);
   const handleClose = (): void => setOpen(false);
+
   React.useEffect(() => {
-    dispatch(actions.loadRecords({}));
+    dispatch(actions.loadRecords({ sort: { value: 'DESC', key: 'news2' } }));
   }, [dispatch]);
   const handleSearch = React.useCallback(
     value => {

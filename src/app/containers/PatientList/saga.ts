@@ -1,6 +1,6 @@
 import { call, put, takeLatest, delay } from 'redux-saga/effects';
 import { request } from 'utils/request';
-import { fake } from 'utils/fake';
+import { fake, filter, sort } from 'utils/fake';
 import { patientListParser, keysToCamel } from 'utils/formatters';
 
 import { PatientsErrorType } from './types';
@@ -40,8 +40,10 @@ export function* getRecords(action) {
       `${process.env.NODE_ENV === 'production' ? 'injectedEnv' : '_env_'}`
     ].REACT_APP_STATIC
   ) {
+    const patientList = patientListParser(keysToCamel(fake.PATIENT_LIST));
+    const sorted = sort(patientList, action.payload?.sort);
     return yield put(
-      actions.recordsLoaded(patientListParser(keysToCamel(fake.PATIENT_LIST))),
+      actions.recordsLoaded(filter(sorted, action.payload?.filter)),
     );
   }
 

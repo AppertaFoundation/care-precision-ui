@@ -9,6 +9,7 @@ export const patientParser = ({
   location,
   nhsnumber,
   birthDateAsString,
+  birthDate,
   gender,
   name,
   id,
@@ -20,6 +21,7 @@ export const patientParser = ({
     birthDate: `${formatDate(birthDateAsString)} ${formatAge(
       birthDateAsString,
     )}`,
+    birthdate: birthDate,
     gender: getGender(gender),
     name,
     id,
