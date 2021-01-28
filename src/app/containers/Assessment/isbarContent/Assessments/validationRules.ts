@@ -1,6 +1,3 @@
-const hasNotes = value =>
-  (value && value.notes && value.notes.length > 0) ||
-  'You have to complete the Notes field (situation Tab)';
 const hasSituation = value =>
   (value && value.softSigns && value.softSigns.length > 0) ||
   'You have to mark at least one soft sign (situation Tab)';
@@ -15,12 +12,11 @@ const hasFrailty = value =>
   'You have to mark one frailty (background Tab)';
 
 export const validate = (situation, background) => {
-  const notes = hasNotes(situation);
   const situationArray = hasSituation(situation);
   const height = hasHeight(background);
   const weight = hasWeight(background);
   const frailty = hasFrailty(background);
-  const errorsArray = [notes, situationArray, height, weight, frailty].filter(
+  const errorsArray = [situationArray, height, weight, frailty].filter(
     error => typeof error === 'string',
   );
   return errorsArray as string[] | [];
