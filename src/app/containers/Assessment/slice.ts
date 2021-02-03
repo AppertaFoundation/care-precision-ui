@@ -24,7 +24,7 @@ export const initialState: ContainerState = {
   loadingResult: false,
   errorResult: null,
   result: {},
-  background: {},
+  background: { height: '165', weight: '50' },
   news2: {},
   sepsis: {},
   covid: {},
