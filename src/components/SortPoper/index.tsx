@@ -10,9 +10,11 @@ const POPER_ORIGIN: PopoverOrigin = {
 };
 interface Props {
   children: React.ReactNode;
+  icon?: React.ReactNode;
+  size?: 'small';
 }
 
-const SortPoper: React.FC<Props> = ({ children }) => {
+const SortPoper: React.FC<Props> = ({ children, icon, size }) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
   const open = Boolean(anchorEl);
@@ -29,8 +31,9 @@ const SortPoper: React.FC<Props> = ({ children }) => {
         ref={buttonRef}
         onClick={handleMenu}
         data-testid="sortPoper-button"
+        {...(size ? { style: { padding: 0 } } : {})}
       >
-        <SortIcon />
+        {icon || <SortIcon />}
       </IconButton>
       <Menu
         data-testid="menu-poper"

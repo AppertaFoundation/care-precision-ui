@@ -69,15 +69,16 @@ interface Props {
     sort: null | { key: string; value: string };
     filter: { key: string; value: string };
   };
+  onlyFilters?: boolean;
 }
 const ACTIVE_BTN = '#29375d';
 const Sort: React.FC<Props> = React.forwardRef(
-  ({ id, onFilterSort, defaultValues }, ref) => {
+  ({ id, onFilterSort, defaultValues, onlyFilters }, ref) => {
     const [state, setState] = React.useState<any>({
       sort: null,
       filter: null,
     });
-    const [arrows, setArrows] = React.useState({ asc: '', desc: '' });
+    const [arrows, setArrows] = React.useState({ ASC: '', DESC: '' });
 
     const useEffectOnMount = (effect: React.EffectCallback) => {
       // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -90,8 +91,8 @@ const Sort: React.FC<Props> = React.forwardRef(
       } else {
         setArrows(
           defaultValues?.sort?.value === 'ASC'
-            ? { asc: ACTIVE_BTN, desc: '' }
-            : { asc: '', desc: ACTIVE_BTN },
+            ? { ASC: ACTIVE_BTN, DESC: '' }
+            : { ASC: '', DESC: ACTIVE_BTN },
         );
       }
     });
@@ -129,11 +130,11 @@ const Sort: React.FC<Props> = React.forwardRef(
       setState(oldState => ({ ...oldState, filter: null }));
 
     const setAsc = () => {
-      setArrows({ asc: ACTIVE_BTN, desc: '' });
+      setArrows({ ASC: ACTIVE_BTN, DESC: '' });
       setOrder('ASC');
     };
     const setDesc = e => {
-      setArrows({ asc: '', desc: ACTIVE_BTN });
+      setArrows({ ASC: '', DESC: ACTIVE_BTN });
       setOrder('DESC');
     };
     const handleFilterSort = e => {
@@ -154,50 +155,51 @@ const Sort: React.FC<Props> = React.forwardRef(
       }));
     };
     const clearSepsis = () => clearFilters('sepsis');
-    const clearDenwis = () => clearFilters('denwis');
     return (
       <Box p={1} m={1}>
-        <Box
-          width={300}
-          display="flex"
-          flexDirection="row"
-          bgcolor="background.paper"
-        >
-          <Box p={1} flexShrink={1}>
-            <FormControl>
-              <FormLabel component="legend">Sort by:</FormLabel>
-              <Select
-                native
-                value={state.sort ? state.sort.key : ''}
-                onChange={handleChange}
-                inputProps={{
-                  name: 'age',
-                  id: 'age-native-simple',
-                }}
-              >
-                <SelectItem value="" aria-label="None" />
-                {SORT_BY.map(({ id, name }) => (
-                  <SelectItem key={uniqid()} value={id}>
-                    {name}
-                  </SelectItem>
-                ))}
-              </Select>
-            </FormControl>
+        {!onlyFilters && (
+          <Box
+            width={300}
+            display="flex"
+            flexDirection="row"
+            bgcolor="background.paper"
+          >
+            <Box p={1} flexShrink={1}>
+              <FormControl>
+                <FormLabel component="legend">Sort by:</FormLabel>
+                <Select
+                  native
+                  value={state.sort ? state.sort.key : ''}
+                  onChange={handleChange}
+                  inputProps={{
+                    name: 'age',
+                    id: 'age-native-simple',
+                  }}
+                >
+                  <SelectItem value="" aria-label="None" />
+                  {SORT_BY.map(({ id, name }) => (
+                    <SelectItem key={uniqid()} value={id}>
+                      {name}
+                    </SelectItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </Box>
+            <Box p={1}>
+              <IconButton onClick={setAsc}>
+                <ArrowUpwardIcon htmlColor={arrows.ASC} />
+              </IconButton>
+              <IconButton onClick={setDesc}>
+                <ArrowDownwardIcon htmlColor={arrows.DESC} />
+              </IconButton>
+            </Box>
+            <Box>
+              <IconButton onClick={clearOrder}>
+                <DeleteIcon htmlColor={ACTIVE_BTN} />
+              </IconButton>
+            </Box>
           </Box>
-          <Box p={1}>
-            <IconButton onClick={setAsc}>
-              <ArrowUpwardIcon htmlColor={arrows.asc} />
-            </IconButton>
-            <IconButton onClick={setDesc}>
-              <ArrowDownwardIcon htmlColor={arrows.desc} />
-            </IconButton>
-          </Box>
-          <Box>
-            <IconButton onClick={clearOrder}>
-              <DeleteIcon htmlColor={ACTIVE_BTN} />
-            </IconButton>
-          </Box>
-        </Box>
+        )}
         <Box
           width={300}
           display="flex"
@@ -225,24 +227,6 @@ const Sort: React.FC<Props> = React.forwardRef(
                     return <RadioItem key={uniqid()} value={id} label={name} />;
                   })}
                   <IconButton size="small" onClick={clearSepsis}>
-                    <DeleteIcon htmlColor={ACTIVE_BTN} />
-                  </IconButton>
-                </RadioGroup>
-              </FormControl>
-            </Box>
-            <Box mt={2}>
-              <FormControl component="fieldset">
-                <FormLabel disabled component="legend">
-                  DENWIS output:
-                </FormLabel>
-                <RadioGroup
-                  name={'denwis'}
-                  value={state.filter?.denwis ? state.filter.denwis.value : ''}
-                  onChange={handleChangeSelect}
-                  row
-                >
-                  <RadioItem key={uniqid()} value={'denwis'} label={'DENWIS'} />
-                  <IconButton size="small" onClick={clearDenwis}>
                     <DeleteIcon htmlColor={ACTIVE_BTN} />
                   </IconButton>
                 </RadioGroup>

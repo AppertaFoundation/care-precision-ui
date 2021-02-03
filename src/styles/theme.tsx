@@ -43,6 +43,18 @@ const lightTheme = responsiveFontSizes(
           },
         },
       },
+      MuiTableSortLabel: {
+        icon: {
+          // color: '#fff',
+          opacity: '100%',
+          '&:hover': {
+            color: '#e94e1b',
+          },
+          '&$active': {
+            color: '#e94e1b',
+          },
+        },
+      },
       // MuiListItem: {
       //   root: {
       //     '&$selected': {

@@ -16,7 +16,6 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 import {
   selectTestRequestReason,
-  selectTestRequestStatusUpdate,
   selectCurrentTestRequest,
   selectResultCS,
   selectID,
@@ -33,7 +32,6 @@ export function TestStatus() {
 
   const testRequestReason = useSelector(selectTestRequestReason);
   const testRequestStatus = useSelector(selectCurrentTestRequest);
-  const testRequestTime = useSelector(selectTestRequestStatusUpdate);
 
   const closeRequest = () => setRequestTest(false);
   const openRequest = () => setRequestTest(true);
