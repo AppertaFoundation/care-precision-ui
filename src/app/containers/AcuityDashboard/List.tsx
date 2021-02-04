@@ -184,11 +184,10 @@ const AcuityList = () => {
                         history.push(`/patient-overview/${id}`);
                       return (
                         <React.Fragment key={uniqid()}>
-                          <tr
-                            style={{ backgroundColor: '#fff' }}
-                            onClick={redirectToPatientOverview}
-                          >
-                            <TdFirst>{location}</TdFirst>
+                          <tr style={{ backgroundColor: '#fff' }}>
+                            <TdFirst onClick={redirectToPatientOverview}>
+                              {location}
+                            </TdFirst>
                             <Td
                               style={{
                                 paddingTop: '15px',
@@ -281,4 +280,5 @@ export default AcuityList;
 
 const Td = styled.td`
   text-align: center;
+  cursor: pointer;
 `;

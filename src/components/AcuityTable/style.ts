@@ -11,6 +11,7 @@ export const TdFirst = styled.td`
   border-bottom-left-radius: 35px;
   padding-left: 15px;
   text-align: center;
+  cursor: pointer;
 `;
 
 export const TdLast = styled.td`
