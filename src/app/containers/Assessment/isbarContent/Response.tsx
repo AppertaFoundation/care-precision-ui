@@ -143,7 +143,7 @@ const Response = () => {
       <ResponseActions />
       <BottomBar>
         <Button.Secondary variant="contained" onClick={handleSubmit}>
-          Finish and Save Observation
+          Finish and Save Assessment(s)
         </Button.Secondary>
       </BottomBar>
       {noAction && (
