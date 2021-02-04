@@ -24,7 +24,8 @@ const NativeSelects: React.FC<{
   defaultValue: any;
   disabled?: boolean;
   control: any;
-}> = ({ options, label, name, defaultValue, disabled, control }) => {
+  rules?: any;
+}> = ({ options, label, name, defaultValue, disabled, control, rules }) => {
   const classes = useStyles();
 
   const [value, setValue] = React.useState<string | unknown>('');
@@ -73,7 +74,7 @@ const NativeSelects: React.FC<{
       name={name}
       control={control}
       defaultValue={defaultValue}
-      rules={{ required: 'This fill is required' }}
+      rules={rules}
     />
   );
 };

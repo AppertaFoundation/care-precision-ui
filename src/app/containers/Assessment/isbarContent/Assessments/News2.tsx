@@ -78,11 +78,12 @@ const News2 = ({ disabled, onOpenSummary, onValidate, openErrorDialog }) => {
     const systolic = getValues('systolic');
     const diastolic = getValues('diastolic');
     if (systolic && diastolic) {
-      trigger(type);
-      return (
-        systolic > diastolic ||
-        'Systolic pressure must be higher than diastolic pressure'
-      );
+      debugger;
+      if (parseInt(systolic) > parseInt(diastolic)) {
+        return true;
+      } else {
+        return 'Systolic pressure must be higher than diastolic pressure';
+      }
     } else return true;
   };
   return (
@@ -123,6 +124,10 @@ const News2 = ({ disabled, onOpenSummary, onValidate, openErrorDialog }) => {
                       ),
                     }}
                     inputRef={register({
+                      required: {
+                        value: true,
+                        message: 'This field is required',
+                      },
                       min: {
                         value: 1,
                         message: 'Respiration Rate should be between 1- 59',
@@ -149,6 +154,10 @@ const News2 = ({ disabled, onOpenSummary, onValidate, openErrorDialog }) => {
                       ),
                     }}
                     inputRef={register({
+                      required: {
+                        value: true,
+                        message: 'This field is required',
+                      },
                       min: {
                         value: 51,
                         message: 'Oxygen Saturation should be between 51- 100',
@@ -176,7 +185,14 @@ const News2 = ({ disabled, onOpenSummary, onValidate, openErrorDialog }) => {
                     name="o2Delivery"
                     control={control}
                     defaultValue={news2Default?.o2Delivery}
+                    rules={{
+                      required: {
+                        value: true,
+                        message: 'This field is required',
+                      },
+                    }}
                   />
+                  {errors && <ErrorMsg name={'o2Delivery'} errors={errors} />}
                 </Grid>
                 {airOrOxygen && (
                   <Grid item md={12}>
@@ -193,6 +209,10 @@ const News2 = ({ disabled, onOpenSummary, onValidate, openErrorDialog }) => {
                         ),
                       }}
                       inputRef={register({
+                        required: {
+                          value: true,
+                          message: 'This field is required',
+                        },
                         min: {
                           value: 1,
                           message: 'Flow Rate should be between 1- 12',
@@ -242,6 +262,10 @@ const News2 = ({ disabled, onOpenSummary, onValidate, openErrorDialog }) => {
                           ),
                         }}
                         inputRef={register({
+                          required: {
+                            value: true,
+                            message: 'This field is required',
+                          },
                           min: {
                             value: 1,
                             message:
@@ -271,6 +295,10 @@ const News2 = ({ disabled, onOpenSummary, onValidate, openErrorDialog }) => {
                           ),
                         }}
                         inputRef={register({
+                          required: {
+                            value: true,
+                            message: 'This field is required',
+                          },
                           min: {
                             value: 1,
                             message:
@@ -299,6 +327,10 @@ const News2 = ({ disabled, onOpenSummary, onValidate, openErrorDialog }) => {
                     type="number"
                     fullWidth
                     inputRef={register({
+                      required: {
+                        value: true,
+                        message: 'This field is required',
+                      },
                       min: {
                         value: 1,
                         message: 'Pulse Rate should be between 1- 250',
@@ -341,8 +373,14 @@ const News2 = ({ disabled, onOpenSummary, onValidate, openErrorDialog }) => {
                     disabled={disabled}
                     name="consciousness"
                     label="Consciousness"
+                    errors={errors}
                     defaultValue={news2Default?.consciousness}
-                    register={register}
+                    register={register({
+                      required: {
+                        value: true,
+                        message: 'This field is required',
+                      },
+                    })}
                     values={[
                       {
                         id: 'Alert',
@@ -366,6 +404,7 @@ const News2 = ({ disabled, onOpenSummary, onValidate, openErrorDialog }) => {
                       },
                     ]}
                   />
+                  {/* {errors && <ErrorMsg name={'tempature'} errors={errors} />} */}
                 </Grid>
                 <Grid item md={12}>
                   <TextField
@@ -376,6 +415,10 @@ const News2 = ({ disabled, onOpenSummary, onValidate, openErrorDialog }) => {
                     type="number"
                     fullWidth
                     inputRef={register({
+                      required: {
+                        value: true,
+                        message: 'This field is required',
+                      },
                       min: {
                         value: 27.1,
                         message: 'Tempature should be between 27.1- 44.9',
@@ -394,7 +437,7 @@ const News2 = ({ disabled, onOpenSummary, onValidate, openErrorDialog }) => {
                       ),
                     }}
                   />
-                  {errors && <ErrorMsg name={'temperature'} errors={errors} />}
+                  {errors && <ErrorMsg name={'tempature'} errors={errors} />}
                 </Grid>
               </Grid>
             </AccordionDetails>
