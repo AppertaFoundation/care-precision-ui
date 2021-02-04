@@ -9,7 +9,7 @@ interface Props {
   children?: React.ReactNode;
 }
 export const AppBarSubpage: React.FC<Props> = ({ header, children }) => {
-  const classes = useStyles();
+  const classes = useStyles({});
   return (
     <AppBar open={false}>
       <Toolbar>

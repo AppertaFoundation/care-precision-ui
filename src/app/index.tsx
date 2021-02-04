@@ -8,12 +8,14 @@
 
 import * as React from 'react';
 import { Helmet } from 'react-helmet-async';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 
 import { assessmentReducer } from 'store/assessmentTypeReducer';
+import { authReducer, selectAuth, logOut } from 'store/authReducer';
+
 import { sessionReducer } from 'redux-react-session';
-import { sessionSelector } from 'utils/selectors';
+// import { sessionSelector } from 'utils/selectors';
 import { useInjectReducer } from 'redux-injectors';
 
 import { AcuityDashboard } from './containers/AcuityDashboard';
@@ -22,6 +24,7 @@ import { InfectionControl } from './containers/InfectionControl';
 import { NotFoundPage } from 'components/NotFoundPage/Loadable';
 import { PatientList } from './containers/PatientList/';
 import { PatientOverview } from './containers/PatientOverview';
+import Login from './containers/Login';
 
 import { GlobalStyle } from 'styles/global-styles';
 import Layout from 'components/Layout';
@@ -29,10 +32,14 @@ import Layout from 'components/Layout';
 export function App() {
   useInjectReducer({ key: 'session', reducer: sessionReducer });
   useInjectReducer({ key: 'assessmentType', reducer: assessmentReducer });
+  useInjectReducer({ key: 'auth', reducer: authReducer });
 
-  const session = useSelector(sessionSelector);
-  const { checked, authenticated } = session;
-
+  //Temporary mocked auth
+  const auth = useSelector(selectAuth);
+  // const session = useSelector(sessionSelector);
+  // const { checked, authenticated } = session;
+  const checked = true;
+  const authenticated = Boolean(auth);
   return (
     <BrowserRouter>
       <Helmet titleTemplate="%s -Care Protect" defaultTitle="Care Protect">
@@ -49,6 +56,7 @@ export function App() {
             path={process.env.PUBLIC_URL + '/'}
             component={PatientList}
             authenticated={authenticated}
+            username={auth}
             bottomToolBar
           />
           <ProtectedRoute
@@ -57,27 +65,37 @@ export function App() {
             path={process.env.PUBLIC_URL + '/dashboard'}
             component={AcuityDashboard}
             authenticated={authenticated}
+            username={auth}
             bottomToolBar
           />
           <ProtectedRoute
             exact
             path={process.env.PUBLIC_URL + '/covid-management/:id'}
             component={InfectionControl}
-            authenticated={authenticated}
+            username={auth}
           />
           <ProtectedRoute
             exact
             path={process.env.PUBLIC_URL + '/patient-overview/:id'}
             component={PatientOverview}
             authenticated={authenticated}
+            username={auth}
           />
           <ProtectedRoute
             exact
             path={process.env.PUBLIC_URL + '/assessment/:id/:tab/:obsType'}
             component={Assessment}
             authenticated={authenticated}
+            username={auth}
           />
-
+          <LoginPage
+            exact
+            path={'/login'}
+            component={Login}
+            login
+            authenticated={authenticated}
+            username={auth}
+          />
           <Route component={NotFoundPage} />
         </Switch>
       )}
@@ -87,6 +105,11 @@ export function App() {
 }
 
 function ProtectedRoute({ component: Component, ...rest }) {
+  const dispatch = useDispatch();
+  const handleLogout = React.useCallback(() => {
+    dispatch(logOut());
+  }, [dispatch]);
+
   return (
     <Route
       {...rest}
@@ -95,22 +118,44 @@ function ProtectedRoute({ component: Component, ...rest }) {
           <Layout
             header={rest.header}
             bottomToolBar={Boolean(rest.bottomToolBar)}
+            username={rest.username}
+            logout={handleLogout}
           >
             <Component {...props} />
           </Layout>
         ) : (
+          <Redirect
+            to={{
+              pathname: '/login',
+              state: { from: props.location },
+            }}
+          />
+        )
+      }
+    />
+  );
+}
+
+function LoginPage({ component: Component, ...rest }) {
+  return (
+    <Route
+      {...rest}
+      render={props =>
+        rest.authenticated ? (
+          <Redirect
+            to={{
+              pathname: '/',
+              state: { from: props.location },
+            }}
+          />
+        ) : (
           <Layout
+            login={rest.login}
             header={rest.header}
             bottomToolBar={Boolean(rest.bottomToolBar)}
           >
             <Component {...props} />
           </Layout>
-          // <Redirect
-          //   to={{
-          //     pathname: '/login2',
-          //     state: { from: props.location },
-          //   }}
-          // />
         )
       }
     />

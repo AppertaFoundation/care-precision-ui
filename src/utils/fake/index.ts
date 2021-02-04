@@ -36,7 +36,6 @@ const sortByAsssessmentValue = (unsorted, sort) =>
   }, []);
 
 const checkOrderByAge = (a, b, order) => {
-  console.log(a);
   const sortedASC = a.birthdate > b.birthdate;
   return order === 'ASC' ? sortedASC : !sortedASC;
 };
