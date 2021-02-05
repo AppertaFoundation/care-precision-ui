@@ -29,14 +29,18 @@ interface IinitialState {
 }
 const initialState: IinitialState = {
   assessmentType: '',
-  assessmentsArray: [''],
+  assessmentsArray: [],
 };
 export function assessmentReducer(state = initialState, action) {
   const assessmentType = action.payload;
   switch (action.type) {
     case 'SET_ASSESSMENT_TYPE':
-      const assessmentsArray = [...state.assessmentsArray, assessmentType];
-      return { assessmentType, assessmentsArray };
+      if (state.assessmentsArray.includes(assessmentType))
+        return { assessmentType, assessmentsArray: state.assessmentsArray };
+      else {
+        const assessmentsArray = [...state.assessmentsArray, assessmentType];
+        return { assessmentType, assessmentsArray };
+      }
     case 'END_ASSESSMENT_EVENT':
       return { assessmentType: '', assessmentsArray: [] };
     default:

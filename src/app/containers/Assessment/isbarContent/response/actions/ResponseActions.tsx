@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import {
   Box,
   Grid,
@@ -13,6 +14,10 @@ import { useTheme, makeStyles } from '@material-ui/core/styles';
 import FurtherAssessment from './FurtherAssessment';
 import NoFurtherAction from './NoFurtherAction';
 import Monitor from './Monitor';
+import { assessmentsTypesArraySelector } from 'store/assessmentTypeReducer';
+import { selectResponse } from '../../../selectors';
+
+import uniqid from 'uniqid';
 
 const useStyles = makeStyles({
   body: { height: '118px', overflowX: 'hidden', overflowY: 'auto' },
@@ -21,6 +26,30 @@ export const ResponseActions = () => {
   const classes = useStyles();
   const theme = useTheme();
   const xs = useMediaQuery(theme.breakpoints.only('xs'));
+  const assessmentsArray = useSelector(assessmentsTypesArraySelector);
+  const responseActions: any = useSelector(selectResponse);
+  const [takenActions, setTakenActions] = useState<[] | string[]>([]);
+
+  React.useEffect(() => {
+    const assessmentsTaken = assessmentsArray.map(assessment =>
+      assessment.toUpperCase(),
+    );
+    const actions = assessmentsTaken;
+    if (responseActions?.monitor) {
+      actions.push(
+        `${responseActions?.monitor?.recomendation} every ${responseActions?.monitor?.timing}`,
+      );
+    }
+    const recomendations =
+      responseActions[
+        `${Object.keys(responseActions).find(
+          key => key !== 'monitor' && Boolean(responseActions[`${key}`]),
+        )}`
+      ];
+    if (recomendations?.recomendation)
+      actions.push(recomendations.recomendation);
+    setTakenActions(actions);
+  }, [assessmentsArray, responseActions]);
 
   return (
     <Grid item xs={12}>
@@ -61,14 +90,14 @@ export const ResponseActions = () => {
                       Actions Taken
                     </Box>
                   </Typography>
-
                   <List dense>
-                    <ListItem>
-                      <ListItemText primary="User ZYX - Requested Intervention at 14.22" />
-                    </ListItem>
-                    <ListItem>
-                      <ListItemText primary="User ZYX - Requested Monitoring at 14.00" />
-                    </ListItem>
+                    <>
+                      {(takenActions as []).map(action => (
+                        <ListItem key={uniqid()}>
+                          <ListItemText primary={action} />
+                        </ListItem>
+                      ))}
+                    </>
                   </List>
                 </Box>
               </Box>

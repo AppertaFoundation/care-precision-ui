@@ -18,7 +18,6 @@ interface Props {
 }
 const ErrorMsg: React.FC<Props> = ({ name, errors }) => {
   const classes = useStyles();
-
   return (
     <Box m={1}>
       <ErrorMessage

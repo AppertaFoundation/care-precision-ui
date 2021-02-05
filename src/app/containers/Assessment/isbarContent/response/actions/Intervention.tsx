@@ -7,7 +7,7 @@ import {
   Chip,
   FormLabel,
 } from '@material-ui/core';
-import { Button, Dialog, DialogTitle } from 'components';
+import { Button, Dialog, DialogTitle, DialogActions } from 'components';
 import { useDispatch, useSelector } from 'react-redux';
 import { actions } from '../../../slice';
 import { makeStyles } from '@material-ui/styles';
@@ -26,63 +26,84 @@ const useStyles = makeStyles((theme: any) => ({
     marginBottom: '50px',
   },
 }));
+
 const Intervention: React.FC = () => {
   const classess = useStyles();
   const [open, setOpen] = React.useState(false);
-  const [selected, setSelected] = React.useState<string>('');
+  const [selected, setSelected] = React.useState<string[]>([]);
 
   const dispatch = useDispatch();
   const interventionAction = useSelector(selectInterventionAction);
 
   React.useEffect(() => {
-    if (interventionAction) {
+    if (interventionAction && interventionAction.length > 0) {
       setSelected(interventionAction);
     } else {
-      setSelected('');
+      setSelected([]);
     }
   }, [interventionAction]);
 
   const handleClose = () => setOpen(false);
   const handleOpen = () => setOpen(true);
 
-  const handleChange = (e, type, recomendation) => {
+  const isSelected = value => {
+    return selected.includes(value);
+  };
+  const addElement = value => {
+    const newTable = [value, ...selected];
+    setSelected(newTable);
+    return newTable;
+  };
+  const removeElement = value => {
+    const newTable = selected.filter(o => o !== value);
+    setSelected(newTable);
+    return newTable;
+  };
+
+  const handleChange = e => {
     const value = e.target.textContent;
-    setSelected(selected === value ? '' : value);
-    dispatch(actions.clearIntervention());
-    dispatch(
-      actions.addResponse({
-        type: type,
-        recommendation: selected === value ? null : recomendation,
-      }),
-    );
-    dispatch(actions.clearNoAction());
+    isSelected(value) ? removeElement(value) : addElement(value);
     e.currentTarget.blur();
     e.target.blur();
   };
 
-  const covidPathway = event => {
-    handleChange(event, 'covidPathway', { recomendation: 'Suspected Covid' });
-  };
-
-  const internalEscalation = event => {
-    handleChange(event, 'internalEscalation', {
-      recomendation: 'Internal Escalation',
+  const ACTIONS_KEYS = action =>
+    ({
+      'Suspected Covid': 'covidPathway',
+      'Internal Escalation': 'internalEscalation',
+      '111/GP Advice': 'externalEscalation',
+      Ambulance: 'externalEscalation',
+    }[action]);
+  const handleSubmit = () => {
+    interface interventionObject {
+      externalEscalation;
+    }
+    const intervention: interventionObject = {
+      externalEscalation: { recomendation: [] },
+    };
+    dispatch(actions.clearIntervention());
+    selected.forEach((action: string) => {
+      if (ACTIONS_KEYS(action) === 'externalEscalation') {
+        intervention.externalEscalation.recomendation = [
+          action,
+          ...intervention.externalEscalation.recomendation,
+        ];
+      } else {
+        intervention[`${ACTIONS_KEYS(action)}`] = { recomendation: action };
+      }
     });
-  };
-
-  const ambulance = event => {
-    handleChange(event, 'externalEscalation', { recomendation: 'Ambulance' });
-  };
-  const gpAdvice = event => {
-    handleChange(event, 'externalEscalation', {
-      recomendation: '111/GP Advice',
-    });
+    if (intervention.externalEscalation.recomendation.length === 0) {
+      intervention.externalEscalation = null;
+    }
+    dispatch(actions.addIntervention(intervention));
+    dispatch(actions.clearNoAction());
+    handleClose();
   };
   return (
     <Box m={1}>
       <Button.Primary
         onClick={handleOpen}
-        variant={interventionAction ? 'contained' : 'outlined'}
+        variant={interventionAction.length > 0 ? 'contained' : 'outlined'}
       >
         INTERVENTION
       </Button.Primary>
@@ -106,13 +127,13 @@ const Intervention: React.FC = () => {
             <Grid item xs={12}>
               <Chip
                 clickable
-                {...(selected === 'Suspected Covid'
+                {...(isSelected('Suspected Covid')
                   ? {}
                   : { variant: 'outlined' })}
                 color="primary"
                 size="small"
                 label={'Suspected Covid'}
-                onClick={covidPathway}
+                onClick={handleChange}
                 className={classess.root}
               />
             </Grid>
@@ -122,13 +143,13 @@ const Intervention: React.FC = () => {
             <Grid item xs={12}>
               <Chip
                 clickable
-                {...(selected === 'Internal Escalation'
+                {...(isSelected('Internal Escalation')
                   ? {}
                   : { variant: 'outlined' })}
                 color="primary"
                 size="small"
                 label={'Internal Escalation'}
-                onClick={internalEscalation}
+                onClick={handleChange}
                 className={classess.root}
               />
             </Grid>
@@ -138,29 +159,37 @@ const Intervention: React.FC = () => {
             <Grid item xs={12}>
               <Chip
                 clickable
-                {...(selected === 'Ambulance' ? {} : { variant: 'outlined' })}
+                {...(isSelected('Ambulance') ? {} : { variant: 'outlined' })}
                 color="primary"
                 size="small"
                 label={'Ambulance'}
-                onClick={ambulance}
+                onClick={handleChange}
                 className={classess.root}
               />
             </Grid>
             <Grid item xs={12}>
               <Chip
                 clickable
-                {...(selected === '111/GP Advice'
+                {...(isSelected('111/GP Advice')
                   ? {}
                   : { variant: 'outlined' })}
                 color="primary"
                 size="small"
                 label={'111/GP Advice'}
-                onClick={gpAdvice}
+                onClick={handleChange}
                 className={classess.root}
               />
             </Grid>
           </Grid>
         </DialogContent>
+        <DialogActions>
+          <Button.Primary onClick={handleClose} color="primary">
+            Cancel
+          </Button.Primary>
+          <Button.Secondary variant="contained" onClick={handleSubmit}>
+            Confirm
+          </Button.Secondary>
+        </DialogActions>
       </Dialog>
     </Box>
   );

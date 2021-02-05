@@ -24,7 +24,7 @@ export const initialState: ContainerState = {
   loadingResult: false,
   errorResult: null,
   result: {},
-  background: {},
+  background: { height: '165', weight: '50' },
   news2: {},
   sepsis: {},
   covid: {},
@@ -158,6 +158,10 @@ const assessmentEventSlice = createSlice({
     addResponse(state, action) {
       const { type, recommendation } = action.payload;
       state.response[`${type}`] = recommendation;
+    },
+    addIntervention(state, action) {
+      const intervention = action.payload;
+      state.response = { ...state.response, ...intervention };
     },
     clearIntervention(state) {
       state.response.covidPathway = null;

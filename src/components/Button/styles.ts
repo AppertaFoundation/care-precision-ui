@@ -13,15 +13,15 @@ export const ButtonSuccess = withStyles(() => ({
 export const ButtonSecondary = withStyles((theme: Theme) => ({
   contained: {
     minWidth: '100%',
-    backgroundColor: theme.palette.secondary.main,
+    backgroundColor: '#EE7402',
     color: theme.palette.secondary.contrastText,
     '&:hover': {
-      backgroundColor: theme.palette.secondary.dark,
+      backgroundColor: '#e94e1b',
       boxShadow: 'none',
       color: '#00000',
     },
     '&:active': {
-      backgroundColor: theme.palette.secondary.dark,
+      backgroundColor: '#e94e1b',
       boxShadow: 'none',
       color: '#00000',
     },

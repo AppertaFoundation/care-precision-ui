@@ -7,6 +7,7 @@ const useStyles = makeStyles(() => ({
   amber: { color: '#ffbf00' },
   red: { color: 'red' },
   grey: { color: 'grey' },
+  white: { color: '#fff' },
 }));
 
 const SepsisIcon: React.FC<ISepsis> = ({ value }) => {

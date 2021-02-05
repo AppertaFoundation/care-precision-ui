@@ -19,7 +19,7 @@ interface INews2 {
 
 export interface ISepsis {
   value: {
-    value: 'amber' | 'red' | 'grey';
+    value: 'amber' | 'red' | 'grey' | 'white';
   } | null;
 }
 

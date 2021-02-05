@@ -36,7 +36,6 @@ const sortByAsssessmentValue = (unsorted, sort) =>
   }, []);
 
 const checkOrderByAge = (a, b, order) => {
-  console.log(a);
   const sortedASC = a.birthdate > b.birthdate;
   return order === 'ASC' ? sortedASC : !sortedASC;
 };
@@ -85,12 +84,20 @@ const filterSepis = (arrayToFiltr, flag) =>
 const filterDenwis = arrayToFiltr =>
   arrayToFiltr.filter(el => el?.assessment?.denwis?.value?.value > 4);
 
+const filterCovid = (arrayToFiltr, flag) =>
+  arrayToFiltr.filter(
+    el => el?.assessment?.covid?.value?.suspectedCovidStatus === flag,
+  );
+
 export const filter = (arrayToFiltr, parmas) => {
   if (parmas?.sepsis) {
     return filterSepis(arrayToFiltr, parmas?.sepsis?.value);
   }
   if (parmas?.denwis) {
     return filterDenwis(arrayToFiltr);
+  }
+  if (parmas?.covid) {
+    return filterCovid(arrayToFiltr, parmas?.covid?.value);
   }
   return arrayToFiltr;
 };

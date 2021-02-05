@@ -10,10 +10,12 @@ const drawerWidth = 240;
 
 export const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    root: {
+    root: (props: { login?: boolean }) => ({
       display: 'flex',
       flexDirection: 'column',
-    },
+      backgroundColor: props.login ? '#28365b' : '',
+      height: props.login ? '100vh' : '100%',
+    }),
     appBar: {
       transition: theme.transitions.create(['margin', 'width'], {
         easing: theme.transitions.easing.sharp,

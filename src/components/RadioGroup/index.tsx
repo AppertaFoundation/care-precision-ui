@@ -11,7 +11,7 @@ import {
 } from '@material-ui/core';
 // import  from '../ErrorMsg/index';
 import DeleteIcon from '@material-ui/icons/Delete';
-
+import { ErrorMsg } from '../ErrorMessage';
 const RADIO_OPTIONS = [
   {
     id: 'yes',
@@ -36,6 +36,7 @@ interface IRadioGroup {
   onChange?: any;
   register?: any;
   clear?: any;
+  errors?: any;
 }
 const RadioGroupMUI: React.FC<IRadioGroup> = ({
   values,
@@ -50,6 +51,7 @@ const RadioGroupMUI: React.FC<IRadioGroup> = ({
   onChange,
   register,
   clear,
+  errors,
 }) => {
   //   const { register, errors } = useFormContext();
   const [selection, setSelection] = React.useState({ [name]: defaultValue });
@@ -96,7 +98,7 @@ const RadioGroupMUI: React.FC<IRadioGroup> = ({
                   label={value}
                   key={id}
                   value={id}
-                  inputRef={register({ required })}
+                  inputRef={register}
                   control={<Radio size="small" color="primary" />}
                 />
               </Box>
@@ -104,7 +106,7 @@ const RadioGroupMUI: React.FC<IRadioGroup> = ({
           ))}
         </Grid>
       </RadioGroup>
-      {/* {errors && name && <ErrorMessage name={name} errors={errors} />} */}
+      {errors && name && <ErrorMsg name={name} errors={errors} />}
     </div>
   );
 };

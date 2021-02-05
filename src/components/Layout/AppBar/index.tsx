@@ -7,7 +7,7 @@ interface Props {
   open?: boolean;
 }
 export const AppBar: React.FC<Props> = ({ children, open }) => {
-  const classes = useStyles();
+  const classes = useStyles({});
   return (
     <MuiAppBar
       position="fixed"

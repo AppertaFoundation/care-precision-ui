@@ -56,7 +56,6 @@ export function IsolationStatus() {
   const isolationReason = useSelector(selectIsolationReason);
   const isolationStatus = useSelector(selectIsolationStatus);
   const updateDate = useSelector(selectCovidStatusDate);
-  const isolationEnd = useSelector(selectEndOfIsolation);
   const isolationDays = useSelector(selectIsolationDays);
   const dayOfIsolation = useSelector(selectDayOfIsolation);
 

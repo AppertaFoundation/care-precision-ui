@@ -4,6 +4,8 @@ import {
   Toolbar,
   Typography,
   IconButton,
+  MenuItem,
+  Menu,
   Box,
   ThemeProvider,
 } from '@material-ui/core';
@@ -13,9 +15,11 @@ import { useTheme } from '@material-ui/core/styles';
 import { useStyles } from './style';
 import { AppBar } from './AppBar';
 import { Drawer } from './Drawer';
+import Button from '../Button';
 import BottomToolBar from './BottomTollBar';
 import lightTheme from 'styles/theme';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
+import AccountCircle from '@material-ui/icons/AccountCircle';
 
 import clsx from 'clsx';
 import LogoDark from './assets/LogoDark.png';
@@ -25,19 +29,24 @@ interface Props {
   children: React.ReactNode;
   login?: boolean;
   bottomToolBar?: boolean;
+  username?: string;
+  logout?: any;
 }
 const Layout: React.FC<Props> = ({
   header,
   children,
   login,
-
+  username,
+  logout,
   bottomToolBar,
 }) => {
-  const classes = useStyles();
+  const classes = useStyles({ login });
   const theme = useTheme();
   const xsSM = useMediaQuery(theme.breakpoints?.between('xs', 'sm'));
 
   const [open, setOpen] = React.useState(false);
+
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -45,6 +54,14 @@ const Layout: React.FC<Props> = ({
 
   const handleDrawerClose = () => {
     setOpen(false);
+  };
+
+  const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
   };
   return (
     <ThemeProvider theme={lightTheme}>
@@ -68,11 +85,42 @@ const Layout: React.FC<Props> = ({
                 <Box m={1}>
                   <img height={40} src={LogoDark} alt="Care Protect logo" />
                 </Box>
-                <Box ml={1}>
-                  <Typography variant="h6" className={classes.title}>
-                    {header}
-                  </Typography>
-                </Box>
+                <Typography variant="h6" className={classes.title}>
+                  {header}
+                </Typography>
+                <div>
+                  <IconButton
+                    aria-label="account of current user"
+                    aria-controls="menu-appbar"
+                    aria-haspopup="true"
+                    onClick={handleMenu}
+                    color="inherit"
+                  >
+                    <AccountCircle />
+                  </IconButton>
+                  <Menu
+                    id="menu-appbar"
+                    anchorEl={anchorEl}
+                    anchorOrigin={{
+                      vertical: 'top',
+                      horizontal: 'right',
+                    }}
+                    keepMounted
+                    transformOrigin={{
+                      vertical: 'top',
+                      horizontal: 'right',
+                    }}
+                    open={Boolean(anchorEl)}
+                    onClose={handleClose}
+                  >
+                    <Typography>Hello {username}</Typography>
+                    <MenuItem>
+                      <Button.Secondary variant="contained" onClick={logout}>
+                        Log out
+                      </Button.Secondary>
+                    </MenuItem>
+                  </Menu>
+                </div>
               </Toolbar>
             </AppBar>
 

@@ -26,7 +26,7 @@ interface Props {
 }
 export const Drawer: React.FC<Props> = ({ open, onClose }) => {
   const history = useHistory();
-  const classes = useStyles();
+  const classes = useStyles({});
   const theme = useTheme();
 
   const location = useLocation();

@@ -10,7 +10,7 @@ import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
 import { useStyles, MyBottomNavigationAction } from '../style';
 
 const BottomToolBar = () => {
-  const classes = useStyles();
+  const classes = useStyles({});
   const history = useHistory();
   const location = useLocation();
   const { pathname } = location;

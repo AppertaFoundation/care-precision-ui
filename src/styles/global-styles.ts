@@ -26,4 +26,7 @@ export const GlobalStyle = createGlobalStyle`
     font-family: inherit;
     font-size: inherit;
   }
+  .PrivateNotchedOutline-legendLabelled-5 {
+    color: #e94e1b
+  }
 `;

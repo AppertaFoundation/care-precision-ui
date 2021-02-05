@@ -40,6 +40,9 @@ import {
 import { useStyles } from '../PatientList/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core/styles';
+import styled from 'styled-components';
+
+type Order = 'ASC' | 'DESC';
 
 const AcuityList = () => {
   //redux configuration
@@ -65,9 +68,22 @@ const AcuityList = () => {
   const handleOpen = (): void => setOpen(true);
   const handleClose = (): void => setOpen(false);
 
+  const [order, setOrder] = React.useState<Order>('DESC');
+  const [orderBy, setOrderBy] = React.useState<string>('news2');
+
   React.useEffect(() => {
     dispatch(actions.loadRecords({ sort: { value: 'DESC', key: 'news2' } }));
   }, [dispatch]);
+
+  React.useEffect(() => {
+    if (
+      (filters?.sort?.value && filters?.sort?.value !== order) ||
+      filters?.sort?.key !== orderBy
+    ) {
+      setOrder(filters?.sort?.value);
+      setOrderBy(filters?.sort?.value);
+    }
+  }, [dispatch, filters, order, orderBy]);
   const handleSearch = React.useCallback(
     value => {
       dispatch(actions.search(value));
@@ -75,20 +91,38 @@ const AcuityList = () => {
     },
     [dispatch],
   );
-  const handleSortFilter = React.useCallback(
-    filters => {
-      dispatch(actions.addFilters(filters));
-      dispatch(actions.loadRecords(filters));
+  const handleRequestSort = React.useCallback(
+    newFilters => {
+      dispatch(actions.addFilters(newFilters));
+      dispatch(actions.loadRecords(newFilters));
     },
     [dispatch],
   );
 
-  if (error) {
-    return <p>{error}</p>;
-  }
-  if (isLoading) {
-    return <Spinner />;
-  }
+  React.useEffect(() => {
+    if (filters?.sort?.value) {
+      setOrder(filters?.sort?.value);
+    }
+    if (filters?.sort?.key) {
+      setOrderBy(filters?.sort?.key);
+    }
+  }, [filters]);
+
+  React.useEffect(() => {
+    dispatch(
+      actions.addFilters({
+        sort: { value: order, key: orderBy },
+        filter: null,
+      }),
+    );
+    dispatch(
+      actions.loadRecords({
+        sort: { value: order, key: orderBy },
+        filter: null,
+      }),
+    );
+  }, [dispatch, orderBy, order]);
+
   return (
     <>
       <Helmet>
@@ -107,27 +141,28 @@ const AcuityList = () => {
               <Grid item xs={10} sm={6} md={3}>
                 <Search onSearch={handleSearch} defaultValue={search} />
               </Grid>
-              <Grid item>
-                <SortPoper>
-                  <Sort
-                    onFilterSort={handleSortFilter}
-                    defaultValues={filters}
-                  />
-                </SortPoper>
-              </Grid>
             </Grid>
           </Toolbar>
         </div>
-        {patients?.length > 0 && (
-          <>
-            <Box mb={8} style={{ marginTop: '50px' }}>
-              {xs ? (
-                <Typography>
-                  Please switch the orientation of your device to horizontal
-                </Typography>
-              ) : (
-                <Table>
-                  {patients.map(
+
+        {error && <p>{error}</p>}
+        {isLoading && <Spinner />}
+        {/* {patients?.length > 0 && ( */}
+        <>
+          <Box mb={8} style={{ marginTop: '50px' }}>
+            {xs ? (
+              <Typography>
+                Please switch the orientation of your device to horizontal
+              </Typography>
+            ) : (
+              <Table
+                onRequestSort={handleRequestSort}
+                order={filters?.sort?.value}
+                orderBy={filters?.sort?.key}
+                filters={filters}
+              >
+                {patients?.length > 0 ? (
+                  patients.map(
                     ({
                       name,
                       nhsnumber,
@@ -142,12 +177,11 @@ const AcuityList = () => {
                         history.push(`/patient-overview/${id}`);
                       return (
                         <React.Fragment key={uniqid()}>
-                          <tr
-                            style={{ backgroundColor: '#fff' }}
-                            onClick={redirectToPatientOverview}
-                          >
-                            <TdFirst>{location}</TdFirst>
-                            <td
+                          <tr style={{ backgroundColor: '#fff' }}>
+                            <TdFirst onClick={redirectToPatientOverview}>
+                              {location}
+                            </TdFirst>
+                            <Td
                               style={{
                                 paddingTop: '15px',
                                 paddingBottom: '15px',
@@ -160,9 +194,8 @@ const AcuityList = () => {
                               <Typography variant="body1" color="textSecondary">
                                 {nhsnumber}
                               </Typography>
-                            </td>
-                            <td>
-                              {' '}
+                            </Td>
+                            <Td>
                               <IconButton
                                 onClick={() => console.log('denwis')}
                                 {...(sm ? { size: 'small' } : {})}
@@ -173,9 +206,8 @@ const AcuityList = () => {
                                   />
                                 )}
                               </IconButton>
-                            </td>
-                            <td>
-                              {' '}
+                            </Td>
+                            <Td>
                               <IconButton
                                 onClick={goToCovid}
                                 {...(sm ? { size: 'small' } : {})}
@@ -184,9 +216,8 @@ const AcuityList = () => {
                                   <CovidIcon value={assessment?.covid?.value} />
                                 )}
                               </IconButton>
-                            </td>
-                            <td>
-                              {' '}
+                            </Td>
+                            <Td>
                               <IconButton
                                 onClick={() => console.log('sepsis')}
                                 {...(sm ? { size: 'small' } : {})}
@@ -197,9 +228,8 @@ const AcuityList = () => {
                                   />
                                 )}
                               </IconButton>
-                            </td>
-                            <td>
-                              {' '}
+                            </Td>
+                            <Td>
                               <IconButton
                                 onClick={() => console.log('denwis')}
                                 {...(sm ? { size: 'small' } : {})}
@@ -208,8 +238,8 @@ const AcuityList = () => {
                                   <News2Icon news2={assessment?.news2?.value} />
                                 )}
                               </IconButton>
-                            </td>
-                            <td>Action</td>
+                            </Td>
+                            <Td>Action</Td>
                             <TdLast>
                               <Divider orientation="vertical" flexItem />
                               <IconButton edge={'end'} onClick={handleOpen}>
@@ -229,14 +259,22 @@ const AcuityList = () => {
                         </React.Fragment>
                       );
                     },
-                  )}
-                </Table>
-              )}
-            </Box>
-          </>
-        )}
+                  )
+                ) : (
+                  <Typography>There are no such records</Typography>
+                )}
+              </Table>
+            )}
+          </Box>
+        </>
+        {/* )} */}
       </>
     </>
   );
 };
 export default AcuityList;
+
+const Td = styled.td`
+  text-align: center;
+  cursor: pointer;
+`;

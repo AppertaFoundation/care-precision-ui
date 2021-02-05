@@ -87,7 +87,6 @@ export const Assessments = ({ obsType, id }) => {
 
   const onValidate = () => {
     const errors = validate(situation, background);
-    console.log(errors);
     setErrors(errors);
     return !(errors.length > 0);
   };
