@@ -23,13 +23,16 @@ function getRequestURL(params) {
   const filterURLdenwis = filter?.denwis
     ? '&filter_key=denwis&filter_gte=4'
     : '';
+  const filterURLcovid = filter?.covid
+    ? `filter_key=${filter.covid.key}&filter_value=${filter.covid.value}`
+    : '';
   const order = sort?.key
     ? `&sort_key=${sort.key}&sort_value=${sort.value}`
     : '';
   const searchValue = search
     ? `&search_key=combisearch&search_value=${search}`
     : '';
-  return `${base}?${filterURL}${filterURLdenwis}${searchValue}${order}`;
+  return `${base}?${filterURL}${filterURLdenwis}${filterURLcovid}${searchValue}${order}`;
 }
 
 export function* getRecords(action) {

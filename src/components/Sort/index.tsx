@@ -50,6 +50,25 @@ const FILTER_SEPSIS = [
     name: 'Red',
   },
 ];
+
+const FILTER_COVID = [
+  {
+    id: 'grey',
+    name: 'Grey',
+  },
+  {
+    id: 'green',
+    name: 'Green',
+  },
+  {
+    id: 'amber',
+    name: 'Amber',
+  },
+  {
+    id: 'red',
+    name: 'Red',
+  },
+];
 export const RadioItem: React.FC<{
   value: string;
   label: string;
@@ -69,11 +88,13 @@ interface Props {
     sort: null | { key: string; value: string };
     filter: { key: string; value: string };
   };
-  onlyFilters?: boolean;
+  sort?: boolean;
+  sepsis?: boolean;
+  covid?: boolean;
 }
 const ACTIVE_BTN = '#29375d';
 const Sort: React.FC<Props> = React.forwardRef(
-  ({ id, onFilterSort, defaultValues, onlyFilters }, ref) => {
+  ({ id, onFilterSort, defaultValues, sort, sepsis, covid }, ref) => {
     const [state, setState] = React.useState<any>({
       sort: null,
       filter: null,
@@ -155,9 +176,11 @@ const Sort: React.FC<Props> = React.forwardRef(
       }));
     };
     const clearSepsis = () => clearFilters('sepsis');
+    const clearCovid = () => clearFilters('covid');
+
     return (
       <Box p={1} m={1}>
-        {!onlyFilters && (
+        {sort && (
           <Box
             width={300}
             display="flex"
@@ -211,27 +234,58 @@ const Sort: React.FC<Props> = React.forwardRef(
               <FormLabel component="legend">Filters:</FormLabel>
             </FormControl>
 
-            <Box mt={2}>
-              <FormControl component="fieldset">
-                <FormLabel disabled component="legend">
-                  Sepsis Flag:
-                </FormLabel>
-                <RadioGroup
-                  name={'sepsis'}
-                  value={state.filter?.sepsis ? state.filter.sepsis.value : ''}
-                  onChange={handleChangeSelect}
-                  row
-                >
-                  {FILTER_SEPSIS.map(item => {
-                    const { id, name } = item;
-                    return <RadioItem key={uniqid()} value={id} label={name} />;
-                  })}
-                  <IconButton size="small" onClick={clearSepsis}>
-                    <DeleteIcon htmlColor={ACTIVE_BTN} />
-                  </IconButton>
-                </RadioGroup>
-              </FormControl>
-            </Box>
+            {sepsis && (
+              <Box mt={2}>
+                <FormControl component="fieldset">
+                  <FormLabel disabled component="legend">
+                    Sepsis Flag:
+                  </FormLabel>
+                  <RadioGroup
+                    name={'sepsis'}
+                    value={
+                      state.filter?.sepsis ? state.filter.sepsis.value : ''
+                    }
+                    onChange={handleChangeSelect}
+                    row
+                  >
+                    {FILTER_SEPSIS.map(item => {
+                      const { id, name } = item;
+                      return (
+                        <RadioItem key={uniqid()} value={id} label={name} />
+                      );
+                    })}
+                    <IconButton size="small" onClick={clearSepsis}>
+                      <DeleteIcon htmlColor={ACTIVE_BTN} />
+                    </IconButton>
+                  </RadioGroup>
+                </FormControl>
+              </Box>
+            )}
+            {covid && (
+              <Box mt={2}>
+                <FormControl component="fieldset">
+                  <FormLabel disabled component="legend">
+                    COVID status:
+                  </FormLabel>
+                  <RadioGroup
+                    name={'covid'}
+                    value={state.filter?.covid ? state.filter.covid.value : ''}
+                    onChange={handleChangeSelect}
+                    row
+                  >
+                    {FILTER_COVID.map(item => {
+                      const { id, name } = item;
+                      return (
+                        <RadioItem key={uniqid()} value={id} label={name} />
+                      );
+                    })}
+                    <IconButton size="small" onClick={clearCovid}>
+                      <DeleteIcon htmlColor={ACTIVE_BTN} />
+                    </IconButton>
+                  </RadioGroup>
+                </FormControl>
+              </Box>
+            )}
           </Box>
         </Box>
 

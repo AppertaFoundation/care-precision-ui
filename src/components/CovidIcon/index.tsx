@@ -12,6 +12,7 @@ const CovidIcon = ({ value }) => {
       amber: '#FF903D',
       grey: '#7D7D7D',
       green: '#2E7D32',
+      white: '#fff',
     }[suspectedCovidStatus];
   };
 

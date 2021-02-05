@@ -141,35 +141,28 @@ const AcuityList = () => {
               <Grid item xs={10} sm={6} md={3}>
                 <Search onSearch={handleSearch} defaultValue={search} />
               </Grid>
-              <Grid item>
-                <SortPoper>
-                  <Sort
-                    onFilterSort={handleRequestSort}
-                    defaultValues={filters}
-                  />
-                </SortPoper>
-              </Grid>
             </Grid>
           </Toolbar>
         </div>
 
         {error && <p>{error}</p>}
         {isLoading && <Spinner />}
-        {patients?.length > 0 && (
-          <>
-            <Box mb={8} style={{ marginTop: '50px' }}>
-              {xs ? (
-                <Typography>
-                  Please switch the orientation of your device to horizontal
-                </Typography>
-              ) : (
-                <Table
-                  onRequestSort={handleRequestSort}
-                  order={filters?.sort?.value}
-                  orderBy={filters?.sort?.key}
-                  filters={filters}
-                >
-                  {patients.map(
+        {/* {patients?.length > 0 && ( */}
+        <>
+          <Box mb={8} style={{ marginTop: '50px' }}>
+            {xs ? (
+              <Typography>
+                Please switch the orientation of your device to horizontal
+              </Typography>
+            ) : (
+              <Table
+                onRequestSort={handleRequestSort}
+                order={filters?.sort?.value}
+                orderBy={filters?.sort?.key}
+                filters={filters}
+              >
+                {patients?.length > 0 ? (
+                  patients.map(
                     ({
                       name,
                       nhsnumber,
@@ -266,12 +259,15 @@ const AcuityList = () => {
                         </React.Fragment>
                       );
                     },
-                  )}
-                </Table>
-              )}
-            </Box>
-          </>
-        )}
+                  )
+                ) : (
+                  <Typography>There are no such records</Typography>
+                )}
+              </Table>
+            )}
+          </Box>
+        </>
+        {/* )} */}
       </>
     </>
   );

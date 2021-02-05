@@ -12,6 +12,7 @@ import {
 } from '@material-ui/core/styles';
 import SepsisIcon from '../SepsisIcon';
 import SortPoper from '../SortPoper';
+import CovidIcon from '../CovidIcon';
 import Sort from '../Sort';
 
 type PropsBeforeStyle = {
@@ -98,6 +99,8 @@ const Table: React.FC<Props> = ({
     orderBy === property && order === 'ASC' ? 'asc' : 'desc';
 
   const SEPSIS_FLAG = filters.filter?.sepsis?.value || 'white';
+
+  const COVID_FLAG = filters.filter?.covid?.value || 'white';
   return (
     <TableElement>
       <thead>
@@ -131,7 +134,27 @@ const Table: React.FC<Props> = ({
               ) : null}
             </StyledTableSortLabel>
           </ColumnBadged>
-          <ColumnBadged center>COVID</ColumnBadged>
+          <ColumnBadged center>
+            COVID
+            <SortPoper
+              size="small"
+              icon={
+                <CovidIcon
+                  value={{
+                    suspectedCovidStatus: COVID_FLAG,
+                    dateIsolationDueToEnd: null,
+                    covidTestRequest: null,
+                  }}
+                />
+              }
+            >
+              <Sort
+                onFilterSort={onRequestSort}
+                defaultValues={filters}
+                covid
+              />
+            </SortPoper>
+          </ColumnBadged>
           <ColumnBadged center>
             SEPSIS
             <SortPoper
@@ -141,7 +164,7 @@ const Table: React.FC<Props> = ({
               <Sort
                 onFilterSort={onRequestSort}
                 defaultValues={filters}
-                onlyFilters
+                sepsis
               />
             </SortPoper>
           </ColumnBadged>

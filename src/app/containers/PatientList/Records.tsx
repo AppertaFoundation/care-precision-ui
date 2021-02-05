@@ -15,7 +15,7 @@ import {
   selectFilters,
 } from './selectors';
 
-import { Box, List, Toolbar, Grid } from '@material-ui/core';
+import { Box, List, Toolbar, Grid, Typography } from '@material-ui/core';
 import {
   Card,
   CardContent,
@@ -79,15 +79,22 @@ const Records = () => {
             </Grid>
             <Grid item>
               <SortPoper>
-                <Sort onFilterSort={handleSortFilter} defaultValues={filters} />
+                <Sort
+                  sort
+                  sepsis
+                  covid
+                  onFilterSort={handleSortFilter}
+                  defaultValues={filters}
+                />
               </SortPoper>
             </Grid>
           </Grid>
         </Toolbar>
       </div>
-      {patients?.length > 0 && (
-        <>
-          <Box m={1} mb={8} style={{ marginTop: '50px' }}>
+
+      <Box m={1} mb={8} style={{ marginTop: '50px' }}>
+        {patients?.length > 0 ? (
+          <>
             <List>
               {patients.map(
                 ({
@@ -116,9 +123,11 @@ const Records = () => {
                 ),
               )}
             </List>
-          </Box>
-        </>
-      )}
+          </>
+        ) : (
+          <Typography>There are no such records.</Typography>
+        )}
+      </Box>
     </>
   );
 };
