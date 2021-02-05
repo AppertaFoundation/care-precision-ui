@@ -104,12 +104,26 @@ export const selectResponse = createSelector(
 );
 
 const getInterventionAction = response => {
-  if (response.covidPathway) return response.covidPathway.recomendation;
+  let selectedIntervention: any[] = [];
+  if (Boolean(response.covidPathway)) {
+    selectedIntervention = [
+      response.covidPathway?.recomendation,
+      ...selectedIntervention,
+    ];
+  }
   if (response.internalEscalation)
-    return response.internalEscalation.recomendation;
-  if (response.externalEscalation)
-    return response.externalEscalation.externalEscalation;
-  return null;
+    selectedIntervention = [
+      response.internalEscalation.recomendation,
+      ...selectedIntervention,
+    ];
+  if (response.externalEscalation) {
+    const external = response.externalEscalation.recomendation?.map(
+      action => action,
+    );
+    selectedIntervention = [...external, ...selectedIntervention];
+  }
+
+  return selectedIntervention;
 };
 export const selectInterventionAction = createSelector(
   [selectDomain],

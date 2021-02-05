@@ -78,7 +78,6 @@ const News2 = ({ disabled, onOpenSummary, onValidate, openErrorDialog }) => {
     const systolic = getValues('systolic');
     const diastolic = getValues('diastolic');
     if (systolic && diastolic) {
-      debugger;
       if (parseInt(systolic) > parseInt(diastolic)) {
         return true;
       } else {

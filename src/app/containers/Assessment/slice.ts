@@ -159,6 +159,10 @@ const assessmentEventSlice = createSlice({
       const { type, recommendation } = action.payload;
       state.response[`${type}`] = recommendation;
     },
+    addIntervention(state, action) {
+      const intervention = action.payload;
+      state.response = { ...state.response, ...intervention };
+    },
     clearIntervention(state) {
       state.response.covidPathway = null;
       state.response.internalEscalation = null;
