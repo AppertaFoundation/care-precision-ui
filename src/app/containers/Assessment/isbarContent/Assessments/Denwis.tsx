@@ -32,9 +32,7 @@ export const Denwis = ({
 
   const [state, setState] = useState<{
     q1Breathing: { value: string; id: string };
-    breathingIndicator: string[] | boolean;
     q2Circulation: { value: string; id: string };
-    circulationIndeticator: string[] | boolean;
     q3Temperature: { value: string; id: string };
     q4Mentation: { value: string; id: string };
     q5Agitation: { value: string; id: string };
@@ -45,9 +43,7 @@ export const Denwis = ({
     q10OtherComment: { value: string; id: string };
   }>({
     q1Breathing: denwis?.q1Breathing || { value: '', id: ' ' },
-    breathingIndicator: denwis?.breathingIndicator || false,
     q2Circulation: denwis?.q2Circulation || { value: '', id: ' ' },
-    circulationIndeticator: denwis?.circulationIndeticator || false,
     q3Temperature: denwis?.q3Temperature || { value: '', id: ' ' },
     q4Mentation: denwis?.q4Mentation || { value: '', id: ' ' },
     q5Agitation: denwis?.q5Agitation || { value: '', id: ' ' },
@@ -67,11 +63,6 @@ export const Denwis = ({
         { name: `${item}` },
         {
           validate: () => {
-            if (
-              item === 'breathingIndicator' ||
-              item === 'circulationIndeticator'
-            )
-              return true;
             const chip = getValues(item);
             return Boolean(chip) || 'Plese select any option';
           },
@@ -83,36 +74,14 @@ export const Denwis = ({
   const useQ1Breathing = (effect: React.EffectCallback) =>
     useEffect(effect, [state.q1Breathing]);
   useQ1Breathing(() => {
-    if (state.q1Breathing.id === 'at0031') {
-      setState({ ...state, breathingIndicator: [] });
-    } else {
-      setState({ ...state, breathingIndicator: false });
-    }
     setValue('q1Breathing', state.q1Breathing);
   });
-
-  const useBreathingIndicator = (effect: React.EffectCallback) =>
-    useEffect(effect, [state.breathingIndicator]);
-  useBreathingIndicator(() =>
-    setValue('breathingIndicator', state.breathingIndicator),
-  );
 
   const useQ1Circulation = (effect: React.EffectCallback) =>
     useEffect(effect, [state.q2Circulation]);
   useQ1Circulation(() => {
-    if (state.q2Circulation.id === 'at0036') {
-      setState({ ...state, circulationIndeticator: [] });
-    } else {
-      setState({ ...state, circulationIndeticator: false });
-    }
     setValue('q2Circulation', state.q2Circulation);
   });
-
-  const useCirculationIndicator = (effect: React.EffectCallback) =>
-    useEffect(effect, [state.circulationIndeticator]);
-  useCirculationIndicator(() =>
-    setValue('circulationIndeticator', state.circulationIndeticator),
-  );
 
   const useQ3Temperature = (effect: React.EffectCallback) =>
     useEffect(effect, [state.q3Temperature]);
@@ -145,28 +114,6 @@ export const Denwis = ({
   useQ9NurseSubjective(() =>
     setValue('q9NurseSubjective', state.q9NurseSubjective),
   );
-
-  const isSelected = (key, value) => state[key].includes(value);
-
-  const addElement = (key, value) => {
-    const newTable = [value, ...state[key]];
-    setState({ ...state, [key]: newTable });
-    return newTable;
-  };
-
-  const removeElement = (key, value) => {
-    const newTable = state[key].filter(o => o !== value);
-    setState({ ...state, [key]: newTable });
-    return newTable;
-  };
-
-  const handleChange = e => {
-    const value = e.target.textContent;
-    const key = e.currentTarget.id;
-    isSelected(key, value) ? removeElement(key, value) : addElement(key, value);
-    e.currentTarget.blur();
-    e.target.blur();
-  };
 
   const excludedIsSelected = (key, value) => state[key].id === value.id;
 
@@ -232,48 +179,6 @@ export const Denwis = ({
             </Box>
           </Box>
 
-          {state.breathingIndicator && (
-            <Box m={1}>
-              <FormLabel component="legend">Breathing indicator </FormLabel>
-              <Box
-                display="flex"
-                justifyContent={'flex-start'}
-                flexWrap="wrap"
-                bgcolor="background.paper"
-              >
-                {[
-                  'Noisy breathing',
-                  'Short of breath',
-                  'Unable to speak full sentences',
-                  'Use accessory muscles',
-                ].map(item => {
-                  return (
-                    <Box m={1} key={uniqid()}>
-                      <Chip
-                        clickable
-                        {...(isSelected('breathingIndicator', item)
-                          ? {}
-                          : { variant: 'outlined' })}
-                        color="primary"
-                        size="small"
-                        label={item}
-                        onClick={handleChange}
-                        className={classess.root}
-                        id="breathingIndicator"
-                        disabled={disabled}
-                      />
-                    </Box>
-                  );
-                })}
-              </Box>
-              <Box>
-                {errors && (
-                  <ErrorMsg name={'breathingIndicator'} errors={errors} />
-                )}
-              </Box>
-            </Box>
-          )}
-
           <Box m={1}>
             <FormLabel component="legend">Q2 Circulation </FormLabel>
             <Box
@@ -309,48 +214,6 @@ export const Denwis = ({
               {errors && <ErrorMsg name={'q2Circulation'} errors={errors} />}
             </Box>
           </Box>
-
-          {state.circulationIndeticator && (
-            <Box m={1}>
-              <FormLabel component="legend">Circulation indicator </FormLabel>
-              <Box
-                display="flex"
-                justifyContent={'flex-start'}
-                flexWrap="wrap"
-                bgcolor="background.paper"
-              >
-                {[
-                  'Colour changes: pale, grey',
-                  'Sweaty/clammy',
-                  'Coldness',
-                  'Impaired perfusion',
-                ].map(item => {
-                  return (
-                    <Box m={1} key={uniqid()}>
-                      <Chip
-                        clickable
-                        {...(isSelected('circulationIndeticator', item)
-                          ? {}
-                          : { variant: 'outlined' })}
-                        color="primary"
-                        size="small"
-                        label={item}
-                        onClick={handleChange}
-                        className={classess.root}
-                        id="circulationIndeticator"
-                        disabled={disabled}
-                      />
-                    </Box>
-                  );
-                })}
-              </Box>
-              <Box>
-                {errors && (
-                  <ErrorMsg name={'circulationIndeticator'} errors={errors} />
-                )}
-              </Box>
-            </Box>
-          )}
 
           <Box m={1}>
             <FormLabel component="legend">Q3 Temperature</FormLabel>

@@ -28,15 +28,7 @@ import {
 } from '../PatientList/selectors';
 
 import { Box, Toolbar, Grid, Typography, Divider } from '@material-ui/core';
-import {
-  Search,
-  SortPoper,
-  Sort,
-  Spinner,
-  Table,
-  TdLast,
-  TdFirst,
-} from 'components';
+import { Search, Spinner, Table, TdLast, TdFirst } from 'components';
 import { useStyles } from '../PatientList/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core/styles';

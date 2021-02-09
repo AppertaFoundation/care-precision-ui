@@ -108,13 +108,13 @@ export function* submitAssessment(action) {
   yield delay(500);
   // const requestURL = `${(window as any)._env_.REACT_APP_API}/cdr/`;
   const formatedAssessment = serializeAssessmentJSON(action.payload);
-
   if (
     (window as any)[
       `${process.env.NODE_ENV === 'production' ? 'injectedEnv' : '_env_'}`
     ].REACT_APP_STATIC
   ) {
     download(JSON.stringify(formatedAssessment), 'json.txt', 'text/plain');
+    yield put(actions.cleanAssessment);
     return yield put(actions.successAssesment());
   }
   return yield put(actions.successAssesment());
