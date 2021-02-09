@@ -30,6 +30,7 @@ export const SepsisResult = () => {
   )}`;
   const theme = useTheme();
   const xs = useMediaQuery(theme.breakpoints.only('xs'));
+
   return (
     <Box p={1}>
       <Grid
@@ -85,18 +86,25 @@ export const SepsisResult = () => {
               flexWrap="nowrap"
               flexDirection="column"
             >
-              {sepsis?.redFlagAcute &&
-                sepsis?.redFlagAcute.map(({ label }) => (
+              {sepsis?.redFlags &&
+                sepsis?.redFlags.map(({ value }) => (
                   <Box p={1} key={uniqid()}>
                     <SepsisIcon value={{ value: 'red' }} />
-                    {label}
+                    {value}
                   </Box>
                 ))}
-              {sepsis?.amberFlagAcute &&
-                sepsis?.amberFlagAcute.map(({ label }) => (
+              {sepsis?.flags999 &&
+                sepsis?.flags999.map(({ value }) => (
+                  <Box p={1} key={uniqid()}>
+                    <SepsisIcon value={{ value: 'red' }} />
+                    {value}
+                  </Box>
+                ))}
+              {sepsis?.amberFlags &&
+                sepsis?.amberFlags.map(({ value }) => (
                   <Box p={1} key={uniqid()}>
                     <SepsisIcon value={{ value: 'amber' }} />
-                    {label}
+                    {value}
                   </Box>
                 ))}
             </Box>

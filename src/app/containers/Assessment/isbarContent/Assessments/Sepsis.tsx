@@ -26,94 +26,103 @@ const useStyles = makeStyles((theme: any) => ({
 }));
 
 const SUSPICION_CHIPS = [
-  { label: 'Age over 75', code: 'at0002' },
+  { value: 'Age over 75', code: 'at0002' },
   {
-    label: 'Impaired immunity (e.g diabetes, steroids, chemotherapy)',
+    value: 'Impaired immunity (e.g diabetes, steroids, chemotherapy)',
     code: 'at0003',
   },
-  { label: ' Recent trauma / surgery / invasive procedure', code: 'at0004' },
-  { label: 'Indwelling Lines', code: 'at0005' },
+  { value: ' Recent trauma / surgery / invasive procedure', code: 'at0004' },
+  { value: 'Indwelling Lines', code: 'at0005' },
 ];
 
 const SOURCE_CHIPS = [
-  { label: 'Respiratory', code: 'at0002' },
-  { label: 'Brain', code: 'at0003' },
-  { label: 'Urine', code: 'at0004' },
-  { label: 'Surgical', code: 'at0005' },
-  { label: 'Skin/ Joint/ Wound', code: 'at0006' },
-  { label: 'Indweling device', code: 'at0007' },
-  { label: 'Breast abscess', code: 'at0008' },
-  { label: 'Abdominal pain / distension', code: 'at0009' },
-  { label: 'Infected caesarean / perineal wound', code: 'at0010' },
-  { label: 'Chorioamnionitis / endometritis', code: 'at0011' },
+  { value: 'Respiratory', code: 'at0002' },
+  { value: 'Brain', code: 'at0003' },
+  { value: 'Urine', code: 'at0004' },
+  { value: 'Surgical', code: 'at0005' },
+  { value: 'Skin/ Joint/ Wound', code: 'at0006' },
+  { value: 'Indweling device', code: 'at0007' },
+  { value: 'Breast abscess', code: 'at0008' },
+  { value: 'Abdominal pain / distension', code: 'at0009' },
+  { value: 'Infected caesarean / perineal wound', code: 'at0010' },
+  { value: 'Chorioamnionitis / endometritis', code: 'at0011' },
 ];
 
 const RED_FLAG_CHIPS = [
   {
-    label:
+    value:
       'Objective evidence of new or altered mental state e.g. New deterioration in GCS/AVPU',
     code: 'at0002',
   },
   {
-    label: 'Systolic BP ≤ 90 mmHg (or drop of >40 from normal)',
+    value: 'Systolic BP ≤ 90 mmHg (or drop of >40 from normal)',
     code: 'at0004',
   },
-  { label: 'Heart rate ≥ 130 per minute', code: 'at0005' },
-  { label: 'Respiratory rate ≥ 25 per minute', code: 'at0006' },
-  { label: 'Needs O2 to keep SpO2 ≥ 92% (88% in COPD)', code: 'at0007' },
-  { label: 'Non-blanching rash / mottled / ashen / cyanotic', code: 'at0008' },
-  { label: 'Lactate ≥ 2 mmol/l', code: 'at0009' },
-  { label: 'Recent chemotherapy', code: 'at0010' },
+  { value: 'Heart rate ≥ 130 per minute', code: 'at0005' },
+  { value: 'Respiratory rate ≥ 25 per minute', code: 'at0006' },
+  { value: 'Needs O2 to keep SpO2 ≥ 92% (88% in COPD)', code: 'at0007' },
+  { value: 'Non-blanching rash / mottled / ashen / cyanotic', code: 'at0008' },
+  { value: 'Lactate ≥ 2 mmol/l', code: 'at0009' },
+  { value: 'Recent chemotherapy', code: 'at0010' },
   {
-    label: 'Not passed urine in 18 hours (<0.5ml/kg/hr if catheterised)',
+    value: 'Not passed urine in 18 hours (<0.5ml/kg/hr if catheterised)',
     code: 'at0011',
   },
 ];
 
 const RED_FLAG_CHIPS_NO_CLINICAL = [
   {
-    label: 'Objective evidence of new or altered mental state',
+    value: 'Objective evidence of new or altered mental state',
     code: 'at0012',
   },
   {
-    label: 'Unable to stand / collapsed',
+    value: 'Unable to stand / collapsed',
     code: 'at0013',
   },
-  { label: 'Unable to catch breath / barely able to speak', code: 'at0014' },
-  { label: 'Very fast breathing', code: 'at0015' },
-  { label: 'Skin that is very pale, mottled , ashen or blue', code: 'at0016' },
-  { label: 'Rash that doesn’t fade when pressed firmly', code: 'at0017' },
-  { label: 'Recent chemotherapy', code: 'at0018' },
-  { label: 'Under 17 and immunity impaired', code: 'at0019' },
+  { value: 'Unable to catch breath / barely able to speak', code: 'at0014' },
+  { value: 'Very fast breathing', code: 'at0015' },
+  { value: 'Skin that is very pale, mottled , ashen or blue', code: 'at0016' },
+  { value: 'Rash that doesn’t fade when pressed firmly', code: 'at0017' },
+  { value: 'Recent chemotherapy', code: 'at0018' },
+  { value: 'Under 17 and immunity impaired', code: 'at0019' },
 ];
 
 const AMBER_FLAG_CHIPS = [
-  { label: 'Relatives concerned about mental status', code: 'at0002' },
+  { value: 'Relatives concerned about mental status', code: 'at0002' },
   {
-    label: 'Nurse, relative or carer worried about patient (Palliative)',
+    value: 'Nurse, relative or carer worried about patient (Palliative)',
     code: 'at0003',
   },
-  { label: 'Acute deterioration in functional ability', code: 'at0004' },
-  { label: 'Immunosuppressed', code: 'at0005' },
-  { label: 'Trauma / surgery / procedure in last 8 weeks', code: 'at0006' },
-  { label: 'Respiratory rate 21-24', code: 'at0007' },
-  { label: 'Systolic BP 91-100 mmHg', code: 'at0008' },
-  { label: 'Heart rate 91-130 or new dysrhythmia', code: 'at0009' },
-  { label: 'Temperature <36°C', code: 'at0010' },
-  { label: 'Clinical signs of wound infection', code: 'at0011' },
+  { value: 'Acute deterioration in functional ability', code: 'at0004' },
+  { value: 'Immunosuppressed', code: 'at0005' },
+  { value: 'Trauma / surgery / procedure in last 8 weeks', code: 'at0006' },
+  { value: 'Respiratory rate 21-24', code: 'at0007' },
+  { value: 'Systolic BP 91-100 mmHg', code: 'at0008' },
+  { value: 'Heart rate 91-130 or new dysrhythmia', code: 'at0009' },
+  { value: 'Temperature <36°C', code: 'at0010' },
+  { value: 'Clinical signs of wound infection', code: 'at0011' },
   {
-    label: 'Not passed urine in last 12-18 hours, (Dental only)',
+    value: 'Not passed urine in last 12-18 hours, (Dental only)',
     code: 'at0012',
   },
 ];
 
 const AMBER_FLAG_CHIPS_NO_CLINICAL = [
-  { label: 'Behavioural change / reduced activity', code: 'at0013' },
-  { label: 'Immunosuppressed', code: 'at0014' },
-  { label: 'Breathing harder work than normal', code: 'at0015' },
-  { label: 'Reduced urine output', code: 'at0016' },
-  { label: 'Temperature <36°C', code: 'at0017' },
-  { label: 'Signs of wound infection', code: 'at0018' },
+  { value: 'Behavioural change / reduced activity', code: 'at0013' },
+  { value: 'Immunosuppressed', code: 'at0014' },
+  { value: 'Breathing harder work than normal', code: 'at0015' },
+  { value: 'Reduced urine output', code: 'at0016' },
+  { value: 'Temperature <36°C', code: 'at0017' },
+  { value: 'Signs of wound infection', code: 'at0018' },
+];
+
+const FLAG999 = [
+  { value: 'Slurred speech or confusion', code: 'at0002' },
+  { value: 'Extreme shivering or muscle pain', code: 'at0003' },
+  { value: 'Passing no urine (in a day)', code: 'at0004' },
+  { value: 'Severe breathlessness', code: 'at0005' },
+  { value: '‘I feel I might die’', code: 'at0006' },
+  { value: 'Skin mottled, ashen, blue or very pale', code: 'at0007' },
 ];
 
 export const Sepsis: React.FC<{
@@ -132,13 +141,14 @@ export const Sepsis: React.FC<{
   const [state, setState] = React.useState({
     riskFactorsForSepsis: sepsisDefault?.riskFactorsForSepsis || [],
     likelySourceOfInfection: sepsisDefault?.likelySourceOfInfection || [],
-    redFlagAcute: sepsisDefault?.redFlagAcute || [],
-    amberFlagAcute: sepsisDefault?.amberFlagAcute || [],
+    redFlags: sepsisDefault?.redFlags || [],
+    amberFlags: sepsisDefault?.amberFlags || [],
+    flags999: sepsisDefault?.flags999 || [],
   });
 
   const [clinical, setClinical] = React.useState(false);
   const RED_FLAG = clinical ? RED_FLAG_CHIPS : RED_FLAG_CHIPS_NO_CLINICAL;
-  const AMBER_FLAG: { label?: string; code: string }[] = clinical
+  const AMBER_FLAG: { value?: string; code: string }[] = clinical
     ? AMBER_FLAG_CHIPS
     : AMBER_FLAG_CHIPS_NO_CLINICAL;
 
@@ -148,8 +158,9 @@ export const Sepsis: React.FC<{
   useEffectOnMount(() => {
     register({ name: 'riskFactorsForSepsis' });
     register({ name: 'likelySourceOfInfection' });
-    register({ name: 'redFlagAcute' });
-    register({ name: 'amberFlagAcute' });
+    register({ name: 'redFlags' });
+    register({ name: 'amberFlags' });
+    register({ name: 'flags999' });
   });
   //This maybe i can optymalize also??
   const useEffectOnSaveSuspision = (effect: React.EffectCallback) => {
@@ -165,23 +176,25 @@ export const Sepsis: React.FC<{
     setValue('likelySourceOfInfection', state.likelySourceOfInfection);
   });
   const useEffectOnSaveSRedFlag = (effect: React.EffectCallback) => {
-    useEffect(effect, [state.redFlagAcute]);
+    useEffect(effect, [state.redFlags]);
   };
   useEffectOnSaveSRedFlag(() => {
-    setValue('redFlagAcute', state.redFlagAcute);
+    setValue('redFlags', state.redFlags);
   });
   const useEffectOnSaveAmberFlag = (effect: React.EffectCallback) => {
-    useEffect(effect, [state.amberFlagAcute]);
+    useEffect(effect, [state.amberFlags]);
   };
   useEffectOnSaveAmberFlag(() => {
-    setValue('amberFlagAcute', state.amberFlagAcute);
+    setValue('amberFlags', state.amberFlags);
   });
-
+  useEffectOnSaveAmberFlag(() => {
+    setValue('flags999', state.flags999);
+  });
   const isSelected = (key, code) =>
     state[key].find(selected => selected.code === code);
 
   const addElement = (key, value, code) => {
-    const newTable = [{ label: value, code: code }, ...state[key]];
+    const newTable = [{ value: value, code: code }, ...state[key]];
     setState({ ...state, [key]: newTable });
     return newTable;
   };
@@ -247,7 +260,7 @@ export const Sepsis: React.FC<{
               flexWrap="wrap"
               bgcolor="background.paper"
             >
-              {SUSPICION_CHIPS.map(({ label, code }, index) => {
+              {SUSPICION_CHIPS.map(({ value, code }, index) => {
                 return (
                   <Box m={1} key={uniqid()}>
                     <Chip
@@ -257,7 +270,7 @@ export const Sepsis: React.FC<{
                         : { variant: 'outlined' })}
                       color="primary"
                       size="small"
-                      label={label}
+                      label={value}
                       onClick={e => handleChange(e, code)}
                       className={classess.root}
                       id="riskFactorsForSepsis"
@@ -284,7 +297,7 @@ export const Sepsis: React.FC<{
               flexWrap="wrap"
               bgcolor="background.paper"
             >
-              {SOURCE_CHIPS.map(({ label, code }, index) => {
+              {SOURCE_CHIPS.map(({ value, code }, index) => {
                 return (
                   <Box m={1} key={uniqid()}>
                     <Chip
@@ -294,7 +307,7 @@ export const Sepsis: React.FC<{
                         : { variant: 'outlined' })}
                       color="primary"
                       size="small"
-                      label={label}
+                      label={value}
                       onClick={e => handleChange(e, code)}
                       className={classess.root}
                       id={'likelySourceOfInfection'}
@@ -321,20 +334,39 @@ export const Sepsis: React.FC<{
               flexWrap="wrap"
               bgcolor="background.paper"
             >
-              {RED_FLAG.map(({ label, code }, index) => {
+              {RED_FLAG.map(({ value, code }, index) => {
                 return (
                   <Box m={1} key={uniqid()}>
                     <Chip
                       clickable
-                      {...(isSelected('redFlagAcute', code)
+                      {...(isSelected('redFlags', code)
                         ? {}
                         : { variant: 'outlined' })}
                       color="primary"
                       size="small"
-                      label={label}
+                      label={value}
                       onClick={e => handleChange(e, code)}
                       className={classess.root}
-                      id={'redFlagAcute'}
+                      id={'redFlags'}
+                      disabled={disabled}
+                    />
+                  </Box>
+                );
+              })}
+              {FLAG999.map(({ value, code }, index) => {
+                return (
+                  <Box m={1} key={uniqid()}>
+                    <Chip
+                      clickable
+                      {...(isSelected('flags999', code)
+                        ? {}
+                        : { variant: 'outlined' })}
+                      color="primary"
+                      size="small"
+                      label={value}
+                      onClick={e => handleChange(e, code)}
+                      className={classess.root}
+                      id={'flags999'}
                       disabled={disabled}
                     />
                   </Box>
@@ -342,7 +374,7 @@ export const Sepsis: React.FC<{
               })}
             </Box>
             <Box>
-              {errors && <ErrorMsg name={'redFlagAcute'} errors={errors} />}
+              {errors && <ErrorMsg name={'redFlags'} errors={errors} />}
             </Box>
           </Box>
 
@@ -356,20 +388,20 @@ export const Sepsis: React.FC<{
               flexWrap="wrap"
               bgcolor="background.paper"
             >
-              {AMBER_FLAG.map(({ label, code }, index) => {
+              {AMBER_FLAG.map(({ value, code }, index) => {
                 return (
                   <Box m={1} key={uniqid()}>
                     <Chip
                       clickable
-                      {...(isSelected('amberFlagAcute', code)
+                      {...(isSelected('amberFlags', code)
                         ? {}
                         : { variant: 'outlined' })}
                       color="primary"
                       size="small"
-                      label={label}
+                      label={value}
                       onClick={e => handleChange(e, code)}
                       className={classess.root}
-                      id={'amberFlagAcute'}
+                      id={'amberFlags'}
                       disabled={disabled}
                     />
                   </Box>
@@ -377,7 +409,7 @@ export const Sepsis: React.FC<{
               })}
             </Box>
             <Box>
-              {errors && <ErrorMsg name={'amberFlagAcute'} errors={errors} />}
+              {errors && <ErrorMsg name={'amberFlags'} errors={errors} />}
             </Box>
           </Box>
         </Paper>
