@@ -15,7 +15,6 @@ import { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '../../../utils/@reduxjs/toolkit';
 import { ContainerState, PatientErrorType } from './types';
 import { IPatient, IAssessmentIcons } from 'types';
-// The initial state of the PatientList container
 export const initialState: ContainerState = {
   loading: false,
   error: null,
@@ -33,6 +32,7 @@ export const initialState: ContainerState = {
   pending: false,
   success: false,
   submissionError: null,
+  clinical: false,
   response: {
     covidPathway: null,
     monitor: null,
@@ -79,11 +79,13 @@ const assessmentEventSlice = createSlice({
     },
     saveNews2(state, action) {
       const news2 = action.payload;
-      state.news2 = { ...state.news2, ...news2 };
+      state.news2 = news2;
     },
     saveSepsis(state, action) {
-      const sepsis = action.payload;
-      state.sepsis = { ...state.sepsis, ...sepsis };
+      const sepsis = action.payload.sepsis;
+      const clinical = action.payload.clinical;
+      state.sepsis = sepsis;
+      state.clinical = clinical;
     },
     saveDenwis(state, action) {
       const denwis = action.payload;
@@ -122,7 +124,7 @@ const assessmentEventSlice = createSlice({
       state.loadingResult = false;
       state.errorResult = null;
       state.result = {};
-      state.background = {};
+      state.background = { height: '165', weight: '50' };
       state.news2 = {};
       state.sepsis = {};
       state.covid = {};

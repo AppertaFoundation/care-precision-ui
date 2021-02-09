@@ -134,3 +134,8 @@ export const selectMonitor = createSelector(
   [selectDomain],
   assessmentEventSaga => assessmentEventSaga.response.monitor,
 );
+
+export const selectIsClinical = createSelector(
+  [selectDomain],
+  assessmentEventSaga => assessmentEventSaga.clinical,
+);

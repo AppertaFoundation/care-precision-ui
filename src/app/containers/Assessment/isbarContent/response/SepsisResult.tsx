@@ -86,17 +86,17 @@ export const SepsisResult = () => {
               flexDirection="column"
             >
               {sepsis?.redFlagAcute &&
-                sepsis?.redFlagAcute.map(item => (
+                sepsis?.redFlagAcute.map(({ label }) => (
                   <Box p={1} key={uniqid()}>
                     <SepsisIcon value={{ value: 'red' }} />
-                    {item}
+                    {label}
                   </Box>
                 ))}
               {sepsis?.amberFlagAcute &&
-                sepsis?.amberFlagAcute.map(item => (
+                sepsis?.amberFlagAcute.map(({ label }) => (
                   <Box p={1} key={uniqid()}>
                     <SepsisIcon value={{ value: 'amber' }} />
-                    {item}
+                    {label}
                   </Box>
                 ))}
             </Box>

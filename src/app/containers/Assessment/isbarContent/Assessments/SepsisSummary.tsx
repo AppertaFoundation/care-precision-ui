@@ -25,13 +25,12 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 const Section: React.FC<{
-  indicators?: string[];
-  redFlagAcute?: string[];
-  amberFlagAcute?: string[];
+  redFlagAcute?: { code: string; label: string }[];
+  amberFlagAcute?: { code: string; label: string }[];
   section: string;
-}> = ({ indicators = [], redFlagAcute = [], amberFlagAcute = [], section }) => {
+}> = ({ redFlagAcute = [], amberFlagAcute = [], section }) => {
   const classes = useStyles();
-  if ([...indicators, ...redFlagAcute, ...amberFlagAcute].length === 0) {
+  if ([...redFlagAcute, ...amberFlagAcute].length === 0) {
     return null;
   }
   return (
@@ -46,24 +45,18 @@ const Section: React.FC<{
         </Box>
       </Box>
       <Box display="flex" flexWrap="nowrap" flexDirection="column">
-        {indicators &&
-          indicators.map(item => (
-            <Box key={uniqid()} p={1}>
-              {item}
-            </Box>
-          ))}
         {redFlagAcute &&
-          redFlagAcute.map(item => (
+          redFlagAcute.map(({ label }) => (
             <Box p={1} key={uniqid()}>
               <SepsisIcon value={{ value: 'red' }} />
-              {item}
+              {label}
             </Box>
           ))}
         {amberFlagAcute &&
-          amberFlagAcute.map(item => (
+          amberFlagAcute.map(({ label }) => (
             <Box p={1} key={uniqid()}>
               <SepsisIcon value={{ value: 'amber' }} />
-              {item}
+              {label}
             </Box>
           ))}
       </Box>
@@ -76,9 +69,6 @@ export const SepsisSummary = () => {
   const sepsis = useSelector(selectSepsis);
   const nhsNo = useSelector(selectPatientNHS);
   const name = useSelector(selectPatientName);
-  // const result = useSelector(selectResult);
-  // const sepsisResult = result?.sepsis?.value;
-
   const isEmptyScreening = () => {
     const {
       riskFactorsForSepsis,
@@ -131,14 +121,8 @@ export const SepsisSummary = () => {
         </Typography>
       ) : (
         <Box m={1}>
-          <Section
-            indicators={sepsis?.riskFactorsForSepsis}
-            section="Sepsis Risk Factory"
-          />
-          <Section
-            indicators={sepsis?.likelySourceOfInfection}
-            section="Likely source of infection"
-          />
+          <Section section="Sepsis Risk Factory" />
+          <Section section="Likely source of infection" />
           <Section
             redFlagAcute={sepsis?.redFlagAcute}
             amberFlagAcute={sepsis?.amberFlagAcute}

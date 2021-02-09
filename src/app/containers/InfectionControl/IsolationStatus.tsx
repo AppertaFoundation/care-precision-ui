@@ -13,7 +13,6 @@ import {
   selectIsolationStatus,
   selectIsolationReason,
   selectCovidStatusDate,
-  selectEndOfIsolation,
   selectIsolationDays,
   selectDayOfIsolation,
   selectResultCS,

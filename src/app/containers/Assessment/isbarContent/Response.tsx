@@ -22,6 +22,7 @@ import {
   selectPending,
   selectSuccess,
   selectResult,
+  selectIsClinical,
   selectResponse,
 } from '../selectors';
 
@@ -68,6 +69,7 @@ const Response = () => {
   const submissionError = useSelector(selectSubmissionError);
   const result = useSelector(selectResult);
   const response = useSelector(selectResponse);
+  const clinical = useSelector(selectIsClinical);
 
   const [open, setOpen] = React.useState(false);
   const [noAction, setNoAction] = React.useState(false);
@@ -97,6 +99,7 @@ const Response = () => {
     }
     dispatch(
       actions.pendingAssessment({
+        uuid: id,
         situation: situation,
         background: background,
         news2: news2,
@@ -105,6 +108,7 @@ const Response = () => {
         denwis: denwis,
         result: result,
         response: response,
+        clinical,
       }),
     );
     setOpen(true);

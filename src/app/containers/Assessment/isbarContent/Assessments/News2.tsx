@@ -22,34 +22,58 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { useForm } from 'react-hook-form';
 import { useSelector, useDispatch } from 'react-redux';
 
+const CONSCIOUSNESS = [
+  {
+    id: 'at0005',
+    value: 'Alert',
+  },
+  {
+    id: 'at0006',
+    value: 'Voice',
+  },
+  {
+    id: 'at0015',
+    value: 'Confusion',
+  },
+  {
+    id: 'at0007',
+    value: 'Pain',
+  },
+  {
+    id: 'at0008',
+    value: 'Unresponsive',
+  },
+];
 const News2 = ({ disabled, onOpenSummary, onValidate, openErrorDialog }) => {
   const news2Default = useSelector(selectNews2);
   const dispatch = useDispatch();
+  const methodOfOxygenDeliveryName = 'inspiredOxygen.methodOfOxygenDelivery';
 
-  const {
-    handleSubmit,
-    getValues,
-    watch,
-    trigger,
-    register,
-    errors,
-    control,
-  } = useForm({
-    defaultValues: news2Default,
-  });
+  const { handleSubmit, getValues, watch, register, errors, control } = useForm(
+    {
+      defaultValues: news2Default,
+    },
+  );
   const [airOrOxygen, setAirOrOxygen] = React.useState<boolean>(false);
   const [expanded, setExpanded] = React.useState({
     ab: 'ab',
     c: 'c',
     de: 'de',
   });
-
   const handleChange = panel => (event, isExpanded) => {
     setExpanded({ ...expanded, [panel]: isExpanded ? panel : false });
   };
 
+  const intoACVPU = value => ({
+    acvpu: {
+      code: value,
+      value: CONSCIOUSNESS.find(consciousness => consciousness.id === value)
+        ?.value,
+    },
+  });
   const onSubmit = data => {
-    dispatch(actions.saveNews2(data));
+    const acvpu = intoACVPU(data.acvpu.code);
+    dispatch(actions.saveNews2({ ...data, ...acvpu }));
     if (onValidate()) {
       dispatch(
         actions.calculateResult({ obsType: 'news2', assessmentForm: data }),
@@ -61,10 +85,10 @@ const News2 = ({ disabled, onOpenSummary, onValidate, openErrorDialog }) => {
   };
 
   const useEffectOnAirOrOxygenChange = (effect: React.EffectCallback) => {
-    React.useEffect(effect, [watch('o2Delivery')]);
+    React.useEffect(effect, [watch(methodOfOxygenDeliveryName)]);
   };
   useEffectOnAirOrOxygenChange(() => {
-    const value = watch('o2Delivery');
+    const value = watch(methodOfOxygenDeliveryName);
     if (value) {
       setAirOrOxygen(value !== 'Room Air');
     } else {
@@ -75,8 +99,8 @@ const News2 = ({ disabled, onOpenSummary, onValidate, openErrorDialog }) => {
   const tempatureUnit = '\u2103';
 
   const bloodPreasureValidate = type => {
-    const systolic = getValues('systolic');
-    const diastolic = getValues('diastolic');
+    const systolic = getValues('systolic.magnitude');
+    const diastolic = getValues('diastolic.magnitude');
     if (systolic && diastolic) {
       if (parseInt(systolic) > parseInt(diastolic)) {
         return true;
@@ -114,7 +138,7 @@ const News2 = ({ disabled, onOpenSummary, onValidate, openErrorDialog }) => {
                     disabled={disabled}
                     variant="outlined"
                     label="Respiration Rate"
-                    name="respirations"
+                    name="respirations.magnitude"
                     type="number"
                     fullWidth
                     InputProps={{
@@ -137,7 +161,16 @@ const News2 = ({ disabled, onOpenSummary, onValidate, openErrorDialog }) => {
                       },
                     })}
                   />
-                  {errors && <ErrorMsg name={'respirations'} errors={errors} />}
+                  <input
+                    type="hidden"
+                    ref={register}
+                    name="respirations.units"
+                    value="/min"
+                  />
+
+                  {errors && (
+                    <ErrorMsg name={'respirations.magnitude'} errors={errors} />
+                  )}
                 </Grid>
                 <Grid item md={12}>
                   <TextField
@@ -181,9 +214,11 @@ const News2 = ({ disabled, onOpenSummary, onValidate, openErrorDialog }) => {
                       { value: 'NIV', label: 'NIV' },
                     ]}
                     label="o2 Delivery"
-                    name="o2Delivery"
+                    name={methodOfOxygenDeliveryName}
                     control={control}
-                    defaultValue={news2Default?.o2Delivery}
+                    defaultValue={
+                      news2Default?.inspiredOxygen?.methodOfOxygenDelivery
+                    }
                     rules={{
                       required: {
                         value: true,
@@ -191,7 +226,12 @@ const News2 = ({ disabled, onOpenSummary, onValidate, openErrorDialog }) => {
                       },
                     }}
                   />
-                  {errors && <ErrorMsg name={'o2Delivery'} errors={errors} />}
+                  {errors && (
+                    <ErrorMsg
+                      name={methodOfOxygenDeliveryName}
+                      errors={errors}
+                    />
+                  )}
                 </Grid>
                 {airOrOxygen && (
                   <Grid item md={12}>
@@ -199,7 +239,7 @@ const News2 = ({ disabled, onOpenSummary, onValidate, openErrorDialog }) => {
                       disabled={disabled}
                       variant="outlined"
                       label="Flow Rate"
-                      name="flowRate"
+                      name="inspiredOxygen.flowRat.magnitude"
                       fullWidth
                       type="number"
                       InputProps={{
@@ -222,7 +262,18 @@ const News2 = ({ disabled, onOpenSummary, onValidate, openErrorDialog }) => {
                         },
                       })}
                     />
-                    {errors && <ErrorMsg name={'flowRate'} errors={errors} />}
+                    <input
+                      type="hidden"
+                      ref={register}
+                      name="inspiredOxygen.flowRat.units"
+                      value="l/min"
+                    />
+                    {errors && (
+                      <ErrorMsg
+                        name={'inspiredOxygen.flowRat.magnitude'}
+                        errors={errors}
+                      />
+                    )}
                   </Grid>
                 )}
               </Grid>
@@ -252,7 +303,7 @@ const News2 = ({ disabled, onOpenSummary, onValidate, openErrorDialog }) => {
                         disabled={disabled}
                         variant="outlined"
                         label="Systolic"
-                        name="systolic"
+                        name="systolic.magnitude"
                         fullWidth
                         type="number"
                         InputProps={{
@@ -278,14 +329,22 @@ const News2 = ({ disabled, onOpenSummary, onValidate, openErrorDialog }) => {
                           validate: bloodPreasureValidate,
                         })}
                       />
-                      {errors && <ErrorMsg name={'systolic'} errors={errors} />}
+                      <input
+                        type="hidden"
+                        ref={register}
+                        name="systolic.units"
+                        value="/mmHg"
+                      />
+                      {errors && (
+                        <ErrorMsg name={'systolic.magnitude'} errors={errors} />
+                      )}
                     </Grid>
                     <Grid item>
                       <TextField
                         disabled={disabled}
                         variant="outlined"
                         label="Diastolic"
-                        name="diastolic"
+                        name="diastolic.magnitude"
                         fullWidth
                         type="number"
                         InputProps={{
@@ -311,8 +370,17 @@ const News2 = ({ disabled, onOpenSummary, onValidate, openErrorDialog }) => {
                           validate: bloodPreasureValidate,
                         })}
                       />
+                      <input
+                        type="hidden"
+                        ref={register}
+                        name="diastolic.units"
+                        value="/mmHg"
+                      />
                       {errors && (
-                        <ErrorMsg name={'diastolic'} errors={errors} />
+                        <ErrorMsg
+                          name={'diastolic.magnitude'}
+                          errors={errors}
+                        />
                       )}
                     </Grid>
                   </Grid>
@@ -322,7 +390,7 @@ const News2 = ({ disabled, onOpenSummary, onValidate, openErrorDialog }) => {
                     disabled={disabled}
                     variant="outlined"
                     label="Pulse Rate"
-                    name="pulse"
+                    name="pulse.magnitude"
                     type="number"
                     fullWidth
                     inputRef={register({
@@ -341,11 +409,19 @@ const News2 = ({ disabled, onOpenSummary, onValidate, openErrorDialog }) => {
                     })}
                     InputProps={{
                       endAdornment: (
-                        <InputAdornment position="end">Bpm</InputAdornment>
+                        <InputAdornment position="end">/min</InputAdornment>
                       ),
                     }}
                   />
-                  {errors && <ErrorMsg name={'pulse'} errors={errors} />}
+                  <input
+                    type="hidden"
+                    ref={register}
+                    name="pulse.units"
+                    value="/min"
+                  />
+                  {errors && (
+                    <ErrorMsg name={'pulse.magnitude'} errors={errors} />
+                  )}
                 </Grid>
               </Grid>
             </AccordionDetails>
@@ -370,47 +446,25 @@ const News2 = ({ disabled, onOpenSummary, onValidate, openErrorDialog }) => {
                 <Grid item md={12}>
                   <RadioGroup
                     disabled={disabled}
-                    name="consciousness"
+                    name="acvpu.code"
                     label="Consciousness"
                     errors={errors}
-                    defaultValue={news2Default?.consciousness}
+                    defaultValue={news2Default?.acvpu?.code}
                     register={register({
                       required: {
                         value: true,
                         message: 'This field is required',
                       },
                     })}
-                    values={[
-                      {
-                        id: 'Alert',
-                        value: 'Alert',
-                      },
-                      {
-                        id: 'Voice',
-                        value: 'Voice',
-                      },
-                      {
-                        id: 'Confusion',
-                        value: 'Confusion',
-                      },
-                      {
-                        id: 'pain',
-                        value: 'Pain',
-                      },
-                      {
-                        id: 'Unresponsive',
-                        value: 'Unresponsive',
-                      },
-                    ]}
+                    values={CONSCIOUSNESS}
                   />
-                  {/* {errors && <ErrorMsg name={'tempature'} errors={errors} />} */}
                 </Grid>
                 <Grid item md={12}>
                   <TextField
                     disabled={disabled}
                     variant="outlined"
                     label="Tempature"
-                    name="tempature"
+                    name="temperature.magnitude"
                     type="number"
                     fullWidth
                     inputRef={register({
@@ -436,7 +490,15 @@ const News2 = ({ disabled, onOpenSummary, onValidate, openErrorDialog }) => {
                       ),
                     }}
                   />
-                  {errors && <ErrorMsg name={'tempature'} errors={errors} />}
+                  <input
+                    type="hidden"
+                    ref={register}
+                    name="temperature.units"
+                    value={tempatureUnit}
+                  />
+                  {errors && (
+                    <ErrorMsg name={'tempature.magnitude'} errors={errors} />
+                  )}
                 </Grid>
               </Grid>
             </AccordionDetails>

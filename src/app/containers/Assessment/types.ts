@@ -21,6 +21,7 @@ export interface AssessmentEvent {
   pending: boolean;
   success: boolean | null;
   submissionError: any;
+  clinical: boolean;
   response: {
     covidPathway: null | any;
     monitor: null | any;
