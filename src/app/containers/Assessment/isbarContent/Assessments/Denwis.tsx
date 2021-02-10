@@ -31,27 +31,30 @@ export const Denwis = ({
   });
 
   const [state, setState] = useState<{
-    q1Breathing: { value: string; id: string };
-    q2Circulation: { value: string; id: string };
-    q3Temperature: { value: string; id: string };
-    q4Mentation: { value: string; id: string };
-    q5Agitation: { value: string; id: string };
-    q6Pain: { value: string; id: string };
-    q7Trajectory: { value: string; id: string };
-    q8PatientSubjective: { value: string; id: string };
-    q9NurseSubjective: { value: string; id: string };
-    q10OtherComment: { value: string; id: string };
+    q1Breathing: { value: string; code: string };
+    q2Circulation: { value: string; code: string };
+    q3Temperature: { value: string; code: string };
+    q4Mentation: { value: string; code: string };
+    q5Agitation: { value: string; code: string };
+    q6Pain: { value: string; code: string };
+    q7Trajectory: { value: string; code: string };
+    q8PatientSubjective: { value: string; code: string };
+    q9NurseSubjective: { value: string; code: string };
+    q10OtherComment: { value: string; code: string };
   }>({
-    q1Breathing: denwis?.q1Breathing || { value: '', id: ' ' },
-    q2Circulation: denwis?.q2Circulation || { value: '', id: ' ' },
-    q3Temperature: denwis?.q3Temperature || { value: '', id: ' ' },
-    q4Mentation: denwis?.q4Mentation || { value: '', id: ' ' },
-    q5Agitation: denwis?.q5Agitation || { value: '', id: ' ' },
-    q6Pain: denwis?.q6Pain || { value: '', id: ' ' },
-    q7Trajectory: denwis?.q7Trajectory || { value: '', id: ' ' },
-    q8PatientSubjective: denwis?.q8PatientSubjective || { value: '', id: ' ' },
-    q9NurseSubjective: denwis?.q9NurseSubjective || { value: '', id: ' ' },
-    q10OtherComment: denwis?.q10OtherComment || { value: '', id: ' ' },
+    q1Breathing: denwis?.q1Breathing || { value: '', code: ' ' },
+    q2Circulation: denwis?.q2Circulation || { value: '', code: ' ' },
+    q3Temperature: denwis?.q3Temperature || { value: '', code: ' ' },
+    q4Mentation: denwis?.q4Mentation || { value: '', code: ' ' },
+    q5Agitation: denwis?.q5Agitation || { value: '', code: ' ' },
+    q6Pain: denwis?.q6Pain || { value: '', code: ' ' },
+    q7Trajectory: denwis?.q7Trajectory || { value: '', code: ' ' },
+    q8PatientSubjective: denwis?.q8PatientSubjective || {
+      value: '',
+      code: ' ',
+    },
+    q9NurseSubjective: denwis?.q9NurseSubjective || { value: '', code: ' ' },
+    q10OtherComment: denwis?.q10OtherComment || { value: '', code: ' ' },
   });
 
   const useEffectOnMount = (effect: React.EffectCallback) => {
@@ -115,13 +118,13 @@ export const Denwis = ({
     setValue('q9NurseSubjective', state.q9NurseSubjective),
   );
 
-  const excludedIsSelected = (key, value) => state[key].id === value.id;
+  const excludedIsSelected = (key, value) => state[key].code === value.code;
 
   const excludedHandleChange = e => {
     const { target, currentTarget } = e;
     const { textContent: value, id } = target;
     const { id: key } = currentTarget;
-    setState({ ...state, [key]: { value, id } });
+    setState({ ...state, [key]: { value, code: id } });
   };
 
   const onSubmit = data => {
@@ -152,8 +155,8 @@ export const Denwis = ({
               bgcolor="background.paper"
             >
               {[
-                { value: 'No change in breathing', id: 'at0032' },
-                { value: 'Change in breathing', id: 'at0031' },
+                { value: 'No change in breathing', code: 'at0032' },
+                { value: 'Change in breathing', code: 'at0031' },
               ].map((item, index) => {
                 return (
                   <Box m={1} key={uniqid()}>
@@ -164,7 +167,7 @@ export const Denwis = ({
                         : { variant: 'outlined' })}
                       color="primary"
                       size="small"
-                      label={<span id={item.id}>{item.value}</span>}
+                      label={<span id={item.code}>{item.value}</span>}
                       onClick={excludedHandleChange}
                       className={classess.root}
                       id="q1Breathing"
@@ -188,8 +191,8 @@ export const Denwis = ({
               bgcolor="background.paper"
             >
               {[
-                { value: 'No change in circulation', id: 'at0037' },
-                { value: 'Change in circulation', id: 'at0036' },
+                { value: 'No change in circulation', code: 'at0037' },
+                { value: 'Change in circulation', code: 'at0036' },
               ].map((item, index) => {
                 return (
                   <Box m={1} key={uniqid()}>
@@ -200,7 +203,7 @@ export const Denwis = ({
                         : { variant: 'outlined' })}
                       color="primary"
                       size="small"
-                      label={<span id={item.id}>{item.value}</span>}
+                      label={<span id={item.code}>{item.value}</span>}
                       onClick={excludedHandleChange}
                       className={classess.root}
                       id="q2Circulation"
@@ -224,8 +227,8 @@ export const Denwis = ({
               bgcolor="background.paper"
             >
               {[
-                { value: 'No change in temperature', id: 'at0042' },
-                { value: 'Change in temperature', id: 'at0105' },
+                { value: 'No change in temperature', code: 'at0042' },
+                { value: 'Change in temperature', code: 'at0105' },
               ].map((item, index) => {
                 return (
                   <Box m={1} key={uniqid()}>
@@ -236,7 +239,7 @@ export const Denwis = ({
                         : { variant: 'outlined' })}
                       color="primary"
                       size="small"
-                      label={<span id={item.id}>{item.value}</span>}
+                      label={<span id={item.code}>{item.value}</span>}
                       onClick={excludedHandleChange}
                       className={classess.root}
                       id="q3Temperature"
@@ -260,8 +263,8 @@ export const Denwis = ({
               bgcolor="background.paper"
             >
               {[
-                { value: 'No change in mentation', id: 'at0046' },
-                { value: 'Change in mentation', id: 'at0045' },
+                { value: 'No change in mentation', code: 'at0046' },
+                { value: 'Change in mentation', code: 'at0045' },
               ].map((item, index) => {
                 return (
                   <Box m={1} key={uniqid()}>
@@ -272,7 +275,7 @@ export const Denwis = ({
                         : { variant: 'outlined' })}
                       color="primary"
                       size="small"
-                      label={<span id={item.id}>{item.value}</span>}
+                      label={<span id={item.code}>{item.value}</span>}
                       onClick={excludedHandleChange}
                       className={classess.root}
                       id="q4Mentation"
@@ -296,8 +299,8 @@ export const Denwis = ({
               bgcolor="background.paper"
             >
               {[
-                { value: 'No agitation', id: 'at0048' },
-                { value: 'Agitation', id: 'at0049' },
+                { value: 'No agitation', code: 'at0048' },
+                { value: 'Agitation', code: 'at0049' },
               ].map((item, index) => {
                 return (
                   <Box m={1} key={uniqid()}>
@@ -308,7 +311,7 @@ export const Denwis = ({
                         : { variant: 'outlined' })}
                       color="primary"
                       size="small"
-                      label={<span id={item.id}>{item.value}</span>}
+                      label={<span id={item.code}>{item.value}</span>}
                       onClick={excludedHandleChange}
                       className={classess.root}
                       id="q5Agitation"
@@ -332,8 +335,8 @@ export const Denwis = ({
               bgcolor="background.paper"
             >
               {[
-                { value: 'No change in pain', id: 'at0051' },
-                { value: 'Change in pain', id: 'at0052' },
+                { value: 'No change in pain', code: 'at0051' },
+                { value: 'Change in pain', code: 'at0052' },
               ].map((item, index) => {
                 return (
                   <Box m={1} key={uniqid()}>
@@ -344,7 +347,7 @@ export const Denwis = ({
                         : { variant: 'outlined' })}
                       color="primary"
                       size="small"
-                      label={<span id={item.id}>{item.value}</span>}
+                      label={<span id={item.code}>{item.value}</span>}
                       onClick={excludedHandleChange}
                       className={classess.root}
                       id="q6Pain"
@@ -366,8 +369,8 @@ export const Denwis = ({
               bgcolor="background.paper"
             >
               {[
-                { value: 'No change in trajectory', id: 'at0054' },
-                { value: 'Change in trajectory', id: 'at0055' },
+                { value: 'No change in trajectory', code: 'at0054' },
+                { value: 'Change in trajectory', code: 'at0055' },
               ].map((item, index) => {
                 return (
                   <Box m={1} key={uniqid()}>
@@ -378,7 +381,7 @@ export const Denwis = ({
                         : { variant: 'outlined' })}
                       color="primary"
                       size="small"
-                      label={<span id={item.id}>{item.value}</span>}
+                      label={<span id={item.code}>{item.value}</span>}
                       onClick={excludedHandleChange}
                       className={classess.root}
                       id="q7Trajectory"
@@ -402,8 +405,8 @@ export const Denwis = ({
               bgcolor="background.paper"
             >
               {[
-                { value: 'No subjective patient indicator', id: 'at0057' },
-                { value: 'Subjective patient indicator', id: 'at0058' },
+                { value: 'No subjective patient indicator', code: 'at0057' },
+                { value: 'Subjective patient indicator', code: 'at0058' },
               ].map((item, index) => {
                 return (
                   <Box m={1} key={uniqid()}>
@@ -414,7 +417,7 @@ export const Denwis = ({
                         : { variant: 'outlined' })}
                       color="primary"
                       size="small"
-                      label={<span id={item.id}>{item.value}</span>}
+                      label={<span id={item.code}>{item.value}</span>}
                       onClick={excludedHandleChange}
                       className={classess.root}
                       id="q8PatientSubjective"
@@ -440,8 +443,8 @@ export const Denwis = ({
               bgcolor="background.paper"
             >
               {[
-                { value: 'No nurse subjective indicator', id: 'at0060' },
-                { value: 'Nurse subjective indicator', id: 'at0061' },
+                { value: 'No nurse subjective indicator', code: 'at0060' },
+                { value: 'Nurse subjective indicator', code: 'at0061' },
               ].map((item, index) => {
                 return (
                   <Box m={1} key={uniqid()}>
@@ -452,7 +455,7 @@ export const Denwis = ({
                         : { variant: 'outlined' })}
                       color="primary"
                       size="small"
-                      label={<span id={item.id}>{item.value}</span>}
+                      label={<span id={item.code}>{item.value}</span>}
                       onClick={excludedHandleChange}
                       className={classess.root}
                       id="q9NurseSubjective"

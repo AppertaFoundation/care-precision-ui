@@ -220,7 +220,7 @@ export const Sepsis: React.FC<{
   };
 
   const onSubmit = data => {
-    dispatch(actions.saveSepsis({ sepsis: data, clinical }));
+    dispatch(actions.saveSepsis({ sepsis: state, clinical }));
     if (onValidate()) {
       dispatch(
         actions.calculateResult({ obsType: 'sepsis', assessmentForm: data }),
@@ -230,6 +230,7 @@ export const Sepsis: React.FC<{
       openErrorDialog();
     }
   };
+  console.log(state);
   return (
     <form
       style={{ width: '100%' }}

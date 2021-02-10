@@ -94,7 +94,7 @@ export const DenwisResult = () => {
             >
               <Box width={1 / 2}>
                 <List dense>
-                  {denwis?.q1Breathing.id === 'at0031' && (
+                  {denwis?.q1Breathing?.code === 'at0031' && (
                     <ListItem>
                       <ListItemText
                         primary={denwis?.q1Breathing.value}
@@ -105,7 +105,7 @@ export const DenwisResult = () => {
                       />
                     </ListItem>
                   )}
-                  {denwis?.q2Circulation.id === 'at0036' && (
+                  {denwis?.q2Circulation?.code === 'at0036' && (
                     <ListItem>
                       <ListItemText
                         primary={denwis?.q2Circulation.value}
@@ -116,39 +116,39 @@ export const DenwisResult = () => {
                       />
                     </ListItem>
                   )}
-                  {denwis?.q3Temperature.id === 'at0105' && (
+                  {denwis?.q3Temperature?.code === 'at0105' && (
                     <ListItem>
                       <ListItemText primary={denwis?.q3Temperature.value} />
                     </ListItem>
                   )}
-                  {denwis?.q4Mentation.id === 'at0045' && (
+                  {denwis?.q4Mentation?.code === 'at0045' && (
                     <ListItem>
                       <ListItemText primary={denwis?.q4Mentation.value} />
                     </ListItem>
                   )}
-                  {denwis?.q5Agitation.id === 'at0049' && (
+                  {denwis?.q5Agitation?.code === 'at0049' && (
                     <ListItem>
                       <ListItemText primary={denwis?.q5Agitation.value} />
                     </ListItem>
                   )}
-                  {denwis?.q6Pain.id === 'at0052' && (
+                  {denwis?.q6Pain?.code === 'at0052' && (
                     <ListItem>
                       <ListItemText primary={denwis?.q6Pain.value} />
                     </ListItem>
                   )}
-                  {denwis?.q7Trajectory.id === 'at0055' && (
+                  {denwis?.q7Trajectory?.code === 'at0055' && (
                     <ListItem>
                       <ListItemText primary={denwis?.q7Trajectory.value} />
                     </ListItem>
                   )}
-                  {denwis?.q8PatientSubjective.id === 'at0058' && (
+                  {denwis?.q8PatientSubjective?.code === 'at0058' && (
                     <ListItem>
                       <ListItemText
                         primary={denwis?.q8PatientSubjective.value}
                       />
                     </ListItem>
                   )}
-                  {denwis?.q9NurseSubjective.id === 'at0061' && (
+                  {denwis?.q9NurseSubjective?.code === 'at0061' && (
                     <ListItem>
                       <ListItemText primary={denwis?.q9NurseSubjective.value} />
                     </ListItem>
