@@ -79,18 +79,17 @@ const Response = () => {
   const handleClose = () => setOpen(false);
   const handleCloseNoAction = () => setNoAction(false);
 
-  const navigate = path => history.push(path);
   const goToPatientList = () => {
     cleanStore();
-    navigate('/');
+    history.replace('/');
   };
   const goToOverview = () => {
-    navigate(`/patient-overview/${id}`);
     cleanStore();
+    history.replace(`/patient-overview/${id}`);
   };
   const goToCovidManagement = () => {
-    navigate(`/covid-management/${id}`);
     cleanStore();
+    history.replace(`/covid-management/${id}`);
   };
   const isEmpty = obj => !Object.values(obj).some(x => x !== null && x !== '');
   const handleSubmit = e => {
