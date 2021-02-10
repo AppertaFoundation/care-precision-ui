@@ -89,8 +89,9 @@ export const serializeSepsisScreening = function (o) {
     ...(o.likelySourceOfInfection.length > 0 && {
       likely_source_of_infection: o.likelySourceOfInfection,
     }),
-    ...(o.redFlagAcute.length > 0 && { red_flag_acute: o.redFlagAcute }),
-    ...(o.amberFlagAcute.length > 0 && { amber_flag_acute: o.amberFlagAcute }),
+    ...(o.redFlags.length > 0 && { red_flags: o.redFlags }),
+    ...(o.amberFlags.length > 0 && { amber_flags: o.amberFlags }),
+    ...(o.flags999.length > 0 && { [`${'999_flags'}`]: o.flags999 }),
   };
   return Object.keys(sepsis).length > 0 ? sepsis : 'Done, nothing was selected';
 };

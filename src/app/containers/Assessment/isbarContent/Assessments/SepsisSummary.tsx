@@ -25,12 +25,13 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 const Section: React.FC<{
-  redFlagAcute?: { code: string; label: string }[];
-  amberFlagAcute?: { code: string; label: string }[];
+  redFlags?: { code: string; value: string }[];
+  amberFlags?: { code: string; value: string }[];
+  flags999?: { code: string; value: string }[];
   section: string;
-}> = ({ redFlagAcute = [], amberFlagAcute = [], section }) => {
+}> = ({ redFlags = [], amberFlags = [], flags999 = [], section }) => {
   const classes = useStyles();
-  if ([...redFlagAcute, ...amberFlagAcute].length === 0) {
+  if ([...redFlags, ...amberFlags, ...flags999].length === 0) {
     return null;
   }
   return (
@@ -45,18 +46,25 @@ const Section: React.FC<{
         </Box>
       </Box>
       <Box display="flex" flexWrap="nowrap" flexDirection="column">
-        {redFlagAcute &&
-          redFlagAcute.map(({ label }) => (
+        {redFlags &&
+          redFlags.map(({ value }) => (
             <Box p={1} key={uniqid()}>
               <SepsisIcon value={{ value: 'red' }} />
-              {label}
+              {value}
             </Box>
           ))}
-        {amberFlagAcute &&
-          amberFlagAcute.map(({ label }) => (
+        {flags999 &&
+          flags999.map(({ value }) => (
+            <Box p={1} key={uniqid()}>
+              <SepsisIcon value={{ value: 'red' }} />
+              {value}
+            </Box>
+          ))}
+        {amberFlags &&
+          amberFlags.map(({ value }) => (
             <Box p={1} key={uniqid()}>
               <SepsisIcon value={{ value: 'amber' }} />
-              {label}
+              {value}
             </Box>
           ))}
       </Box>
@@ -73,8 +81,9 @@ export const SepsisSummary = () => {
     const {
       riskFactorsForSepsis,
       likelySourceOfInfection,
-      redFlagAcute,
-      amberFlagAcute,
+      redFlags,
+      amberFlags,
+      flag999,
     } = sepsis;
     const riskFactorsForSepsisL = riskFactorsForSepsis
       ? riskFactorsForSepsis.length
@@ -82,17 +91,21 @@ export const SepsisSummary = () => {
     const likelySourceOfInfectionL = likelySourceOfInfection
       ? likelySourceOfInfection.length
       : 0;
-    const redFlagAcuteL = redFlagAcute ? redFlagAcute.length : 0;
-    const amberFlagAcuteL = amberFlagAcute ? amberFlagAcute.length : 0;
+    const redFlagsL = redFlags ? redFlags.length : 0;
+    const amberFlagsL = amberFlags ? amberFlags.length : 0;
+    const flag999L = flag999 ? flag999.length : 0;
+
     return (
       riskFactorsForSepsisL +
         likelySourceOfInfectionL +
-        redFlagAcuteL +
-        amberFlagAcuteL ===
+        redFlagsL +
+        amberFlagsL +
+        flag999L ===
       0
     );
   };
   const isEmpty = isEmptyScreening();
+
   return (
     <div>
       <Grid
@@ -124,8 +137,9 @@ export const SepsisSummary = () => {
           <Section section="Sepsis Risk Factory" />
           <Section section="Likely source of infection" />
           <Section
-            redFlagAcute={sepsis?.redFlagAcute}
-            amberFlagAcute={sepsis?.amberFlagAcute}
+            redFlags={sepsis?.redFlags}
+            flags999={sepsis?.flags999}
+            amberFlags={sepsis?.amberFlags}
             section="Severity"
           />
         </Box>

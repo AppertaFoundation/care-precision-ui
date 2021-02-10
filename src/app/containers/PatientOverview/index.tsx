@@ -39,7 +39,7 @@ export function PatientOverview() {
     dispatch(actions.loadRecord(id));
   }, [dispatch, id]);
 
-  const goBack = () => history.push('/');
+  const goBack = () => history.go(-1);
 
   const situationBackgroundSteps = SituationBackgroundSteps();
   const assesmentOverview = AssesmentOverview({
