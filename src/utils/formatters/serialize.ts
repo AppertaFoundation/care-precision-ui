@@ -49,9 +49,9 @@ export const serializeBackground = function (o) {
       magnitude: parseFloat(o.weight),
       unit: 'kg',
     },
-    pastHistory: o.pastHistory,
-    allergies: o.allergies,
-    medication: o.medication,
+    ...(Boolean(o.pastHistory) && { pastHistory: o.pastHistory }),
+    ...(Boolean(o.allergies) && { allergies: o.allergies }),
+    ...(Boolean(o.medication) && { medication: o.medication }),
   };
 };
 
@@ -64,7 +64,7 @@ export const serializeSituation = function (o) {
   return {
     uuid: o.uuid,
     softSigns: [otherSoftSigns, ...o.softSigns].filter(Boolean),
-    notes: o.notes,
+    ...(Boolean(o.notes) && { notes: o.notes }),
   };
 };
 
@@ -72,8 +72,31 @@ export const serializeNews2 = function (news2, news2Score) {
   if (!news2 || Object.keys(news2).length < 1) {
     return null;
   }
+  const formatedNews2 = { ...news2 };
+  Object.keys(news2).forEach(key => {
+    const magnitude = news2[`${key}`]?.magnitude;
+    if (key === 'spo2') {
+      formatedNews2.spo2 = Number(news2.spo2);
+    }
+    if (key === 'inspiredOxygen' && news2.inspiredOxygen.flowRate) {
+      const flowRate = {
+        magnitude: Number(news2.inspiredOxygen.flowRate.magnitude),
+        unit: news2.inspiredOxygen.flowRate.unit,
+      };
+      formatedNews2.inspiredOxygen = {
+        ...news2.inspiredOxygen,
+        flowRate: flowRate,
+      };
+    }
+    if (magnitude) {
+      formatedNews2[`${key}`] = {
+        magnitude: Number(magnitude),
+        unit: news2[`${key}`].unit,
+      };
+    }
+  });
   return {
-    ...news2,
+    ...formatedNews2,
     news2Score: news2Score,
   };
 };
