@@ -239,7 +239,7 @@ const News2 = ({ disabled, onOpenSummary, onValidate, openErrorDialog }) => {
                       disabled={disabled}
                       variant="outlined"
                       label="Flow Rate"
-                      name="inspiredOxygen.flowRat.magnitude"
+                      name="inspiredOxygen.flowRate.magnitude"
                       fullWidth
                       type="number"
                       InputProps={{
@@ -265,12 +265,12 @@ const News2 = ({ disabled, onOpenSummary, onValidate, openErrorDialog }) => {
                     <input
                       type="hidden"
                       ref={register}
-                      name="inspiredOxygen.flowRat.units"
+                      name="inspiredOxygen.flowRate.units"
                       value="l/min"
                     />
                     {errors && (
                       <ErrorMsg
-                        name={'inspiredOxygen.flowRat.magnitude'}
+                        name={'inspiredOxygen.flowRate.magnitude'}
                         errors={errors}
                       />
                     )}
