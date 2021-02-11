@@ -267,26 +267,21 @@ export const serializeAssessmentJSON = function ({
     ? null
     : serializeDenwis(denwis, result?.denwis.value.value);
   const covidSection = isEmpty(covid) ? null : serializeCovid(covid);
-  return keysToSnake([
-    {
-      templateId: 'open_eREACT-Care', //Fixed
+  return keysToSnake({
+    header: header,
+    situation: situationSection,
+    background: backgroundSection,
+    assessment: {
+      ...(Boolean(denwisSection) && { denwis: denwisSection }),
+      ...(Boolean(covidSection) && { covid: covidSection }),
+      ...(Boolean(sepsisSection) && {
+        [`${
+          clinical
+            ? 'sepsis_clinical_screening_age_12_plus'
+            : 'sepsis_non_clinical_screening_age_12_plus'
+        }`]: sepsisSection,
+      }),
+      ...(Boolean(news2Seciton) && { news2: news2Seciton }),
     },
-    {
-      header: header,
-      situation: situationSection,
-      background: backgroundSection,
-      assessment: {
-        ...(Boolean(denwisSection) && { denwis: denwisSection }),
-        ...(Boolean(covidSection) && { covid: covidSection }),
-        ...(Boolean(sepsisSection) && {
-          [`${
-            clinical
-              ? 'sepsis_clinical_screening_age_12_plus'
-              : 'sepsis_non_clinical_screening_age_12_plus'
-          }`]: sepsisSection,
-        }),
-        ...(Boolean(news2Seciton) && { news2: news2Seciton }),
-      },
-    },
-  ]);
+  });
 };
