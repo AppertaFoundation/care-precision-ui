@@ -78,20 +78,23 @@ export const Covid = ({
   const [symptoms, setSymptoms] = useState<string[]>(covid?.symptoms || []);
   const [contact, setContact] = useState<string[]>(covid?.contact || []);
 
-  const validateSymptoms = () => {
+  const validateSymptomsContact = () => {
     const symptoms = getValues('symptoms');
-    return symptoms.length > 0 || 'Please select any option';
+    const contact = getValues('contact');
+
+    return (
+      symptoms.length > 0 ||
+      contact.length > 0 ||
+      'Please select any Symptoms or Contact case'
+    );
   };
-  const validateContact = () => {
-    const symptoms = getValues('contact');
-    return symptoms.length > 0 || 'Please select any option';
-  };
+
   const useEffectOnMount = (effect: React.EffectCallback) => {
     useEffect(effect, []);
   };
   useEffectOnMount(() => {
-    register({ name: 'symptoms' }, { validate: validateSymptoms });
-    register({ name: 'contact' }, { validate: validateContact });
+    register({ name: 'symptoms' }, { validate: validateSymptomsContact });
+    register({ name: 'contact' }, { validate: validateSymptomsContact });
   });
 
   const useEffectOnSaveSymptomps = (effect: React.EffectCallback) => {
@@ -191,6 +194,7 @@ export const Covid = ({
                 inputRef={register({ required: 'This field is required' })}
                 disabled={disabled}
               />
+              {errors && <ErrorMsg name={'firstSympomsDate'} errors={errors} />}
             </Grid>
           </Box>
           <Box m={1}>
