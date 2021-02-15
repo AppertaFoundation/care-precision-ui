@@ -72,6 +72,7 @@ export function App() {
             exact
             path={process.env.PUBLIC_URL + '/covid-management/:id'}
             component={InfectionControl}
+            authenticated={authenticated}
             username={auth}
           />
           <ProtectedRoute
