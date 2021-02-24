@@ -74,10 +74,9 @@ export function* makeCalculations(action) {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
       },
-      body: JSON.stringify([
-        {},
+      body: JSON.stringify(
         { [`${obsType}`]: keysToSnake(assessmentForm) },
-      ]),
+      ),
     });
 
     if (Object.keys(result).length > 0) {
@@ -106,7 +105,11 @@ function download(content, fileName, contentType) {
 
 export function* submitAssessment(action) {
   yield delay(500);
-  const requestURL = `${(window as any)._env_.REACT_APP_API}/cdr/`;
+  const requestURL = `${
+    (window as any)[
+      `${process.env.NODE_ENV === 'production' ? 'injectedEnv' : '_env_'}`
+    ].REACT_APP_API
+  }/cdr/`;
   const formatedAssessment = serializeAssessmentJSON(action.payload);
   if (
     (window as any)[
@@ -127,7 +130,116 @@ export function* submitAssessment(action) {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
       },
-      body: JSON.stringify(formatedAssessment),
+      body: JSON.stringify({
+        header: {
+          start_time: '2021-02-10T13:34:58.446Z',
+          uuid: '3B917D6E-30B6-11EB-9B84-84525E058BE1',
+          healthcare_facility: 'Glen Carse Care Home',
+          composer: {
+            name: 'RN Joyce Brown',
+            id: {
+              type: 'NMC',
+              id: '12342341',
+              namespace: 'uk.org.nmc',
+            },
+          },
+        },
+        situation: {
+          soft_signs: ['Had a fall'],
+        },
+        background: {
+          frailty: [
+            {
+              code: 'at0008',
+              value: 'Vurnerable',
+            },
+          ],
+          height: {
+            magnitude: 165,
+            unit: 'cm',
+          },
+          weight: {
+            magnitude: 50,
+            unit: 'kg',
+          },
+          allergies:
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus mollis, augue et mollis fermentum, lectus risus commodo lorem, id congue libero augue eget sapien. In semper sollicitudin sempe',
+          medication:
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus mollis, augue et mollis fermentum, lectus risus commodo lorem, id congue libero augue eget sapien. In semper sollicitudin sempe',
+        },
+        assessment: {
+          news2: {
+            respirations: {
+              magnitude: 55,
+            },
+            spo2: 55,
+            systolic: {
+              magnitude: 55,
+            },
+            diastolic: {
+              magnitude: 44,
+            },
+            pulse: {
+              magnitude: 34,
+            },
+            acvpu: {
+              code: 'at0007',
+              value: 'Pain',
+            },
+            temperature: {
+              magnitude: 34,
+            },
+            inspired_oxygen: {
+              method_of_oxygen_delivery: 'Mask',
+              flow_rate: {
+                magnitude: 4,
+              },
+            },
+            news2_score: {
+              pulse: {
+                code: 'at0013',
+                ordinal: 0,
+                value: '51-90',
+              },
+              spo_scale_1: {
+                ordinal: 1,
+                value: '94-95',
+                code: 'at0031',
+              },
+              clinical_risk_category: {
+                value: 'Medium',
+                code: 'at0059',
+              },
+              air_or_oxygen: {
+                code: 'at0036',
+                value: 'Air',
+                ordinal: 0,
+              },
+              systolic_blood_pressure: {
+                code: 'at0017',
+                ordinal: 3,
+                value: '≤90',
+              },
+              consciousness: {
+                ordinal: 0,
+                value: 'Alert',
+                code: 'at0024',
+              },
+              respiration_rate: {
+                ordinal: 2,
+                value: '21-24',
+                code: 'at0020',
+              },
+              total_score: 3,
+              temperature: {
+                value: '35.1-36.0',
+                ordinal: 1,
+                code: 'at0023',
+              },
+            },
+          },
+        },
+      }),
     });
     yield put(actions.successAssesment());
   } catch (err) {

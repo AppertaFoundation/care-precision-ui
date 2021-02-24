@@ -10,7 +10,7 @@ export interface PatientsList {
 
 export enum PatientsErrorType {
   RESPONSE_ERROR = 1,
-  USER_HAS_NO_RECORDS = 2,
+  USER_HAS_NO_RECORDS = 'There are no results',
 }
 
 export type ContainerState = PatientsList;

@@ -58,12 +58,6 @@ const Records = () => {
     [dispatch],
   );
 
-  if (error) {
-    return <p>{error}</p>;
-  }
-  if (isLoading) {
-    return <Spinner />;
-  }
   return (
     <>
       <div className={classes.fixed} ref={ref}>
@@ -93,6 +87,8 @@ const Records = () => {
       </div>
 
       <Box m={1} mb={8} style={{ marginTop: '50px' }}>
+        {error && <p>{error}</p>}
+        {isLoading && <Spinner />}
         {patients?.length > 0 ? (
           <>
             <List>
