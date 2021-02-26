@@ -50,7 +50,7 @@ export function* makeCalculations(action) {
       `${process.env.NODE_ENV === 'production' ? 'injectedEnv' : '_env_'}`
     ].REACT_APP_API
   }/cdr/draft`;
-  const { obsType, assessmentForm } = action.payload;
+  const { obsType, assessmentForm, uuid } = action.payload;
   const now = new Date();
   if (
     (window as any)[
@@ -74,9 +74,22 @@ export function* makeCalculations(action) {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
       },
-      body: JSON.stringify(
-        { [`${obsType}`]: keysToSnake(assessmentForm) },
-      ),
+      body: JSON.stringify({
+        header: {
+          start_time: '2021-02-10T13:34:58.446Z',
+          uuid: uuid,
+          healthcare_facility: 'Glen Carse Care Home',
+          composer: {
+            name: 'RN Joyce Brown',
+            id: {
+              type: 'NMC',
+              id: '12342341',
+              namespace: 'uk.org.nmc',
+            },
+          },
+        },
+        [`${obsType}`]: keysToSnake(assessmentForm),
+      }),
     });
 
     if (Object.keys(result).length > 0) {
