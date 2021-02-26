@@ -125,7 +125,7 @@ export function* submitAssessment(action) {
     (window as any)[
       `${process.env.NODE_ENV === 'production' ? 'injectedEnv' : '_env_'}`
     ].REACT_APP_API
-  }/cdr/`;
+  }/cdr`;
   const formatedAssessment = serializeAssessmentJSON(action.payload);
   if (
     (window as any)[
