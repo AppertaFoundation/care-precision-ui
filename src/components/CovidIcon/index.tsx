@@ -1,6 +1,21 @@
 import React from 'react';
 
-const CovidIcon = ({ value }) => {
+import { Label, IconButton } from '../IconButton';
+
+const CovidIcon = ({ value, label = false }) => {
+  return (
+    <IconButton onClick={() => console.log('a')}>
+      <Covid value={value} />
+      {label && <Label>COVID</Label>}
+    </IconButton>
+  );
+};
+
+export const CovidIconBadget = ({ value }) => {
+  return <Covid value={value} width="18px" />;
+};
+
+const Covid = ({ value, width = '32px' }) => {
   const {
     suspectedCovidStatus,
     dateIsolationDueToEnd,
@@ -22,8 +37,8 @@ const CovidIcon = ({ value }) => {
   const isolation = endOfIsolation > currentDate;
   return (
     <svg
-      height="30px"
-      width="35px"
+      height={width}
+      width={width}
       fill={color}
       stroke={color}
       xmlns="http://www.w3.org/2000/svg"

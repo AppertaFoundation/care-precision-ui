@@ -47,30 +47,9 @@ const AssesmentOverviewCard: React.FC<IAssesmentOverviewCard> = ({
                       size="small"
                     ></IconButton>
                   ),
-                  news2: (
-                    <IconButton
-                      onClick={() => console.log('news2')}
-                      size="small"
-                    >
-                      <News2Icon news2={news2} />
-                    </IconButton>
-                  ),
-                  sepsis: (
-                    <IconButton
-                      onClick={() => console.log('sepsis')}
-                      size="small"
-                    >
-                      <SepsisIcon value={sepsis} />
-                    </IconButton>
-                  ),
-                  covid: (
-                    <IconButton
-                      onClick={() => console.log('covid')}
-                      size="small"
-                    >
-                      <CovidIcon value={covid} />
-                    </IconButton>
-                  ),
+                  news2: <News2Icon news2={news2} />,
+                  sepsis: <SepsisIcon value={sepsis} />,
+                  covid: <CovidIcon value={covid} />,
                 }[assesmentType]
               }
             </Box>

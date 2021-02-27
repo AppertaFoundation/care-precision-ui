@@ -8,7 +8,7 @@ type tTrendArrow = {
 };
 const TrendArrow: React.FC<{ trend: string }> = ({ trend }) => {
   const stateArrow: tTrendArrow = {
-    decreasing: <ArrowDownwardIcon width={'0 .8em'} />,
+    decreasing: <ArrowDownwardIcon width={'0.8em'} />,
     raising: <ArrowUpwardIcon width={'0.8em'} />,
     same: <ArrowBackIcon />,
     first: <ArrowBackIcon />,

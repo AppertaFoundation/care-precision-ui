@@ -1,10 +1,11 @@
 import React from 'react';
-import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
+import TrendArrow from '../TrendArrow';
+
 function SvgDenwis({ stroke, value, trend }, props) {
   const dubleNumber = value > 9;
   return (
     <div style={{ flexDirection: 'row' }}>
-      <ArrowDownwardIcon width={'0 .5em'} />
+      <TrendArrow trend={trend || 'same'} />
       <svg
         width="32px"
         height="32px"
@@ -21,7 +22,7 @@ function SvgDenwis({ stroke, value, trend }, props) {
         <text
           // fontFamily="sans-serif"
           fontSize={16}
-          font-weight="lighter"
+          fontWeight="lighter"
           y={21}
           x={dubleNumber ? 6 : 10}
           opacity="undefined"
