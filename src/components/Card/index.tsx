@@ -55,7 +55,7 @@ const Card: React.FC<Props> = ({
   const history = useHistory();
   const theme = useTheme();
 
-  const sm = useMediaQuery(theme.breakpoints.up('sm'));
+  const sm = useMediaQuery(theme.breakpoints.up('md'));
   const latestResponseBar = (
     <LatestResponse sm={!sm} assessments={assesments} id={id} />
   );

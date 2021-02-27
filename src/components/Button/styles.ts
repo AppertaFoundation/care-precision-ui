@@ -2,7 +2,7 @@ import { withStyles, Theme } from '@material-ui/core/styles';
 import MuiButton from '@material-ui/core/Button';
 
 export const ButtonSuccess = withStyles(() => ({
-  root: { borderRadius: '35px' },
+  root: { borderRadius: '35px', padding: '10px 15px' },
   contained: {
     minWidth: '100%',
     backgroundColor: '#397F3A',
@@ -34,12 +34,14 @@ export const ButtonSecondary = withStyles((theme: Theme) => ({
   root: {
     minWidth: '100%',
     borderRadius: '35px',
+    padding: '10px 15px',
   },
 }))(MuiButton);
 
 export const ButtonPrimmary = withStyles((theme: Theme) => ({
   root: {
     borderRadius: '35px',
+    padding: '10px 15px',
   },
   contained: {
     minWidth: '100%',
