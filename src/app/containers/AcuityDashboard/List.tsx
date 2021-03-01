@@ -238,7 +238,11 @@ const AcuityList = () => {
                     },
                   )
                 ) : (
-                  <Typography>There are no such records</Typography>
+                  <tr>
+                    <Td>
+                      <Typography>There are no such records</Typography>
+                    </Td>
+                  </tr>
                 )}
               </Table>
             )}
