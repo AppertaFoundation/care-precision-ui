@@ -20,6 +20,17 @@ const News2Icon: React.FC<{
   );
 };
 
+export const News2IconBadget: React.FC<{
+  news2: {
+    value: number;
+    clinicalRisk: string | number;
+    trend?: string;
+  };
+  isParametr?: Boolean;
+  label?: boolean;
+}> = ({ news2, isParametr }) => {
+  return <News2 news2={news2} isParametr={isParametr} />;
+};
 const News2: React.FC<{
   news2: {
     value: number;

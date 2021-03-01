@@ -8,6 +8,7 @@ import {
   News2Icon,
   SepsisIcon,
   CovidIcon,
+  News2IconBadget,
 } from 'components';
 import { CarouselCard } from './SituatiionBackground';
 import uniqid from 'uniqid';
@@ -38,7 +39,7 @@ const AssesmentOverviewCard: React.FC<IAssesmentOverviewCard> = ({
             <Box width="100%">
               <Text label="Last Taken">{taken}</Text>
             </Box>
-            <Box flexShrink={1}>
+            <Box>
               {
                 {
                   denwis: (
@@ -47,7 +48,11 @@ const AssesmentOverviewCard: React.FC<IAssesmentOverviewCard> = ({
                       size="small"
                     ></IconButton>
                   ),
-                  news2: <News2Icon news2={news2} />,
+                  news2: (
+                    <div style={{ width: '80px' }}>
+                      <News2Icon news2={news2} />
+                    </div>
+                  ),
                   sepsis: <SepsisIcon value={sepsis} />,
                   covid: <CovidIcon value={covid} />,
                 }[assesmentType]
@@ -76,7 +81,7 @@ const AssesmentOverviewCard: React.FC<IAssesmentOverviewCard> = ({
 
 const AssesmentOverview = ({ news2, denwis, sepsis, covid }) => {
   const theme = useTheme();
-  const md = useMediaQuery(theme.breakpoints?.up('sm'));
+  const md = useMediaQuery(theme.breakpoints?.up('md'));
   return md
     ? [
         <Grid
