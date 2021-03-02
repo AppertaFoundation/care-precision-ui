@@ -1,10 +1,12 @@
-import { call, put, takeLatest, delay } from 'redux-saga/effects';
+import { call, put, takeLatest, delay, select } from 'redux-saga/effects';
 import { request } from 'utils/request';
 import { fake } from 'utils/fake';
 import { patientParser, keysToCamel, keysToSnake } from 'utils/formatters';
 import { serializeAssessmentJSON } from 'utils/formatters/serialize';
 import { PatientErrorType } from './types';
 import { actions } from './slice';
+
+const getUUID = state => state.assessmentEvent.patient.id;
 
 export function* getRecord(action) {
   yield delay(500);
@@ -51,6 +53,7 @@ export function* makeCalculations(action) {
     ].REACT_APP_API
   }/cdr/draft`;
   const { obsType, assessmentForm } = action.payload;
+  const uuid = yield select(getUUID);
   const now = new Date();
   if (
     (window as any)[
@@ -74,7 +77,22 @@ export function* makeCalculations(action) {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
       },
-      body: JSON.stringify({ [`${obsType}`]: keysToSnake(assessmentForm) }),
+      body: JSON.stringify({
+        header: {
+          start_time: '2021-02-10T13:34:58.446Z',
+          uuid: uuid,
+          healthcare_facility: 'Glen Carse Care Home',
+          composer: {
+            name: 'RN Joyce Brown',
+            id: {
+              type: 'NMC',
+              id: '12342341',
+              namespace: 'uk.org.nmc',
+            },
+          },
+        },
+        [`${obsType}`]: keysToSnake(assessmentForm),
+      }),
     });
 
     if (Object.keys(result).length > 0) {
@@ -107,7 +125,7 @@ export function* submitAssessment(action) {
     (window as any)[
       `${process.env.NODE_ENV === 'production' ? 'injectedEnv' : '_env_'}`
     ].REACT_APP_API
-  }/cdr/`;
+  }/cdr`;
   const formatedAssessment = serializeAssessmentJSON(action.payload);
   if (
     (window as any)[
