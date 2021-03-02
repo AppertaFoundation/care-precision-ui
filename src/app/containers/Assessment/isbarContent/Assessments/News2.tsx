@@ -205,6 +205,7 @@ const News2 = ({ disabled, onOpenSummary, onValidate, openErrorDialog }) => {
 
                 <Grid item md={12}>
                   <NativeSelect
+                    id="o2-delivery-select"
                     disabled={disabled}
                     options={[
                       { value: 'Room Air', label: 'Room Air' },

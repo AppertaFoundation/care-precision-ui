@@ -242,6 +242,7 @@ export function TestStatus() {
             >
               <form id="test-status-form" onSubmit={handleSubmit(onSubmit)}>
                 <NativeSelect
+                  id="test-reason-select"
                   options={[
                     { value: 'Symptoms', label: 'Symptoms' },
 
@@ -304,6 +305,7 @@ export function TestStatus() {
                 onSubmit={handleSubmitResult(onSubmit)}
               >
                 <NativeSelect
+                  id="test-result-select"
                   options={[
                     { value: 'Positive', label: 'Positive' },
 

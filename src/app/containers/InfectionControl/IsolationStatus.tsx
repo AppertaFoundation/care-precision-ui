@@ -134,7 +134,7 @@ export function IsolationStatus() {
                 id="outlined-read-only-input"
                 label="Isolation Reason"
                 value={isolationReason || ''}
-                defaultValue={isolationReason}
+                // defaultValue={isolationReason}
                 InputProps={{
                   readOnly: true,
                 }}
@@ -201,7 +201,7 @@ export function IsolationStatus() {
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle id="title" onClose={handleClose}>
           <Typography component="div" noWrap variant="h6">
-            Update COVID Status
+            Update Isolation Status
           </Typography>
         </DialogTitle>
         <DialogContent>
@@ -218,6 +218,7 @@ export function IsolationStatus() {
               >
                 <Grid item xs={12}>
                   <NativeSelect
+                    id="isolation-status-select"
                     options={[
                       {
                         value: 'Isolation not required',
@@ -244,6 +245,7 @@ export function IsolationStatus() {
                   <>
                     <Grid item xs={12}>
                       <NativeSelect
+                        id="isolation-reason-select"
                         options={[
                           {
                             value: 'Symptoms (10 days)',
