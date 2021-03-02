@@ -65,41 +65,65 @@ export const CovidSummary = () => {
         {covidResult && <CovidIcon value={covidResult} />}
       </Box>
 
-      <Box mt={2} mb={2}>
-        <Box
-          className={clsx(classes.root, classes.label)}
-          display="flex"
-          justifyContent="center"
-        >
-          Date
-        </Box>
-        <Box>
-          <List dense>
-            <ListItem>
-              <ListItemText>{covid?.firstSympomsDate}</ListItemText>
-            </ListItem>
-          </List>
-        </Box>
-      </Box>
-      <Box p={1}>
-        <Box
-          className={clsx(classes.root, classes.label)}
-          display="flex"
-          justifyContent="center"
-        >
-          Symptoms
-        </Box>
-        <Box display="flex" flexWrap="nowrap" flexDirection="column">
-          <List dense>
-            {covid?.symptoms &&
-              covid.symptoms.map(symptom => (
-                <ListItem key={uniqid()}>
-                  <ListItemText primary={symptom} />
+      {covid?.symptoms && covid.symptoms.length > 0 ? (
+        <>
+          <Box mt={2} mb={2}>
+            <Box
+              className={clsx(classes.root, classes.label)}
+              display="flex"
+              justifyContent="center"
+            >
+              Date
+            </Box>
+            <Box>
+              <List dense>
+                <ListItem>
+                  <ListItemText>{covid?.firstSympomsDate}</ListItemText>
                 </ListItem>
-              ))}
-          </List>
+              </List>
+            </Box>
+          </Box>
+          <Box p={1}>
+            <Box
+              className={clsx(classes.root, classes.label)}
+              display="flex"
+              justifyContent="center"
+            >
+              Symptoms
+            </Box>
+            <Box display="flex" flexWrap="nowrap" flexDirection="column">
+              <List dense>
+                {covid?.symptoms &&
+                  covid.symptoms.map(symptom => (
+                    <ListItem key={uniqid()}>
+                      <ListItemText primary={symptom.value} />
+                    </ListItem>
+                  ))}
+              </List>
+            </Box>
+          </Box>
+        </>
+      ) : (
+        <Box mt={2} mb={2}>
+          <Box
+            className={clsx(classes.root, classes.label)}
+            display="flex"
+            justifyContent="center"
+          >
+            Reason
+          </Box>
+          <Box display="flex" flexWrap="nowrap" flexDirection="column">
+            <List dense>
+              {covid?.contact &&
+                covid.contact.map(contact => (
+                  <ListItem key={uniqid()}>
+                    <ListItemText primary={contact.value} />
+                  </ListItem>
+                ))}
+            </List>
+          </Box>
         </Box>
-      </Box>
+      )}
     </div>
   );
 };
