@@ -66,7 +66,7 @@ const News2: React.FC<{
 
   return (
     <div style={{ flexDirection: 'row' }}>
-      <TrendArrow trend={trend || 'same'} />
+      {trend && <TrendArrow trend={trend} />}
       <svg width={32} height={32}>
         <circle cx={16} cy={16} r={15} fill={fill} />
         <text

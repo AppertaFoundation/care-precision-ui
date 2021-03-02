@@ -230,7 +230,6 @@ export const Sepsis: React.FC<{
       openErrorDialog();
     }
   };
-  console.log(state);
   return (
     <form
       style={{ width: '100%' }}
