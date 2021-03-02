@@ -93,7 +93,9 @@ export const CovidResult = () => {
             >
               <Box pl={1}>
                 <Typography variant="subtitle2">
-                  Date of symptoms onset or contact 25/10/2020
+                  {`Date of symptoms onset: ${
+                    covid?.firstSympomsDate || 'N/A'
+                  }`}
                 </Typography>
               </Box>
               <Box>
@@ -107,11 +109,21 @@ export const CovidResult = () => {
                   }
                   dense
                 >
-                  {covid?.symptoms.map(item => (
+                  {covid?.symptoms && covid.symptoms.length > 0 ? (
+                    covid?.symptoms.map(item => (
+                      <ListItem key={uniqid()}>
+                        <ListItemText primary={item.value} />
+                      </ListItem>
+                    ))
+                  ) : (
                     <ListItem key={uniqid()}>
-                      <ListItemText primary={item} />
+                      <ListItemText
+                        primary={
+                          'No symptoms, only confirmed or suspected contact'
+                        }
+                      />
                     </ListItem>
-                  ))}
+                  )}
                 </List>
               </Box>
             </Box>

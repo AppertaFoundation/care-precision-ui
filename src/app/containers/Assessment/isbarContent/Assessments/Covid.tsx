@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import {
   Chip,
   Box,
@@ -28,29 +28,33 @@ const useStyles = makeStyles((theme: any) => ({
 }));
 
 const SYMPTOMS = [
-  'Fever',
-  'Presistent Cough',
-  'Fatigue/ Malaise',
-  'Sore Throat',
-  'Joint Pain',
-  'Chest Pain',
-  'Breathlessnes',
-  'Abdomial Pain',
-  'Diarrhoea',
-  'Ear Pain',
-  'Runny Nose',
-  'Seizures',
-  'Headache',
-  'Bleeding',
-  'Vomiting/ Nausea',
-  'Muscle Ache',
-  'Anosmia (Loss of taste/ smell)',
-  'Alterned Consiousness',
+  { value: 'Fever', code: '386661006', terminology: 'SNOMED-CT' },
+  { value: 'Cough', code: '49727002', terminology: 'SNOMED-CT' },
+  { value: 'Sore Throat', code: '162397003', terminology: 'SNOMED-CT' },
+  { value: 'Ear pain', code: '16001004', terminology: 'SNOMED-CT' },
+  { value: 'Runny Nose', code: '64531003', terminology: 'SNOMED-CT' },
+  { value: 'Muscle aches', code: '68962001', terminology: 'SNOMED-CT' },
+  { value: 'Joint pain', code: '57676002', terminology: 'SNOMED-CT' },
+  { value: 'Fatigue/malaise', code: '84229001', terminology: 'SNOMED-CT' },
+  {
+    value: 'Anosmia (loss of taste/smell)',
+    code: '272028008',
+    terminology: 'SNOMED-CT',
+  },
+  { value: 'Diarrhea', code: '62315008', terminology: 'SNOMED-CT' },
+  { value: 'Abdominal pain', code: '21522001', terminology: 'SNOMED-CT' },
+  { value: 'Nausea and vomiting', code: '16932000', terminology: 'SNOMED-CT' },
+  { value: 'Bleeding', code: '74474003', terminology: 'SNOMED-CT' },
+  { value: 'Headache', code: '25064002', terminology: 'SNOMED-CT' },
+  { value: 'Seizures', code: '91175000', terminology: 'SNOMED-CT' },
+  { value: 'Altered consciousness', code: '3006004', terminology: 'SNOMED-CT' },
+  { value: 'Chest pain', code: '29857009', terminology: 'SNOMED-CT' },
+  { value: 'Shortness of breath', code: '267036007', terminology: 'SNOMED-CT' },
 ];
 
 const CONTACT = [
-  'Contact with suspected/ confirmed COVID',
-  'Care settings has confirmed case',
+  { value: 'Contact with suspected/ confirmed COVID', code: 'at0.9' },
+  { value: 'Care settings has confirmed case', code: 'at0.14' },
 ];
 
 export const Covid = ({
@@ -75,8 +79,10 @@ export const Covid = ({
   } = useForm({
     defaultValues: covid,
   });
-  const [symptoms, setSymptoms] = useState<string[]>(covid?.symptoms || []);
-  const [contact, setContact] = useState<string[]>(covid?.contact || []);
+  const [state, setState] = React.useState({
+    symptoms: covid?.symptoms || [],
+    contact: covid?.contact || [],
+  });
 
   const validateSymptomsContact = () => {
     const symptoms = getValues('symptoms');
@@ -89,6 +95,12 @@ export const Covid = ({
     );
   };
 
+  const validateDate = () => {
+    const symptoms = getValues('symptoms');
+    const date = getValues('firstSympomsDate');
+    return symptoms.length > 0 ? Boolean(date) || 'Please select date' : true;
+  };
+
   const useEffectOnMount = (effect: React.EffectCallback) => {
     useEffect(effect, []);
   };
@@ -98,66 +110,60 @@ export const Covid = ({
   });
 
   const useEffectOnSaveSymptomps = (effect: React.EffectCallback) => {
-    useEffect(effect, [symptoms]);
+    useEffect(effect, [state.symptoms]);
   };
   useEffectOnSaveSymptomps(() => {
     const { isSubmitted } = formState;
-    setValue('symptoms', symptoms);
+    // setValue('symptoms', symptoms);
+    setValue('symptoms', state.symptoms);
     if (isSubmitted) {
       trigger('symptoms');
-    }
-  });
-  const useEffectOnSaveContact = (effect: React.EffectCallback) => {
-    useEffect(effect, [contact]);
-  };
-  useEffectOnSaveContact(() => {
-    const { isSubmitted } = formState;
-    setValue('contact', contact);
-    if (isSubmitted) {
       trigger('contact');
     }
   });
+  const useEffectOnSaveContact = (effect: React.EffectCallback) => {
+    useEffect(effect, [state.contact]);
+  };
+  useEffectOnSaveContact(() => {
+    const { isSubmitted } = formState;
+    setValue('contact', state.contact);
+    if (isSubmitted) {
+      trigger('contact');
+      trigger('symptoms');
+    }
+  });
 
-  const isSelected = (key, value) => {
-    if (key === 'symptoms') {
-      return symptoms.includes(value);
-    } else if (key === 'contact') {
-      return contact.includes(value);
-    }
-  };
-  //TODO[15] I dont like how those methods looks,
-  // to figure out something better
-  const addElement = (key, value) => {
-    if (key === 'symptoms') {
-      const newTable = [value, ...symptoms];
-      setSymptoms(newTable);
-      return newTable;
-    } else if (key === 'contact') {
-      const newTable = [value, ...contact];
-      setContact(newTable);
-      return newTable;
-    }
-  };
-  const removeElement = (key, value) => {
-    if (key === 'symptoms') {
-      const newTable = symptoms.filter(o => o !== value);
-      setSymptoms(newTable);
-      return newTable;
-    } else if (key === 'contact') {
-      const newTable = contact.filter(o => o !== value);
-      setContact(newTable);
-      return newTable;
-    }
+  const isSelected = (key, code) =>
+    state[key].find(selected => selected.code === code);
+
+  const addElement = (key, value, code) => {
+    const newTable = [
+      {
+        value: value,
+        code: code,
+        terminology: key === 'contact' ? 'local' : 'SNOMED-CT',
+      },
+      ...state[key],
+    ];
+    setState({ ...state, [key]: newTable });
+    return newTable;
   };
 
-  const handleChange = e => {
+  const removeElement = (key, code) => {
+    const newTable = state[key].filter(o => o.code !== code);
+    setState({ ...state, [key]: newTable });
+    return newTable;
+  };
+
+  const handleChange = (e, code) => {
     const value = e.target.textContent;
     const key = e.currentTarget.id;
-    isSelected(key, value) ? removeElement(key, value) : addElement(key, value);
+    isSelected(key, code)
+      ? removeElement(key, code)
+      : addElement(key, value, code);
     e.currentTarget.blur();
     e.target.blur();
   };
-
   const onSubmit = data => {
     dispatch(actions.saveCovid(data));
     if (onValidate()) {
@@ -191,8 +197,9 @@ export const Covid = ({
                 type="date"
                 variant="outlined"
                 size="small"
-                inputRef={register({ required: 'This field is required' })}
+                inputRef={register({ validate: validateDate })}
                 disabled={disabled}
+                defaultValue={covid?.firstSympomsDate}
               />
               {errors && <ErrorMsg name={'firstSympomsDate'} errors={errors} />}
             </Grid>
@@ -210,18 +217,18 @@ export const Covid = ({
             p={downSm ? 0 : 1}
             bgcolor="background.paper"
           >
-            {SYMPTOMS.map((item, index) => {
+            {SYMPTOMS.map(({ value, code }) => {
               return (
                 <Box m={1} key={uniqid()}>
                   <Chip
                     clickable
-                    {...(isSelected('symptoms', item)
+                    {...(isSelected('symptoms', code)
                       ? {}
                       : { variant: 'outlined' })}
                     color="primary"
                     size="small"
-                    label={item}
-                    onClick={handleChange}
+                    label={value}
+                    onClick={e => handleChange(e, code)}
                     className={classess.root}
                     id="symptoms"
                     disabled={disabled}
@@ -244,18 +251,18 @@ export const Covid = ({
             p={downSm ? 0 : 1}
             bgcolor="background.paper"
           >
-            {CONTACT.map((item, index) => {
+            {CONTACT.map(({ value, code }) => {
               return (
                 <Box m={1} key={uniqid()}>
                   <Chip
                     clickable
-                    {...(isSelected('contact', item)
+                    {...(isSelected('contact', code)
                       ? {}
                       : { variant: 'outlined' })}
                     color="primary"
                     size="small"
-                    label={item}
-                    onClick={handleChange}
+                    label={value}
+                    onClick={e => handleChange(e, code)}
                     className={classess.root}
                     id="contact"
                     disabled={disabled}
@@ -264,6 +271,17 @@ export const Covid = ({
               );
             })}
             {errors && <ErrorMsg name={'symptoms'} errors={errors} />}
+          </Box>
+
+          <Box m={1}>
+            <TextField
+              name="covidNotes"
+              variant="outlined"
+              label="Additional Comments"
+              fullWidth
+              defaultValue={covid?.covidNotes}
+              inputRef={register}
+            />
           </Box>
         </Paper>
       </Box>

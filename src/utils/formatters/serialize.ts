@@ -1,14 +1,6 @@
 import snakeCase from 'snake-case';
 import { isArray, isObject } from './keysToCamel';
 
-const covidSymptomsCoded = value =>
-  ({
-    'Noisy breathing': 'at0067',
-    'Short of breath': 'at0068',
-    'Unable to speak full sentences': 'at0069',
-    'Use accessory muscles': 'at0070',
-  }[value]);
-
 export const keysToSnake = function (o) {
   if (isObject(o)) {
     const n = {};
@@ -184,35 +176,30 @@ export const serializeCovid = function (o) {
   if (!o || Object.keys(o).length < 1) {
     return null;
   }
-  const careSettings =
-    o.contact && o.contact.includes('Care settings has confirmed case')
-      ? {
+
+  return {
+    ...(o.symptoms.length > 0 && {
+      dateOfOnsetOfFirstSymptoms: new Date(o.firstSympomsDate).toISOString(),
+      specificSymptomSign: o.symptoms,
+    }),
+    ...(o.contact.length > 0 && {
+      'covid-19_exposure': {
+        'care_setting_has_confirmed_covid-19': {
           code: 'at0.14',
           value: 'Potential contact exposure based on location',
-          terminology: 'local',
-        }
-      : {};
-  const haveContact =
-    o.contact && o.contact.includes('Contact with suspected/ confirmed COVID')
-      ? {
+        },
+        'contact_with_suspected_confirmed_covid-19': {
           code: 'at0.9',
           value: 'Contact with confirmed Covid-19 case',
-          terminology: 'local',
-        }
-      : {};
-  return {
-    covidSymptoms: {
-      dateOfOnsetOfFirstFymptoms: o.firstSympomsDate,
-      specificSymptomSign:
-        o.covidSymptomsCoded &&
-        o.covidSymptomsCoded.map(item => covidSymptomsCoded(item)),
-      covid_19_exposure: {
-        care_setting_has_confirmed_covid_19: careSettings,
-        contact_with_suspected_confirmed_covid_19: haveContact,
+        },
       },
-    },
+    }),
+    ...(o.covidNotes.length > 0 && {
+      covidNotes: o.covidNotes,
+    }),
   };
 };
+
 const isEmpty = o => {
   return Object.keys(o).length < 1;
 };
