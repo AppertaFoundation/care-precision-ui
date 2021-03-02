@@ -7,7 +7,7 @@ import uniqid from 'uniqid';
 
 const RecomendationsActions = () => {
   const theme = useTheme();
-  const md = useMediaQuery(theme.breakpoints?.up('sm'));
+  const md = useMediaQuery(theme.breakpoints?.up('md'));
   return md
     ? [
         <Grid

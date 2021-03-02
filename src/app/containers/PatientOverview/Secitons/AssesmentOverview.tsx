@@ -8,6 +8,7 @@ import {
   News2Icon,
   SepsisIcon,
   CovidIcon,
+  News2IconBadget,
 } from 'components';
 import { CarouselCard } from './SituatiionBackground';
 import uniqid from 'uniqid';
@@ -38,7 +39,7 @@ const AssesmentOverviewCard: React.FC<IAssesmentOverviewCard> = ({
             <Box width="100%">
               <Text label="Last Taken">{taken}</Text>
             </Box>
-            <Box flexShrink={1}>
+            <Box>
               {
                 {
                   denwis: (
@@ -48,29 +49,12 @@ const AssesmentOverviewCard: React.FC<IAssesmentOverviewCard> = ({
                     ></IconButton>
                   ),
                   news2: (
-                    <IconButton
-                      onClick={() => console.log('news2')}
-                      size="small"
-                    >
+                    <div style={{ width: '80px' }}>
                       <News2Icon news2={news2} />
-                    </IconButton>
+                    </div>
                   ),
-                  sepsis: (
-                    <IconButton
-                      onClick={() => console.log('sepsis')}
-                      size="small"
-                    >
-                      <SepsisIcon value={sepsis} />
-                    </IconButton>
-                  ),
-                  covid: (
-                    <IconButton
-                      onClick={() => console.log('covid')}
-                      size="small"
-                    >
-                      <CovidIcon value={covid} />
-                    </IconButton>
-                  ),
+                  sepsis: <SepsisIcon value={sepsis} />,
+                  covid: <CovidIcon value={covid} />,
                 }[assesmentType]
               }
             </Box>
@@ -97,7 +81,7 @@ const AssesmentOverviewCard: React.FC<IAssesmentOverviewCard> = ({
 
 const AssesmentOverview = ({ news2, denwis, sepsis, covid }) => {
   const theme = useTheme();
-  const md = useMediaQuery(theme.breakpoints?.up('sm'));
+  const md = useMediaQuery(theme.breakpoints?.up('md'));
   return md
     ? [
         <Grid

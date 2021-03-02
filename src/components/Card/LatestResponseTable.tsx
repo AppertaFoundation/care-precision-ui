@@ -1,22 +1,10 @@
 import React from 'react';
 import { Box, IconButton } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
-import { withStyles } from '@material-ui/core/styles';
-import { useStylesLastResponse } from './style';
-import MuiIconButton from '@material-ui/core/Button';
 import DenwisIcon from '../DenwisIcon';
 import News2Icon from '../News2Icon';
 import CovidIcon from '../CovidIcon';
 import SepsisIcon from '../SepsisIcon';
-
-const IconButtonNews2 = withStyles({
-  root: {
-    paddingTop: 10,
-    paddingRight: 0,
-    paddingBottom: 10,
-    paddingLeft: 0,
-  },
-})(MuiIconButton);
 
 const LatestResponseTable = ({ assessments, sm, id }) => {
   const history = useHistory();
@@ -36,46 +24,24 @@ const LatestResponseTable = ({ assessments, sm, id }) => {
         <tbody>
           <tr>
             <td>
-              <IconButtonNews2
-                onClick={() => console.log('denwis')}
-                {...(sm ? { size: 'small' } : {})}
-              >
-                {assessments?.denwis?.value && (
-                  <DenwisIcon denwis={assessments?.denwis?.value} />
-                )}
-              </IconButtonNews2>
+              {assessments?.denwis?.value && (
+                <DenwisIcon denwis={assessments?.denwis?.value} />
+              )}
             </td>
             <td>
-              {' '}
-              <IconButton
-                onClick={goToCovid}
-                {...(sm ? { size: 'small' } : {})}
-              >
-                {assessments?.covid?.value && (
-                  <CovidIcon value={assessments?.covid?.value} />
-                )}
-              </IconButton>
+              {assessments?.covid?.value && (
+                <CovidIcon value={assessments?.covid?.value} />
+              )}
             </td>
             <td>
-              <IconButton
-                onClick={() => console.log('sepsis')}
-                {...(sm ? { size: 'small' } : {})}
-              >
-                {assessments?.sepsis?.value && (
-                  <SepsisIcon value={assessments?.sepsis?.value} />
-                )}
-              </IconButton>
+              {assessments?.sepsis?.value && (
+                <SepsisIcon value={assessments?.sepsis?.value} />
+              )}
             </td>
             <td>
-              {' '}
-              <IconButtonNews2
-                onClick={() => console.log('news2')}
-                {...(sm ? { size: 'small' } : {})}
-              >
-                {assessments?.news2?.value && (
-                  <News2Icon news2={assessments?.news2?.value} />
-                )}
-              </IconButtonNews2>{' '}
+              {assessments?.news2?.value && (
+                <News2Icon news2={assessments?.news2?.value} />
+              )}
             </td>
             <td></td>
           </tr>

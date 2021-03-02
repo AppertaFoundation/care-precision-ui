@@ -74,9 +74,7 @@ export function* makeCalculations(action) {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
       },
-      body: JSON.stringify(
-        { [`${obsType}`]: keysToSnake(assessmentForm) },
-      ),
+      body: JSON.stringify({ [`${obsType}`]: keysToSnake(assessmentForm) }),
     });
 
     if (Object.keys(result).length > 0) {

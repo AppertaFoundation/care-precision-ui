@@ -5,7 +5,7 @@ import BoxWrapper from './BoxWrapper';
 import Search from './Search';
 import SortPoper from './SortPoper';
 import Sort from './Sort';
-import News2Icon from './News2Icon';
+import News2Icon, { News2IconBadget } from './News2Icon';
 import SepsisIcon from './SepsisIcon';
 import CovidIcon from './CovidIcon';
 import DenwisIcon from './DenwisIcon';
@@ -67,4 +67,5 @@ export {
   TdFirst,
   TdLast,
   LoadingIndicator,
+  News2IconBadget,
 };

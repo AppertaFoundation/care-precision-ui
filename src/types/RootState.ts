@@ -4,6 +4,8 @@
   Because the redux-injectors injects your reducers asynchronously somewhere in your code
   You have to declare them here manually
 */
+import { ThemeState } from 'styles/theme/slice/types';
+
 import { PatientsList } from 'app/containers/PatientList/types';
 import { InfectionControl } from 'app/containers/InfectionControl/types';
 
@@ -11,6 +13,7 @@ import { AssessmentEvent } from 'app/containers/Assessment/types';
 import { PatientOverview } from 'app/containers/PatientOverview/types';
 
 export interface RootState {
+  theme?: ThemeState;
   session?: any;
   assessmentyType?: any;
   patientsList?: PatientsList;

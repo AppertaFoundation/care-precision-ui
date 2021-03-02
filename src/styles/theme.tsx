@@ -19,7 +19,7 @@ const lightTheme = responsiveFontSizes(
     },
     palette: {
       background: {
-        default: '#0000',
+        default: '#DADADA',
       },
       primary: {
         light: '#546088',

@@ -1,32 +1,37 @@
 import React from 'react';
-import { Box } from '@material-ui/core';
 import TrendArrow from '../TrendArrow';
-import { useStyles } from './style';
 
-export const mapCircleColors = (score: string): string => {
-  return {
-    at0060: '#F40013',
-    at0059: '#FBC384',
-    at0058: '#fbf184',
-    at0057: '#2E7D32',
-  }[score];
-};
-
-const mapScoreColors = clinicalRisk =>
-  clinicalRisk === 'at0060' || clinicalRisk === 'at0057' ? '#fff' : '#000';
-
-export const mapCirleParametrColor = score => {
-  return {
-    '3': '#F40013',
-    '2': '#FBC384',
-    '1': '#fbf184',
-    '0': '#2E7D32',
-  }[score];
-};
-export const mapScoreParametrColor = score =>
-  parseInt(score) === 3 ? '#fff' : '#000';
+import { Label, IconButton } from '../IconButton';
 
 const News2Icon: React.FC<{
+  news2: {
+    value: number;
+    clinicalRisk: string | number;
+    trend?: string;
+  };
+  isParametr?: Boolean;
+  label?: boolean;
+}> = ({ news2, isParametr, label }) => {
+  return (
+    <IconButton onClick={() => console.log('a')}>
+      <News2 news2={news2} isParametr={isParametr} />
+      {label && <Label>NEWS2</Label>}
+    </IconButton>
+  );
+};
+
+export const News2IconBadget: React.FC<{
+  news2: {
+    value: number;
+    clinicalRisk: string | number;
+    trend?: string;
+  };
+  isParametr?: Boolean;
+  label?: boolean;
+}> = ({ news2, isParametr }) => {
+  return <News2 news2={news2} isParametr={isParametr} />;
+};
+const News2: React.FC<{
   news2: {
     value: number;
     clinicalRisk: string | number;
@@ -36,38 +41,48 @@ const News2Icon: React.FC<{
 }> = ({ news2, isParametr }) => {
   const { value, clinicalRisk, trend } = news2;
 
-  const double = news2.value.toString().length === 2;
-  const circle = isParametr
-    ? mapCirleParametrColor(clinicalRisk)
-    : mapCircleColors(clinicalRisk.toString() || '');
-  const score = isParametr
-    ? mapScoreParametrColor(clinicalRisk)
-    : mapScoreColors(clinicalRisk || '');
+  const CIRCLE_COLORS_SCORE = {
+    at0060: '#F40013',
+    at0059: '#FBC384',
+    at0058: '#fbf184',
+    at0057: '#2E7D32',
+  };
 
-  const classes = useStyles(circle, score, double);
+  const CIRCLE_COLORS_PARAMETRS = {
+    '3': '#F40013',
+    '2': '#FBC384',
+    '1': '#fbf184',
+    '0': '#2E7D32',
+  };
+  const parametrFont = value === 3 ? '#fff' : '#000';
+  const fill = isParametr
+    ? CIRCLE_COLORS_PARAMETRS[clinicalRisk]
+    : CIRCLE_COLORS_SCORE[clinicalRisk];
+  const fontFill = isParametr
+    ? parametrFont
+    : clinicalRisk === 'at0060' || clinicalRisk === 'at0057'
+    ? '#fff'
+    : '#000';
+
   return (
-    <div style={classes.root}>
-      {clinicalRisk || clinicalRisk >= 0 ? (
-        <Box
-          display="flex"
-          flexWrap="nowrap"
-          alignItems="center"
-          justifyContent="center"
+    <div style={{ flexDirection: 'row' }}>
+      {trend && <TrendArrow trend={trend} />}
+      <svg width={32} height={32}>
+        <circle cx={16} cy={16} r={15} fill={fill} />
+        <text
+          x="50%"
+          y="50%"
+          textAnchor="middle"
+          fill={fontFill}
+          fontSize={16}
+          fontFamily="Arial"
+          dy=".3em"
+          stroke={fontFill}
         >
-          {trend && (
-            <Box style={{ zIndex: 2 }} width={1 / 3}>
-              <TrendArrow trend={trend} />
-            </Box>
-          )}
-          <Box>
-            <span style={classes.outside}>
-              <span style={classes.inside}>{value}</span>
-            </span>
-          </Box>
-        </Box>
-      ) : (
-        <p></p>
-      )}
+          {value}
+        </text>
+        {'Sorry, your browser does not support inline SVG.'}
+      </svg>
     </div>
   );
 };

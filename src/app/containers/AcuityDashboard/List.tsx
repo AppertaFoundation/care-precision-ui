@@ -45,7 +45,6 @@ const AcuityList = () => {
   const theme = useTheme();
 
   const xs = useMediaQuery(theme.breakpoints.down(560));
-  const sm = useMediaQuery(theme.breakpoints.up('sm'));
   const history = useHistory();
 
   const dispatch = useDispatch();
@@ -163,8 +162,6 @@ const AcuityList = () => {
                       assessment,
                       id,
                     }) => {
-                      const goToCovid = e =>
-                        history.push(`/covid-management/${id}`);
                       const redirectToPatientOverview = () =>
                         history.push(`/patient-overview/${id}`);
                       return (
@@ -188,48 +185,36 @@ const AcuityList = () => {
                               </Typography>
                             </Td>
                             <Td>
-                              <IconButton
-                                onClick={() => console.log('denwis')}
-                                {...(sm ? { size: 'small' } : {})}
-                              >
-                                {assessment?.denwis?.value && (
-                                  <DenwisIcon
-                                    denwis={assessment?.denwis?.value}
-                                  />
-                                )}
-                              </IconButton>
+                              {assessment?.denwis?.value && (
+                                <DenwisIcon
+                                  label
+                                  denwis={assessment?.denwis?.value}
+                                />
+                              )}
                             </Td>
                             <Td>
-                              <IconButton
-                                onClick={goToCovid}
-                                {...(sm ? { size: 'small' } : {})}
-                              >
-                                {assessment?.covid?.value && (
-                                  <CovidIcon value={assessment?.covid?.value} />
-                                )}
-                              </IconButton>
+                              {assessment?.covid?.value && (
+                                <CovidIcon
+                                  label
+                                  value={assessment?.covid?.value}
+                                />
+                              )}
                             </Td>
                             <Td>
-                              <IconButton
-                                onClick={() => console.log('sepsis')}
-                                {...(sm ? { size: 'small' } : {})}
-                              >
-                                {assessment?.sepsis?.value && (
-                                  <SepsisIcon
-                                    value={assessment?.sepsis?.value}
-                                  />
-                                )}
-                              </IconButton>
+                              {assessment?.sepsis?.value && (
+                                <SepsisIcon
+                                  label
+                                  value={assessment?.sepsis?.value}
+                                />
+                              )}
                             </Td>
                             <Td>
-                              <IconButton
-                                onClick={() => console.log('denwis')}
-                                {...(sm ? { size: 'small' } : {})}
-                              >
-                                {assessment?.news2?.value && (
-                                  <News2Icon news2={assessment?.news2?.value} />
-                                )}
-                              </IconButton>
+                              {assessment?.news2?.value && (
+                                <News2Icon
+                                  label
+                                  news2={assessment?.news2?.value}
+                                />
+                              )}
                             </Td>
                             <Td>Action</Td>
                             <TdLast>
@@ -253,7 +238,11 @@ const AcuityList = () => {
                     },
                   )
                 ) : (
-                  <Typography>There are no such records</Typography>
+                  <tr>
+                    <Td>
+                      <Typography>There are no such records</Typography>
+                    </Td>
+                  </tr>
                 )}
               </Table>
             )}
