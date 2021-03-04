@@ -30,14 +30,6 @@ describe('GithubRepoForm selectors', () => {
     expect(selectors.selectError(state)).toEqual(error);
   });
 
-  it('should select search', () => {
-    const search = null;
-    state = {
-      patientsList: { ...initialState, search: search },
-    };
-    expect(selectors.selectSearch(state)).toEqual(search);
-  });
-
   it('should select filters', () => {
     const filters = { sort: null, filter: null },
       state = {

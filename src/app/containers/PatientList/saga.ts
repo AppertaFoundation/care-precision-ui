@@ -13,7 +13,6 @@ function getRequestURL(params) {
     ]['REACT_APP_API']
   }/meta/demographics/patient_list`;
 
-  const search = params?.search ? params.search : null;
   const filter = params?.filter ? params.filter : null;
   const sort = params?.sort ? params.sort : null;
 
@@ -29,10 +28,8 @@ function getRequestURL(params) {
   const order = sort?.key
     ? `&sort_key=${sort.key}&sort_value=${sort.value}`
     : '';
-  const searchValue = search
-    ? `&search_key=combisearch&search_value=${search}`
-    : '';
-  return `${base}?${filterURL}${filterURLdenwis}${filterURLcovid}${searchValue}${order}`;
+
+  return `${base}?${filterURL}${filterURLdenwis}${filterURLcovid}${order}`;
 }
 
 export function* getRecords(action) {

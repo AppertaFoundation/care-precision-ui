@@ -11,6 +11,7 @@ import { InfectionControl } from 'app/containers/InfectionControl/types';
 
 import { AssessmentEvent } from 'app/containers/Assessment/types';
 import { PatientOverview } from 'app/containers/PatientOverview/types';
+import { SearchPatientRecord } from 'app/containers/SearchPatientRecord/types';
 
 export interface RootState {
   theme?: ThemeState;
@@ -20,4 +21,5 @@ export interface RootState {
   assessmentEvent?: AssessmentEvent;
   infectionControl?: InfectionControl;
   patientOverview?: PatientOverview;
+  searchPatientRecord?: SearchPatientRecord;
 }

@@ -326,4 +326,13 @@ const PATIENT_LIST = [
     location: 'Bedroom',
   },
 ];
+
+export const searchByNameOrNhs = (patients, searchValue) => {
+  const filterd = patients.filter(
+    patient =>
+      patient.name.toUpperCase().includes(searchValue.toUpperCase()) ||
+      patient.nhsnumber.toUpperCase().includes(searchValue.toUpperCase()),
+  );
+  return filterd;
+};
 export default PATIENT_LIST;

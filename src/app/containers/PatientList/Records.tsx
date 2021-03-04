@@ -11,20 +11,13 @@ import {
   selectPatients,
   selectError,
   selectLoading,
-  selectSearch,
   selectFilters,
 } from './selectors';
 
 import { Box, List, Toolbar, Grid, Typography } from '@material-ui/core';
-import {
-  Card,
-  CardContent,
-  Search,
-  SortPoper,
-  Sort,
-  Spinner,
-} from 'components';
+import { Card, CardContent, SortPoper, Sort, Spinner } from 'components';
 import { useStyles } from './styles';
+import Search from '../SearchPatientRecord';
 
 const Records = () => {
   useInjectReducer({ key: sliceKey, reducer });
@@ -36,20 +29,12 @@ const Records = () => {
   const error = useSelector(selectError);
   const isLoading = useSelector(selectLoading);
   const patients = useSelector(selectPatients);
-  const search = useSelector(selectSearch);
   const filters = useSelector(selectFilters);
 
   React.useEffect(() => {
     dispatch(actions.loadRecords({ sort: { value: 'DESC', key: 'news2' } }));
   }, [dispatch]);
 
-  const handleSearch = React.useCallback(
-    value => {
-      dispatch(actions.search(value));
-      dispatch(actions.loadRecords({ search: value }));
-    },
-    [dispatch],
-  );
   const handleSortFilter = React.useCallback(
     filters => {
       dispatch(actions.addFilters(filters));
@@ -62,14 +47,9 @@ const Records = () => {
     <>
       <div className={classes.fixed} ref={ref}>
         <Toolbar>
-          <Grid
-            direction="row"
-            alignItems="center"
-            justify={'flex-end'}
-            container
-          >
-            <Grid item xs={10} sm={6} md={3}>
-              <Search onSearch={handleSearch} defaultValue={search} />
+          <Grid direction="row" alignItems="center" container>
+            <Grid item xs={10} sm={11} md={11}>
+              <Search />
             </Grid>
             <Grid item>
               <SortPoper>
@@ -85,7 +65,6 @@ const Records = () => {
           </Grid>
         </Toolbar>
       </div>
-
       <Box m={1} mb={8} style={{ marginTop: '50px' }}>
         {error && <p>{error}</p>}
         {isLoading && <Spinner />}

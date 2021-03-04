@@ -11,42 +11,34 @@
  *
  */
 
-import { PayloadAction } from '@reduxjs/toolkit';
-import { createSlice } from '../../../utils/@reduxjs/toolkit';
-import { ContainerState, PatientsErrorType } from './types';
-import { tPatientsList } from 'types';
+import { createSlice } from 'utils/@reduxjs/toolkit';
+import { ContainerState } from './types';
 
 // The initial state of the PatientList container
 export const initialState: ContainerState = {
   loading: false,
   error: null,
   patientsList: [],
-  filters: { sort: { value: 'DESC', key: 'news2' }, filter: null },
 };
 
 const patientsListFromSlice = createSlice({
-  name: 'patientsList',
+  name: 'searchPatientRecord',
   initialState,
   reducers: {
-    loadRecords(state, action) {
+    searchRecord(state, action) {
       state.loading = true;
       state.error = null;
       state.patientsList = [];
     },
-    recordsLoaded(state, action: PayloadAction<tPatientsList[]>) {
+    searchRecordsLoaded(state, action) {
       state.loading = false;
       state.error = null;
       const patientsList = action.payload;
       state.patientsList = patientsList;
     },
-    recordsError(state, action: PayloadAction<PatientsErrorType>) {
+    searchRecordsError(state, action) {
       state.error = action.payload;
       state.loading = false;
-    },
-    addFilters(state, action) {
-      const { sort, filter } = action.payload;
-      state.filters.sort = sort;
-      state.filters.filter = filter;
     },
   },
 });

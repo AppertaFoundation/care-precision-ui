@@ -23,16 +23,16 @@ import {
   selectPatients,
   selectError,
   selectLoading,
-  selectSearch,
   selectFilters,
 } from '../PatientList/selectors';
 
 import { Box, Toolbar, Grid, Typography, Divider } from '@material-ui/core';
-import { Search, Spinner, Table, TdLast, TdFirst } from 'components';
+import { Spinner, Table, TdLast, TdFirst } from 'components';
 import { useStyles } from '../PatientList/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core/styles';
 import styled from 'styled-components';
+import Search from '../SearchPatientRecord';
 
 type Order = 'ASC' | 'DESC';
 
@@ -51,7 +51,6 @@ const AcuityList = () => {
   const error = useSelector(selectError);
   const isLoading = useSelector(selectLoading);
   const patients = useSelector(selectPatients);
-  const search = useSelector(selectSearch);
   const filters = useSelector(selectFilters);
 
   const [open, setOpen] = React.useState<boolean>(false);
@@ -75,13 +74,7 @@ const AcuityList = () => {
       setOrderBy(filters?.sort?.value);
     }
   }, [dispatch, filters, order, orderBy]);
-  const handleSearch = React.useCallback(
-    value => {
-      dispatch(actions.search(value));
-      dispatch(actions.loadRecords({ search: value }));
-    },
-    [dispatch],
-  );
+
   const handleRequestSort = React.useCallback(
     newFilters => {
       dispatch(actions.addFilters(newFilters));
@@ -129,8 +122,8 @@ const AcuityList = () => {
               justify={'flex-end'}
               container
             >
-              <Grid item xs={10} sm={6} md={3}>
-                <Search onSearch={handleSearch} defaultValue={search} />
+              <Grid item xs={12} sm={12} md={12}>
+                <Search />
               </Grid>
             </Grid>
           </Toolbar>
@@ -138,7 +131,6 @@ const AcuityList = () => {
 
         {error && <p>{error}</p>}
         {isLoading && <Spinner />}
-        {/* {patients?.length > 0 && ( */}
         <>
           <Box mb={8} style={{ marginTop: '50px' }}>
             {xs ? (
