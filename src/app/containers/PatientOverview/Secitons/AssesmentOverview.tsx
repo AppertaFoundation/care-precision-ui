@@ -8,7 +8,6 @@ import {
   News2Icon,
   SepsisIcon,
   CovidIcon,
-  News2IconBadget,
 } from 'components';
 import { CarouselCard } from './SituatiionBackground';
 import uniqid from 'uniqid';

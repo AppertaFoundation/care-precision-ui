@@ -1,6 +1,6 @@
 import React from 'react';
 import { Grid, Box } from '@material-ui/core';
-import { useHistory } from 'react-router-dom';
+// import { useHistory } from 'react-router-dom';
 import { useStylesLastResponse } from './style';
 import DenwisIcon from '../DenwisIcon';
 import News2Icon from '../News2Icon';
@@ -9,8 +9,8 @@ import SepsisIcon from '../SepsisIcon';
 
 const LatestResponse = ({ assessments, sm, id }) => {
   const classes = useStylesLastResponse();
-  const history = useHistory();
-  const goToCovid = () => history.push(`/covid-management/${id}`);
+  // const history = useHistory();
+  // const goToCovid = () => history.push(`/covid-management/${id}`);
   return (
     <Box mr={1}>
       <Grid
