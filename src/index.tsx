@@ -21,6 +21,8 @@ import { HelmetProvider } from 'react-helmet-async';
 import { sessionService } from 'redux-react-session';
 
 import { configureAppStore } from 'store/configureStore';
+import { ThemeProvider } from 'styles/theme/ThemeProvider';
+import FontFaceObserver from 'fontfaceobserver';
 
 //Initialize session and store
 const store = configureAppStore();
@@ -52,16 +54,22 @@ sessionService
 
 const MOUNT_NODE = document.getElementById('root') as HTMLElement;
 
+const openSansObserver = new FontFaceObserver('Cabin', {});
+openSansObserver.load().then(() => {
+  document.body.classList.add('fontLoaded');
+});
 interface Props {
   Component: typeof App;
 }
 const ConnectedApp = ({ Component }: Props) => (
   <Provider store={store}>
-    <HelmetProvider>
-      <React.StrictMode>
-        <Component />
-      </React.StrictMode>
-    </HelmetProvider>
+    <ThemeProvider>
+      <HelmetProvider>
+        <React.StrictMode>
+          <Component />
+        </React.StrictMode>
+      </HelmetProvider>
+    </ThemeProvider>
   </Provider>
 );
 const render = (Component: typeof App) => {

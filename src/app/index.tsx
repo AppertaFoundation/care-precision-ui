@@ -26,7 +26,6 @@ import { PatientList } from './containers/PatientList/';
 import { PatientOverview } from './containers/PatientOverview';
 import Login from './containers/Login';
 
-import { GlobalStyle } from 'styles/global-styles';
 import Layout from 'components/Layout';
 
 export function App() {
@@ -100,7 +99,6 @@ export function App() {
           <Route component={NotFoundPage} />
         </Switch>
       )}
-      <GlobalStyle />
     </BrowserRouter>
   );
 }

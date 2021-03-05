@@ -10,9 +10,9 @@ import {
   Theme,
   createStyles,
 } from '@material-ui/core/styles';
-import SepsisIcon from '../SepsisIcon';
+import { SepsisIconBadget } from '../SepsisIcon';
 import SortPoper from '../SortPoper';
-import CovidIcon from '../CovidIcon';
+import { CovidIconBadget } from '../CovidIcon';
 import Sort from '../Sort';
 
 type PropsBeforeStyle = {
@@ -139,7 +139,7 @@ const Table: React.FC<Props> = ({
             <SortPoper
               size="small"
               icon={
-                <CovidIcon
+                <CovidIconBadget
                   value={{
                     suspectedCovidStatus: COVID_FLAG,
                     dateIsolationDueToEnd: null,
@@ -159,7 +159,7 @@ const Table: React.FC<Props> = ({
             SEPSIS
             <SortPoper
               size="small"
-              icon={<SepsisIcon value={{ value: SEPSIS_FLAG }} />}
+              icon={<SepsisIconBadget value={{ value: SEPSIS_FLAG }} />}
             >
               <Sort
                 onFilterSort={onRequestSort}

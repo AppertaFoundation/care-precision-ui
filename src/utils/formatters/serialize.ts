@@ -89,7 +89,14 @@ export const serializeNews2 = function (news2, news2Score) {
   });
   return {
     ...formatedNews2,
-    news2Score: news2Score,
+    news2Score: {
+      ...news2Score.score,
+      clinical_risk_category: {
+        value: news2Score.clinicalRisk.label,
+        terminology: 'local',
+        code: news2Score.clinicalRisk.value,
+      },
+    },
   };
 };
 
@@ -246,7 +253,7 @@ export const serializeAssessmentJSON = function ({
     !isEmpty(background) && serializeBackground(background);
   const news2Seciton = isEmpty(news2)
     ? null
-    : serializeNews2(news2, result['news2'].value.value);
+    : serializeNews2(news2, result['news2']);
   const sepsisSection = isEmpty(sepsis)
     ? null
     : serializeSepsisScreening(sepsis);

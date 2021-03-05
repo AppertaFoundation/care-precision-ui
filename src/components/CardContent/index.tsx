@@ -11,13 +11,13 @@ interface Props {
 const CardContent: React.FC<Props> = ({ location, gender, birthDate }) => {
   return (
     <Grid container>
-      <Grid item sm={4} xs={12}>
+      <Grid item lg={2} md={3} sm={4} xs={12}>
         {birthDate && <Text label="DOB">{birthDate}</Text>}
       </Grid>
-      <Grid item sm={4} xs={12}>
+      <Grid item lg={2} md={3} sm={4} xs={12}>
         {gender && <Text label="Gender">{gender}</Text>}
       </Grid>
-      <Grid item sm={4} xs={12}>
+      <Grid item lg={2} md={3} sm={4} xs={12}>
         {location && <Text label="Location">{location}</Text>}
       </Grid>
     </Grid>

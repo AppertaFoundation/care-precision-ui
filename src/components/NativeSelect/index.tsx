@@ -25,7 +25,8 @@ const NativeSelects: React.FC<{
   disabled?: boolean;
   control: any;
   rules?: any;
-}> = ({ options, label, name, defaultValue, disabled, control, rules }) => {
+  id: string;
+}> = ({ options, label, name, defaultValue, disabled, control, rules, id }) => {
   const classes = useStyles();
 
   const [value, setValue] = React.useState<string | unknown>('');
@@ -48,7 +49,7 @@ const NativeSelects: React.FC<{
           variant="outlined"
           className={classes.formControl}
         >
-          <InputLabel htmlFor="outlined-native">{label}</InputLabel>
+          <InputLabel htmlFor={id}>{label}</InputLabel>
           <Select
             native
             value={value}
@@ -57,7 +58,7 @@ const NativeSelects: React.FC<{
             labelWidth={3}
             inputProps={{
               name: name,
-              id: 'outlined-native',
+              id: id,
               disabled: disabled,
             }}
           >

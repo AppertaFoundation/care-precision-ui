@@ -8,6 +8,22 @@ import { actions } from './slice';
 
 const getUUID = state => state.assessmentEvent.patient.id;
 
+const STATIC = (window as any)[
+  `${process.env.NODE_ENV === 'production' ? 'injectedEnv' : '_env_'}`
+].REACT_APP_STATIC;
+
+const MOCK_DENWIS = (window as any)[
+  `${process.env.NODE_ENV === 'production' ? 'injectedEnv' : '_env_'}`
+].REACT_APP_STATIC_DENWIS;
+
+const MOCK_SEPSIS = (window as any)[
+  `${process.env.NODE_ENV === 'production' ? 'injectedEnv' : '_env_'}`
+].REACT_APP_STATIC_SEPSIS;
+
+const MOCK_COVID = (window as any)[
+  `${process.env.NODE_ENV === 'production' ? 'injectedEnv' : '_env_'}`
+].REACT_APP_STATIC_COVID;
+
 export function* getRecord(action) {
   yield delay(500);
   const requestURL = `${
@@ -56,9 +72,10 @@ export function* makeCalculations(action) {
   const uuid = yield select(getUUID);
   const now = new Date();
   if (
-    (window as any)[
-      `${process.env.NODE_ENV === 'production' ? 'injectedEnv' : '_env_'}`
-    ].REACT_APP_STATIC
+    STATIC ||
+    (MOCK_SEPSIS && obsType === 'sepsis') ||
+    (MOCK_DENWIS && obsType === 'denwis') ||
+    (MOCK_COVID && obsType === 'covid')
   ) {
     const result = keysToCamel(fake.ASSESSMENTS_RESULT[`${obsType}`]);
     result[`${obsType}`].lastUpdate = now.toISOString();
@@ -77,6 +94,7 @@ export function* makeCalculations(action) {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
       },
+
       body: JSON.stringify({
         header: {
           start_time: '2021-02-10T13:34:58.446Z',
@@ -127,11 +145,7 @@ export function* submitAssessment(action) {
     ].REACT_APP_API
   }/cdr`;
   const formatedAssessment = serializeAssessmentJSON(action.payload);
-  if (
-    (window as any)[
-      `${process.env.NODE_ENV === 'production' ? 'injectedEnv' : '_env_'}`
-    ].REACT_APP_STATIC
-  ) {
+  if (STATIC) {
     download(JSON.stringify(formatedAssessment), 'json.txt', 'text/plain');
     yield put(actions.cleanAssessment);
     return yield put(actions.successAssesment());

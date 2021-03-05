@@ -23,16 +23,16 @@ import {
   selectPatients,
   selectError,
   selectLoading,
-  selectSearch,
   selectFilters,
 } from '../PatientList/selectors';
 
 import { Box, Toolbar, Grid, Typography, Divider } from '@material-ui/core';
-import { Search, Spinner, Table, TdLast, TdFirst } from 'components';
+import { Spinner, Table, TdLast, TdFirst } from 'components';
 import { useStyles } from '../PatientList/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core/styles';
 import styled from 'styled-components';
+import Search from '../SearchPatientRecord';
 
 type Order = 'ASC' | 'DESC';
 
@@ -45,14 +45,12 @@ const AcuityList = () => {
   const theme = useTheme();
 
   const xs = useMediaQuery(theme.breakpoints.down(560));
-  const sm = useMediaQuery(theme.breakpoints.up('sm'));
   const history = useHistory();
 
   const dispatch = useDispatch();
   const error = useSelector(selectError);
   const isLoading = useSelector(selectLoading);
   const patients = useSelector(selectPatients);
-  const search = useSelector(selectSearch);
   const filters = useSelector(selectFilters);
 
   const [open, setOpen] = React.useState<boolean>(false);
@@ -76,13 +74,7 @@ const AcuityList = () => {
       setOrderBy(filters?.sort?.value);
     }
   }, [dispatch, filters, order, orderBy]);
-  const handleSearch = React.useCallback(
-    value => {
-      dispatch(actions.search(value));
-      dispatch(actions.loadRecords({ search: value }));
-    },
-    [dispatch],
-  );
+
   const handleRequestSort = React.useCallback(
     newFilters => {
       dispatch(actions.addFilters(newFilters));
@@ -130,8 +122,8 @@ const AcuityList = () => {
               justify={'flex-end'}
               container
             >
-              <Grid item xs={10} sm={6} md={3}>
-                <Search onSearch={handleSearch} defaultValue={search} />
+              <Grid item xs={12} sm={12} md={12}>
+                <Search />
               </Grid>
             </Grid>
           </Toolbar>
@@ -139,7 +131,6 @@ const AcuityList = () => {
 
         {error && <p>{error}</p>}
         {isLoading && <Spinner />}
-        {/* {patients?.length > 0 && ( */}
         <>
           <Box mb={8} style={{ marginTop: '50px' }}>
             {xs ? (
@@ -163,8 +154,6 @@ const AcuityList = () => {
                       assessment,
                       id,
                     }) => {
-                      const goToCovid = e =>
-                        history.push(`/covid-management/${id}`);
                       const redirectToPatientOverview = () =>
                         history.push(`/patient-overview/${id}`);
                       return (
@@ -188,48 +177,36 @@ const AcuityList = () => {
                               </Typography>
                             </Td>
                             <Td>
-                              <IconButton
-                                onClick={() => console.log('denwis')}
-                                {...(sm ? { size: 'small' } : {})}
-                              >
-                                {assessment?.denwis?.value && (
-                                  <DenwisIcon
-                                    denwis={assessment?.denwis?.value}
-                                  />
-                                )}
-                              </IconButton>
+                              {assessment?.denwis?.value && (
+                                <DenwisIcon
+                                  label
+                                  denwis={assessment?.denwis?.value}
+                                />
+                              )}
                             </Td>
                             <Td>
-                              <IconButton
-                                onClick={goToCovid}
-                                {...(sm ? { size: 'small' } : {})}
-                              >
-                                {assessment?.covid?.value && (
-                                  <CovidIcon value={assessment?.covid?.value} />
-                                )}
-                              </IconButton>
+                              {assessment?.covid?.value && (
+                                <CovidIcon
+                                  label
+                                  value={assessment?.covid?.value}
+                                />
+                              )}
                             </Td>
                             <Td>
-                              <IconButton
-                                onClick={() => console.log('sepsis')}
-                                {...(sm ? { size: 'small' } : {})}
-                              >
-                                {assessment?.sepsis?.value && (
-                                  <SepsisIcon
-                                    value={assessment?.sepsis?.value}
-                                  />
-                                )}
-                              </IconButton>
+                              {assessment?.sepsis?.value && (
+                                <SepsisIcon
+                                  label
+                                  value={assessment?.sepsis?.value}
+                                />
+                              )}
                             </Td>
                             <Td>
-                              <IconButton
-                                onClick={() => console.log('denwis')}
-                                {...(sm ? { size: 'small' } : {})}
-                              >
-                                {assessment?.news2?.value && (
-                                  <News2Icon news2={assessment?.news2?.value} />
-                                )}
-                              </IconButton>
+                              {assessment?.news2?.value && (
+                                <News2Icon
+                                  label
+                                  news2={assessment?.news2?.value}
+                                />
+                              )}
                             </Td>
                             <Td>Action</Td>
                             <TdLast>
@@ -253,7 +230,11 @@ const AcuityList = () => {
                     },
                   )
                 ) : (
-                  <Typography>There are no such records</Typography>
+                  <tr>
+                    <Td>
+                      <Typography>There are no such records</Typography>
+                    </Td>
+                  </tr>
                 )}
               </Table>
             )}

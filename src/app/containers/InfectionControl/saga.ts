@@ -71,7 +71,7 @@ export function* getInfectionControl(action) {
     ].REACT_APP_STATIC ||
     (window as any)[
       `${process.env.NODE_ENV === 'production' ? 'injectedEnv' : '_env_'}`
-    ].REACT_APP_STATIC_COVID
+    ].REACT_APP_STATIC_COVID_CONTROL
   ) {
     return yield put(
       actions.infectionControlLoaded(keysToCamel(fake.COVID_MANAGEMENT)),
@@ -101,7 +101,7 @@ export function* updateCovidPathway(action) {
     ].REACT_APP_STATIC ||
     (window as any)[
       `${process.env.NODE_ENV === 'production' ? 'injectedEnv' : '_env_'}`
-    ].REACT_APP_STATIC_COVID
+    ].REACT_APP_STATIC_COVID_CONTROL
   ) {
     return yield put(actions.success());
   }

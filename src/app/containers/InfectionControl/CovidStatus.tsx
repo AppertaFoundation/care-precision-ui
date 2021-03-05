@@ -133,6 +133,7 @@ export function CovidStatus() {
               <Box p={1}>
                 <form id="covid-status-form" onSubmit={handleSubmit(onSubmit)}>
                   <NativeSelect
+                    id="covid-status-select"
                     options={[
                       { value: 'Positive', label: 'Positive' },
 

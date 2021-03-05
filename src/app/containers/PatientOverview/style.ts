@@ -11,8 +11,14 @@ export const useStyles = makeStyles(theme => ({
   },
   demo: {
     backgroundColor: theme.palette.background.paper,
-    height: 230,
+    height: 200,
     margin: theme.spacing(2),
+    [theme.breakpoints.up('sm')]: {
+      height: 100,
+    },
+    [theme.breakpoints.up('md')]: {
+      height: 200,
+    },
   },
 
   subSection: {

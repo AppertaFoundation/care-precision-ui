@@ -50,7 +50,7 @@ export const CarouselCard = ({ children, label }) => {
 
 const SituationBackgroundSteps = () => {
   const theme = useTheme();
-  const md = useMediaQuery(theme.breakpoints?.up('sm'));
+  const md = useMediaQuery(theme.breakpoints?.up('md'));
   return md
     ? [
         <Grid

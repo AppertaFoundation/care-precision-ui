@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 export const News2Result = () => {
   const classes = useStyles();
   const result = useSelector(selectResult);
-  const news2Response = result?.news2?.value?.value;
+  const news2Response = result?.news2?.score;
   const news2 = useSelector(selectNews2);
   const { totalScore, clinicalRiskCategory } = news2Response;
 
