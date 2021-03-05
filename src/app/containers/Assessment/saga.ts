@@ -109,7 +109,7 @@ export function* makeCalculations(action) {
             },
           },
         },
-        [`${obsType}`]: keysToSnake(assessmentForm),
+        assessment: { [`${obsType}`]: keysToSnake(assessmentForm) },
       }),
     });
 
