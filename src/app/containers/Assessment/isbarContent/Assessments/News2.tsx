@@ -138,7 +138,7 @@ const News2 = ({ disabled, onOpenSummary, onValidate, openErrorDialog }) => {
                     disabled={disabled}
                     variant="outlined"
                     label="Respiration Rate"
-                    name="respirations_rate.magnitude"
+                    name="respiration_rate.magnitude"
                     type="number"
                     fullWidth
                     InputProps={{
@@ -164,12 +164,12 @@ const News2 = ({ disabled, onOpenSummary, onValidate, openErrorDialog }) => {
                   <input
                     type="hidden"
                     ref={register}
-                    name="respirations_rate.units"
+                    name="respiration_rate.units"
                     value="/min"
                   />
 
                   {errors && (
-                    <ErrorMsg name={'respirations_rate.magnitude'} errors={errors} />
+                    <ErrorMsg name={'respiration_rate.magnitude'} errors={errors} />
                   )}
                 </Grid>
                 <Grid item md={12}>
