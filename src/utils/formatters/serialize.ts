@@ -87,6 +87,9 @@ export const serializeNews2 = function (news2, news2Score) {
       };
     }
   });
+  formatedNews2.respirations = {
+    magnitude: formatedNews2.respiration_rate.magnitude,
+  };
   return {
     ...formatedNews2,
     news2Score: {

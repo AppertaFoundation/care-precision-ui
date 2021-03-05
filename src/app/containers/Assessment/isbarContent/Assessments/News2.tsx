@@ -169,7 +169,10 @@ const News2 = ({ disabled, onOpenSummary, onValidate, openErrorDialog }) => {
                   />
 
                   {errors && (
-                    <ErrorMsg name={'respiration_rate.magnitude'} errors={errors} />
+                    <ErrorMsg
+                      name={'respiration_rate.magnitude'}
+                      errors={errors}
+                    />
                   )}
                 </Grid>
                 <Grid item md={12}>
