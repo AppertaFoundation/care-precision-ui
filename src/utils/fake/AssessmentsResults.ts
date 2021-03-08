@@ -12,11 +12,11 @@ const ASSESSMENTS_RESULT = {
           value: '94-95',
           code: 'at0031',
         },
-        clinical_risk_category: {
-          value: 'Medium',
-          terminology: 'local',
-          code: 'at0059',
-        },
+        // clinical_risk_category: {
+        //   value: 'Medium',
+        //   terminology: 'local',
+        //   code: 'at0059',
+        // },
         air_or_oxygen: {
           code: 'at0036',
           value: 'Air',

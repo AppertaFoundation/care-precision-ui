@@ -169,6 +169,7 @@ export function News2Summary() {
   const name = useSelector(selectPatientName);
   const result = useSelector(selectResult);
   const response = result?.news2?.score;
+  const clinicalRisk = result?.news2?.clinicalRisk;
   return (
     <div>
       <Grid
@@ -244,7 +245,7 @@ export function News2Summary() {
 
           <TotalNEWSScore
             score={response?.totalScore}
-            clinicalRisk={response?.clinicalRiskCategory?.code}
+            clinicalRisk={clinicalRisk?.value}
           />
         </Box>
       )}

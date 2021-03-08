@@ -16,9 +16,10 @@ const useStyles = makeStyles((theme: Theme) => ({
 export const News2Result = () => {
   const classes = useStyles();
   const result = useSelector(selectResult);
-  const news2Response = result?.news2?.score;
+  const news2Response = result?.news2;
   const news2 = useSelector(selectNews2);
-  const { totalScore, clinicalRiskCategory } = news2Response;
+  const totalScore = news2Response?.score?.totalScore;
+  const clinicalRiskCategory = news2Response?.clinicalRisk;
 
   const updateDateTime = result?.news2?.lastUpdate;
   const lastUpdate = `${formatTime(updateDateTime)} ${formatDate(
@@ -66,7 +67,7 @@ export const News2Result = () => {
                   <News2Icon
                     news2={{
                       value: totalScore,
-                      clinicalRisk: clinicalRiskCategory.code,
+                      clinicalRisk: clinicalRiskCategory?.value,
                     }}
                   />
                 </Grid>
@@ -82,7 +83,10 @@ export const News2Result = () => {
       </Grid>
       <Grid item xs={12} sm={8}>
         <Box {...(upSm ? { pr: 1 } : {})}>
-          <VitalSignsTable flowRate={news2?.flowRate} news2={news2Response} />
+          <VitalSignsTable
+            flowRate={news2?.flowRate}
+            news2={news2Response?.score}
+          />
         </Box>
       </Grid>
     </Grid>
