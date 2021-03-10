@@ -18,8 +18,7 @@ export const News2Result = () => {
   const result = useSelector(selectResult);
   const news2Response = result?.news2;
   const news2 = useSelector(selectNews2);
-  debugger
-  console.log(result, news2Response)
+
   const totalScore = news2Response?.score?.totalScore;
   const clinicalRiskCategory = news2Response?.clinicalRisk;
 
@@ -76,9 +75,11 @@ export const News2Result = () => {
               </Grid>
             </Grid>
             <Grid item>
-              {false && <Typography variant="body2">
-                Last observation: {lastUpdate}
-              </Typography>}
+              {false && (
+                <Typography variant="body2">
+                  Last observation: {lastUpdate}
+                </Typography>
+              )}
             </Grid>
           </Grid>
         </Box>

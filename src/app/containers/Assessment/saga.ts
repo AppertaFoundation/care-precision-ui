@@ -8,6 +8,29 @@ import { actions } from './slice';
 
 const getUUID = state => state.assessmentEvent.patient.id;
 
+const CONSCIOUSNESS = [
+  {
+    id: 'at0005',
+    value: 'Alert',
+  },
+  {
+    id: 'at0006',
+    value: 'Voice',
+  },
+  {
+    id: 'at0015',
+    value: 'Confusion',
+  },
+  {
+    id: 'at0007',
+    value: 'Pain',
+  },
+  {
+    id: 'at0008',
+    value: 'Unresponsive',
+  },
+];
+
 const STATIC = (window as any)[
   `${process.env.NODE_ENV === 'production' ? 'injectedEnv' : '_env_'}`
 ].REACT_APP_STATIC;
@@ -85,6 +108,15 @@ export function* makeCalculations(action) {
       }),
     );
   }
+  const requestBody = keysToSnake(assessmentForm);
+  if (obsType === 'news2') {
+    const consiciousnessValue = CONSCIOUSNESS.filter(
+      element => element.id === requestBody.acvpu.code,
+    );
+    requestBody.acvpu = {
+      value: consiciousnessValue[0].value,
+    };
+  }
   try {
     const result = yield call(request, requestURL, {
       method: 'POST',
@@ -109,7 +141,7 @@ export function* makeCalculations(action) {
             },
           },
         },
-        assessment: { [`${obsType}`]: keysToSnake(assessmentForm) },
+        assessment: { [`${obsType}`]: requestBody },
       }),
     });
 
