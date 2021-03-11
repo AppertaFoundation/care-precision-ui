@@ -43,7 +43,7 @@ export function PatientOverview() {
 
   const situationBackgroundSteps = SituationBackgroundSteps();
   const assesmentOverview = AssesmentOverview({
-    news2: { value: 4, clinicalRisk: 'at0057', trend: 'same' },
+    news2: { value: 9, clinicalRisk: 'at0057', trend: 'same' },
     denwis: {
       value: {
         trend: 'decreasing',

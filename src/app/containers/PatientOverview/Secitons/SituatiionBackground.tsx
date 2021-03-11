@@ -79,12 +79,7 @@ const SituationBackgroundSteps = () => {
           <Grid item xs={12} sm={4}>
             <Box mr={1}>
               <CarouselCard label="Patient Problem">
-                <Typography>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Vivamus mollis, augue et mollis fermentum, lectus risus
-                  commodo lorem, id congue libero augue eget sapien. In semper
-                  sollicitudin semper.{' '}
-                </Typography>
+                <Typography>No data available</Typography>
               </CarouselCard>
             </Box>
           </Grid>
@@ -116,12 +111,7 @@ const SituationBackgroundSteps = () => {
           <Grid item xs={12} sm={4}>
             <Box mr={1}>
               <CarouselCard label="Current Medication">
-                <Typography>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Vivamus mollis, augue et mollis fermentum, lectus risus
-                  commodo lorem, id congue libero augue eget sapien. In semper
-                  sollicitudin semper.
-                </Typography>
+                <Typography>No data available. </Typography>
               </CarouselCard>
             </Box>
           </Grid>
@@ -129,12 +119,7 @@ const SituationBackgroundSteps = () => {
           <Grid item xs={12} sm={4}>
             <Box>
               <CarouselCard label="Comorbidities">
-                <Typography>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Vivamus mollis, augue et mollis fermentum, lectus risus
-                  commodo lorem, id congue libero augue eget sapien. In semper
-                  sollicitudin semper.{' '}
-                </Typography>
+                <Typography>No data available.</Typography>
               </CarouselCard>
             </Box>
           </Grid>
@@ -154,11 +139,7 @@ const SituationBackgroundSteps = () => {
           </List>
         </CarouselCard>,
         <CarouselCard label="Patient Problem" key={uniqid()}>
-          <Typography>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
-            mollis, augue et mollis fermentum, lectus risus commodo lorem, id
-            congue libero augue eget sapien. In semper sollicitudin semper.{' '}
-          </Typography>
+          <Typography>No data available.</Typography>
         </CarouselCard>,
         <CarouselCard label="Frality Overview" key={uniqid()}>
           <Box display="flex" flexDirection="row">
@@ -176,18 +157,10 @@ const SituationBackgroundSteps = () => {
           </Box>
         </CarouselCard>,
         <CarouselCard label="Current Medication" key={uniqid()}>
-          <Typography>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
-            mollis, augue et mollis fermentum, lectus risus commodo lorem, id
-            congue libero augue eget sapien. In semper sollicitudin semper.{' '}
-          </Typography>
+          <Typography>No data available.</Typography>
         </CarouselCard>,
         <CarouselCard label="Comorbidities" key={uniqid()}>
-          <Typography>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
-            mollis, augue et mollis fermentum, lectus risus commodo lorem, id
-            congue libero augue eget sapien. In semper sollicitudin semper.{' '}
-          </Typography>
+          <Typography>No data available.</Typography>
         </CarouselCard>,
       ];
 };

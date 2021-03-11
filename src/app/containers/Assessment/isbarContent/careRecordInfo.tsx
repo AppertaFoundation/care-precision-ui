@@ -58,10 +58,7 @@ const CareRecordInfo = ({ register }) => {
             <Box mr={1}>
               <CarouselCard>
                 <TextField
-                  defaultValue="Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            Vivamus mollis, augue et mollis fermentum, lectus risus
-            commodo lorem, id congue libero augue eget sapien. In semper
-            sollicitudin sempe"
+                  // defaultValue=""
                   name="allergies"
                   label="Allergies"
                   multiline
@@ -76,10 +73,6 @@ const CareRecordInfo = ({ register }) => {
           <Grid item xs={12} sm={3}>
             <CarouselCard>
               <TextField
-                defaultValue="Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            Vivamus mollis, augue et mollis fermentum, lectus risus
-            commodo lorem, id congue libero augue eget sapien. In semper
-            sollicitudin sempe"
                 name="medication"
                 label="Medication"
                 multiline
@@ -93,10 +86,6 @@ const CareRecordInfo = ({ register }) => {
           <Grid item xs={12} sm={3}>
             <CarouselCard>
               <TextField
-                defaultValue="Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            Vivamus mollis, augue et mollis fermentum, lectus risus
-            commodo lorem, id congue libero augue eget sapien. In semper
-            sollicitudin sempe"
                 name="medication"
                 label="RESPECT Status"
                 multiline
@@ -126,10 +115,6 @@ const CareRecordInfo = ({ register }) => {
         </CarouselCard>,
         <CarouselCard key={uniqid()}>
           <TextField
-            defaultValue="Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            Vivamus mollis, augue et mollis fermentum, lectus risus
-            commodo lorem, id congue libero augue eget sapien. In semper
-            sollicitudin sempe"
             name="allergies"
             label="Allergies"
             multiline
@@ -142,10 +127,6 @@ const CareRecordInfo = ({ register }) => {
         </CarouselCard>,
         <CarouselCard key={uniqid()}>
           <TextField
-            defaultValue="Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            Vivamus mollis, augue et mollis fermentum, lectus risus
-            commodo lorem, id congue libero augue eget sapien. In semper
-            sollicitudin sempe"
             name="medication"
             label="Medication"
             multiline
@@ -158,10 +139,7 @@ const CareRecordInfo = ({ register }) => {
         </CarouselCard>,
         <CarouselCard key={uniqid()}>
           <TextField
-            defaultValue="Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            Vivamus mollis, augue et mollis fermentum, lectus risus
-            commodo lorem, id congue libero augue eget sapien. In semper
-            sollicitudin sempe"
+          
             name="medication"
             label="RESPECT Status"
             multiline

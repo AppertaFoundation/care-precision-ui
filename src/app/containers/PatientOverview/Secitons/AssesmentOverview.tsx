@@ -2,13 +2,7 @@ import React from 'react';
 import { Box, Grid, IconButton } from '@material-ui/core';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core/styles';
-import {
-  Text,
-  //  DenwisIcon,
-  News2Icon,
-  SepsisIcon,
-  CovidIcon,
-} from 'components';
+import { Text, DenwisIcon, News2Icon, SepsisIcon, CovidIcon } from 'components';
 import { CarouselCard } from './SituatiionBackground';
 import uniqid from 'uniqid';
 
@@ -45,7 +39,11 @@ const AssesmentOverviewCard: React.FC<IAssesmentOverviewCard> = ({
                     <IconButton
                       onClick={() => console.log('denwis')}
                       size="small"
-                    ></IconButton>
+                    >
+                      <DenwisIcon
+                        denwis={denwis}
+                      />
+                    </IconButton>
                   ),
                   news2: (
                     <div style={{ width: '80px' }}>
@@ -63,11 +61,11 @@ const AssesmentOverviewCard: React.FC<IAssesmentOverviewCard> = ({
         <Box width="100">
           {
             {
-              denwis: <Text label="DENWIS  Score">9</Text>,
+              denwis: <Text label="DENWIS  Score">5</Text>,
               news2: <Text label="NEWS2  Score">9</Text>,
-              sepsis: <Text label="SEPSIS Outcome">9</Text>,
-              covid: <Text label="COVID  Outcome">9</Text>,
-            }['news2']
+              sepsis: <Text label="SEPSIS Outcome">Sepsis Unlikely</Text>,
+              covid: <Text label="COVID  Outcome">Suspected</Text>,
+            }[assesmentType]
           }
         </Box>
         <Box width="100%">
@@ -96,7 +94,10 @@ const AssesmentOverview = ({ news2, denwis, sepsis, covid }) => {
                 <AssesmentOverviewCard
                   assesmentType="denwis"
                   taken="22-Feb-2020"
-                  denwis={null}
+                  denwis={{
+                    trend: 'decreasing',
+                    value: 5,
+                  }}
                   keyInformation="None"
                 />
               </CarouselCard>
@@ -151,7 +152,10 @@ const AssesmentOverview = ({ news2, denwis, sepsis, covid }) => {
           <AssesmentOverviewCard
             assesmentType="denwis"
             taken="22-Feb-2020"
-            denwis={denwis}
+            denwis={{
+              trend: 'decreasing',
+              value: 5,
+            }}
             keyInformation="None"
           />
         </CarouselCard>,
