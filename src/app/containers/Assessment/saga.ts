@@ -94,20 +94,6 @@ export function* makeCalculations(action) {
   const { obsType, assessmentForm } = action.payload;
   const uuid = yield select(getUUID);
   const now = new Date();
-  if (
-    STATIC ||
-    (MOCK_SEPSIS && obsType === 'sepsis') ||
-    (MOCK_DENWIS && obsType === 'denwis') ||
-    (MOCK_COVID && obsType === 'covid')
-  ) {
-    const result = keysToCamel(fake.ASSESSMENTS_RESULT[`${obsType}`]);
-    result[`${obsType}`].lastUpdate = now.toISOString();
-    return yield put(
-      actions.calculatedResult({
-        ...result,
-      }),
-    );
-  }
   const requestBody = keysToSnake(assessmentForm);
   if (obsType === 'news2') {
     const consiciousnessValue = CONSCIOUSNESS.filter(
@@ -117,6 +103,23 @@ export function* makeCalculations(action) {
       value: consiciousnessValue[0].value,
     };
   }
+  if (
+    STATIC ||
+    (MOCK_SEPSIS && obsType === 'sepsis') ||
+    (MOCK_DENWIS && obsType === 'denwis') ||
+    (MOCK_COVID && obsType === 'covid')
+  ) {
+    download(JSON.stringify(requestBody), 'json.txt', 'text/plain');
+
+    const result = keysToCamel(fake.ASSESSMENTS_RESULT[`${obsType}`]);
+    result[`${obsType}`].lastUpdate = now.toISOString();
+    return yield put(
+      actions.calculatedResult({
+        ...result,
+      }),
+    );
+  }
+
   try {
     const result = yield call(request, requestURL, {
       method: 'POST',

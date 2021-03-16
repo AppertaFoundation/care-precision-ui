@@ -1,12 +1,63 @@
 const PATIENT_LIST = [
   {
     assessment: {
+      // news2: {
+      //   value: {
+      //     trend: 'same',
+      //     value: 4,
+      //     clinicalRisk: 'at0057',
+      //   },
+      // },
       news2: {
-        value: {
-          trend: 'same',
-          value: 4,
-          clinicalRisk: 'at0057',
+        score: {
+          pulse: {
+            code: 'at0013',
+            ordinal: 0,
+            value: '51-90',
+          },
+          spo_scale_1: {
+            ordinal: 1,
+            value: '94-95',
+            code: 'at0031',
+          },
+          air_or_oxygen: {
+            code: 'at0036',
+            value: 'Air',
+            ordinal: 0,
+          },
+          systolic_blood_pressure: {
+            code: 'at0017',
+            ordinal: 3,
+            value: '≤90',
+          },
+          consciousness: {
+            ordinal: 0,
+            value: 'Alert',
+            code: 'at0024',
+          },
+          respiration_rate: {
+            ordinal: 2,
+            value: '21-24',
+            code: 'at0020',
+          },
+          total_score: 3,
+          temperature: {
+            value: '35.1-36.0',
+            ordinal: 1,
+            code: 'at0023',
+          },
         },
+        clinicalRisk: {
+          value: 'at0057',
+          localizedDescriptions: {
+            en: 'Ward-based response.',
+          },
+          localizedLabels: {
+            en: 'Low',
+          },
+          label: 'Low',
+        },
+        trend: 'first',
       },
       covid: {
         value: null,
@@ -45,9 +96,7 @@ const PATIENT_LIST = [
       denwis: {
         value: null,
       },
-      news2: {
-        value: null,
-      },
+
       covid: {
         value: null,
       },
@@ -65,9 +114,7 @@ const PATIENT_LIST = [
       denwis: {
         value: null,
       },
-      news2: {
-        value: null,
-      },
+
       covid: {
         value: null,
       },
@@ -98,9 +145,6 @@ const PATIENT_LIST = [
             value: 'EXAMPLE TEXT',
           },
         },
-      },
-      news2: {
-        value: null,
       },
     },
     birthDateAsString: '1998-03-13',
@@ -142,9 +186,6 @@ const PATIENT_LIST = [
   {
     birthDateAsString: '1923-08-14',
     assessment: {
-      news2: {
-        value: null,
-      },
       covid: {
         value: null,
       },
@@ -174,9 +215,6 @@ const PATIENT_LIST = [
     id: '3B917418-30B6-11EB-9B84-84525E058BE1',
     birthDateAsString: '1935-09-20',
     assessment: {
-      news2: {
-        value: null,
-      },
       covid: {
         value: {
           covid_test_request: {
@@ -215,9 +253,7 @@ const PATIENT_LIST = [
       denwis: {
         value: null,
       },
-      news2: {
-        value: null,
-      },
+
       covid: {
         value: null,
       },
@@ -242,11 +278,55 @@ const PATIENT_LIST = [
         },
       },
       news2: {
-        value: {
-          trend: 'raising',
-          value: 10,
-          clinicalRisk: 'at0060',
+        score: {
+          pulse: {
+            code: 'at0013',
+            ordinal: 0,
+            value: '51-90',
+          },
+          spo_scale_1: {
+            ordinal: 1,
+            value: '94-95',
+            code: 'at0031',
+          },
+          air_or_oxygen: {
+            code: 'at0036',
+            value: 'Air',
+            ordinal: 0,
+          },
+          systolic_blood_pressure: {
+            code: 'at0017',
+            ordinal: 3,
+            value: '≤90',
+          },
+          consciousness: {
+            ordinal: 0,
+            value: 'Alert',
+            code: 'at0024',
+          },
+          respiration_rate: {
+            ordinal: 2,
+            value: '21-24',
+            code: 'at0020',
+          },
+          total_score: 3,
+          temperature: {
+            value: '35.1-36.0',
+            ordinal: 1,
+            code: 'at0023',
+          },
         },
+        clinicalRisk: {
+          value: 'at0057',
+          localizedDescriptions: {
+            en: 'Ward-based response.',
+          },
+          localizedLabels: {
+            en: 'Low',
+          },
+          label: 'Low',
+        },
+        trend: 'first',
       },
       denwis: {
         value: null,
@@ -281,11 +361,55 @@ const PATIENT_LIST = [
         value: null,
       },
       news2: {
-        value: {
-          trend: 'raising',
-          value: 6,
-          clinicalRisk: 'at0059',
+        score: {
+          pulse: {
+            code: 'at0013',
+            ordinal: 0,
+            value: '51-90',
+          },
+          spo_scale_1: {
+            ordinal: 1,
+            value: '94-95',
+            code: 'at0031',
+          },
+          air_or_oxygen: {
+            code: 'at0036',
+            value: 'Air',
+            ordinal: 0,
+          },
+          systolic_blood_pressure: {
+            code: 'at0017',
+            ordinal: 3,
+            value: '≤90',
+          },
+          consciousness: {
+            ordinal: 0,
+            value: 'Alert',
+            code: 'at0024',
+          },
+          respiration_rate: {
+            ordinal: 2,
+            value: '21-24',
+            code: 'at0020',
+          },
+          total_score: 3,
+          temperature: {
+            value: '35.1-36.0',
+            ordinal: 1,
+            code: 'at0023',
+          },
         },
+        clinicalRisk: {
+          value: 'at0057',
+          localizedDescriptions: {
+            en: 'Ward-based response.',
+          },
+          localizedLabels: {
+            en: 'Low',
+          },
+          label: 'Low',
+        },
+        trend: 'first',
       },
     },
     birthDateAsString: '1998-06-09',
@@ -306,9 +430,7 @@ const PATIENT_LIST = [
           date_isolation_due_to_end: '2020-11-10T22:39:31.826Z',
         },
       },
-      news2: {
-        value: null,
-      },
+
       denwis: {
         value: {
           value: 14,

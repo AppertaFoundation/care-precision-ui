@@ -21,12 +21,7 @@ const LatestResponse = ({ assessments, sm, id }) => {
       >
         {assessments?.denwis?.value && (
           <Grid item>
-            {/* <IconButtonNews2
-              onClick={() => console.log('denwis')}
-              {...(sm ? { size: 'small' } : {})}
-            > */}
             <DenwisIcon label denwis={assessments?.denwis?.value} />
-            {/* </IconButtonNews2> */}
           </Grid>
         )}
         {assessments?.sepsis?.value && (

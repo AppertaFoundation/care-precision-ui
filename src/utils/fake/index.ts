@@ -10,16 +10,14 @@ export const fake = {
 
 export { searchByNameOrNhs };
 const checkByASC = (a, b, key) => {
-  if (a.assessment[`${key}`].value && !b.assessment[`${key}`].value) {
+  if (a.assessment[`${key}`]?.value && !b.assessment[`${key}`]?.value) {
     return true;
   }
-  if (!a.assessment[`${key}`].value && b.assessment[`${key}`].value) {
+  if (!a.assessment[`${key}`]?.value && b.assessment[`${key}`]?.value) {
     return false;
   }
-  if (a.assessment[`${key}`].value && b.assessment[`${key}`].value) {
-    return (
-      a.assessment[`${key}`].value.value > b.assessment[`${key}`].value.value
-    );
+  if (a.assessment[`${key}`]?.value && b.assessment[`${key}`]?.value) {
+    return a.assessment[`${key}`].value > b.assessment[`${key}`].value;
   }
   return false;
 };

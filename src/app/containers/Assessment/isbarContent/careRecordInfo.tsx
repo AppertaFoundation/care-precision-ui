@@ -139,7 +139,6 @@ const CareRecordInfo = ({ register }) => {
         </CarouselCard>,
         <CarouselCard key={uniqid()}>
           <TextField
-          
             name="medication"
             label="RESPECT Status"
             multiline

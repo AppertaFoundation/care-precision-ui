@@ -5,6 +5,24 @@ export const getGender = (value: string) =>
 
 export const patientListParser = list => list.map(item => patientParser(item));
 
+export const assessmentResultFormatter = asssessment => {
+  return {
+    ...asssessment,
+    ...(Boolean(asssessment?.news2) && {
+      news2: news2ResultFormatter(asssessment.news2),
+    }),
+  };
+};
+export const news2ResultFormatter = news2 => {
+  return {
+    value: {
+      value: news2?.score?.totalScore,
+      trend: news2?.trend,
+      clinicalRisk: news2?.clinicalRisk?.value,
+    },
+  };
+};
+
 export const patientParser = ({
   location,
   nhsnumber,
@@ -25,6 +43,6 @@ export const patientParser = ({
     gender: getGender(gender),
     name,
     id,
-    assessment,
+    assessment: assessmentResultFormatter(assessment),
   };
 };

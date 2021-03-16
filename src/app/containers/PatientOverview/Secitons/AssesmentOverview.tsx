@@ -40,9 +40,7 @@ const AssesmentOverviewCard: React.FC<IAssesmentOverviewCard> = ({
                       onClick={() => console.log('denwis')}
                       size="small"
                     >
-                      <DenwisIcon
-                        denwis={denwis}
-                      />
+                      <DenwisIcon denwis={denwis} />
                     </IconButton>
                   ),
                   news2: (

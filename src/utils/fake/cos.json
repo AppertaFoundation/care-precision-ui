@@ -1,0 +1,27 @@
+{
+  "situation": null,
+  "news2": {
+    "clinicalRisk": {
+      "localizedLabels": { "en": "High" },
+      "value": "at0060",
+      "localizedDescriptions": { "en": "Urgent or emergency response." },
+      "label": "High"
+    },
+    "trend": "first",
+    "score": {
+      "systolic_blood_pressure": {
+        "code": "at0017",
+        "value": "≤90",
+        "ordinal": 3
+      },
+      "temperature": { "ordinal": 3, "value": "≤35.0", "code": "at0023" },
+      "pulse": { "value": "≤40", "ordinal": 3, "code": "at0013" },
+      "respiration_rate": { "ordinal": 3, "value": "≥25", "code": "at0020" },
+      "total_score": 15,
+      "spo_scale_1": { "value": "≤91", "ordinal": 3, "code": "at0031" },
+      "consciousness": { "ordinal": 0, "value": "Alert", "code": "at0024" },
+      "air_or_oxygen": { "ordinal": 0, "value": "Air", "code": "at0036" }
+    }
+  },
+  "background": null
+}

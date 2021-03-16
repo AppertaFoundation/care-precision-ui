@@ -7,6 +7,7 @@ import {
   InputAdornment,
   IconButton,
 } from '@material-ui/core';
+import { ClickableElement } from 'components';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import ClearIcon from '@material-ui/icons/Clear';
@@ -47,19 +48,22 @@ const SearchOption: React.FC<searchOption> = ({
 }) => {
   const history = useHistory();
   const redirectToPatient = event => {
+    debugger;
     event.preventDefault();
     history.push(`/patient-overview/${id}`);
   };
   return (
-    <Box onClick={redirectToPatient}>
-      <Typography variant="h6" noWrap>
-        {name}
-      </Typography>
-      <Typography variant="body1" color="textSecondary" noWrap>
-        {nhsnumber}
-      </Typography>
-      <Typography variant="subtitle1">{birthDate}</Typography>
-    </Box>
+    <ClickableElement onClick={redirectToPatient}>
+      <Box>
+        <Typography variant="h6" noWrap>
+          {name}
+        </Typography>
+        <Typography variant="body1" color="textSecondary" noWrap>
+          {nhsnumber}
+        </Typography>
+        <Typography variant="subtitle1">{birthDate}</Typography>
+      </Box>
+    </ClickableElement>
   );
 };
 
@@ -129,7 +133,7 @@ const Search = () => {
                 {loading ? (
                   <CircularProgress color="inherit" size={20} />
                 ) : null}
-                {value.length > 0 && (
+                {value.length > 0 ? (
                   <>
                     <InputAdornment position="end">
                       <IconButton
@@ -141,8 +145,9 @@ const Search = () => {
                       </IconButton>
                     </InputAdornment>
                   </>
+                ) : (
+                  params.InputProps.endAdornment
                 )}
-                {params.InputProps.endAdornment}
               </React.Fragment>
             ),
           }}
