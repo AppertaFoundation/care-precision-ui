@@ -138,7 +138,7 @@ const AcuityList = () => {
                 Please switch the orientation of your device to horizontal
               </Typography>
             ) : (
-              <Table
+              <Table.Acuity
                 onRequestSort={handleRequestSort}
                 order={filters?.sort?.value}
                 orderBy={filters?.sort?.key}
@@ -236,7 +236,7 @@ const AcuityList = () => {
                     </Td>
                   </tr>
                 )}
-              </Table>
+              </Table.Acuity>
             )}
           </Box>
         </>

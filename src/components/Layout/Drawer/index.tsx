@@ -97,6 +97,7 @@ export const Drawer: React.FC<Props> = ({ open, onClose }) => {
         <ListItem
           button
           key={'/tasks'}
+          id="/tasks"
           selected={navPath === '/tasks'}
           onClick={handleChange}
         >

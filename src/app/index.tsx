@@ -25,6 +25,7 @@ import { NotFoundPage } from 'components/NotFoundPage/Loadable';
 import { PatientList } from './containers/PatientList/';
 import { PatientOverview } from './containers/PatientOverview';
 import Login from './containers/Login';
+import { TasksList } from './containers/TasksList';
 
 import Layout from 'components/Layout';
 
@@ -63,6 +64,15 @@ export function App() {
             header="Acuity Dasboard"
             path={process.env.PUBLIC_URL + '/dashboard'}
             component={AcuityDashboard}
+            authenticated={authenticated}
+            username={auth}
+            bottomToolBar
+          />
+          <ProtectedRoute
+            exact
+            header="Tasks List"
+            path={process.env.PUBLIC_URL + '/tasks'}
+            component={TasksList}
             authenticated={authenticated}
             username={auth}
             bottomToolBar

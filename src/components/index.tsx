@@ -26,9 +26,10 @@ import { DialogTitle } from './Dialog/DialogTitle';
 import { DialogActions } from './Dialog/DialogActions';
 import Spinner from './Spinner';
 import Text from './Text';
-import { Table } from './AcuityTable';
-import { TdFirst, TdLast } from './AcuityTable/style';
+import Table from './Table';
+import { TdFirst, TdLast } from './Table/style';
 import { LoadingIndicator } from './LoadingIndicator';
+import { SelectItem } from './SelectItem';
 
 export {
   Layout,
@@ -66,4 +67,5 @@ export {
   TdLast,
   LoadingIndicator,
   News2IconBadget,
+  SelectItem,
 };
