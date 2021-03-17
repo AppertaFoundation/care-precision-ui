@@ -28,9 +28,9 @@ const lightTheme = responsiveFontSizes(
         contrastText: '#fff',
       },
       secondary: {
-        light: '#ffa441',
-        main: '#EE7402',
-        dark: '#e94e1b',
+        // light: '#ffa441',
+        main: '#ea7702',
+        // dark: '#e94e1b',
         contrastText: '#000000',
       },
     },
