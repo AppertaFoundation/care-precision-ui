@@ -23,7 +23,7 @@ const lightTheme = responsiveFontSizes(
       //   default: '#ffff',
       // },
       primary: {
-        main: '#29235c',
+        main: '#29375D',
       },
       secondary: {
         main: '#e96d18',
