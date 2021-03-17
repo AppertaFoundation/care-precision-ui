@@ -1,11 +1,13 @@
 import PATIENT_LIST, { searchByNameOrNhs } from './PatientList';
 import ASSESSMENTS_RESULT from './AssessmentsResults';
 import COVID_MANAGEMENT from './CovidMenagment';
+import TASKS from './TasksList';
 
 export const fake = {
   COVID_MANAGEMENT,
   PATIENT_LIST,
   ASSESSMENTS_RESULT,
+  TASKS,
 };
 
 export { searchByNameOrNhs };
