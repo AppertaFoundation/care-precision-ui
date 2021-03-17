@@ -43,7 +43,6 @@ const BottomToolBar = () => {
           label="Tasks"
           value="/tasks"
           icon={<AssignmentIcon />}
-          disabled
         />
         <MyBottomNavigationAction
           className={classes.root}
