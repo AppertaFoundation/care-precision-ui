@@ -1,0 +1,69 @@
+{
+    "header": {
+        "start_time": "2021-03-17T16:19:59.343Z",
+        "uuid": "3B9170C6-30B6-11EB-9B84-84525E058BE1",
+        "healthcare_facility": "Glen Carse Care Home",
+        "composer": {
+            "name": "RN Joyce Brown",
+            "id": {
+                "type": "NMC",
+                "id": "12342341",
+                "namespace": "uk.org.nmc"
+            }
+        }
+    },
+    "situation": {
+        "soft_signs": [
+            "Increased anxiety/agitation"
+        ]
+    },
+    "background": {
+        "frailty": [
+            {
+                "code": "at0010",
+                "value": "Moderately Frail"
+            }
+        ],
+        "height": {
+            "magnitude": 165,
+            "unit": "cm"
+        },
+        "weight": {
+            "magnitude": 50,
+            "unit": "kg"
+        }
+    },
+    "assessment": {
+        "covid": {
+            "date_of_onset_of_first_symptoms": "2021-03-17T00:00:00.000Z",
+            "specific_symptom_sign": [
+                {
+                    "value": "Chest pain",
+                    "code": "29857009",
+                    "terminology": "SNOMED-CT"
+                },
+                {
+                    "value": "Nausea and vomiting",
+                    "code": "16932000",
+                    "terminology": "SNOMED-CT"
+                },
+                {
+                    "value": "Fever",
+                    "code": "386661006",
+                    "terminology": "SNOMED-CT"
+                }
+            ],
+            "covid_19_exposure": {
+                "care_setting_has_confirmed_covid_19": {
+                    "code": "at0.14",
+                    "value": "Potential contact exposure based on location"
+                },
+                "contact_with_suspected_confirmed_covid_19": {
+                    "code": "at0.9",
+                    "value": "Contact with confirmed Covid-19 case"
+                }
+            },
+            "covid_notes": "more"
+        }
+    }
+}

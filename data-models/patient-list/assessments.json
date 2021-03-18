@@ -1,0 +1,60 @@
+{
+    "news2": {
+        "score": {
+            "pulse": {
+                "code": "at0013",
+                "ordinal": 0,
+                "value": "51-90"
+            },
+            "spo_scale_1": {
+                "ordinal": 1,
+                "value": "94-95",
+                "code": "at0031"
+            },
+            "air_or_oxygen": {
+                "code": "at0036",
+                "value": "Air",
+                "ordinal": 0
+            },
+            "systolic_blood_pressure": {
+                "code": "at0017",
+                "ordinal": 3,
+                "value": "≤90"
+            },
+            "consciousness": {
+                "ordinal": 0,
+                "value": "Alert",
+                "code": "at0024"
+            },
+            "respiration_rate": {
+                "ordinal": 2,
+                "value": "21-24",
+                "code": "at0020"
+            },
+            "total_score": 3,
+            "temperature": {
+                "value": "35.1-36.0",
+                "ordinal": 1,
+                "code": "at0023"
+            }
+        },
+        "clinicalRisk": {
+            "value": "at0057"
+        },
+        "trend": "first"
+    },
+    "covis": {
+        "value": {
+            "suspected_covid_status": "grey"
+        }
+    },
+    "sepsis": {
+        "value": "amber"
+    },
+    "denwis": {
+        "value": {
+            "trend": "decreasing",
+            "value": 14
+        }
+    }
+}

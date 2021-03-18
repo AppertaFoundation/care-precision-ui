@@ -1,0 +1,87 @@
+{
+    "header": {
+        "start_time": "2021-03-17T16:16:54.303Z",
+        "uuid": "3B9170C6-30B6-11EB-9B84-84525E058BE1",
+        "healthcare_facility": "Glen Carse Care Home",
+        "composer": {
+            "name": "RN Joyce Brown",
+            "id": {
+                "type": "NMC",
+                "id": "12342341",
+                "namespace": "uk.org.nmc"
+            }
+        }
+    },
+    "situation": {
+        "soft_signs": [
+            "Withdrawn"
+        ]
+    },
+    "background": {
+        "frailty": [
+            {
+                "code": "at0010",
+                "value": "Moderately Frail"
+            }
+        ],
+        "height": {
+            "magnitude": 165,
+            "unit": "cm"
+        },
+        "weight": {
+            "magnitude": 50,
+            "unit": "kg"
+        }
+    },
+    "assessment": {
+        "denwis": {
+            "q1_breathing": {
+                "code": "at0031",
+                "value": "Change in breathing",
+                "ordinal": 1
+            },
+            "q2_circulation": {
+                "code": "at0037",
+                "value": "No change in circulation",
+                "ordinal": 0
+            },
+            "q3_temperature": {
+                "code": "at0105",
+                "value": "Change in temperature",
+                "ordinal": 1
+            },
+            "q4_mentation": {
+                "code": "at0046",
+                "value": "No change in mentation",
+                "ordinal": 0
+            },
+            "q5_agitation": {
+                "code": "at0049",
+                "value": "Agitation",
+                "ordinal": 1
+            },
+            "q6_pain": {
+                "code": "at0051",
+                "value": "No change in pain",
+                "ordinal": 0
+            },
+            "q7_trajectory": {
+                "code": "at0054",
+                "value": "No change in trajectory",
+                "ordinal": 0
+            },
+            "q8_patient_subjective": {
+                "code": "at0057",
+                "value": "No subjective patient indicator",
+                "ordinal": 0
+            },
+            "q9_nurse_subjective": {
+                "code": "at0060",
+                "value": "No nurse subjective indicator",
+                "ordinal": 0
+            },
+            "q_10_other_comment": "more",
+            "total_score": 14
+        }
+    }
+}

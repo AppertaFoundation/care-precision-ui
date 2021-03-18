@@ -1,0 +1,20 @@
+{
+  "header": {
+    "start_time": "2021-02-10T13:34:58.446Z",
+    "uuid": "0F878EC8-FECE-42DE-AE4E-F76BEFB902C2",
+    "healthcare_facility": "Glen Carse Care Home",
+    "composer": {
+      "name": "RN Joyce Brown",
+      "id": {
+        "type": "NMC",
+        "id": "12342341",
+        "namespace": "uk.org.nmc"
+      }
+    }
+  },
+  "assessment": {
+    "covid": {
+      // We have to agree on it
+    }
+  }
+}

@@ -1,0 +1,112 @@
+{
+    "header": {
+        "start_time": "2021-03-18T18:53:53.685Z",
+        "uuid": "0F878EC8-FECE-42DE-AE4E-F76BEFB902C2",
+        "healthcare_facility": "Glen Carse Care Home",
+        "composer": {
+            "name": "RN Joyce Brown",
+            "id": {
+                "type": "NMC",
+                "id": "12342341",
+                "namespace": "uk.org.nmc"
+            }
+        }
+    },
+    "situation": {
+        "soft_signs": [
+            "Just not themselves"
+        ]
+    },
+    "background": {
+        "frailty": [
+            {
+                "code": "at0008",
+                "value": "Vurnerable"
+            }
+        ],
+        "height": {
+            "magnitude": 165,
+            "unit": "cm"
+        },
+        "weight": {
+            "magnitude": 50,
+            "unit": "kg"
+        }
+    },
+    "assessment": {
+        "news2": {
+            "respiration_rate": {
+                "magnitude": 55
+            },
+            "spo2": 55,
+            "systolic": {
+                "magnitude": 55
+            },
+            "diastolic": {
+                "magnitude": 44
+            },
+            "pulse": {
+                "magnitude": 34
+            },
+            "acvpu": {
+                "code": "at0015",
+                "value": "Confusion"
+            },
+            "temperature": {
+                "magnitude": 34
+            },
+            "inspired_oxygen": {
+                "method_of_oxygen_delivery": "Mask",
+                "flow_rate": {
+                    "magnitude": 3
+                }
+            },
+            "respirations": {
+                "magnitude": 55
+            },
+            "news2_score": {
+                "spo_scale_1": {
+                    "ordinal": 3,
+                    "value": "≤91",
+                    "code": "at0033"
+                },
+                "total_score": 20,
+                "systolic_blood_pressure": {
+                    "value": "≤90",
+                    "ordinal": 3,
+                    "code": "at0017"
+                },
+                "temperature": {
+                    "ordinal": 3,
+                    "value": "≤35.0",
+                    "code": "at0039"
+                },
+                "consciousness": {
+                    "code": "at0025",
+                    "ordinal": 3,
+                    "value": "CVPU"
+                },
+                "pulse": {
+                    "value": "≤40",
+                    "ordinal": 3,
+                    "code": "at0010"
+                },
+                "air_or_oxygen": {
+                    "code": "at0037",
+                    "value": "Oxygen",
+                    "ordinal": 2
+                },
+                "respiration_rate": {
+                    "value": "≥25",
+                    "ordinal": 3,
+                    "code": "at0064"
+                },
+                "clinical_risk_category": {
+                    "value": "High",
+                    "terminology": "local",
+                    "code": "at0060"
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,55 @@
+{
+    "situation": null,
+    "background": null,
+    "news2": {
+        "score": {
+            "consciousness": {
+                "ordinal": 3,
+                "value": "CVPU",
+                "code": "at0025"
+            },
+            "pulse": {
+                "ordinal": 3,
+                "value": "≤40",
+                "code": "at0010"
+            },
+            "air_or_oxygen": {
+                "code": "at0036",
+                "value": "Air",
+                "ordinal": 0
+            },
+            "respiration_rate": {
+                "value": "≥25",
+                "ordinal": 3,
+                "code": "at0064"
+            },
+            "temperature": {
+                "ordinal": 3,
+                "value": "≤35.0",
+                "code": "at0039"
+            },
+            "spo_scale_1": {
+                "ordinal": 3,
+                "value": "≤91",
+                "code": "at0033"
+            },
+            "systolic_blood_pressure": {
+                "code": "at0017",
+                "ordinal": 3,
+                "value": "≤90"
+            },
+            "total_score": 18
+        },
+        "clinicalRisk": {
+            "value": "at0060",
+            "label": "High",
+            "localizedLabels": {
+                "en": "High"
+            },
+            "localizedDescriptions": {
+                "en": "Urgent or emergency response."
+            }
+        },
+        "trend": "increasing"
+    }
+}
