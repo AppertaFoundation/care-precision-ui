@@ -28,7 +28,7 @@ import CloseIcon from '@material-ui/icons/Close';
 
 import {
   Card,
-  CardContent,
+  Record,
   AppBarSubpage,
   Spinner,
   Button,
@@ -113,7 +113,7 @@ export function Assessment() {
           assesments={patient?.assessment}
           id={patient?.id}
         >
-          <CardContent
+          <Record
             birthDate={patient?.birthDate}
             gender={patient?.gender}
             location={patient?.location}

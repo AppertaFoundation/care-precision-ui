@@ -22,7 +22,7 @@ import CloseIcon from '@material-ui/icons/Close';
 
 import {
   Card,
-  CardContent,
+  Record,
   AppBarSubpage,
   AccordionDetails,
   AccordionSummary,
@@ -103,7 +103,7 @@ export function InfectionControl() {
               assesments={patient?.assessment}
               id={patient?.id || ''}
             >
-              <CardContent
+              <Record
                 birthDate={patient?.birthDate || ''}
                 gender={patient?.gender || ''}
                 location={patient?.location || ''}

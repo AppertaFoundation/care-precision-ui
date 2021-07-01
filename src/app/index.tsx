@@ -24,6 +24,8 @@ import { InfectionControl } from './containers/InfectionControl';
 import { NotFoundPage } from 'components/NotFoundPage/Loadable';
 import { PatientList } from './containers/PatientList/';
 import { PatientOverview } from './containers/PatientOverview';
+import { PatientOveriview2 } from './containers/PatientOverview2';
+
 import Login from './containers/Login';
 import { TasksList } from './containers/TasksList';
 
@@ -86,10 +88,18 @@ export function App() {
           />
           <ProtectedRoute
             exact
-            path={process.env.PUBLIC_URL + '/patient-overview/:id'}
+            path={process.env.PUBLIC_URL + '/patient-overview2/:id'}
             component={PatientOverview}
             authenticated={authenticated}
             username={auth}
+          />
+          <ProtectedRoute
+            exact
+            path={process.env.PUBLIC_URL + '/patient-overview/:id'}
+            component={PatientOveriview2}
+            authenticated={authenticated}
+            username={auth}
+            newLayout={true}
           />
           <ProtectedRoute
             exact
@@ -124,14 +134,25 @@ function ProtectedRoute({ component: Component, ...rest }) {
       {...rest}
       render={props =>
         rest.authenticated ? (
-          <Layout
-            header={rest.header}
-            bottomToolBar={Boolean(rest.bottomToolBar)}
-            username={rest.username}
-            logout={handleLogout}
-          >
-            <Component {...props} />
-          </Layout>
+          rest.newLayout ? (
+            <Layout
+              newLayout
+              login={rest.login}
+              header={rest.header}
+              bottomToolBar={Boolean(rest.bottomToolBar)}
+            >
+              <Component {...props} />
+            </Layout>
+          ) : (
+            <Layout
+              header={rest.header}
+              bottomToolBar={Boolean(rest.bottomToolBar)}
+              username={rest.username}
+              logout={handleLogout}
+            >
+              <Component {...props} />
+            </Layout>
+          )
         ) : (
           <Redirect
             to={{
