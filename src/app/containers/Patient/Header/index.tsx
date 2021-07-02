@@ -61,7 +61,7 @@ const Header: React.FC<{ title: string; returnTo?: boolean }> = ({
           </IconButton>
         )}
         <Box display="flex" flexDirection="column">
-          <Typography component="div" variant={downMd ? 'h6' : 'h4'} noWrap>
+          <Typography component="div" variant={downMd ? 'h6' : 'h5'} noWrap>
             {title}
           </Typography>
           <Box display="flex" flexDirection={downSm ? 'column' : 'row'}>
