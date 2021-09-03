@@ -26,7 +26,7 @@ import { PatientList } from './containers/PatientList/';
 import { PatientOveriview2 } from './containers/PatientOverview2';
 import Login from './containers/Login';
 import { TasksList } from './containers/TasksList';
-// import { AdminPage } from './containers/Admin';
+import { AdminPage } from './containers/Admin';
 
 import Layout from 'components/Layout';
 
@@ -78,7 +78,7 @@ export function App() {
             username={auth}
             bottomToolBar
           />
-          {/* <ProtectedRoute
+          <ProtectedRoute
             exact
             header="Admin Page"
             path={process.env.PUBLIC_URL + '/admin'}
@@ -86,7 +86,7 @@ export function App() {
             authenticated={authenticated}
             username={auth}
             bottomToolBar
-          /> */}
+          />
           <ProtectedRoute
             exact
             path={process.env.PUBLIC_URL + '/covid-management/:id'}

@@ -49,7 +49,6 @@ const BottomToolBar = () => {
           label="Admin"
           value="/admin"
           icon={<SupervisorAccountIcon />}
-          disabled
         />
       </BottomNavigation>
     </div>
