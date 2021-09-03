@@ -30,6 +30,8 @@ import {
   Spinner,
 } from 'components';
 import { CovidStatus } from './CovidStatus';
+import Header from '../Patient/Header';
+
 import { TestStatus } from './TestStatus';
 import { IsolationStatus } from './IsolationStatus';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
@@ -79,16 +81,8 @@ export function InfectionControl() {
         <title>{`Patient Covid Status`}</title>
         <meta name="description" content={`Patient Covid Status`} />
       </Helmet>
-      <AppBarSubpage header={`Patient Covid Status`}>
-        <IconButton
-          color="inherit"
-          onClick={goBack}
-          edge="start"
-          className={classes.closeButton}
-        >
-          <CloseIcon />
-        </IconButton>
-      </AppBarSubpage>
+      <Header title={'Patient Covid Status'} />
+
       <Box
         display="flex"
         flexWrap="nowrap"
