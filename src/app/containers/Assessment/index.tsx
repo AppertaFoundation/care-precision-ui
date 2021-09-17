@@ -20,7 +20,6 @@ import {
   DialogContentText,
   Box,
   Typography,
-  IconButton,
 } from '@material-ui/core';
 
 import { useStyles } from './style';
@@ -29,7 +28,6 @@ import Header from '../Patient/Header';
 import {
   Card,
   Record,
-  AppBarSubpage,
   Spinner,
   Button,
   DialogActions,
@@ -73,7 +71,6 @@ export function Assessment() {
 
   const include = (assessmentsTypesArray: Array<string>, key: string) =>
     assessmentsTypesArray.includes(key);
-  const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const cleanStore = () => {
     dispatch(actions.cleanAssessment());

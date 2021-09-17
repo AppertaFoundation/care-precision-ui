@@ -10,7 +10,6 @@ import uniqid from 'uniqid';
 import { Button, Carousel } from 'components';
 import VitalSignsTable from 'app/containers/Assessment/isbarContent/response/VitalSignsTable';
 
-import { useSelector } from 'react-redux';
 import { fake } from 'utils/fake';
 import styled from 'styled-components';
 
@@ -46,7 +45,6 @@ export const Monitoring = () => {
   const theme = useTheme();
   const md = useMediaQuery(theme.breakpoints?.up('lg'));
   const maximize = () => console.log('a');
-  const news2 = useSelector;
 
   return (
     <Box flexDirection="column" p={1} display="flex">

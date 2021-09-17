@@ -8,7 +8,7 @@ import {
 } from '@material-ui/core';
 import uniqid from 'uniqid';
 import { Carousel, Button } from 'components';
-import { useHistory } from 'react-router';
+// import { useHistory } from 'react-router';
 import { Allergies } from './Allergies';
 import { Respect } from './Respect';
 import { HealthCondition } from './HealthCondition';
@@ -50,7 +50,7 @@ export const PresentComplainsPreview = () => {
   // const { actions } = useOverviewSlice();
   const theme = useTheme();
   const md = useMediaQuery(theme.breakpoints?.up('lg'));
-  const history = useHistory();
+  // const history = useHistory();
   // const dispatch = useDispatch();
 
   //   const situationBackground = useSelector(selectSituationBackground);

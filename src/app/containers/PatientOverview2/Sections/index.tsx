@@ -1,13 +1,7 @@
 import React from 'react';
 import { Box, Grid } from '@material-ui/core';
-import { useDispatch, useSelector } from 'react-redux';
-// import SituationIlnessStatment from './SituationIlnessStatment';
 import Patient from '../../Patient';
 import { useStyles } from '../styles';
-import clsx from 'clsx';
-// import SitutationBackground from './SituationBackground';
-// import ContingencyPlanning from './ContingencyPlanning';
-// import { useOverviewSlice } from '../slice';
 import { PresentComplainsPreview } from './PresentComplains/Preview';
 import { TaskListPreview } from './TaskList/Preview';
 import { AssessmentOverviewPreview } from './AssessmentOverview/Prview';
@@ -15,15 +9,7 @@ import { Monitoring } from './Monitoring';
 import { RecommendationsPreview } from './Recomendations/Preview';
 
 const Sections = () => {
-  //   const { actions } = useOverviewSlice();
-
   const classes = useStyles();
-  const dispatch = useDispatch();
-
-  //   React.useEffect(() => {
-  //     dispatch(actions.loadSituationBackgrond());
-  //     dispatch(actions.loadContingencyPlanning());
-  //   }, [actions, dispatch]);
 
   return (
     <div className={classes.fullWidth}>
@@ -44,7 +30,6 @@ const Sections = () => {
             </Grid>
             <Grid item xs={12} className={classes.section}>
               <PresentComplainsPreview />
-              {/* <SitutationBackground /> */}
             </Grid>
             <Grid item xs={12} className={classes.section}>
               <AssessmentOverviewPreview />

@@ -1,8 +1,7 @@
-import React, { Children } from 'react';
+import React from 'react';
 import {
   Typography,
   Box,
-  Grid,
   TableCell,
   TableContainer,
   TableRow,
@@ -10,7 +9,6 @@ import {
   TableBody,
   Table,
   Paper,
-  Divider,
 } from '@material-ui/core';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core/styles';

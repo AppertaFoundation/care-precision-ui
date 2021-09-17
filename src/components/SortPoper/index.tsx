@@ -3,7 +3,6 @@ import { IconButton } from '@material-ui/core';
 import { PopoverOrigin } from '@material-ui/core/Popover';
 import SortIcon from '@material-ui/icons/Sort';
 import Menu from '../Menu';
-import styled from 'styled-components';
 
 const POPER_ORIGIN: PopoverOrigin = {
   vertical: 'top',
