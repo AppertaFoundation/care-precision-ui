@@ -8,7 +8,7 @@ interface Props {
   gender?: string;
 }
 
-const CardContent: React.FC<Props> = ({ location, gender, birthDate }) => {
+const Record: React.FC<Props> = ({ location, gender, birthDate }) => {
   return (
     <Grid container>
       <Grid item lg={2} md={3} sm={4} xs={12}>
@@ -24,4 +24,4 @@ const CardContent: React.FC<Props> = ({ location, gender, birthDate }) => {
   );
 };
 
-export default CardContent;
+export default Record;

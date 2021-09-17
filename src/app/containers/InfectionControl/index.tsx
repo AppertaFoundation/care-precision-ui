@@ -5,31 +5,30 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useInjectSaga, useInjectReducer } from 'utils/redux-injectors';
 import { infectionControlSaga } from './saga';
 import { sliceKey, actions, reducer } from './slice';
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { selectError, selectLoading, selectPatient } from './selectors';
 
 import {
   Box,
   Grid,
   Typography,
-  IconButton,
   List,
   ListItemText,
   ListItem,
 } from '@material-ui/core';
 import { useStyles } from './style';
-import CloseIcon from '@material-ui/icons/Close';
 
 import {
   Card,
-  CardContent,
-  AppBarSubpage,
+  Record,
   AccordionDetails,
   AccordionSummary,
   Accordion,
   Spinner,
 } from 'components';
 import { CovidStatus } from './CovidStatus';
+import Header from '../Patient/Header';
+
 import { TestStatus } from './TestStatus';
 import { IsolationStatus } from './IsolationStatus';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
@@ -39,7 +38,7 @@ export function InfectionControl() {
   useInjectReducer({ key: sliceKey, reducer });
 
   const dispatch = useDispatch();
-  const history = useHistory();
+  // const history = useHistory();
   const params = useParams();
   const id = (params as any)?.id;
   const classes = useStyles();
@@ -66,7 +65,7 @@ export function InfectionControl() {
   const handleChange = panel => (event, isExpanded) => {
     setExpanded({ ...expanded, [panel]: isExpanded ? panel : false });
   };
-  const goBack = () => history.push('/');
+  // const goBack = () => history.push('/');
   if (error) {
     return <p>{error}</p>;
   }
@@ -79,16 +78,8 @@ export function InfectionControl() {
         <title>{`Patient Covid Status`}</title>
         <meta name="description" content={`Patient Covid Status`} />
       </Helmet>
-      <AppBarSubpage header={`Patient Covid Status`}>
-        <IconButton
-          color="inherit"
-          onClick={goBack}
-          edge="start"
-          className={classes.closeButton}
-        >
-          <CloseIcon />
-        </IconButton>
-      </AppBarSubpage>
+      <Header title={'Patient Covid Status'} />
+
       <Box
         display="flex"
         flexWrap="nowrap"
@@ -103,7 +94,7 @@ export function InfectionControl() {
               assesments={patient?.assessment}
               id={patient?.id || ''}
             >
-              <CardContent
+              <Record
                 birthDate={patient?.birthDate || ''}
                 gender={patient?.gender || ''}
                 location={patient?.location || ''}

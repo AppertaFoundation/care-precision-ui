@@ -43,14 +43,12 @@ const BottomToolBar = () => {
           label="Tasks"
           value="/tasks"
           icon={<AssignmentIcon />}
-          disabled
         />
         <MyBottomNavigationAction
           className={classes.root}
           label="Admin"
           value="/admin"
           icon={<SupervisorAccountIcon />}
-          disabled
         />
       </BottomNavigation>
     </div>

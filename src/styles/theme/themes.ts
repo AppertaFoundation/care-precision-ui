@@ -16,6 +16,22 @@ const lightTheme = responsiveFontSizes(
       fontFamily: font,
       subtitle1: {
         lineHeight: '24px',
+        fontWeight: 700,
+        fontSize: '16px',
+      },
+      subtitle2: {
+        fontSize: '16px',
+      },
+      h6: {
+        fontSize: '18px',
+        fontWeight: 700,
+      },
+      body1: {
+        fontSize: '14px',
+      },
+      body2: {
+        fontSize: '14px',
+        fontWeight: 700,
       },
     },
     palette: {
@@ -23,7 +39,7 @@ const lightTheme = responsiveFontSizes(
       //   default: '#ffff',
       // },
       primary: {
-        main: '#29235c',
+        main: '#29375D',
       },
       secondary: {
         main: '#e96d18',

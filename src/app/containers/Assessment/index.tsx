@@ -20,16 +20,14 @@ import {
   DialogContentText,
   Box,
   Typography,
-  IconButton,
 } from '@material-ui/core';
 
 import { useStyles } from './style';
-import CloseIcon from '@material-ui/icons/Close';
+import Header from '../Patient/Header';
 
 import {
   Card,
-  CardContent,
-  AppBarSubpage,
+  Record,
   Spinner,
   Button,
   DialogActions,
@@ -73,7 +71,6 @@ export function Assessment() {
 
   const include = (assessmentsTypesArray: Array<string>, key: string) =>
     assessmentsTypesArray.includes(key);
-  const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const cleanStore = () => {
     dispatch(actions.cleanAssessment());
@@ -96,16 +93,8 @@ export function Assessment() {
         <meta name="description" content={`A Assessment Event- ${header}`} />
       </Helmet>
 
-      <AppBarSubpage header={`Assessment: ${header}`}>
-        <IconButton
-          color="inherit"
-          onClick={handleOpen}
-          edge="start"
-          className={classes.closeButton}
-        >
-          <CloseIcon />
-        </IconButton>
-      </AppBarSubpage>
+      <Header title={`Assessment: ${header}`} />
+
       <Box mr={1} ml={1}>
         <Card
           name={patient?.name}
@@ -113,7 +102,7 @@ export function Assessment() {
           assesments={patient?.assessment}
           id={patient?.id}
         >
-          <CardContent
+          <Record
             birthDate={patient?.birthDate}
             gender={patient?.gender}
             location={patient?.location}

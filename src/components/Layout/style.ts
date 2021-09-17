@@ -13,7 +13,7 @@ export const useStyles = makeStyles((theme: Theme) =>
     root: (props: { login?: boolean }) => ({
       display: 'flex',
       flexDirection: 'column',
-      backgroundColor: props.login ? '#28365b' : '',
+      backgroundColor: props.login ? theme.palette.primary.main : '',
       height: props.login ? '100vh' : '100%',
     }),
     appBar: {
@@ -97,7 +97,7 @@ export const useStyles = makeStyles((theme: Theme) =>
       paddingBottom: 5,
     },
     footer: {
-      backgroundColor: '#001031',
+      backgroundColor: theme.palette.primary.dark,
       color: theme.palette.primary.contrastText,
       padding: '16px 24px',
     },

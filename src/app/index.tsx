@@ -23,8 +23,10 @@ import { Assessment } from './containers/Assessment';
 import { InfectionControl } from './containers/InfectionControl';
 import { NotFoundPage } from 'components/NotFoundPage/Loadable';
 import { PatientList } from './containers/PatientList/';
-import { PatientOverview } from './containers/PatientOverview';
+import { PatientOveriview2 } from './containers/PatientOverview2';
 import Login from './containers/Login';
+import { TasksList } from './containers/TasksList';
+import { AdminPage } from './containers/Admin';
 
 import Layout from 'components/Layout';
 
@@ -69,6 +71,24 @@ export function App() {
           />
           <ProtectedRoute
             exact
+            header="Tasks List"
+            path={process.env.PUBLIC_URL + '/tasks'}
+            component={TasksList}
+            authenticated={authenticated}
+            username={auth}
+            bottomToolBar
+          />
+          <ProtectedRoute
+            exact
+            header="Admin Page"
+            path={process.env.PUBLIC_URL + '/admin'}
+            component={AdminPage}
+            authenticated={authenticated}
+            username={auth}
+            bottomToolBar
+          />
+          <ProtectedRoute
+            exact
             path={process.env.PUBLIC_URL + '/covid-management/:id'}
             component={InfectionControl}
             authenticated={authenticated}
@@ -77,7 +97,8 @@ export function App() {
           <ProtectedRoute
             exact
             path={process.env.PUBLIC_URL + '/patient-overview/:id'}
-            component={PatientOverview}
+            component={PatientOveriview2}
+            newLayout
             authenticated={authenticated}
             username={auth}
           />
@@ -114,14 +135,25 @@ function ProtectedRoute({ component: Component, ...rest }) {
       {...rest}
       render={props =>
         rest.authenticated ? (
-          <Layout
-            header={rest.header}
-            bottomToolBar={Boolean(rest.bottomToolBar)}
-            username={rest.username}
-            logout={handleLogout}
-          >
-            <Component {...props} />
-          </Layout>
+          rest.newLayout ? (
+            <Layout
+              newLayout
+              bottomToolBar={Boolean(rest.bottomToolBar)}
+              username={rest.username}
+              logout={handleLogout}
+            >
+              <Component {...props} />
+            </Layout>
+          ) : (
+            <Layout
+              header={rest.header}
+              bottomToolBar={Boolean(rest.bottomToolBar)}
+              username={rest.username}
+              logout={handleLogout}
+            >
+              <Component {...props} />
+            </Layout>
+          )
         ) : (
           <Redirect
             to={{

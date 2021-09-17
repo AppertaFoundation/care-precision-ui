@@ -1,6 +1,5 @@
 import Layout from './Layout';
-import Card from './Card';
-import CardContent from './CardContent';
+import Card, { Record } from './Card';
 import BoxWrapper from './BoxWrapper';
 import SortPoper from './SortPoper';
 import Sort from './Sort';
@@ -26,14 +25,15 @@ import { DialogTitle } from './Dialog/DialogTitle';
 import { DialogActions } from './Dialog/DialogActions';
 import Spinner from './Spinner';
 import Text from './Text';
-import { Table } from './AcuityTable';
-import { TdFirst, TdLast } from './AcuityTable/style';
+import Table from './Table';
+import { TdFirst, TdLast } from './Table/style';
 import { LoadingIndicator } from './LoadingIndicator';
+import { SelectItem } from './SelectItem';
 
 export {
   Layout,
   Card,
-  CardContent,
+  Record,
   BoxWrapper,
   SortPoper,
   Sort,
@@ -66,4 +66,5 @@ export {
   TdLast,
   LoadingIndicator,
   News2IconBadget,
+  SelectItem,
 };
